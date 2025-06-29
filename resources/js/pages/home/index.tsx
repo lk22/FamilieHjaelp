@@ -14,19 +14,15 @@ export default function Welcome() {
                 <div className="flex min-h-screen w-full flex-col items-center justify-center bg-[#004EA7] text-white dark:bg-[#0a0a0a] ">
                     <div className="container max-w-[800px] text-center">
                         <div className="logo">
+                            <Link href={route('home')}>
                             <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="mb-6 w-auto dark:invert h-[50px] mx-auto" />
                             <img
                                 src="/images/logo.svg"
                                 alt="Familiehjælp Logo"
                                 className="mb-6 w-auto dark:invert h-[100px] mx-auto"
                             />
+                            </Link>
                         </div>
-                        <h1 className="text-4xl font-bold">Velkommen to Familiehjælp</h1>
-                        <p className="mt-4 text-lg">
-                            Vi er glade for at have dig her! Familiehjælp er din pålidelige partner i at navigere i
-                            familie- og sociale udfordringer. Vores platform tilbyder ressourcer, rådgivning og støtte til
-                            familier i Danmark.
-                        </p>
                         <div className="illustration-wrapper">
                             <img
                                 src="/images/welcome_screen_illustration.svg"
@@ -45,7 +41,7 @@ export default function Welcome() {
                         ) : (
                             <> 
                                 <Link href={route('register')} className="text-white">Registrer dig her</Link>
-                                <Link href="/" className="inline-block rounded-sm border border-white px-5 py-1.5 text-sm leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
+                                <Link href={route('getting-started')} className="inline-block rounded-sm border border-white px-5 py-1.5 text-sm leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
                                     Kom i gang
                                 </Link>
                                 <Link

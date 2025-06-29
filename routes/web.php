@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('home/index');
-})->name('home');
+use App\Http\Controllers\PageController;
+
+
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
