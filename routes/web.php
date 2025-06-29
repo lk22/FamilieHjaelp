@@ -9,8 +9,11 @@ use App\Http\Controllers\OnboardingController;
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started');
 
+Route::get('/onboarding/{step?}', [OnboardingController::class, '__invoke'])
+    ->name('onboarding.step');
+
 Route::group(['prefix' => 'onboarding'], function() {
-    Route::get('/', [OnboardingController::class, 'userStep'])->name('onboarding.step.user');
+    Route::get('/?step={step}', [OnboardingController::class, '__invoke'])->name('onboarding');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
