@@ -9,12 +9,10 @@ use App\Http\Controllers\OnboardingController;
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started');
 
-Route::get('/onboarding/{step?}', [OnboardingController::class, '__invoke'])
+Route::get('/onboarding/{step?}', [OnboardingController::class, 'render'])
     ->name('onboarding.step');
-
-Route::group(['prefix' => 'onboarding'], function() {
-    Route::get('/?step={step}', [OnboardingController::class, '__invoke'])->name('onboarding');
-});
+Route::post('/onboarding/{step?}', [OnboardingController::class, 'submitStep'])
+    ->name('onboarding.step.submit');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {

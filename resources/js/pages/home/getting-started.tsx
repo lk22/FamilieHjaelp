@@ -74,7 +74,7 @@ export default function GettingStarted() {
                                 </Link>
                             ) : (
                                 <>
-                                    <Link href={route('onboarding')} className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-sm leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
+                                    <Link href={route('onboarding.step', {_query: {step: "one"}})} className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-sm leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
                                         Start
                                     </Link>
                                 </>
