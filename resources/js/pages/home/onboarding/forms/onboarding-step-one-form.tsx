@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function OnboardingStepOne({ onboarding }: { onboarding?: { step: number; name: string; } }) {
+export default function OnboardingStepOne() {
     const [step, setStep] = useState(1);
 
     const { data, setData, post, processing, errors } = useForm({
@@ -47,7 +47,7 @@ export default function OnboardingStepOne({ onboarding }: { onboarding?: { step:
                     </div>
                 </div>
 
-                <Button type="submit" onClick={handleSubmit} disabled={processing} className="mt-4">
+                <Button type="submit" onClick={handleSubmit} disabled={processing} className="mt-4 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">
                     {processing ? "Indsender..." : "Fortsæt"}
                 </Button>
             </div>

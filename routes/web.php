@@ -9,9 +9,9 @@ use App\Http\Controllers\OnboardingController;
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started');
 
-Route::get('/onboarding/{step?}', [OnboardingController::class, 'render'])
+Route::get('/onboarding', [OnboardingController::class, 'render'])
     ->name('onboarding.step');
-Route::post('/onboarding/{step?}', [OnboardingController::class, 'submitStep'])
+Route::post('/onboarding', [OnboardingController::class, 'submitStep'])
     ->name('onboarding.step.submit');
 
 Route::middleware(['auth', 'verified'])->group(function () {

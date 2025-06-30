@@ -3,41 +3,79 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\RedirectResponse;
 
 class OnboardingController extends Controller
 {
     public function render(): Response
     {
-        // check if step parameter is set
-        $step = request()->query('step');
+        // Get step from query parameter
+        $step = request()->query('step', 'one'); // Default to 'one' if not provided
+        
         $view = 'home/onboarding/onboarding-step-' . $step;
         return inertia($view);
     }
 
-    public function submitStep(Request $request): Response {
-        if (! $request->has('step')) {
+    /**
+     * Handle the submission of an onboarding step.
+     *
+     * @param Request $request
+     * @return Response|RedirectResponse
+     */
+    public function submitStep(Request $request): Response | RedirectResponse 
+    {
+        // Get step from query parameter or request input
+        $currentStep = $request->query('step') ?? $request->input('step');
+        
+        if (!$currentStep) {
             throw new \InvalidArgumentException('Step parameter is required.');
         }
 
         session()->put(
             'onboarding_data',
             [
-                "step" => $request->input('step'),
-                "step_" . $request->input('step') => true,
-                "completed_steps" => session('onboarding_data.completed_steps', []) + [$request->input('step')],
+                "step" => $currentStep,
+                "step_" . $currentStep => true,
+                "completed_steps" => session('onboarding_data.completed_steps', []) + [$currentStep],
                 "data" => $request->except('step')
             ]
         );
 
-        if ($request->input('step') == "last") {
-            // Handle last step submission
-            // For example, you might want to redirect to a different page or show a success message
+        if ($currentStep == "last") {
             return redirect()->route('home')->with('success', 'Onboarding completed successfully!');
         }
 
-        return redirect()->route('onboarding.step', ['step' => 'next']);
+        // Convert step name to number for increment
+        $stepToNumber = [
+            'one' => 1,
+            'two' => 2,
+            'three' => 3,
+            'four' => 4,
+            'five' => 5,
+            'six' => 6,
+            'seven' => 7,
+        ];
+
+        $stepNumber = $stepToNumber[$currentStep] ?? 1;
+        $nextStepNumber = $stepNumber + 1;
+        
+        session()->put('onboarding_data.step', $nextStepNumber);
+
+        $numberToStep = [
+            1 => 'one',
+            2 => 'two',
+            3 => 'three',
+            4 => 'four',
+            5 => 'five',
+            6 => 'six',
+            7 => 'seven',
+        ];
+
+        $nextStep = $numberToStep[$nextStepNumber] ?? 'one';
+
+        // Redirect to the next step using query parameter
+        return redirect()->route('onboarding.step', ['step' => $nextStep])->with('success', 'Onboarding step completed successfully!');
     }
 }
