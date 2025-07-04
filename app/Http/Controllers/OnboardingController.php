@@ -9,10 +9,14 @@ use Illuminate\Http\RedirectResponse;
 
 class OnboardingController extends Controller
 {
+    /**
+     * Render the onboarding step view based on the step query parameter.
+     *
+     * @return Response
+     */
     public function render(): Response
     {
-        // Get step from query parameter
-        $step = request()->query('step', 'one'); // Default to 'one' if not provided
+        $step = request()->query('step', 'one');
         
         $view = 'home/onboarding/onboarding-step-' . $step;
         return inertia($view);
@@ -32,37 +36,12 @@ class OnboardingController extends Controller
         if (!$currentStep) {
             throw new \InvalidArgumentException('Step parameter is required.');
         }
-
-        session()->put(
-            'onboarding_data',
-            [
-                "step" => $currentStep,
-                "step_" . $currentStep => true,
-                "completed_steps" => session('onboarding_data.completed_steps', []) + [$currentStep],
-                "data" => $request->except('step')
-            ]
-        );
-
+        
         if ($currentStep == "last") {
             return redirect()->route('home')->with('success', 'Onboarding completed successfully!');
         }
-
         // Convert step name to number for increment
-        $stepToNumber = [
-            'one' => 1,
-            'two' => 2,
-            'three' => 3,
-            'four' => 4,
-            'five' => 5,
-            'six' => 6,
-            'seven' => 7,
-        ];
-
-        $stepNumber = $stepToNumber[$currentStep] ?? 1;
-        $nextStepNumber = $stepNumber + 1;
         
-        session()->put('onboarding_data.step', $nextStepNumber);
-
         $numberToStep = [
             1 => 'one',
             2 => 'two',
@@ -72,10 +51,21 @@ class OnboardingController extends Controller
             6 => 'six',
             7 => 'seven',
         ];
-
-        $nextStep = $numberToStep[$nextStepNumber] ?? 'one';
+        
+        $nextStep = $currentStep + 1;
+        $formattedNextStep = $numberToStep[$nextStep];
+        
+        session()->put(
+            'onboarding_data',
+            [
+                "current_step" => $currentStep,
+                "next_step" => $nextStep,
+                "completed_steps" => $currentStep,
+                "data" => $request->except('step')
+            ]
+        );
 
         // Redirect to the next step using query parameter
-        return redirect()->route('onboarding.step', ['step' => $nextStep])->with('success', 'Onboarding step completed successfully!');
+        return redirect()->route('onboarding.step', ['step' => $formattedNextStep])->with('success', 'Onboarding step completed successfully!');
     }
 }

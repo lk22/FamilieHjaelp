@@ -40,9 +40,10 @@ export default function OnboardingTemplate({children, title, description, step}:
                                 className="mt-8 w-full max-w-[400px] mx-auto"
                             />
                         </div>
+                        <div className="divider my-8"></div>
+                        <h1 className="text-2xl font-bold">{title}</h1>
+                        <p className="mt-2 text-lg">{description}</p>
                     </div>
-                    <h1 className="text-2xl font-bold">{title}</h1>
-                    <p className="mt-2 text-lg">{description}</p>
                 </div>
                 <div className="container-fluid">
                     {children}
