@@ -34,7 +34,7 @@ export default function OnboardingStepOne() {
             <div className="container max-w-[960px] px-4 py-8 mx-auto">
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="name">Navn</Label>
+                        <Label htmlFor="name" className="text-xl">Navn</Label>
                         <Input
                             id="name"
                             type="text"

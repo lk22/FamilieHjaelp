@@ -2,20 +2,17 @@ import { useForm } from "@inertiajs/react";
 import {useState} from "react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 export default function OnboardingStepThreeForm() {
     const [step, setStep] = useState(3);
 
-    const { data, setData, post, processing, errors } = useForm<{
+    const { data, post, processing, errors } = useForm<{
         step: number;
-        checks: string[];
-        otherDescription?: string;
+        situation_date: string;
     }>({
         step: step,
-        checks: [],
-        otherDescription: ''
+        situation_date: ''
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -38,7 +35,7 @@ export default function OnboardingStepThreeForm() {
                 <div className="grid gap-6">
                     <div className="grid gap-4">
                         <div className="flex pb-4 flex-col justify-end align-center">
-                            <Label htmlFor="situtation_date" className="flex items-center">Angiv dato</Label>
+                            <Label htmlFor="situtation_date" className="flex items-center text-xl">Angiv dato</Label>
                             <input 
                                 type="datetime-local" 
                                 name="date" 

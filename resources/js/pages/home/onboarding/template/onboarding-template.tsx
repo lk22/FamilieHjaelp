@@ -1,16 +1,14 @@
 import React from 'react';
-import { Head } from '@inertiajs/react';
 interface OnboardingTemplateInterface {
     children?: React.ReactNode[];
-    step: object | string;
     title?: string;
     description: string;
+    screenGraphic?: string | null
 }
 
-export default function OnboardingTemplate({children, title, description, step}: OnboardingTemplateInterface) {
+export default function OnboardingTemplate({children, title, description, screenGraphic}: OnboardingTemplateInterface) {
     return (
         <>
-            <Head title={title} />
             <header>
                 <nav className="fixed top-0 left-0 z-50 w-full bg-transparent dark:bg-[#0a0a0a]">
                     <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -34,15 +32,17 @@ export default function OnboardingTemplate({children, title, description, step}:
                             </a>
                         </div>
                         <div className="illustration-wrapper">
-                            <img
-                                src="/images/getting_started_illustration.svg"
-                                alt="Familiehjælp Illustration"
-                                className="mt-8 w-full max-w-[400px] mx-auto"
-                            />
+                            {screenGraphic && (
+                                <img
+                                    src={`/images/${screenGraphic}.svg`}
+                                    alt="Familiehjælp Illustration"
+                                    className="mt-8 w-full max-w-[400px] mx-auto"
+                                />
+                            )}
                         </div>
                         <div className="divider my-8"></div>
-                        <h1 className="text-2xl font-bold">{title}</h1>
-                        <p className="mt-2 text-lg">{description}</p>
+                        <h1 className="text-3xl font-bold">{title}</h1>
+                        <p className="mt-2 text-xl">{description}</p>
                     </div>
                 </div>
                 <div className="container-fluid">

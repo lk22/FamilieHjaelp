@@ -1,8 +1,8 @@
 import { useForm } from "@inertiajs/react";
-import {useState} from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { TextArea } from "@/components/ui/textarea";
+import { TextArea } from "@/components/ui/TextArea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
@@ -39,7 +39,7 @@ export default function OnboardingStepTwoForm() {
                 <div className="grid gap-6">
                     <div className="grid gap-4">
                         <div className="flex pb-4 flex-row-reverse justify-end">
-                            <Label htmlFor="situtation">Jeg har oplevet en dødsfødsel</Label>
+                            <Label htmlFor="situtation" className="text-xl">Jeg har oplevet en dødsfødsel</Label>
                             <Checkbox id="situtation" checked={data.checks.includes('deathborn')}
                                 onCheckedChange={(checked) => {
                                     setData('checks', checked ? [...data.checks, 'deathborn'] : data.checks.filter((check) => check !== 'deathborn'));
@@ -48,7 +48,7 @@ export default function OnboardingStepTwoForm() {
                             />
                         </div>
                         <div className="flex pb-4 flex-row-reverse justify-end">
-                            <Label htmlFor="abort">Jeg har oplevet en abort</Label>
+                            <Label htmlFor="abort" className="text-xl">Jeg har oplevet en abort</Label>
                             <Checkbox id="abort" checked={data.checks.includes('abort')}
                                 onCheckedChange={(checked) => {
                                     setData('checks', checked ? [...data.checks, 'abort'] : data.checks.filter((check) => check !== 'abort'));
@@ -57,7 +57,7 @@ export default function OnboardingStepTwoForm() {
                             />
                         </div>
                         <div className="flex pb-4 flex-row-reverse justify-end">
-                            <Label htmlFor="graviditet">Jeg har oplevet en almindelig graviditet</Label>
+                            <Label htmlFor="graviditet" className="text-xl">Jeg har oplevet en almindelig graviditet</Label>
                             <Checkbox id="graviditet" checked={data.checks.includes('pregnancy')}
                                 onCheckedChange={(checked) => {
                                     setData('checks', checked ? [...data.checks, 'pregnancy'] : data.checks.filter((check) => check !== 'pregnancy'));
@@ -66,7 +66,7 @@ export default function OnboardingStepTwoForm() {
                             />
                         </div>
                         <div className="flex pb-4 flex-row-reverse justify-end">
-                        <Label htmlFor="other">Jeg har oplevet en anden situation</Label>
+                        <Label htmlFor="other" className="text-xl">Jeg har oplevet en anden situation</Label>
                         <Checkbox id="other" checked={data.checks.includes('other')}
                             onCheckedChange={(checked) => {
                                 setData('checks', checked ? [...data.checks, 'other'] : data.checks.filter((check) => check !== 'other'));
