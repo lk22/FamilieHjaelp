@@ -16,7 +16,16 @@ class OnboardingController extends Controller
      */
     public function render(): Response
     {
-        $step = request()->query('step', 'one');
+        $step = request()->query('step', 'situation');
+
+        if ( ! session()->has('onboarding_data') ) {
+            session()->put('onboarding_data.data.steps', [
+                [
+                    'step' => $step,
+                    'data' => []
+                ]
+            ]);
+        }
         
         $view = 'home/onboarding/onboarding-step-' . $step;
         return inertia($view);
@@ -28,20 +37,19 @@ class OnboardingController extends Controller
      * @param Request $request
      * @return Response|RedirectResponse
      */
-    public function submitStep(Request $request): Response | RedirectResponse 
+    public function submitStep(Request $request): Response | RedirectResponse
     {
         // Get step from query parameter or request input
         $currentStep = $request->query('step') ?? $request->input('step');
-        
+
         if (!$currentStep) {
             throw new \InvalidArgumentException('Step parameter is required.');
         }
-        
+
         if ($currentStep == "last") {
             return redirect()->route('home')->with('success', 'Onboarding completed successfully!');
         }
-        // Convert step name to number for increment
-        
+
         $numberToStep = [
             1 => 'one',
             2 => 'two',
@@ -54,16 +62,16 @@ class OnboardingController extends Controller
         
         $nextStep = $currentStep + 1;
         $formattedNextStep = $numberToStep[$nextStep];
-        
-        session()->put(
-            'onboarding_data',
+
+        // set the initial state if it dosn't exist other wise append the data to the existing steps array to define next steps data
+
+        session()->put('onboarding_data.data.steps', [
+            ...session()->get('onboarding_data.data.steps'),
             [
-                "current_step" => $currentStep,
-                "next_step" => $nextStep,
-                "completed_steps" => $currentStep,
-                "data" => $request->except('step')
+                'step' => $currentStep,
+                'data' => $request->except('step')
             ]
-        );
+        ]);
 
         // Redirect to the next step using query parameter
         return redirect()->route('onboarding.step', ['step' => $formattedNextStep])->with('success', 'Onboarding step completed successfully!');

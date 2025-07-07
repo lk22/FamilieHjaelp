@@ -1,4 +1,4 @@
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 
 export default function OnboardingStepTwoForm() {
     const [step, setStep] = useState(2);
+    const { onboarding } = usePage().props;
+    console.log({onboarding})
 
     const { data, setData, post, processing, errors } = useForm<{
         step: number;
@@ -39,7 +41,7 @@ export default function OnboardingStepTwoForm() {
                 <div className="grid gap-6">
                     <div className="grid gap-4">
                         <div className="flex pb-4 flex-row-reverse justify-end">
-                            <Label htmlFor="situtation" className="text-xl">Jeg har oplevet en dødsfødsel</Label>
+                            <Label htmlFor="situtation" className="text-2xl">Jeg har oplevet en dødsfødsel</Label>
                             <Checkbox id="situtation" checked={data.checks.includes('deathborn')}
                                 onCheckedChange={(checked) => {
                                     setData('checks', checked ? [...data.checks, 'deathborn'] : data.checks.filter((check) => check !== 'deathborn'));
@@ -48,7 +50,7 @@ export default function OnboardingStepTwoForm() {
                             />
                         </div>
                         <div className="flex pb-4 flex-row-reverse justify-end">
-                            <Label htmlFor="abort" className="text-xl">Jeg har oplevet en abort</Label>
+                            <Label htmlFor="abort" className="text-2xl">Jeg har oplevet en abort</Label>
                             <Checkbox id="abort" checked={data.checks.includes('abort')}
                                 onCheckedChange={(checked) => {
                                     setData('checks', checked ? [...data.checks, 'abort'] : data.checks.filter((check) => check !== 'abort'));
@@ -57,7 +59,7 @@ export default function OnboardingStepTwoForm() {
                             />
                         </div>
                         <div className="flex pb-4 flex-row-reverse justify-end">
-                            <Label htmlFor="graviditet" className="text-xl">Jeg har oplevet en almindelig graviditet</Label>
+                            <Label htmlFor="graviditet" className="text-2xl">Jeg har oplevet en almindelig graviditet</Label>
                             <Checkbox id="graviditet" checked={data.checks.includes('pregnancy')}
                                 onCheckedChange={(checked) => {
                                     setData('checks', checked ? [...data.checks, 'pregnancy'] : data.checks.filter((check) => check !== 'pregnancy'));
@@ -66,7 +68,7 @@ export default function OnboardingStepTwoForm() {
                             />
                         </div>
                         <div className="flex pb-4 flex-row-reverse justify-end">
-                        <Label htmlFor="other" className="text-xl">Jeg har oplevet en anden situation</Label>
+                        <Label htmlFor="other" className="text-2xl">Jeg har oplevet en anden situation</Label>
                         <Checkbox id="other" checked={data.checks.includes('other')}
                             onCheckedChange={(checked) => {
                                 setData('checks', checked ? [...data.checks, 'other'] : data.checks.filter((check) => check !== 'other'));

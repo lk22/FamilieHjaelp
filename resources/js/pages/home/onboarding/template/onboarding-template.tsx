@@ -19,30 +19,28 @@ export default function OnboardingTemplate({children, title, description, screen
                 </nav>
             </header>
             <main className="dark:bg-[#0a0a0a]">
-                <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white dark:bg-[#0a0a0a]">
-                    <div className="container max-w-[960px] flex-col py-8 items-center justify-center text-center">
-                        <div className="logo">
-                            <a href={route('home')}>
-                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear relative bottom-4 animate-in mb-6 w-auto dark:invert h-[50px] mx-auto" />
-                                <img
-                                    src="/images/logo.svg"
-                                    alt="Familiehjælp Logo"
-                                    className="mb-6 w-auto dark:invert h-[100px] mx-auto"
-                                />
-                            </a>
-                        </div>
-                        <div className="illustration-wrapper">
+                <div className="container-fluid py-18 max-w-full flex w-full flex-col bg-[#004EA7] text-white dark:bg-[#0a0a0a]">
+                    <div className="container max-w-[960px] flex-col py-8 m-auto">
+                        <div className="">
+                            <div className="logo">
+                                <a href={route('home')}>
+                                    <span className="flex items-center gap-4">
+                                        <img src="/images/inline_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear relative bottom-4 animate-in w-auto dark:invert h-[50px]" />
+                                    </span>
+                                </a>
+                            </div>
                             {screenGraphic && (
-                                <img
-                                    src={`/images/${screenGraphic}.svg`}
-                                    alt="Familiehjælp Illustration"
-                                    className="mt-8 w-full max-w-[400px] mx-auto"
-                                />
+                                <div className="illustration-wrapper">
+                                        <img
+                                            src={`/images/${screenGraphic}.svg`}
+                                            alt="Familiehjælp Illustration"
+                                            className="mt-8 w-full max-w-[400px] mx-auto"
+                                        />
+                                </div>
                             )}
+                            <h1 className="text-3xl font-bold mt-8">{title}</h1>
+                            <p className="mt-2 text-xl">{description}</p>
                         </div>
-                        <div className="divider my-8"></div>
-                        <h1 className="text-3xl font-bold">{title}</h1>
-                        <p className="mt-2 text-xl">{description}</p>
                     </div>
                 </div>
                 <div className="container-fluid">

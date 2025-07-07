@@ -31,28 +31,28 @@ export default function Welcome() {
                             />
                         </div>
                         <nav className="flex mt-8 items-center justify-center gap-4">
-                        {auth.user ? (
-                            <Link
-                                href={route('dashboard')}
-                                className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                            >
-                                Dashboard
-                            </Link>
-                        ) : (
-                            <> 
-                                <Link href={route('register')} className="text-white">Registrer dig her</Link>
-                                <Link href={route('getting-started')} className="inline-block rounded-sm border border-white px-5 py-1.5 text-sm leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
-                                    Kom i gang
-                                </Link>
+                            {auth.user ? (
                                 <Link
-                                    href={route('login')}
-                                    className="inline-block rounded-sm border border-white px-5 py-1.5 text-sm leading-normal text-whitehover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
+                                    href={route('dashboard')}
+                                    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-xl leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                                 >
-                                    Log ind
+                                    Dashboard
                                 </Link>
-                            </>
-                        )}
-                    </nav>
+                            ) : (
+                                <> 
+                                    <Link href={route('register')} className="text-white">Registrer dig her</Link>
+                                    <Link href={route('getting-started')} className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
+                                        Kom i gang
+                                    </Link>
+                                    <Link
+                                        href={route('login')}
+                                        className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
+                                    >
+                                        Log ind
+                                    </Link>
+                                </>
+                            )}
+                        </nav>
                     </div>
                 </div>
                 <div className="hidden h-14.5 lg:block"></div>

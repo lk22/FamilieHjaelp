@@ -7,7 +7,7 @@ export default function OnboardingStepOne() {
     return (
         <OnboardingTemplate 
             title={`Spørgsmål`} 
-            description="Vi skal bruge nogle oplysninger på dig for at vi kan hjælpe dig"
+            description="Hvad er dit navn ?"
             screenGraphic={null}
         >
             <Head title={`Kom i gang | FamilieHjælp`} />

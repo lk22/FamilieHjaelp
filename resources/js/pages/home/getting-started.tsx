@@ -55,16 +55,14 @@ export default function GettingStarted() {
                         <p className="mt-6 text-lg font-normal">
                             Du finder råd og støtte til at navigere i den svære tid både praktisk og følelsesmæssigt.
                         </p>
-                        <p className="mt-6 text-lg font-normal">
-                            Du får muligheder for at dele dine tanker og oplevelser eller blot læse med hos andre der har stået et lignende sted i deres liv.
-                        </p>
+                         
                         <p className="mt-6 text-lg font-normal">
                             Du behøver ikke gå vejen alene. Her er der plads til dig, lige som du er, med det du bærer på.
                         </p>
                         <p className="mt-6 text-lg font-bold">
                             Velkommen
                         </p>
-                        <nav className="flex mt-8 items-center justify-center gap-4">
+                        <nav className="flex mt-8 items-center justify-start gap-4">
                             {auth.user ? (
                                 <Link
                                     href={route('dashboard')}
@@ -74,7 +72,7 @@ export default function GettingStarted() {
                                 </Link>
                             ) : (
                                 <>
-                                    <Link href={route('onboarding.step', {_query: {step: "one"}})} className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-sm leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
+                                    <Link href={route('onboarding.step', {_query: {step: "one"}})} className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-xl leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
                                         Start
                                     </Link>
                                 </>
