@@ -1,7 +1,7 @@
 import {type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
-export default function GettingStarted() {
+export default function GettingStarted({ step }: { step?: string }) {
     const { auth, name } = usePage<SharedData>().props;
 
     return (
@@ -72,7 +72,7 @@ export default function GettingStarted() {
                                 </Link>
                             ) : (
                                 <>
-                                    <Link href={route('onboarding.step', {_query: {step: "one"}})} className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-xl leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
+                                    <Link href={route('onboarding.step', {_query: {step: step}})} className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-xl leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
                                         Start
                                     </Link>
                                 </>

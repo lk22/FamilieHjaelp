@@ -78,7 +78,7 @@ export default function OnboardingStepFiveForm() {
                         <div className="flex pb-4 flex-col justify-end align-center">
                             {handlePregnancyWeekLabel()}
                             <span className="flex items-center gap-4 mt-4 flex-row">
-                                <span className="font-bold text-lg">Uge: </span> 
+                                <span className="font-bold text-lg">graviditetsuge: </span> 
                                 <input 
                                     type="number" 
                                     name="pregnancy_week_number" 

@@ -2,7 +2,7 @@ import React from 'react';
 interface OnboardingTemplateInterface {
     children?: React.ReactNode[];
     title?: string;
-    description: string;
+    description?: string | React.ReactNode;
     screenGraphic?: string | null
 }
 
@@ -39,7 +39,10 @@ export default function OnboardingTemplate({children, title, description, screen
                                 </div>
                             )}
                             <h1 className="text-3xl font-bold mt-8">{title}</h1>
-                            <p className="mt-2 text-xl">{description}</p>
+                            <div className="mt-2 text-xl">
+                                {description}
+                            </div>
+                            {/* Here goes a progress component */}
                         </div>
                     </div>
                 </div>

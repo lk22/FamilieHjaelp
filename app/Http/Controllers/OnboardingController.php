@@ -57,14 +57,12 @@ class OnboardingController extends Controller
             4 => 'four',
             5 => 'five',
             6 => 'six',
-            7 => 'seven',
         ];
         
         $nextStep = $currentStep + 1;
         $formattedNextStep = $numberToStep[$nextStep];
 
         // set the initial state if it dosn't exist other wise append the data to the existing steps array to define next steps data
-
         session()->put('onboarding_data.data.steps', [
             ...session()->get('onboarding_data.data.steps'),
             [
