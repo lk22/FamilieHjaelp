@@ -9,10 +9,14 @@ use App\Http\Controllers\OnboardingController;
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started');
 
-Route::get('/onboarding', [OnboardingController::class, 'render'])
-    ->name('onboarding.step');
-Route::post('/onboarding', [OnboardingController::class, 'submitStep'])
-    ->name('onboarding.step.submit');
+/**
+ * Onboarding routes
+ */
+Route::get('/onboarding', [OnboardingController::class, 'render'])->name('onboarding.step');
+Route::get('/onboarding/reset', [OnboardingController::class, 'reset'])->name('onboarding.reset');
+Route::get('/onboarding/complete', [OnboardingController::class, 'completed'])->name('onboarding.complete');
+Route::post('/onboarding', [OnboardingController::class, 'submitStep'])->name('onboarding.step.submit');
+Route::post('/onboarding/complete', [OnboardingController::class, 'complete'])->name('onboarding.complete');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {

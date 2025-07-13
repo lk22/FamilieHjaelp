@@ -1,43 +1,78 @@
 
-import { useForm, usePage } from "@inertiajs/react";
-import { useState } from "react";
-import {type PageProps} from "@inertiajs/core";
+import { useForm, Link } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
 import { TextArea } from "@/components/ui/TextArea";
 
-import {type OnboardingData } from "@/types/onboarding";
-
-type OnboardingStepSixData = PageProps & {
-    onboarding: OnboardingData;
-}
+import { useOnboarding } from "@/contexts/OnboardingContext";
 
 export default function OnboardingStepSixForm() {
-    const [step, setStep] = useState(6);
-    const { onboarding } = usePage<OnboardingStepSixData>().props;
+    const { completeStep, isStepCompleted, getCurrentStepData, updateStepProgress, completeOnboarding } = useOnboarding();
+
+    const currentStepData = getCurrentStepData(6);
+    const isCompleted = isStepCompleted(6);
 
     const { data, post, setData, processing, errors } = useForm<{
         step: number;
         checks: string[];
         other: string;
     }>({
-        step: step,
+        step: 6,
         checks: [], 
         other: ''
     });
 
+    /**
+     * Handler for submitting step data to the backend
+     * @param e React.FormEvent
+     * @description Handles the form submission for step six of the onboarding process.
+     */
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Submitting step:", step, "with data:", data);
-        localStorage.setItem('onboarding_step' + step, JSON.stringify(data));
-        post(route('onboarding.step.submit', { _query: { step: step } }), {
+        completeStep(6, {
+            stepSix: {
+                checks: data.checks,
+                other: data.other
+            }
+        });
+
+        completeOnboarding(); // mark the onboarding as completed
+        
+        post(route('onboarding.complete'), {
             onSuccess: () => {
-                setStep((prevStep) => prevStep + 1);
+                // Handle success
             },
             onError: () => {
                 console.error("Error submitting step:", errors);
             },
+        });
+    };
+
+    /**
+     * Handles the change event for mood checkboxes
+     * @param checked boolean - whether the checkbox is checked or not
+     * @param mood string - the mood associated with the checkbox
+     */
+    const handleMoodChange = (checked: boolean, mood: string) => {
+        setData('checks', checked ? [...data.checks, mood] : data.checks.filter((check) => check !== mood));
+        updateStepProgress(6, {
+            not_started: false,
+            in_progress: true,
+            completed: false
+        });
+    }
+
+    /**
+     * Handles the change event for the "other" textarea
+     * @param e React.ChangeEvent<HTMLTextAreaElement>
+     */
+    const handleOtherChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setData('other', e.target.value);
+        updateStepProgress(6, {
+            not_started: false,
+            in_progress: true,
+            completed: false
         });
     };
 
@@ -52,10 +87,8 @@ export default function OnboardingStepSixForm() {
                                 <Label htmlFor="sad" className="text-xl">
                                     Jeg føler mig trist og nedtrygt
                                 </Label>
-                                <Checkbox id="is_not_alone" checked={data.checks.includes('sad')}
-                                    onCheckedChange={(checked: boolean) => {
-                                        setData('checks', checked ? [...data.checks, 'sad'] : data.checks.filter((check) => check !== 'sad'));
-                                    }}
+                                <Checkbox id="is_not_alone" checked={data.checks.includes('sad') || currentStepData?.stepSix?.checks.includes('sad')}
+                                    onCheckedChange={(checked: boolean) => handleMoodChange(checked, 'sad')}
                                     className="mr-4"
                                 />
                             </div>
@@ -63,10 +96,8 @@ export default function OnboardingStepSixForm() {
                                 <Label htmlFor="angry" className="text-xl">
                                     Jeg føler mig vred og frustreret
                                 </Label>
-                                <Checkbox id="is_not_alone" checked={data.checks.includes('angry')}
-                                    onCheckedChange={(checked: boolean) => {
-                                        setData('checks', checked ? [...data.checks, 'angry'] : data.checks.filter((check) => check !== 'angry'));
-                                    }}
+                                <Checkbox id="is_not_alone" checked={data.checks.includes('angry') || currentStepData?.stepSix?.checks.includes('angry')}
+                                    onCheckedChange={(checked: boolean) => handleMoodChange(checked, 'angry')}
                                     className="mr-4"
                                 />
                             </div>
@@ -74,10 +105,8 @@ export default function OnboardingStepSixForm() {
                                 <Label htmlFor="confused" className="text-xl">
                                     Jeg føler mig forvirret og usikker
                                 </Label>
-                                <Checkbox id="is_not_alone" checked={data.checks.includes('confused')}
-                                    onCheckedChange={(checked: boolean) => {
-                                        setData('checks', checked ? [...data.checks, 'confused'] : data.checks.filter((check) => check !== 'confused'));
-                                    }}
+                                <Checkbox id="is_not_alone" checked={data.checks.includes('confused') || currentStepData?.stepSix?.checks.includes('confused')}
+                                    onCheckedChange={(checked: boolean) => handleMoodChange(checked, 'confused')}
                                     className="mr-4"
                                 />
                             </div>
@@ -85,10 +114,8 @@ export default function OnboardingStepSixForm() {
                                 <Label htmlFor="empty" className="text-xl">
                                     Jeg føler mig tom og uden håb
                                 </Label>
-                                <Checkbox id="is_not_alone" checked={data.checks.includes('empty')}
-                                    onCheckedChange={(checked: boolean) => {
-                                        setData('checks', checked ? [...data.checks, 'empty'] : data.checks.filter((check) => check !== 'empty'));
-                                    }}
+                                <Checkbox id="is_not_alone" checked={data.checks.includes('empty') || currentStepData?.stepSix?.checks.includes('empty')}
+                                    onCheckedChange={(checked: boolean) => handleMoodChange(checked, 'empty')}
                                     className="mr-4"
                                 />
                             </div>
@@ -96,10 +123,8 @@ export default function OnboardingStepSixForm() {
                                 <Label htmlFor="missing_contact" className="text-xl">
                                     Savner nogle at tale med om situationen
                                 </Label>
-                                <Checkbox id="is_not_alone" checked={data.checks.includes('missing_contact')}
-                                    onCheckedChange={(checked: boolean) => {
-                                        setData('checks', checked ? [...data.checks, 'missing_contact'] : data.checks.filter((check) => check !== 'missing_contact'));
-                                    }}
+                                <Checkbox id="is_not_alone" checked={data.checks.includes('missing_contact') || currentStepData?.stepSix?.checks.includes('missing_contact')}
+                                    onCheckedChange={(checked: boolean) => handleMoodChange(checked, 'missing_contact')}
                                     className="mr-4"
                                 />
                             </div>
@@ -110,7 +135,7 @@ export default function OnboardingStepSixForm() {
                                 <TextArea 
                                     id="other" 
                                     placeholder="Sæt flere ord på hvordan du har det "
-                                    onChange={(e) => setData('other', e.target.value)}
+                                    onChange={(e) => handleOtherChange(e)}
                                     className="mt-2"
                                     isDebuggable={false}
                                 />
@@ -119,9 +144,29 @@ export default function OnboardingStepSixForm() {
                     </div>
                 </div>
 
-                <Button type="submit" onClick={handleSubmit} disabled={processing} className="bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">
-                    {processing ? "Indsender..." : "Fortsæt"}
-                </Button>
+                <div className="flex">
+                    {isCompleted ? (
+                        <div className="text-green-500 text-md mt-4">
+                            <p>Du har allerede gennemført dette trin.</p>
+                            <Link href={route('onboarding.step', { step: "five" })} className="mt-4 inline-block text-blue-600 hover:text-blue-800">
+                                Gå tilbage
+                            </Link>
+                            <Link href={route('onboarding.complete')} className="mt-4 ml-4 inline-block text-blue-600 hover:text-blue-800">
+                                Færdiggør
+                            </Link>
+                        </div>
+                    ) : (
+                        <div className="text-red-500 text-md mt-4">
+                            <Button type="submit" onClick={handleSubmit} disabled={processing} className="mt-4 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">
+                                {processing ? "Indsender..." : "Fortsæt"}
+                            </Button>
+                            <Link 
+                                href={route('onboarding.step', { step: "five" })} className="mt-4 ml-4 inline-block text-blue-600 hover:text-blue-800">
+                                Gå tilbage
+                            </Link>
+                        </div>
+                    )}
+                </div>
             </div>
         </form>
     );

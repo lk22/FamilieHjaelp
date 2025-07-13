@@ -1,21 +1,22 @@
-import {type PageProps} from '@inertiajs/core';
+
 import {usePage} from '@inertiajs/react';
+import {Head} from '@inertiajs/react';
+import {type PageProps} from '@inertiajs/core';
+import { type OnboardingData } from '@/types/onboarding';
+import { type OnboardingInitialSteps } from '@/types/onboarding';
 import OnboardingTemplate from './template/onboarding-template';
 import OnboardingStepSixForm from './forms/onboarding-step-six-form';
-import {Head} from '@inertiajs/react';
-import { type OnboardingData } from '@/types/onboarding';
-import React from 'react';
 
-type OnboardingStepFiveData = PageProps & {
+type OnboardingStepSixData = PageProps & {
     onboarding: OnboardingData;
 }
 
-export default function OnboardingStepFive() {
-    const { onboarding } = usePage<OnboardingStepFiveData>().props;
+export default function OnboardingStepSix({ currentStep, totalSteps }: OnboardingInitialSteps) {
+    const { onboarding } = usePage<OnboardingStepSixData>().props;
 
     const handleStepDescription = () => {
-        const checks = onboarding?.data?.steps[3].data.checks;
-        const situation = onboarding?.data?.steps[2].data.checks;
+        const checks = onboarding?.data?.steps[2].data.checks;
+        const situation = onboarding?.data?.steps[1].data.checks;
     
         if ( 
             checks.includes('is_not_alone') || situation.includes('abort') ||
@@ -40,7 +41,13 @@ export default function OnboardingStepFive() {
     }
 
     return (
-        <OnboardingTemplate title={`Spørgsmål`} description={handleStepDescription()}>
+        <OnboardingTemplate 
+            title={`Spørgsmål`} 
+            description={handleStepDescription()}
+            screenGraphic={null}
+            steps={totalSteps}
+            currentStep={currentStep || 6}
+        >
             <Head title={`Spørgsmål | Familiehjælp`} />
             <div className="container max-w-[960px] px-4 py-8 mx-auto">
                 <OnboardingStepSixForm />

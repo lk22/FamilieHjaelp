@@ -1,39 +1,98 @@
-import { useForm, usePage } from "@inertiajs/react";
-import { useState } from "react";
+import React from 'react';
+import { useForm, Link, router } from "@inertiajs/react";
 
 import { Button } from "@/components/ui/button";
 import { TextArea } from "@/components/ui/TextArea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
+import { useOnboarding } from "@/contexts/OnboardingContext";
+/**
+ * Onboarding Step Two Form
+ * @returns JSX.Element[]
+ * @description This component renders the second step of the onboarding process, allowing users to select situations they have experienced and provide additional information.
+ * @author Leo Knudsen
+ * @version 1.0.0
+ */
 export default function OnboardingStepTwoForm() {
-    const [step, setStep] = useState(2);
-    const { onboarding } = usePage().props;
-    console.log({onboarding})
+    // use the onboarding context for state management
+    const { completeStep, isStepCompleted, getCurrentStepData, updateStepProgress } = useOnboarding();
 
-    const { data, setData, post, processing, errors } = useForm<{
+    const currentStepData = getCurrentStepData(2);
+    const isCompleted = isStepCompleted(2);
+
+    console.log('OnboardingStepTwoForm - Current step data:', currentStepData);
+
+    const { data, setData, post, processing } = useForm<{
         step: number;
         checks: string[];
         otherDescription?: string;
     }>({
-        step: step,
+        step: 2,
         checks: [],
         otherDescription: ''
     });
 
+    /**
+     * Submit handler for step two
+     * @description Handles the form submission for step two of the onboarding process.
+     * @returns void
+     * @param e React.FormEvent
+     */
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Submitting step:", step, "with data:", data);
-        localStorage.setItem('onboarding_step' + step, JSON.stringify(data));
-        post(route('onboarding.step.submit', { _query: { step: step } }), {
-            onSuccess: () => {
-                setStep((prevStep) => prevStep + 1);
-            },
-            onError: () => {
-                console.error("Error submitting step:", errors);
-            },
+        e.preventDefault(); 
+
+        completeStep(2, {
+            stepTwo: {
+                checks: data.checks,
+                otherDescription: data.otherDescription
+            }
+        })
+
+        router.visit(route('onboarding.step', { step: 'three' }));
+
+        post(route('onboarding.step.submit', { _query: { step: 2 } }), {
+            preserveState: true,
+            preserveScroll: true,
+            only: [], // Don't reload any props 
         });
     };
+
+    /**
+     * Handler for checkbox changes
+     * @param check string
+     * @param checked boolean
+     * @description Handles checkbox changes for the checks in step two.
+     * @returns void
+     */
+    const handleCheckChanges = (check: string, checked?: boolean) => {
+        console.log(`Checkbox ${check} changed to ${checked}`);
+        setData(
+            'checks',
+            checked ? [...data.checks, check] :
+            data.checks.filter((c) => c !== check)
+        );
+        updateStepProgress(2, {
+            not_started: false,
+            in_progress: true,
+            completed: false
+        });
+    }
+
+    /**
+     * Handler for text area change events
+     * @description Updates the otherDescription in the form data and the onboarding step state.
+     * @param e React.ChangeEvent<HTMLTextAreaElement>
+     * @returns void
+     */
+    const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setData('otherDescription', e.target.value);
+        updateStepProgress(2, {
+            not_started: false,
+            in_progress: true,
+            completed: false
+        });
+    }
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -42,44 +101,57 @@ export default function OnboardingStepTwoForm() {
                     <div className="grid gap-4">
                         <div className="flex pb-4 flex-row-reverse justify-end">
                             <Label htmlFor="situtation" className="text-2xl">Jeg har oplevet en dødsfødsel</Label>
-                            <Checkbox id="situtation" checked={data.checks.includes('deathborn')}
-                                onCheckedChange={(checked) => {
-                                    setData('checks', checked ? [...data.checks, 'deathborn'] : data.checks.filter((check) => check !== 'deathborn'));
-                                }}
+                            <Checkbox 
+                                id="situtation" 
+                                checked={
+                                    data.checks.includes('deathborn') || 
+                                    currentStepData.stepTwo?.checks.includes('deathborn')
+                                }
+                                onCheckedChange={(checked) => handleCheckChanges('deathborn', checked)}
                                 className="mr-4"
                             />
                         </div>
                         <div className="flex pb-4 flex-row-reverse justify-end">
                             <Label htmlFor="abort" className="text-2xl">Jeg har oplevet en abort</Label>
-                            <Checkbox id="abort" checked={data.checks.includes('abort')}
-                                onCheckedChange={(checked) => {
-                                    setData('checks', checked ? [...data.checks, 'abort'] : data.checks.filter((check) => check !== 'abort'));
-                                }}
+                            <Checkbox 
+                                id="abort" 
+                                checked={
+                                    data.checks.includes('abort') || 
+                                    currentStepData.stepTwo?.checks.includes('abort')
+                                }
+                                onCheckedChange={(checked) => handleCheckChanges('abort', checked)}
                                 className="mr-4"
                             />
                         </div>
-                        <div className="flex pb-4 flex-row-reverse justify-end hidden">
+                        <div className="pb-4 flex-row-reverse justify-end hidden">
                             <Label htmlFor="graviditet" className="text-2xl">Jeg har oplevet en almindelig graviditet</Label>
-                            <Checkbox id="graviditet" checked={data.checks.includes('pregnancy')}
-                                onCheckedChange={(checked) => {
-                                    setData('checks', checked ? [...data.checks, 'pregnancy'] : data.checks.filter((check) => check !== 'pregnancy'));
-                                }}
+                            <Checkbox 
+                                id="graviditet" 
+                                checked={
+                                    data.checks.includes('pregnancy') || 
+                                    currentStepData.stepTwo?.checks.includes('pregnancy')
+                                }
+                                onCheckedChange={() => handleCheckChanges('pregnancy')}
                                 className="mr-4"
                             />
                         </div>
                         <div className="flex pb-4 flex-row-reverse justify-end">
                         <Label htmlFor="other" className="text-2xl">Jeg har oplevet en anden situation</Label>
-                        <Checkbox id="other" checked={data.checks.includes('other')}
-                            onCheckedChange={(checked) => {
-                                setData('checks', checked ? [...data.checks, 'other'] : data.checks.filter((check) => check !== 'other'));
-                            }}
+                        <Checkbox 
+                            id="other" 
+                            checked={
+                                data.checks.includes('other') || 
+                                currentStepData.stepTwo?.checks.includes('other')
+                            }
+                            onCheckedChange={(checked) => handleCheckChanges('other', checked)}
                             className="mr-4"
                         />
                         </div>
                         <TextArea 
                             id="otherDescription" 
                             placeholder="Beskriv venligst"
-                            onChange={(e) => setData('otherDescription', e.target.value)}
+                            onChange={(e) => handleTextChange(e)}
+                            value={data.otherDescription || currentStepData.stepTwo?.otherDescription || ''}
                             className="mt-2"
                             disabled={!data.checks.includes('other')}
                             isDebuggable={false}
@@ -87,9 +159,28 @@ export default function OnboardingStepTwoForm() {
                     </div>
                 </div>
 
-                <Button type="submit" onClick={handleSubmit} disabled={processing} className="mt-4 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">
-                    {processing ? "Indsender..." : "Fortsæt"}
-                </Button>
+                <div className="flex">
+                    {isCompleted ? (
+                        <div className="text-green-500 text-md mt-4">
+                            <p>Du har allerede gennemført dette trin.</p>
+                            <Link href={route('onboarding.step', { step: "one" })} className="mt-4 inline-block text-blue-600 hover:text-blue-800">
+                                Gå tilbage
+                            </Link>
+                            <Link href={route('onboarding.step', { step: "three" })} className="mt-4 ml-4 inline-block text-blue-600 hover:text-blue-800">
+                                fortsæt til næste trin
+                            </Link>
+                        </div>
+                    ) : (
+                        <div className="text-red-500 text-md mt-4">
+                            <Link href={route('onboarding.step', { step: "one" })} className="mt-4 mr-4 inline-block text-blue-600 hover:text-blue-800">
+                                Gå tilbage
+                            </Link>
+                            <Button type="submit" onClick={handleSubmit} disabled={processing} className="mt-4 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">
+                                {processing ? "Indsender..." : "Fortsæt"}
+                            </Button>
+                        </div>
+                    )}
+                </div>
             </div>
         </form>
     );

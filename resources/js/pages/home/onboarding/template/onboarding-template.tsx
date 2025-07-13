@@ -1,4 +1,8 @@
 import React from 'react';
+import ProgressBar from '@/components/Onboarding/progressBar';
+import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import OnboardingHeader from '@/components/Onboarding/onboarding-header';
+
 interface OnboardingTemplateInterface {
     children?: React.ReactNode[];
     title?: string;
@@ -6,18 +10,16 @@ interface OnboardingTemplateInterface {
     screenGraphic?: string | null
 }
 
-export default function OnboardingTemplate({children, title, description, screenGraphic}: OnboardingTemplateInterface) {
+export default function OnboardingTemplate({
+    children, 
+    title, 
+    description, 
+    screenGraphic,
+}: OnboardingTemplateInterface) {
+
     return (
-        <>
-            <header>
-                <nav className="fixed top-0 left-0 z-50 w-full bg-transparent dark:bg-[#0a0a0a]">
-                    <div className="container mx-auto flex h-16 items-center justify-between px-4">
-                        <a href={route('home')} className="flex items-center text-white">
-                            Gå tilbage
-                        </a>
-                    </div>
-                </nav>
-            </header>
+        <OnboardingProvider>
+            <OnboardingHeader />
             <main className="dark:bg-[#0a0a0a]">
                 <div className="container-fluid py-18 max-w-full flex w-full flex-col bg-[#004EA7] text-white dark:bg-[#0a0a0a]">
                     <div className="container max-w-[960px] flex-col py-8 m-auto">
@@ -42,7 +44,7 @@ export default function OnboardingTemplate({children, title, description, screen
                             <div className="mt-2 text-xl">
                                 {description}
                             </div>
-                            {/* Here goes a progress component */}
+                            <ProgressBar />
                         </div>
                     </div>
                 </div>
@@ -50,6 +52,7 @@ export default function OnboardingTemplate({children, title, description, screen
                     {children}
                 </div>
             </main>
-        </>
+        </OnboardingProvider>
     );
 }
+

@@ -1,0 +1,31 @@
+import { useOnboarding } from '@/contexts/OnboardingContext';
+import { router } from '@inertiajs/react';
+
+export default function OnboardingHeader() {
+    const {resetOnboarding} = useOnboarding();
+
+    const handleStateReset = (e: React.MouseEvent) => {
+        e.preventDefault();
+        resetOnboarding();
+        router.visit(route('onboarding.reset'));
+    }
+
+    return (
+        <header>
+            <nav className="fixed top-0 left-0 z-50 w-full bg-transparent dark:bg-[#0a0a0a]">
+                <div className="container mx-auto flex h-16 items-center justify-between px-4">
+                    <a href={route('home')} className="flex items-center text-white">
+                        Gå tilbage
+                    </a>
+                    <a 
+                        href={route('onboarding.reset')} 
+                        className="flex items-center text-white"
+                        onClick={(e) => handleStateReset(e)}
+                    >
+                        Start forfra
+                    </a>
+                </div>
+            </nav>
+        </header>
+    );
+}

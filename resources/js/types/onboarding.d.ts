@@ -1,3 +1,12 @@
+type initilSteps = number[];
+
+export interface OnboardingInitialSteps {
+    currentStep: number;
+    totalSteps: number;
+    initialSteps: initilSteps;
+    completedSteps: number[];
+}
+
 interface OnboardingStep {
     data: {
         checks: string[];

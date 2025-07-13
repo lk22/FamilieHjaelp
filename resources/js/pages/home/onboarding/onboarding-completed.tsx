@@ -1,8 +1,9 @@
 import {type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
-export default function GettingStarted({ step }: { step?: string }) {
+export default function OnboardingCompleted() {
     const { auth, name } = usePage<SharedData>().props;
+
     return (
         <>
             <Head title={`Kom i gang | ${name}`} />
@@ -61,22 +62,6 @@ export default function GettingStarted({ step }: { step?: string }) {
                         <p className="mt-6 text-lg font-bold">
                             Velkommen
                         </p>
-                        <nav className="flex mt-8 items-center justify-start gap-4">
-                            {auth.user ? (
-                                <Link
-                                    href={route('dashboard')}
-                                    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                                >
-                                    Dashboard
-                                </Link>
-                            ) : (
-                                <>
-                                    <Link href={route('onboarding.step', {_query: {step: step}})} className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-xl leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
-                                        Start
-                                    </Link>
-                                </>
-                            )}
-                        </nav>
                     </div>
                 </div>
             </main>
