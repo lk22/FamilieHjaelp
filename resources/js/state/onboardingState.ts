@@ -32,6 +32,7 @@ interface StepData {
 
 interface Step {
     id: number;
+    name: string;
     progress: StepProgress;
     data: StepData;
 }
@@ -54,6 +55,7 @@ export const InitialOnboardingState: OnboardingState = {
     steps: [
         {
             id: 1,
+            name: 'one',
             progress: {
                 in_progress: false,
                 completed: false,
@@ -67,6 +69,7 @@ export const InitialOnboardingState: OnboardingState = {
         },
         {
             id: 2,
+            name: 'two',
             progress: {
                 in_progress: false,
                 completed: false,
@@ -81,6 +84,7 @@ export const InitialOnboardingState: OnboardingState = {
         },
         {
             id: 3,
+            name: 'three',
             progress: {
                 in_progress: false,
                 completed: false,
@@ -94,6 +98,7 @@ export const InitialOnboardingState: OnboardingState = {
         },
         {
             id: 4,
+            name: 'four',
             progress: {
                 in_progress: false,
                 completed: false,
@@ -107,6 +112,7 @@ export const InitialOnboardingState: OnboardingState = {
         },
         {
             id: 5,
+            name: 'five',
             progress: {
                 in_progress: false,
                 completed: false,
@@ -120,6 +126,7 @@ export const InitialOnboardingState: OnboardingState = {
         },
         {
             id: 6,
+            name: 'six',
             progress: {
                 in_progress: false,
                 completed: false,

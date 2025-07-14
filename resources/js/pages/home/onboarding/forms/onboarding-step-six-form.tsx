@@ -37,15 +37,11 @@ export default function OnboardingStepSixForm() {
             }
         });
 
-        completeOnboarding(); // mark the onboarding as completed
-        
-        post(route('onboarding.complete'), {
-            onSuccess: () => {
-                // Handle success
-            },
-            onError: () => {
-                console.error("Error submitting step:", errors);
-            },
+        completeStep(6, {
+            stepSix: {
+                checks: data.checks,
+                other: data.other
+            }
         });
     };
 
@@ -148,10 +144,7 @@ export default function OnboardingStepSixForm() {
                     {isCompleted ? (
                         <div className="text-green-500 text-md mt-4">
                             <p>Du har allerede gennemført dette trin.</p>
-                            <Link href={route('onboarding.step', { step: "five" })} className="mt-4 inline-block text-blue-600 hover:text-blue-800">
-                                Gå tilbage
-                            </Link>
-                            <Link href={route('onboarding.complete')} className="mt-4 ml-4 inline-block text-blue-600 hover:text-blue-800">
+                            <Link href={route('onboarding.complete')} className="mt-4 inline-block text-blue-600 hover:text-blue-800">
                                 Færdiggør
                             </Link>
                         </div>

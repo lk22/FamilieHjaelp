@@ -12,12 +12,15 @@ type OnboardingStepSixData = PageProps & {
 }
 
 export default function OnboardingStepSix({ currentStep, totalSteps }: OnboardingInitialSteps) {
-    const { onboarding } = usePage<OnboardingStepSixData>().props;
+
+    const stateStorage = JSON.parse(localStorage.getItem('onboarding_shared_state') || '{}');
+    const situationStepData = stateStorage?.steps?.find((step: any) => step.id === 2);
+    const partnerStepData = stateStorage?.steps?.find((step: any) => step.id === 3);
 
     const handleStepDescription = () => {
-        const checks = onboarding?.data?.steps[2].data.checks;
-        const situation = onboarding?.data?.steps[1].data.checks;
-    
+        const situation = situationStepData?.data?.stepTwo?.checks || [];
+        const checks = partnerStepData?.data?.stepThree?.checks || [];
+
         if ( 
             checks.includes('is_not_alone') || situation.includes('abort') ||
             checks.includes('is_not_alone') || situation.includes('deathborn')

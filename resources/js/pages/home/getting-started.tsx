@@ -1,8 +1,11 @@
 import {type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
-export default function GettingStarted({ step }: { step?: string }) {
-    const { auth, name } = usePage<SharedData>().props;
+import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import { useOnboarding } from '@/contexts/OnboardingContext';
+
+const GettingStartedContent = () => {
+const { auth, name } = usePage<SharedData>().props;
     return (
         <>
             <Head title={`Kom i gang | ${name}`} />
@@ -81,5 +84,13 @@ export default function GettingStarted({ step }: { step?: string }) {
                 </div>
             </main>
         </>
+    );
+}
+
+export default function GettingStarted({ step }: { step?: string }) {
+    return (
+        <OnboardingProvider>
+            <GettingStartedContent />
+        </OnboardingProvider>
     );
 }

@@ -28,12 +28,16 @@ export default function ProgressBar() {
             console.log('ProgressBar - Step:', step);
             const lastStep = steps.length - 1 === index;
             const isCompleted = step.progress.completed;
+            const stepName = step.name; // Fallback to step id if name is not defined
+            const currentStep = onboardingState.currentStep;
             return (
                 <div key={index} className="relative flex-1">
                     <ProgressStep 
                         step={index + 1} 
                         lastStep={lastStep} 
                         isCompleted={isCompleted} 
+                        stepName={stepName}
+                        currentStep={currentStep}
                     />
                 </div>
             );
@@ -52,14 +56,22 @@ export default function ProgressBar() {
 const ProgressStep = ({
     step,
     lastStep,
-    isCompleted
+    isCompleted,
+    stepName, // Fallback to step id if name is not defined
+    currentStep
 }: Omit<ProgressStepProps, 'currentStep'>) => {
     // give me the last element in the array;
     return (
         <>
-            <Link href={route('onboarding.step', { step: step })} className="relative flex items-center">
-                <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-900 text-white' : 'bg-white text-blue-900'}`}>{step}</div>
-            </Link>
+            {
+                isCompleted ? (
+                    <Link href={route('onboarding.step', { step: stepName })} className="relative flex items-center">
+                        <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-900 text-white hover:bg-blue-700' : 'bg-white text-blue-900'}`}>{step}</div>
+                    </Link>
+                ) : (
+                    <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center cursor-pointer justify-center ${isCompleted ? 'bg-blue-900 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-900'}`}>{step}</div>
+                )
+            }
             <div className={`absolute top-[60px] left-0 w-full h-1 ${isCompleted ? 'bg-blue-900' : 'bg-gray-300'} ${lastStep ? 'hidden': ''} `}></div>
         </>
     )

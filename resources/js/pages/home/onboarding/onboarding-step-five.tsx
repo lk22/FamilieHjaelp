@@ -1,31 +1,27 @@
-import {type PageProps} from '@inertiajs/core';
-import {usePage} from '@inertiajs/react';
 import OnboardingTemplate from './template/onboarding-template';
 import OnboardingStepFiveForm from './forms/onboarding-step-five-form';
 import {Head} from '@inertiajs/react';
-import { type OnboardingData } from '@/types/onboarding';
 import { type OnboardingInitialSteps } from '@/types/onboarding';
 
-type OnboardingStepFiveData = PageProps & {
-    onboarding: OnboardingData;
-}
-
 export default function OnboardingStepFive({ currentStep, totalSteps }: OnboardingInitialSteps) {
-    const { onboarding } = usePage<OnboardingStepFiveData>().props;
 
     const handleStepDescription = () => {
-        const checks = onboarding?.data?.steps[2].data.checks;
-        const situation = onboarding?.data?.steps[1].data.checks;
-        console.log({ checks, situation });
+        const state = JSON.parse(localStorage.getItem('onboarding_shared_state'));
+        const situationStepData = state?.steps.filter((step: any) => step.id === 2);
+        const partnerStepData = state?.steps.filter((step: any) => step.id === 3);
+        console.log('OnboardingStepFive - Current step data:', state);
+
+        const situationData = situationStepData?.[0]?.data.stepTwo || {};
+        const partnerData = partnerStepData?.[0]?.data.stepThree || {};
 
         if ( 
-            checks.includes('is_not_alone') && situation.includes('pregnancy') ||
-            checks.includes('is_not_alone') && situation.includes('deathborn')
+            partnerData?.checks.includes('is_not_alone') && situationData?.checks.includes('pregnancy') ||
+            partnerData?.checks.includes('is_not_alone') && situationData?.checks.includes('deathborn')
         ) {
             return "hvor langt er i henne i jeres graviditet ?";
         } else if (
-            checks.includes('is_alone') && situation.includes('pregnancy') || 
-            checks.includes('is_alone') && situation.includes('deathborn')
+            partnerData?.checks.includes('is_alone') && situationData?.checks.includes('pregnancy') || 
+            partnerData?.checks.includes('is_alone') && situationData?.checks.includes('deathborn')
         ) {
             return "hvor langt er du henne i din graviditet ?";
         }

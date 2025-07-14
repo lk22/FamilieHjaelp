@@ -1,33 +1,52 @@
-import {type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import {useEffect, useState} from 'react'
+import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import { Head, Link } from '@inertiajs/react';
 
-export default function OnboardingCompleted() {
-    const { auth, name } = usePage<SharedData>().props;
+import {useOnboarding} from '@/contexts/OnboardingContext';
+
+const OnboardingCompletedContent = () => {
+    const { onboardingState, getCurrentStepData } = useOnboarding();
+    const [response, setResponse] = useState<null>(null);
+
+
+    // on component mount, we want to generate the completed content
+    // this will be used to post the data to the backend
+    useEffect(() => {
+        // create a new post request to the backend that sends the onboarding state
+        const postData = async () => {
+            try {
+                const response = await fetch(route('onboarding.process.complete'), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(onboardingState),
+                });
+                const data = await response.json();
+                setResponse(data);
+            } catch (error) {
+                console.error('Error posting onboarding data:', error);
+            }
+        };
+
+        postData();
+    }, [onboardingState]);
+
+    const name = getCurrentStepData(1)?.stepOne?.name || 'Familiehjælp';
 
     return (
         <>
-            <Head title={`Kom i gang | ${name}`} />
-            <header>
-                <nav className="fixed top-0 left-0 z-50 w-full bg-transparent dark:bg-[#0a0a0a]">
-                    <div className="container mx-auto flex h-16 items-center justify-between px-4">
-                        <Link href={route('home')} className="flex items-center text-white">
-                            Gå tilbage
-                        </Link>
-                    </div>
-                </nav>
-            </header>
+            <Head title={``} />
             <main className="dark:bg-[#0a0a0a]">
-                <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white dark:bg-[#0a0a0a]">
+                <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white dark:bg-[#0a0a0a] h-screen">
                     <div className="container max-w-[960px] flex-col py-8 items-center justify-center text-center">
                         <div className="logo">
-                            <Link href={route('home')}>
-                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear  relative bottom-4 animate-in mb-6 w-auto dark:invert h-[50px] mx-auto" />
-                                <img
-                                    src="/images/logo.svg"
-                                    alt="Familiehjælp Logo"
-                                    className="mb-6 w-auto dark:invert h-[100px] mx-auto"
-                                />
-                            </Link>
+                            <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear  relative bottom-4 animate-in mb-6 w-auto dark:invert h-[50px] mx-auto" />
+                            <img
+                                src="/images/logo.svg"
+                                alt="Familiehjælp Logo"
+                                className="mb-6 w-auto dark:invert h-[100px] mx-auto"
+                            />
                         </div>
                         <div className="illustration-wrapper">
                             <img
@@ -36,35 +55,27 @@ export default function OnboardingCompleted() {
                                 className="mt-8 w-full max-w-[400px] mx-auto"
                             />
                         </div>
+                        <h1 className="text-3xl mt-4">Kære { name }, <br></br> Vi har modtaget dine svar</h1>
+                        <div className="mt-2 text-xl">
+                            Vi giver dig et overblik over den information og de muligheder, du har i din situation samt et overblik over de ting du skal være opmærksom på og få gjort i den kommende tid.
+                        </div>
+                        <Link href={route('profile.home')} className="mt-4 inline-block text-white bg-blue-600  hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
+                            Gå til overblik
+                        </Link>
                     </div>
-                </div>
-                <div className="container-fluid bg-white max-w-full w-full">
-                    <div className="container max-w-[960px] px-4 py-8 mx-auto">
-                        <p className="mt-6 text-lg font-normal">
-                            Nogle oplevelser ændrer livet fra det ene øjeblik til det andet. At miste et barn — uanset hvor langt man er i graviditeten — er en sorg, der kan være svær at sætte ord på. Det er en tid fyldt med følelser, spørgsmål og beslutninger, som man aldrig havde forestillet sig at skulle tage.
-                        </p>
-                        <p className="mt-6 text-lg font-normal">
-                            Uanset hvor du står lige nu, er du ikke alene. {name} er skabt for dig, der står midt i eller efter et tab. Her er der plads til både sorg, tvivl, vrede,
-                        </p>
-                        <p className="mt-6 text-lg font-normal">
-                            kærlighed og savn — og ingen følelser er forkerte.
-                        </p>
-                        <p className="mt-6 text-lg font-normal">
-                            FamilieHjælp giver dig nødvendig information og dine muligheder og rettigheder i din situation.
-                        </p>
-                        <p className="mt-6 text-lg font-normal">
-                            Du finder råd og støtte til at navigere i den svære tid både praktisk og følelsesmæssigt.
-                        </p>
-                         
-                        <p className="mt-6 text-lg font-normal">
-                            Du behøver ikke gå vejen alene. Her er der plads til dig, lige som du er, med det du bærer på.
-                        </p>
-                        <p className="mt-6 text-lg font-bold">
-                            Velkommen
-                        </p>
-                    </div>
+                    {/*
+                        setting a loading state proccess bar here
+                    */}
                 </div>
             </main>
         </>
+    )
+}
+
+export default function OnboardingCompleted() {
+    return (
+        <OnboardingProvider>
+            <OnboardingCompletedContent />
+        </OnboardingProvider>
     );
 }

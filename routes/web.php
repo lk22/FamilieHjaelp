@@ -18,6 +18,8 @@ Route::get('/onboarding/complete', [OnboardingController::class, 'completed'])->
 Route::post('/onboarding', [OnboardingController::class, 'submitStep'])->name('onboarding.step.submit');
 Route::post('/onboarding/complete', [OnboardingController::class, 'complete'])->name('onboarding.complete');
 
+Route::get('/profile/overview', [ProfileOverviewController::class, 'overview'])->name('profile.home');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');

@@ -106,6 +106,7 @@ export default function OnboardingStepFiveForm() {
                                     type="number" 
                                     name="pregnancy_week_number" 
                                     id="pregnancy_week_number"
+                                    value={data.pregnancy_week_number || currentStepData?.stepFive?.pregnancy_week_number || ''}
                                     className="p-3 border w-full font-bold"
                                     onChange={(e) => handlePregnancyWeekChange(e)}
                                 />
