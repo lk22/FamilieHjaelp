@@ -13,6 +13,8 @@ use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
 {
+    private const REDIRECT_ROUTE = 'dashboard';
+
     /**
      * Show the login page.
      */
@@ -33,7 +35,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route(self::REDIRECT_ROUTE, absolute: false));
     }
 
     /**

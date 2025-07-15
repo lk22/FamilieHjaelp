@@ -1,14 +1,17 @@
 import {useEffect, useState, useCallback} from 'react'
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 
 import {useOnboarding} from '@/contexts/OnboardingContext';
 
 const OnboardingCompletedContent = () => {
     const { onboardingState, getCurrentStepData } = useOnboarding();
-    const [ response, setResponse ] = useState<null>(null);
+    const name = getCurrentStepData(1)?.stepOne?.name || 'Familiehjælp';
 
+    const [ response, setResponse ] = useState<null>(null);
+    const { auth } = usePage().props;
     // use useCallback to post the onboarding data and save the memoized function
+
     const postOnboardingData = useCallback(() => {
         // create a new post request to the backend that sends the onboarding state
         const postData = async () => {
@@ -36,11 +39,10 @@ const OnboardingCompletedContent = () => {
         postOnboardingData();
     }, [postOnboardingData]);
 
-    const name = getCurrentStepData(1)?.stepOne?.name || 'Familiehjælp';
 
     return (
         <>
-            <Head title={``} />
+            <Head title={`Onboarding udført`} />
             <main className="dark:bg-[#0a0a0a]">
                 <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white dark:bg-[#0a0a0a] h-screen">
                     <div className="container max-w-[960px] flex-col py-8 items-center justify-center text-center">
@@ -63,16 +65,7 @@ const OnboardingCompletedContent = () => {
                                 className="mt-8 w-full max-w-[400px] mx-auto"
                             />
                         </div>
-                        <h1 className="text-3xl mt-4">Kære { name }, <br></br> Vi har modtaget dine svar</h1>
-                        <div className="mt-2 text-xl">
-                            Vi giver dig et overblik over den information og de muligheder, du har i din situation samt et overblik over de ting du skal være opmærksom på og få gjort i den kommende tid.
-                        </div>
-                        <div className="mt-2 text-xl">
-                            Du mangler nu blot at oprette en bruger for at få adgang til dit personlige overblik.
-                        </div>
-                        <Link href={route('profile.home')} className="mt-4 inline-block text-white bg-blue-600  hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
-                            Gå til overblik
-                        </Link>
+                        <CompletedMessage name={name} />
                     </div>
                     {/*
                         setting a loading state proccess bar here
@@ -81,6 +74,44 @@ const OnboardingCompletedContent = () => {
             </main>
         </>
     )
+}
+
+const CompletedMessage = ({name}: {name: string}) => {
+    const {auth} = usePage().props;
+    console.log(auth)
+    return (
+        <>
+            {
+                auth ? (
+                    <div className="text-white text-md mt-4">
+                        <h1 className="text-3xl mt-4">Kære { name }, <br /> Vi har modtaget dine svar</h1>
+                        <div className="mt-2 text-xl">
+                            Vi giver dig et overblik over den information og de muligheder, du har i din situation samt et overblik over de ting du skal være opmærksom på og få gjort i den kommende tid.
+                        </div>
+                        <div className="mt-2 text-xl">
+                            Du mangler nu blot at oprette en bruger for at få adgang til dit personlige overblik.
+                        </div>
+                        <Link href={route('register', {'_query': {
+                            'onboarding': true,
+                            'redirect_to': 'onboarding.completed' 
+                        }})} className="mt-4 inline-block text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
+                            Opret bruger
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="text-white mt-4">
+                        <h1 className="mt-2 text-3xl">Kære {name}, <br /> Vi har modtaget dine svar</h1>
+                        <p className="mt-2 text-xl">
+                            Du mangler nu at oprette en bruger før vi kan give dig et overblik over den information og de muligheder, du har brug for.
+                        </p>
+                        <Link href={route('dashboard')} className="mt-4 inline-block text-white bg-blue-600  hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
+                            Gå til dit overblik
+                        </Link>
+                    </div>
+                )
+            }
+        </>
+    );
 }
 
 export default function OnboardingCompleted() {

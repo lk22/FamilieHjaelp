@@ -3,17 +3,23 @@ import { useForm, Link } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
-import { TextArea } from "@/components/ui/TextArea";
+import { TextArea } from "@/components/ui/textarea";
 
 import { useOnboarding } from "@/contexts/OnboardingContext";
 
 export default function OnboardingStepSixForm() {
-    const { completeStep, isStepCompleted, getCurrentStepData, updateStepProgress, completeOnboarding } = useOnboarding();
+    const { 
+        completeStep, 
+        isStepCompleted, 
+        getCurrentStepData, 
+        updateStepProgress, 
+        completeOnboarding 
+    } = useOnboarding();
 
     const currentStepData = getCurrentStepData(6);
     const isCompleted = isStepCompleted(6);
 
-    const { data, post, setData, processing, errors } = useForm<{
+    const { data, setData, processing } = useForm<{
         step: number;
         checks: string[];
         other: string;

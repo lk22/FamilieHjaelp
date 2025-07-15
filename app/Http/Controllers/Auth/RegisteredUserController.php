@@ -46,6 +46,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        if ( $request->query('onboarding') ) {
+            return redirect()->intended(route('onboarding.completed', absolute: false));
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 }
