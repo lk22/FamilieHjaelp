@@ -37,12 +37,11 @@ export default function OnboardingStepFourForm() {
 
         // strip the tz offset from the date string
         const dateWithoutTimezone = formattedDate.replace(/T.*$/, '');
+
         if (isNaN(new Date(formattedDate).getTime())) {
             console.error("Invalid date format:", data.situation_date);
             return;
         }
-
-        console.log("Parsed date:", formattedDate);
 
         completeStep(4, {
             stepFour: {
@@ -50,14 +49,9 @@ export default function OnboardingStepFourForm() {
             }
         })
 
-        post(route('onboarding.step.submit', { _query: { step: step } }), {
-            data: {
-                ...data,
-                situation_date: dateWithoutTimezone
-            },
-            onSuccess: () => {
-                setStep((prevStep) => prevStep + 1);
-            },
+        data.situation_date = dateWithoutTimezone;
+
+        post(route('onboarding.step.submit', { _query: { step: 4 } }), {
             onError: () => {
                 console.error("Error submitting step:", errors);
             },

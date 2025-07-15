@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useCallback} from 'react'
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { Head, Link } from '@inertiajs/react';
 
@@ -6,16 +6,14 @@ import {useOnboarding} from '@/contexts/OnboardingContext';
 
 const OnboardingCompletedContent = () => {
     const { onboardingState, getCurrentStepData } = useOnboarding();
-    const [response, setResponse] = useState<null>(null);
+    const [ response, setResponse ] = useState<null>(null);
 
-
-    // on component mount, we want to generate the completed content
-    // this will be used to post the data to the backend
-    useEffect(() => {
+    // use useCallback to post the onboarding data and save the memoized function
+    const postOnboardingData = useCallback(() => {
         // create a new post request to the backend that sends the onboarding state
         const postData = async () => {
             try {
-                const response = await fetch(route('onboarding.process.complete'), {
+                const response = await fetch(route('api.onboarding.process.complete'), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -23,6 +21,7 @@ const OnboardingCompletedContent = () => {
                     body: JSON.stringify(onboardingState),
                 });
                 const data = await response.json();
+                console.log(data)
                 setResponse(data);
             } catch (error) {
                 console.error('Error posting onboarding data:', error);
@@ -31,6 +30,11 @@ const OnboardingCompletedContent = () => {
 
         postData();
     }, [onboardingState]);
+
+    // Call the post function when the component mounts
+    useEffect(() => {
+        postOnboardingData();
+    }, [postOnboardingData]);
 
     const name = getCurrentStepData(1)?.stepOne?.name || 'Familiehjælp';
 
@@ -41,7 +45,11 @@ const OnboardingCompletedContent = () => {
                 <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white dark:bg-[#0a0a0a] h-screen">
                     <div className="container max-w-[960px] flex-col py-8 items-center justify-center text-center">
                         <div className="logo">
-                            <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear  relative bottom-4 animate-in mb-6 w-auto dark:invert h-[50px] mx-auto" />
+                            <img 
+                                src="/images/FamilieHjælp_text_logo.svg" 
+                                alt="Familiehjælp Logo" 
+                                className="animate animate-fade-up animate-ease-linear relative bottom-4 animate-in mb-6 w-auto dark:invert h-[50px] mx-auto" 
+                            />
                             <img
                                 src="/images/logo.svg"
                                 alt="Familiehjælp Logo"
@@ -58,6 +66,9 @@ const OnboardingCompletedContent = () => {
                         <h1 className="text-3xl mt-4">Kære { name }, <br></br> Vi har modtaget dine svar</h1>
                         <div className="mt-2 text-xl">
                             Vi giver dig et overblik over den information og de muligheder, du har i din situation samt et overblik over de ting du skal være opmærksom på og få gjort i den kommende tid.
+                        </div>
+                        <div className="mt-2 text-xl">
+                            Du mangler nu blot at oprette en bruger for at få adgang til dit personlige overblik.
                         </div>
                         <Link href={route('profile.home')} className="mt-4 inline-block text-white bg-blue-600  hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
                             Gå til overblik

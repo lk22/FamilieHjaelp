@@ -5,6 +5,7 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\CompleteOnboardingController;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started');
@@ -19,6 +20,8 @@ Route::post('/onboarding', [OnboardingController::class, 'submitStep'])->name('o
 Route::post('/onboarding/complete', [OnboardingController::class, 'complete'])->name('onboarding.complete');
 
 Route::get('/profile/overview', [ProfileOverviewController::class, 'overview'])->name('profile.home');
+
+Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('onboarding.process.complete');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {

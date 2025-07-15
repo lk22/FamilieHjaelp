@@ -7,6 +7,7 @@ interface ProgressStepProps {
     currentStep: number;
     lastStep?: boolean;
     isCompleted: boolean;
+    stepName: string;
 }
 
 /**
@@ -19,13 +20,10 @@ export default function ProgressBar() {
     
     // Get onboarding state from context - this will automatically update when state changes
     const { onboardingState } = useOnboarding();
-    
-    console.log('ProgressBar - Current onboarding state:', onboardingState);
 
     const handleStepsList = () => {
         const { steps } = onboardingState;
         return steps.map((step, index: number) => {
-            console.log('ProgressBar - Step:', step);
             const lastStep = steps.length - 1 === index;
             const isCompleted = step.progress.completed;
             const stepName = step.name; // Fallback to step id if name is not defined
@@ -55,23 +53,21 @@ export default function ProgressBar() {
 
 const ProgressStep = ({
     step,
+    currentStep,
     lastStep,
     isCompleted,
-    stepName, // Fallback to step id if name is not defined
-    currentStep
-}: Omit<ProgressStepProps, 'currentStep'>) => {
+    stepName,
+}: ProgressStepProps) => {
     // give me the last element in the array;
     return (
         <>
-            {
-                isCompleted ? (
-                    <Link href={route('onboarding.step', { step: stepName })} className="relative flex items-center">
-                        <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-900 text-white hover:bg-blue-700' : 'bg-white text-blue-900'}`}>{step}</div>
-                    </Link>
-                ) : (
-                    <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center cursor-pointer justify-center ${isCompleted ? 'bg-blue-900 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-900'}`}>{step}</div>
-                )
-            }
+            {currentStep === step ? (
+                <Link href={route('onboarding.step', { step: stepName })} className="relative flex items-center">
+                    <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-900 text-white hover:bg-blue-700' : 'bg-white text-blue-900'}`}>{step}</div>
+                </Link>
+            ) : (
+                <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center cursor-pointer justify-center ${isCompleted ? 'bg-blue-900 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-900'}`}>{step}</div>
+            )}
             <div className={`absolute top-[60px] left-0 w-full h-1 ${isCompleted ? 'bg-blue-900' : 'bg-gray-300'} ${lastStep ? 'hidden': ''} `}></div>
         </>
     )

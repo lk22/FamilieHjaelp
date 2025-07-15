@@ -16,7 +16,6 @@ export default function OnboardingTemplate({
     description, 
     screenGraphic,
 }: OnboardingTemplateInterface) {
-
     return (
         <OnboardingProvider>
             <OnboardingHeader />

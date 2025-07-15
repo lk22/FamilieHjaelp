@@ -37,12 +37,7 @@ export default function OnboardingStepSixForm() {
             }
         });
 
-        completeStep(6, {
-            stepSix: {
-                checks: data.checks,
-                other: data.other
-            }
-        });
+        completeOnboarding();
     };
 
     /**

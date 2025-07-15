@@ -4,7 +4,7 @@ import { Head, Link, usePage } from '@inertiajs/react';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
-const GettingStartedContent = () => {
+const GettingStartedContent = ({step}: {step: string}) => {
 const { auth, name } = usePage<SharedData>().props;
     return (
         <>
@@ -90,7 +90,7 @@ const { auth, name } = usePage<SharedData>().props;
 export default function GettingStarted({ step }: { step?: string }) {
     return (
         <OnboardingProvider>
-            <GettingStartedContent />
+            <GettingStartedContent step={step} />
         </OnboardingProvider>
     );
 }
