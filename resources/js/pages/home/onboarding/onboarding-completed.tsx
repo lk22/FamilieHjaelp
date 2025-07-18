@@ -92,7 +92,7 @@ const CompletedMessage = ({name}: {name: string}) => {
                             Du mangler nu blot at oprette en bruger for at få adgang til dit personlige overblik.
                         </div>
                         <Link href={route('register', {'_query': {
-                            'onboarding': true,
+                            'onboarding_completed': true,
                             'redirect_to': 'onboarding.completed' 
                         }})} className="mt-4 inline-block text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
                             Opret bruger

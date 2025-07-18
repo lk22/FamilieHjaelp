@@ -15,6 +15,8 @@ use Inertia\Response;
 
 class RegisteredUserController extends Controller
 {
+
+    public string $intendedRedirectRoute = 'dashboard';
     /**
      * Show the registration page.
      */
@@ -36,8 +38,19 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        if ( $request->query('onboarding') && $request->query->get('redirect_to')) {
-            return redirect()->intended(route($request->query->get('redirect_to'), absolute: false));
+        if ( $request->onboarding_completed && $request->redirect_to) {
+            $this->intendedRedirectRoute = $request->redirect_to;
+        }
+
+        $user = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'is_admin' => false,
+        ];
+
+        if ( $request->get('onboarding') ) {
+            $user['has_completed_onboarding'] = true;
         }
 
         $user = User::create([
@@ -50,6 +63,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(
+            route(
+                $this->intendedRedirectRoute, 
+                absolute: 
+                false
+            )
+        );
     }
 }

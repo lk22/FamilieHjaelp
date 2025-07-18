@@ -1,4 +1,4 @@
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm, usePage, router } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
@@ -16,6 +16,11 @@ type RegisterForm = {
     password_confirmation: string;
 };
 
+type QueryParams = {
+    onboarding_completed?: boolean;
+    redirect?: string;
+}
+
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
         name: '',
@@ -24,12 +29,26 @@ export default function Register() {
         password_confirmation: '',
     });
 
+    const queryParams = window.location.search
+        ? Object.fromEntries(new URLSearchParams(window.location.search)) as QueryParams
+        : {};
+
+    console.log(queryParams);
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('register'), {
-            onFinish: () => reset('password', 'password_confirmation'),
-        });
+        // onboarding_completed is used to determin if the user is completing the onboarding process
+        if ( queryParams.onboarding_completed ) {
+            post(route('register'), {
+                onFinish: () => reset('password', 'password_confirmation')
+            })
+        } else {
+            post(route('register'), {
+                onFinish: () => reset('password', 'password_confirmation'),
+            });
+        }
+
     };
 
     return (
