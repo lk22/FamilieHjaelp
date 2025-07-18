@@ -5,7 +5,6 @@ import { Label } from "@/components/ui/label";
 
 import {useOnboarding} from "@/contexts/OnboardingContext";
 
-
 export default function OnboardingStepFourForm() {
     // Use the onboarding context for state management
     const { completeStep, isStepCompleted, getCurrentStepData, updateStepProgress } = useOnboarding();
@@ -71,6 +70,13 @@ export default function OnboardingStepFourForm() {
         });
     }
 
+    const getFormattedDateValue = () => {
+        if (currentStepData.stepFour?.situation_date) {
+            return new Date(currentStepData.stepFour.situation_date).toISOString().slice(0, 16);
+        }
+        return data.situation_date || '';
+    }
+
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div className="container max-w-[960px] px-4 py-8 mx-auto">
@@ -82,7 +88,7 @@ export default function OnboardingStepFourForm() {
                                 type="datetime-local"
                                 name="situation_date"
                                 id="situation_date"
-                                value={data.situation_date || currentStepData?.stepFour?.situation_date || ''}
+                                value={getFormattedDateValue()}
                                 required
                                 className="p-3 border mt-4"
                                 onChange={(e) => handleDateSelection(e)}

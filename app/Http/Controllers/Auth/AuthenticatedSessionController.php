@@ -11,10 +11,14 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 
+enum RedirectRoute: string
+{
+    case DEFAULT_REDIRECT_ROUTE = 'user.overview';
+    case GETTING_STARTED_REDIRECT_ROUTE = 'getting-started';
+}
+
 class AuthenticatedSessionController extends Controller
 {
-    private const REDIRECT_ROUTE = 'dashboard';
-
     /**
      * Show the login page.
      */
@@ -35,7 +39,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route(self::REDIRECT_ROUTE, absolute: false));
+        // if the user is not onboarded, redirect to the getting started page
+        if ( ! Auth::user()->isOnboarded() ) {
+            return redirect()->intended(route(RedirectRoute::GETTING_STARTED_REDIRECT_ROUTE, absolute: false));
+        }
+
+        // if the user is onboarded, redirect to the default route
+        return redirect()->intended(route(RedirectRoute::DEFAULT_REDIRECT_ROUTE, absolute: false));
     }
 
     /**

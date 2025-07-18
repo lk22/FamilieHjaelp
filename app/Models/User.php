@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Check if the user has completed onboarding.
+     *
+     * @return boolean
+     */
+    public function isOnboarded(): bool
+    {
+        return $this->onboarding_completed ?? false;
+    }
 }

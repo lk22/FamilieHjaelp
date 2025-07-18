@@ -36,6 +36,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        if ( $request->query('onboarding') && $request->query->get('redirect_to')) {
+            return redirect()->intended(route($request->query->get('redirect_to'), absolute: false));
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -45,10 +49,6 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
-        if ( $request->query('onboarding') ) {
-            return redirect()->intended(route('onboarding.completed', absolute: false));
-        }
 
         return redirect()->intended(route('dashboard', absolute: false));
     }
