@@ -20,3 +20,13 @@ Artisan::command('session:clear', function() {
     session()->flush();
     $this->info('Session cleared successfully.');
 });
+
+Artisan::command('analyze', function() {
+    // phpstan analyze --memory-limit=1G --no-progress
+    $this->comment('Running PHPStan analysis...');
+    $result = Artisan::call('phpstan:analyze', [
+        '--memory-limit' => '1G',
+        '--no-progress' => true,
+    ]);
+    $this->info('PHPStan analysis completed.');
+});

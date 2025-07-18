@@ -17,6 +17,7 @@ class RegisteredUserController extends Controller
 {
 
     public string $intendedRedirectRoute = 'dashboard';
+
     /**
      * Show the registration page.
      */
@@ -32,32 +33,32 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        dd($request->redirect_to);
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        if ( $request->onboarding_completed && $request->redirect_to) {
-            $this->intendedRedirectRoute = $request->redirect_to;
-        }
-
-        $user = [
+        $registeredUserData = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'is_admin' => false,
+            'has_completed_onboarding' => false,
+            'is_verified' => false
         ];
-
-        if ( $request->get('onboarding') ) {
-            $user['has_completed_onboarding'] = true;
+        
+        if ( $request->onboarding_completed ) {
+            $registeredUserData['has_completed_onboarding'] = true;
         }
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        if ( $request->redirect_to) {
+            $this->intendedRedirectRoute = $request->redirect_to;
+        }
+
+        $user = User::create($registeredUserData);
 
         event(new Registered($user));
 

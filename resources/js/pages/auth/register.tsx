@@ -9,52 +9,60 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 
+import { useQueryParams } from '@/lib/utils'; 
+
 type RegisterForm = {
     name: string;
     email: string;
     password: string;
     password_confirmation: string;
+
+    // additional fields to form data
+    onboarding_completed?: boolean;
+    redirect_to?: string;
 };
 
-type QueryParams = {
+type URLParams = {
     onboarding_completed?: boolean;
-    redirect?: string;
+    redirect_to?: string;
 }
 
 export default function Register() {
+
+    const { queryParams } = useQueryParams<URLParams>();
+
     const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
+        onboarding_completed: false,
+        redirect_to: ''
     });
-
-    const queryParams = window.location.search
-        ? Object.fromEntries(new URLSearchParams(window.location.search)) as QueryParams
-        : {};
-
-    console.log(queryParams);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        // onboarding_completed is used to determin if the user is completing the onboarding process
-        if ( queryParams.onboarding_completed ) {
-            post(route('register'), {
-                onFinish: () => reset('password', 'password_confirmation')
-            })
-        } else {
-            post(route('register'), {
-                onFinish: () => reset('password', 'password_confirmation'),
-            });
+        // set additional query params to form data if they exist 
+        if ( queryParams.onboarding_completed !== undefined ) {
+            setData('onboarding_completed', queryParams.onboarding_completed);
         }
 
+        if ( queryParams.redirect_to ) {
+            setData('redirect_to', queryParams.redirect_to);
+        }
+
+        post(route('register'), {
+            onFinish: () => reset('password', 'password_confirmation'),
+        });
     };
 
     return (
         <AuthLayout title="Opret din konto" description="Udfyld formularen for at oprette en konto og begynd at bruge FamilieHjælp.">
             <Head title="Register" />
             <form className="flex flex-col gap-6" onSubmit={submit}>
+                <input type="hidden" name="onboarding_completed" value={queryParams.onboarding_completed ? 'true' : 'false'} />
+                <input type="hidden" name="redirect_to" value={queryParams.redirect_to} />
                 <div className="grid gap-6">
                     <div className="grid gap-2">
                         <Label htmlFor="name">Fulde navn</Label>

@@ -79,18 +79,18 @@ const OnboardingCompletedContent = () => {
 const CompletedMessage = ({name}: {name: string}) => {
     const {auth} = usePage().props;
     console.log(auth)
+
+    const isAuthenticated = auth?.user?.id !== undefined;
+    console.log('isAuthenticated:', isAuthenticated);
     return (
         <>
             {
-                auth ? (
-                    <div className="text-white text-md mt-4">
-                        <h1 className="text-3xl mt-4">Kære { name }, <br /> Vi har modtaget dine svar</h1>
-                        <div className="mt-2 text-xl">
-                            Vi giver dig et overblik over den information og de muligheder, du har i din situation samt et overblik over de ting du skal være opmærksom på og få gjort i den kommende tid.
-                        </div>
-                        <div className="mt-2 text-xl">
-                            Du mangler nu blot at oprette en bruger for at få adgang til dit personlige overblik.
-                        </div>
+                !isAuthenticated ? (
+                    <div className="text-white mt-4">
+                        <h1 className="mt-2 text-3xl">Kære {name}, <br /> Vi har modtaget dine svar</h1>
+                        <p className="mt-2 text-xl">
+                            Du mangler nu at oprette en bruger før vi kan give dig et overblik over den information og de muligheder, du har brug for.
+                        </p>
                         <Link href={route('register', {'_query': {
                             'onboarding_completed': true,
                             'redirect_to': 'onboarding.completed' 
@@ -99,17 +99,19 @@ const CompletedMessage = ({name}: {name: string}) => {
                         </Link>
                     </div>
                 ) : (
-                    <div className="text-white mt-4">
-                        <h1 className="mt-2 text-3xl">Kære {name}, <br /> Vi har modtaget dine svar</h1>
-                        <p className="mt-2 text-xl">
-                            Du mangler nu at oprette en bruger før vi kan give dig et overblik over den information og de muligheder, du har brug for.
-                        </p>
-                        <Link href={route('dashboard')} className="mt-4 inline-block text-white bg-blue-600  hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
-                            Gå til dit overblik
-                        </Link>
+                <div className="text-white text-md mt-4">
+                    <h1 className="text-3xl mt-4">Kære { auth?.user?.name }, <br /> Vi har modtaget dine svar</h1>
+                    <div className="mt-2 text-xl">
+                        Vi giver dig et overblik over den information og de muligheder, du har i din situation samt et overblik over de ting du skal være opmærksom på og få gjort i den kommende tid.
                     </div>
-                )
-            }
+                    <div className="mt-2 text-xl">
+                        Du mangler nu blot at oprette en bruger for at få adgang til dit personlige overblik.
+                    </div>
+                    <Link href={route('profile.home')} className="mt-4 inline-block text-white bg-blue-600  hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
+                        Gå til overblik
+                    </Link>
+                </div>
+            )}
         </>
     );
 }

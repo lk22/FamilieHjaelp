@@ -98,3 +98,27 @@ export function useOnboardingActions(
         saveStepProgress
     }
 }
+
+// extract <T extends Record<string, unknown> = Record<string, unknown> to UseQueryParamsHookReturnType<T>
+type UseQueryParamsHookReturnType<T extends Record<string, unknown> = Record<string, unknown>> = {
+    queryParams: T;
+    getQueryParam: (key: keyof T | string) => unknown;
+};
+
+// describe how this hook works
+/**
+ * Custom hook to manage query parameters in a React application.
+ * @returns {UseQueryParamsHookReturnType} An object containing query parameters and a function to get a specific parameter.
+ */
+export function useQueryParams<T extends Record<string, unknown> = Record<string, unknown>>(): UseQueryParamsHookReturnType<T> {
+    const params = Object.fromEntries(new URLSearchParams(window.location.search)) as T;
+
+    const getQueryParam = (key: keyof T | string): unknown => {
+        return params[key as keyof T] ?? undefined;
+    };
+
+    return {
+        queryParams: params,
+        getQueryParam,
+    };
+}
