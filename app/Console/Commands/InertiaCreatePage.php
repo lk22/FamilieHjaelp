@@ -310,8 +310,10 @@ export function use{$name}() {
         
         // get the keys of the args array
         $params = array_keys($args); 
-
-        $returnArguments = (isset($args)) ? '{ ' . implode(', ', $params) . ' }' : '';
+        
+        return (isset($args)) 
+            ? '{' . implode(', ', $params) . ' }'
+            : '';
     }
 
     /**

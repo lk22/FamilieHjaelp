@@ -1,13 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\ProfileOverviewController;
 use App\Http\Controllers\CompleteOnboardingController;
 
-\Auth::loginUsingId(1);
+Auth::loginUsingId(1);
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started');
