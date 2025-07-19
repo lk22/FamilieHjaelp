@@ -24,7 +24,7 @@ const OnboardingCompletedContent = () => {
                     body: JSON.stringify(onboardingState),
                 });
                 const data = await response.json();
-                console.log(data)
+                console.log(data);
                 setResponse(data);
             } catch (error) {
                 console.error('Error posting onboarding data:', error);

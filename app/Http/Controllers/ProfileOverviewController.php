@@ -13,6 +13,4 @@ class ProfileOverviewController extends Controller
     {
         return Inertia::render('Profile/Overview/Home');
     }
-
-    public function edit()
 }

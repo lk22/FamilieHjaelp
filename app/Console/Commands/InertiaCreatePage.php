@@ -26,6 +26,11 @@ class InertiaCreatePage extends Command
     */
     protected $description = 'Create a new Inertia.js page with a specified template and arguments';
 
+    /**
+     * Usage information for the command
+     *
+     * @var string
+     */
     protected $usage = 'inertia:create --name=PageName --template=page --args={arg1: string, arg2: number}';
 
     /**
