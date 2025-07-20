@@ -4,8 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-use Illuminate\Support\Str;
-
 class InertiaCreatePage extends Command
 {
     /**
@@ -181,7 +179,7 @@ export default function {$name}({$componentArguments}: " . $interfaceDefinition[
      * @param array $args): string
      * @return string
      */
-    protected function getReactComponentStub(string $name, array $args): stringtring
+    protected function getReactComponentStub(string $name, array $args): string
     {
         $componentArguments = $this->buildPropertyParametersString($name, $args);
         $interfaceDefinition = $this->buildPropertyParametersInterface($name, $args);

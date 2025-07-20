@@ -13,4 +13,9 @@ class ProfileOverviewController extends Controller
     {
         return Inertia::render('Profile/Overview/Home');
     }
+
+    public function todos(): Response
+    {
+        return Inertia::render('Profile/Overview/Todos');
+    }
 }

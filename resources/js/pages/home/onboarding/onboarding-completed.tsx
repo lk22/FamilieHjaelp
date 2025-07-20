@@ -1,7 +1,7 @@
 import {useEffect, useState, useCallback} from 'react'
-import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { Head, Link, usePage } from '@inertiajs/react';
 
+import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import {useOnboarding} from '@/contexts/OnboardingContext';
 
 interface CompletedMessageProps {
@@ -82,13 +82,13 @@ const OnboardingCompletedContent = () => {
     )
 }
 
-
 const CompletedMessage = ({name}: CompletedMessageProps) => {
     const {auth} = usePage().props;
     console.log(auth)
 
     const isAuthenticated = auth.user?.id !== undefined;
     console.log('isAuthenticated:', isAuthenticated);
+
     return (
         <>
             {
