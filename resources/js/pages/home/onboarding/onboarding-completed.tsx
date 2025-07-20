@@ -45,7 +45,6 @@ const OnboardingCompletedContent = () => {
                     setResponse({ message: 'Checking authentication status', status: 'checking for existing user authentication' });
                     console.log('Checking authentication status...');
                     try {
-                        
                         if ( ! auth?.user?.id ) {
                             setResponse({ message: 'Authentication check failed', status: 'An error occurred while checking authentication' });
                             throw new Error('Authentication check failed');
