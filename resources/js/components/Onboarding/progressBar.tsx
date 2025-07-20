@@ -28,6 +28,7 @@ export default function ProgressBar() {
             const isCompleted = step.progress.completed;
             const stepName = step.name; // Fallback to step id if name is not defined
             const currentStep = onboardingState.currentStep;
+            
             return (
                 <div key={index} className="relative flex-1">
                     <ProgressStep 

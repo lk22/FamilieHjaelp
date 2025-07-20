@@ -24,7 +24,7 @@ Route::post('/onboarding', [OnboardingController::class, 'submitStep'])->name('o
 Route::post('/onboarding/complete', [OnboardingController::class, 'complete'])->name('onboarding.complete');
 
 Route::get('/profile/overview', [ProfileOverviewController::class, 'index'])->name('profile.home');
-
+Route::get('/profile/overview/todos', [ProfileOverviewController::class, 'todos'])->name('profile.todos');
 Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('onboarding.process.complete');
 
 Route::middleware(['auth', 'verified'])->group(function () {

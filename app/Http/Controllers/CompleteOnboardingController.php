@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\CompleteOnboardingRequest;
 
 class CompleteOnboardingController extends Controller
@@ -62,6 +63,68 @@ class CompleteOnboardingController extends Controller
 
         return response()->json([
             'message' => 'Onboarding completed successfully.'
+        ]);
+    }
+    /**
+     * Check if the user is authenticated.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function checkAuthenticated(Request $request): JsonResponse
+    {
+        if ( ! $request->user() ) {
+            return response()->json([
+                'message' => 'Not authenticated',
+                'status' => false
+            ], 401);
+        }
+
+        return response()->json([
+            'message' => 'Authenticated',
+            "status" => true
+        ], 200);
+    }
+
+    /**
+     * Store todos for the user.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function storeTodos(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        $steps = $request->input('steps', []);
+        $pregnancy_week = $request->input('steps.4.data.stepFive.pregnancy_week_number', null);
+        $situation_date = $request->input('steps.3.data.stepFour.situation_date');
+
+        $existingTodos = $request->user()->todos()->get();
+
+        if ( ! $existingTodos->isEmpty() ) {
+            return response()->json([
+                'message' => 'Todos already exist for this user.',
+                'todos' => $existingTodos
+            ])->setStatusCode(200, 'Todos already exist.')->withHeaders([
+                'Content-Type' => 'application/json',
+                'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            ]);
+        }
+
+        $preparedTodos = $this->initializeTodos(
+            $steps[1]['data']['stepTwo']['checks'] ?? [],
+            $situation_date,
+            $pregnancy_week
+        );
+
+        $user->todos()->createMany($preparedTodos);
+
+        return response()->json([
+            'message' => 'Todos initialized successfully.',
+            'todos' => $user->todos()->get()
+        ])->setStatusCode(201, 'Todos created successfully.')->withHeaders([
+            'Content-Type' => 'application/json',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
         ]);
     }
 
