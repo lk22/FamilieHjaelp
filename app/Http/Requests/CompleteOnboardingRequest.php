@@ -21,6 +21,8 @@ class CompleteOnboardingRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            // 'steps' => 'required|array',
+        ];
     }
 }

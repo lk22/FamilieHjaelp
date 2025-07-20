@@ -4,6 +4,10 @@ import { Head, Link, usePage } from '@inertiajs/react';
 
 import {useOnboarding} from '@/contexts/OnboardingContext';
 
+interface CompletedMessageProps {
+    name: string;
+}
+
 const OnboardingCompletedContent = () => {
     const { onboardingState, getCurrentStepData } = useOnboarding();
     const name = getCurrentStepData(1)?.stepOne?.name || 'Familiehjælp';
@@ -11,6 +15,9 @@ const OnboardingCompletedContent = () => {
     const [ response, setResponse ] = useState<null>(null);
     const { auth } = usePage().props;
     // use useCallback to post the onboarding data and save the memoized function
+
+    // simulate progress bar loading and has different state messages
+    const [ loading, setLoading ] = useState(true);
 
     const postOnboardingData = useCallback(() => {
         // create a new post request to the backend that sends the onboarding state
@@ -39,23 +46,22 @@ const OnboardingCompletedContent = () => {
         postOnboardingData();
     }, [postOnboardingData]);
 
-
     return (
         <>
             <Head title={`Onboarding udført`} />
-            <main className="dark:bg-[#0a0a0a]">
-                <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white dark:bg-[#0a0a0a] h-screen">
+            <main className="bg-[#0a0a0a]">
+                <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white h-screen px-8">
                     <div className="container max-w-[960px] flex-col py-8 items-center justify-center text-center">
                         <div className="logo">
                             <img 
                                 src="/images/FamilieHjælp_text_logo.svg" 
                                 alt="Familiehjælp Logo" 
-                                className="animate animate-fade-up animate-ease-linear relative bottom-4 animate-in mb-6 w-auto dark:invert h-[50px] mx-auto" 
+                                className="animate animate-fade-up animate-ease-linear relative bottom-4 animate-in mb-6 w-auto h-[50px] mx-auto" 
                             />
                             <img
                                 src="/images/logo.svg"
                                 alt="Familiehjælp Logo"
-                                className="mb-6 w-auto dark:invert h-[100px] mx-auto"
+                                className="mb-6 w-auto h-[100px] mx-auto"
                             />
                         </div>
                         <div className="illustration-wrapper">
@@ -76,11 +82,12 @@ const OnboardingCompletedContent = () => {
     )
 }
 
-const CompletedMessage = ({name}: {name: string}) => {
+
+const CompletedMessage = ({name}: CompletedMessageProps) => {
     const {auth} = usePage().props;
     console.log(auth)
 
-    const isAuthenticated = auth?.user?.id !== undefined;
+    const isAuthenticated = auth.user?.id !== undefined;
     console.log('isAuthenticated:', isAuthenticated);
     return (
         <>
@@ -93,7 +100,7 @@ const CompletedMessage = ({name}: {name: string}) => {
                         </p>
                         <Link href={route('register', {'_query': {
                             'onboarding_completed': true,
-                            'redirect_to': 'onboarding.completed' 
+                            'redirect_to': 'onboarding.complete' 
                         }})} className="mt-4 inline-block text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
                             Opret bruger
                         </Link>

@@ -19,14 +19,14 @@ export default function OnboardingTemplate({
     return (
         <OnboardingProvider>
             <OnboardingHeader />
-            <main className="dark:bg-[#0a0a0a]">
-                <div className="container-fluid py-18 max-w-full flex w-full flex-col bg-[#004EA7] text-white dark:bg-[#0a0a0a]">
+            <main className="dark:bg-white height-full">
+                <div className="container-fluid py-18 max-w-full flex w-full flex-col bg-[#004EA7] text-white">
                     <div className="container max-w-[960px] flex-col py-8 m-auto">
                         <div className="">
                             <div className="logo">
                                 <a href={route('home')}>
                                     <span className="flex items-center gap-4">
-                                        <img src="/images/inline_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear relative bottom-4 animate-in w-auto dark:invert h-[50px]" />
+                                        <img src="/images/inline_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear relative bottom-4 animate-in w-auto h-[50px]" />
                                     </span>
                                 </a>
                             </div>

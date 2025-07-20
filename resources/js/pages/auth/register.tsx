@@ -1,6 +1,6 @@
 import { Head, useForm, usePage, router } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { FormEvent, FormEventHandler } from 'react';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -18,7 +18,7 @@ type RegisterForm = {
     password_confirmation: string;
 
     // additional fields to form data
-    onboarding_completed?: boolean;
+    onboarding_completed?: number | boolean;
     redirect_to?: string;
 };
 
@@ -36,21 +36,24 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
-        onboarding_completed: false,
+        onboarding_completed: 0,
         redirect_to: ''
     });
 
-    const submit: FormEventHandler = (e) => {
+    const submit: FormEventHandler = (e: FormEvent) => {
         e.preventDefault();
 
-        // set additional query params to form data if they exist 
-        if ( queryParams.onboarding_completed !== undefined ) {
-            setData('onboarding_completed', queryParams.onboarding_completed);
+        // console.log('Submitting registration form with data:', data);
+        console.log(queryParams);
+
+        if (queryParams.onboarding_completed) {
+            data.onboarding_completed = queryParams.onboarding_completed ? 1 : 0;
+        }
+        if (queryParams.redirect_to) {
+            data.redirect_to = queryParams.redirect_to;
         }
 
-        if ( queryParams.redirect_to ) {
-            setData('redirect_to', queryParams.redirect_to);
-        }
+        console.log({data});
 
         post(route('register'), {
             onFinish: () => reset('password', 'password_confirmation'),

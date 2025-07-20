@@ -5,12 +5,14 @@ import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 const GettingStartedContent = ({step}: {step: string}) => {
-const { auth, name } = usePage<SharedData>().props;
+    const { auth, name } = usePage<SharedData>().props;
+    const { onboardingState } = useOnboarding();
+
     return (
         <>
             <Head title={`Kom i gang | ${name}`} />
             <header>
-                <nav className="fixed top-0 left-0 z-50 w-full bg-transparent dark:bg-[#0a0a0a]">
+                <nav className="fixed top-0 left-0 z-50 w-full bg-transparent bg-[#0a0a0a]">
                     <div className="container mx-auto flex h-16 items-center justify-between px-4">
                         <Link href={route('home')} className="flex items-center text-white">
                             Gå tilbage
@@ -18,16 +20,16 @@ const { auth, name } = usePage<SharedData>().props;
                     </div>
                 </nav>
             </header>
-            <main className="dark:bg-[#0a0a0a]">
-                <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white dark:bg-[#0a0a0a]">
+            <main className="bg-[#0a0a0a]">
+                <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white bg-[#0a0a0a]">
                     <div className="container max-w-[960px] flex-col py-8 items-center justify-center text-center">
                         <div className="logo">
                             <Link href={route('home')}>
-                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear  relative bottom-4 animate-in mb-6 w-auto dark:invert h-[50px] mx-auto" />
+                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear  relative bottom-4 animate-in mb-6 w-auto h-[50px] mx-auto" />
                                 <img
                                     src="/images/logo.svg"
                                     alt="Familiehjælp Logo"
-                                    className="mb-6 w-auto dark:invert h-[100px] mx-auto"
+                                    className="mb-6 w-auto h-[100px] mx-auto"
                                 />
                             </Link>
                         </div>
@@ -40,8 +42,9 @@ const { auth, name } = usePage<SharedData>().props;
                         </div>
                     </div>
                 </div>
+                {}
                 <div className="container-fluid bg-white max-w-full w-full">
-                    <div className="container max-w-[960px] px-4 py-8 mx-auto">
+                    <div className="container max-w-[960px] px-4 py-8 mx-auto text-black">
                         <p className="mt-6 text-lg font-normal">
                             Nogle oplevelser ændrer livet fra det ene øjeblik til det andet. At miste et barn — uanset hvor langt man er i graviditeten — er en sorg, der kan være svær at sætte ord på. Det er en tid fyldt med følelser, spørgsmål og beslutninger, som man aldrig havde forestillet sig at skulle tage.
                         </p>

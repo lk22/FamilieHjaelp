@@ -23,7 +23,7 @@ Route::get('/onboarding/complete', [OnboardingController::class, 'completed'])->
 Route::post('/onboarding', [OnboardingController::class, 'submitStep'])->name('onboarding.step.submit');
 Route::post('/onboarding/complete', [OnboardingController::class, 'complete'])->name('onboarding.complete');
 
-Route::get('/profile/overview', [ProfileOverviewController::class, 'overview'])->name('profile.home');
+Route::get('/profile/overview', [ProfileOverviewController::class, 'index'])->name('profile.home');
 
 Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('onboarding.process.complete');
 
