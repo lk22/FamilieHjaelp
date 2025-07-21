@@ -81,7 +81,7 @@ export default function OnboardingStepThreeForm() {
             <div className="container max-w-[960px] px-4 py-8 mx-auto">
                 <div className="grid gap-6">
                     <div className="grid gap-4">
-                        <div className="flex pb-4 flex-col justify-end align-center">
+                        <div className="flex pb-4 flex-col justify-end align-center text-blue-900">
                             <div className="flex pb-4 flex-row-reverse justify-end">
                                 <Label htmlFor="alone_status" className="text-xl">Jeg har en partner</Label>
                                 <Checkbox id="is_not_alone" checked={data.checks.includes('is_not_alone') || currentStepData?.stepThree?.checks.includes('is_not_alone')}

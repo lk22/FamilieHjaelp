@@ -15,6 +15,7 @@ enum RedirectRoute: string
 {
     case DEFAULT_REDIRECT_ROUTE = 'user.overview';
     case GETTING_STARTED_REDIRECT_ROUTE = 'getting-started';
+    // case ONBOARDING_COMPLETED_REDIRECT_ROUTE = 'onboarding.complete';
 }
 
 class AuthenticatedSessionController extends Controller
@@ -39,9 +40,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $is_onboarded = $request->onboarding_completed ?? false;
+
         // if the user is not onboarded, redirect to the getting started page
-        if ( ! Auth::user()->isOnboarded() ) {
+        if ( ! $is_onboarded ) {
             return redirect()->intended(route(RedirectRoute::GETTING_STARTED_REDIRECT_ROUTE, absolute: false));
+        }
+
+        if ( $request->redirect_to ) {
+            return redirect()->intended(route($request->redirect_to, absolute: false));
         }
 
         // if the user is onboarded, redirect to the default route

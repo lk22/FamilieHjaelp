@@ -19,7 +19,7 @@ export default function OnboardingStepSixForm() {
     const currentStepData = getCurrentStepData(6);
     const isCompleted = isStepCompleted(6);
 
-    const { data, setData, processing } = useForm<{
+    const { data, setData, processing, post, errors } = useForm<{
         step: number;
         checks: string[];
         other: string;
@@ -44,6 +44,11 @@ export default function OnboardingStepSixForm() {
         });
 
         completeOnboarding();
+        post(route('onboarding.step.submit', { _query: { step: 'last' } }), {
+            onError: () => {
+                console.error("Error submitting step:", errors);
+            },
+        });
     };
 
     /**
@@ -78,7 +83,7 @@ export default function OnboardingStepSixForm() {
             <div className="container max-w-[960px] px-4 py-8 mx-auto">
                 <div className="grid gap-6">
                     <div className="grid gap-4">
-                        <div className="flex pb-4 flex-col justify-end align-center">
+                        <div className="flex pb-4 flex-col justify-end align-center text-blue-900">
                             <Label htmlFor="feeling_status" className="text-xl"></Label>
                             <div className="flex pb-4 flex-row-reverse justify-end">
                                 <Label htmlFor="sad" className="text-xl">

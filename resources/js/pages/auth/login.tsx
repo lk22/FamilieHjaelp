@@ -10,10 +10,21 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 
+import { useQueryParams } from '@/lib/utils';
+
+type URLParams = {
+    onboarding_completed: boolean;
+    redirect_to: string;
+}
+
 type LoginForm = {
     email: string;
     password: string;
     remember: boolean;
+
+    // query parameter types
+    onboarding_completed?: number | boolean;
+    redirect_to?: string;
 };
 
 interface LoginProps {
@@ -22,14 +33,27 @@ interface LoginProps {
 }
 
 export default function Login({ status, canResetPassword }: LoginProps) {
+    const { queryParams } = useQueryParams<URLParams>();
     const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
         email: '',
         password: '',
         remember: false,
+        onboarding_completed: 0,
+        redirect_to: ''
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+
+        console.log('Submitting login form with data:', data);
+        if ( queryParams.onboarding_completed ) {
+            data.onboarding_completed = queryParams.onboarding_completed ? 1 : 0;
+        }
+
+        if ( queryParams.redirect_to ) {
+            data.redirect_to = queryParams.redirect_to;
+        }
+
         post(route('login'), {
             onFinish: () => reset('password'),
         });

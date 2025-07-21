@@ -50,7 +50,8 @@ class OnboardingController extends Controller
     
     /**
      * Handle the submission of an onboarding step.
-     *
+     * TODO: refactor this method to handle the step submission logic more cleanly.
+     * 
      * @param Request $request
      * @return Response|RedirectResponse
      */
@@ -58,7 +59,7 @@ class OnboardingController extends Controller
     {
         // Get step from query parameter or request input
         $currentStep = $request->query('step') ?? $request->input('step');
-        // dd($currentStep);
+
         $completedSteps = session()->get('onboarding_data.completed_steps', []);
 
         if (!$currentStep) {
@@ -75,11 +76,6 @@ class OnboardingController extends Controller
         $nextStep = $currentStep + 1;
         $formattedCurrentStep = $this->formatStepNumberToString($currentStep);
         $formattedNextStep = $this->formatStepNumberToString($nextStep);
-        
-        // check if the current step is already completed
-        // if ( in_array($currentStep, $completedSteps) ) {
-        //     return redirect()->route('onboarding.step', ['step' => $formattedCurrentStep])->with('error', 'This step has already been completed. Please proceed to the next step.');
-        // }
 
         if ( ! session()->has('onboarding_data.completed_steps') ) {
             session()->put('onboarding_data.completed_steps', []);
@@ -87,6 +83,7 @@ class OnboardingController extends Controller
 
         // get current step state from session
         $currentStepData = session()->get('onboarding_data.data.steps.' . $currentStep, []);
+
         // check if the current step data is already completed
         // update the current step data with the request data
         $currentStepData = [

@@ -70,6 +70,11 @@ export default function OnboardingStepFourForm() {
         });
     }
 
+    /**
+     * Returns the formatted date value for the input field
+     * @description Formats the date value for the datetime-local input field.
+     * @returns 
+     */
     const getFormattedDateValue = () => {
         if (currentStepData.stepFour?.situation_date) {
             return new Date(currentStepData.stepFour.situation_date).toISOString().slice(0, 16);
@@ -82,7 +87,7 @@ export default function OnboardingStepFourForm() {
             <div className="container max-w-[960px] px-4 py-8 mx-auto">
                 <div className="grid gap-6">
                     <div className="grid gap-4">
-                        <div className="flex pb-4 flex-col justify-end align-center">
+                        <div className="flex pb-4 flex-col justify-end align-center text-blue-900">
                             <Label htmlFor="situation_date" className="flex items-center text-xl">Angiv dato</Label>
                             <input
                                 type="datetime-local"

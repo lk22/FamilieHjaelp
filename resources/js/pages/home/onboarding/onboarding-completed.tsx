@@ -3,8 +3,8 @@ import { Head, Link, usePage} from '@inertiajs/react';
 
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import {useOnboarding} from '@/contexts/OnboardingContext';
+import { type SharedData } from '@/types';
 
-import { ApiClient } from '@/lib/apiClient';
 
 interface CompletedMessageProps {
     name: string;
@@ -22,7 +22,8 @@ interface LoadingProgressSteps {
 }
 
 const OnboardingCompletedContent = () => {
-    const { auth } = usePage().props;
+    const { auth } = usePage<SharedData>().props;
+    console.log({ auth });
     const { onboardingState, getCurrentStepData } = useOnboarding();
     const name = getCurrentStepData(1)?.stepOne?.name || 'Familiehjælp';
 
@@ -31,11 +32,9 @@ const OnboardingCompletedContent = () => {
         status: ''
     });
     const [ loading, setLoading ] = useState(true);
-    const [loadingPercenttage, setLoadingPercentage] = useState(0);
+    const [loadingPercentage, setLoadingPercentage] = useState(0);
 
     const postOnboardingData = useCallback(async () => {
-
-        const apiClient = new ApiClient();
 
         const steps: LoadingProgressSteps[] = [
             {
@@ -149,7 +148,7 @@ const OnboardingCompletedContent = () => {
 
     const updateLoadingPercentage = useCallback((percentage: number) => {
         setLoadingPercentage(percentage);
-    }, [loadingPercenttage]);
+    }, [loadingPercentage]);
 
     // Call the post function when the component mounts
     useEffect(() => {
@@ -189,7 +188,7 @@ const OnboardingCompletedContent = () => {
                                 <h1 className="text-3xl">Behandler dine svar...</h1>
                                 <p className="mt-2 text-xl">{response.status}</p>
                             </div>
-                            <LoadingProgressBar percentage={loadingPercenttage} />
+                            <LoadingProgressBar percentage={loadingPercentage} />
                         </>
                     )}
                     {!loading && (
@@ -204,7 +203,7 @@ const OnboardingCompletedContent = () => {
 }
 
 const CompletedMessage = ({name}: CompletedMessageProps) => {
-    const { auth } = usePage().props;
+    const { auth } = usePage<SharedData>().props;
     console.log(auth)
 
     const isAuthenticated = auth?.user !== undefined && auth?.user !== null;
@@ -224,6 +223,13 @@ const CompletedMessage = ({name}: CompletedMessageProps) => {
                             'redirect_to': 'onboarding.complete' 
                         }})} className="mt-4 inline-block text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
                             Opret bruger
+                        </Link>
+
+                        <Link href={route('login', {'_query': {
+                            'onboarding_completed': true,
+                            'redirect_to': 'onboarding.complete'
+                        }})} className="mt-4 inline-block ml-3 text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
+                            Log ind
                         </Link>
                     </div>
                 ) : (
@@ -249,7 +255,7 @@ const LoadingProgressBar = ({ percentage }: { percentage: number }) => {
         width: `${percentage}%`,
         height: '100%',
         backgroundColor: '@apply bg-blue-900',
-        transition: 'width 0.3s ease-in-out',
+        transition: 'width 0.5s ease-in-out',
     }
 
     return (

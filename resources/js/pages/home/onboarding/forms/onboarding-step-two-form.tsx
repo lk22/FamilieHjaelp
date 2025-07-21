@@ -99,7 +99,7 @@ export default function OnboardingStepTwoForm() {
             <div className="container max-w-[960px] px-4 py-8 mx-auto">
                 <div className="grid gap-6">
                     <div className="grid gap-4">
-                        <div className="flex pb-4 flex-row-reverse justify-end">
+                        <div className="flex pb-4 flex-row-reverse justify-end text-blue-900">
                             <Label htmlFor="situtation" className="text-2xl">Jeg har oplevet en dødsfødsel</Label>
                             <Checkbox 
                                 id="situtation" 
@@ -111,7 +111,7 @@ export default function OnboardingStepTwoForm() {
                                 className="mr-4"
                             />
                         </div>
-                        <div className="flex pb-4 flex-row-reverse justify-end">
+                        <div className="flex pb-4 flex-row-reverse justify-end text-blue-900">
                             <Label htmlFor="abort" className="text-2xl">Jeg har oplevet en abort</Label>
                             <Checkbox 
                                 id="abort" 
@@ -123,7 +123,7 @@ export default function OnboardingStepTwoForm() {
                                 className="mr-4"
                             />
                         </div>
-                        <div className="pb-4 flex-row-reverse justify-end hidden">
+                        <div className="pb-4 flex-row-reverse justify-end hidden text-blue-900">
                             <Label htmlFor="graviditet" className="text-2xl">Jeg har oplevet en almindelig graviditet</Label>
                             <Checkbox 
                                 id="graviditet" 
@@ -135,7 +135,7 @@ export default function OnboardingStepTwoForm() {
                                 className="mr-4"
                             />
                         </div>
-                        <div className="flex pb-4 flex-row-reverse justify-end">
+                        <div className="flex pb-4 flex-row-reverse justify-end text-blue-900">
                         <Label htmlFor="other" className="text-2xl">Jeg har oplevet en anden situation</Label>
                         <Checkbox 
                             id="other" 
@@ -152,7 +152,7 @@ export default function OnboardingStepTwoForm() {
                             placeholder="Beskriv venligst"
                             onChange={(e) => handleTextChange(e)}
                             value={data.otherDescription || currentStepData.stepTwo?.otherDescription || ''}
-                            className="mt-2"
+                            className="mt-2 text-blue-900"
                             disabled={!data.checks.includes('other')}
                             isDebuggable={false}
                         />

@@ -59,7 +59,7 @@ export default function OnboardingStepOneForm() {
                             autoFocus
                             value={data.name || currentStepData.stepOne?.name || ''}
                             onChange={(e) => setData('name', e.target.value)}
-                            className="p-6 border"
+                            className="p-6 border text-black rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
                         <InputError message={errors.name} />
                     </div>

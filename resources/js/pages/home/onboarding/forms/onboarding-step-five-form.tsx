@@ -40,7 +40,7 @@ export default function OnboardingStepFiveForm() {
     /**
      * Handles notifications based on the pregnancy week and situation
      */
-    const handlePregnancyWeekNotification = (): JSX.Element => {
+    const handlePregnancyWeekNotification = () => {
         // const situation = getCurrentStepData(2).stepTwo?.checks || [];
         // console.log('Current situation checks:', situation);
         const pregnancyWeek = data.pregnancy_week_number;
@@ -98,7 +98,7 @@ export default function OnboardingStepFiveForm() {
             <div className="container max-w-[960px] px-4 py-8 mx-auto">
                 <div className="grid gap-6">
                     <div className="grid gap-4">
-                        <div className="flex pb-4 flex-col justify-end align-center">
+                        <div className="flex pb-4 flex-col justify-end align-center text-blue-900">
                             {handlePregnancyWeekLabel()}
                             <span className="flex items-center gap-4 mt-4 flex-row">
                                 <span className="font-bold text-lg">graviditetsuge: </span> 

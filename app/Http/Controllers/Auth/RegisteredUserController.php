@@ -64,9 +64,8 @@ class RegisteredUserController extends Controller
 
         return redirect()->intended(
             route(
-                $this->intendedRedirectRoute, 
-                absolute: 
-                false
+                $this->intendedRedirectRoute,
+                absolute: true
             )
         );
     }
