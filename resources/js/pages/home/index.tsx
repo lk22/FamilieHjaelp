@@ -33,7 +33,7 @@ export default function Welcome() {
                         <nav className="flex mt-8 items-center justify-center gap-4">
                             {auth.user ? (
                                 <Link
-                                    href={route('dashboard')}
+                                    href={route('profile.home')}
                                     className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-xl leading-normal text-white hover:border-white dark:border-[#3E3E3A]"
                                 >
                                     Dashboard

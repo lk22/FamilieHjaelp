@@ -1,9 +1,10 @@
 // Libraries
-import {useEffect, useState, useCallback} from 'react';
-import {Link, usePage} from '@inertiajs/react';
+import { usePage, Link } from '@inertiajs/react';
 import { type SharedData } from '@/types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
+
+import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
 
 // Layout 
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
@@ -13,54 +14,81 @@ import InformationSlide from '@/components/Onboarding/InformationSlide';
 
 interface SlideProperties {
     title: string;
+    description: string;
     link: string;
+    backgroundColor: string;
 }
 
-export default function ProfileOverviewHome() {
+const ProfileOverviewHomeContent = () => {
+    const { getCurrentStepData } = useOnboarding();
     const { auth } = usePage<SharedData>().props;
 
-    const slides:SlideProperties[] = [
+    const currentStepData = getCurrentStepData(2);
+
+    console.log('Current Step Data:', currentStepData);
+
+    const slides: SlideProperties[] = [
         {
-            title: 'Slide 1',
-            link: '/slide-1'
+            title: 'Sorgoverlov',
+            description: 'Har du mistet en nær pårørende? Få hjælp til at håndtere sorg og tab.',
+            link: route('profile.info.page', { page: 'sorgoverlov' }),
+            backgroundColor: 'bg-[#00027C]'
         },
         {
-            title: 'Slide 2',
-            link: '/slide-2'
+            title: 'Barselsoverlov',
+            description: 'Har du brug for information om barselsoverlov? Få hjælp til at forstå dine rettigheder og muligheder.',
+            link: route('profile.info.page', { page: 'barselsoverlov' }),
+            backgroundColor: 'bg-gradient-to-r from-[#004EA7] to-[#007BFF]'
         },
         {
             title: 'Slide 3',
-            link: '/slide-3'
+            description: 'This is the third slide description.',
+            link: route('profile.info.page', { page: 'slide-3' }),
+            backgroundColor: 'bg-gradient-to-r from-red-800 to-red-600'
         }
     ]
 
     return (
         <ProfileOverviewLayout auth={auth}>
             <div>
-                <Swiper spaceBetween={50} slidesPerView={1}>
+                <h1 className="text-2xl text-blue-800 font-bold mb-4">Hjælp til at komme videre</h1>
+                <p className="mb-4">
+                    Vi er kede af jeres situation, det kan være svært at komme videre alene, Vi kan dirigere dig hurtigt videre til den nødvendige hjælp men vi skal bruge din hjælp.
+                </p>
+                <Swiper spaceBetween={25} slidesPerView={1.5}>
                     {slides && (
                         <>
-                        {slides.map((slide, index) => (
-                            <SwiperSlide key={index}>
-                                <InformationSlide title={slide.title} link={slide.link} />
-                            </SwiperSlide>
-                        ))}
+                            {slides.map((slide, index) => (
+                                <SwiperSlide key={index}>
+                                    <InformationSlide
+                                        title={slide.title}
+                                        link={slide.link}
+                                        description={slide.description}
+                                        backgroundColor={slide.backgroundColor}
+                                    />
+                                </SwiperSlide>
+                            ))}
                         </>
                     )}
-                    <SwiperSlide>
-                        <InformationSlide title="Slide 1" link="/slide-1" />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <InformationSlide title="Slide 2" link="/slide-2" />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <InformationSlide title="Slide 3" link="/slide-3" />
-                    </SwiperSlide>
                 </Swiper>
-                <h1>Profile Overview Home</h1>
-                <p>Welcome, {auth.user.name}!</p>
-                <p>Your email: {auth.user.email}</p>
+                
+                <div className="home-tasks-overview">
+                    <h2>Ting og huske</h2>
+                    <p>Se alle de ting man skal huske når man får / mister et barn</p>
+                    <img src="/images/tasks_graphics.svg" alt="tasks" />
+                    <Link href={route('profile.todos')} className="text-blue-500 hover:underline">
+                        Gå til opgaver
+                    </Link>
+                </div>
             </div>
         </ProfileOverviewLayout>
+    );
+}
+
+export default function ProfileOverviewHome() {
+    return (
+        <OnboardingProvider>
+            <ProfileOverviewHomeContent />
+        </OnboardingProvider>
     );
 }

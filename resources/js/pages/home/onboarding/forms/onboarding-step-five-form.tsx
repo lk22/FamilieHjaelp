@@ -1,5 +1,5 @@
 
-import { useForm, usePage, Link } from "@inertiajs/react";
+import { useForm, Link } from "@inertiajs/react";
 import { JSX } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";

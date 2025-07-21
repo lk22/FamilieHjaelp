@@ -16,13 +16,12 @@ class CompleteOnboardingController extends Controller
      */
     public function __invoke(CompleteOnboardingRequest $request): JsonResponse
     {
-        // return response()->json($request['steps'][0]['progress']['isCompleted'] ?? true, 200);
         $user = $request->user();
         $steps = $request->input('steps', []);
         $completedSteps = $request->input('completed_steps', []);
         $pregnancy_week = $request->input('steps.4.data.stepFive.pregnancy_week_number', null);
         $situation_date = $request->input('steps.3.data.stepFour.situation_date');
-        
+
         if ( ! $user ) {
             return response()->json([
                 'message' => 'Unauthorized, please log in to complete onboarding.'
@@ -99,7 +98,9 @@ class CompleteOnboardingController extends Controller
         $pregnancy_week = $request->input('steps.4.data.stepFive.pregnancy_week_number', null);
         $situation_date = $request->input('steps.3.data.stepFour.situation_date');
 
-        $existingTodos = $request->user()->todos()->get();
+        $existingTodos = $request->user()->todos()->get(); // returns null ?
+
+        dd($user);
 
         if ( ! $existingTodos->isEmpty() ) {
             return response()->json([
@@ -144,7 +145,7 @@ class CompleteOnboardingController extends Controller
             return [];
         }
 
-        if ( in_array('deathborn', $answers) || in_array('abort', $answers) && $pregnancy_week > 22 ) {
+        if ( in_array('deathborn', $answers) || in_array('abort', $answers) && $pregnancy_week >= 22 ) {
             return [
                 [
                     'title' => 'Anmeldelse af dødfødsel',

@@ -9,13 +9,35 @@ use Inertia\Response;
 
 class ProfileOverviewController extends Controller
 {
+    /**
+     * Show the profile overview home page.
+     * 
+     * @return Response
+     */
     public function index(): Response
     {
         return Inertia::render('Profile/Overview/Home');
     }
 
+    /**
+     * Show the profile overview information page.
+     * 
+     * @param  string  $page
+     * @param  string|null  $infoPage
+     * @return Response
+     */
+    public function show(string $page = 'home'): Response
+    {
+        return Inertia::render('Profile/Overview/info/info-' . lcfirst($page));
+    }
+
+    /**
+     * Show the todos page in the profile overview.
+     * 
+     * @return Response
+     */
     public function todos(): Response
     {
-        return Inertia::render('Profile/Overview/Todos');
+        return Inertia::render('Profile/Overview/todos');
     }
 }

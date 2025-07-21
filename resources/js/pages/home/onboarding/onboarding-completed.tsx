@@ -26,7 +26,7 @@ const OnboardingCompletedContent = () => {
     console.log({ auth });
     const { onboardingState, getCurrentStepData } = useOnboarding();
     const name = getCurrentStepData(1)?.stepOne?.name || 'Familiehjælp';
-
+    console.log('Onboarding State:', onboardingState);
     const [ response, setResponse ] = useState<LoadingProgressResponse>({
         message: '',
         status: ''

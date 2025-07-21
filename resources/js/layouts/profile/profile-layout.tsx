@@ -1,14 +1,15 @@
-import {Link, Head, usePage} from '@inertiajs/react'
-import { type SharedData } from '@/types';
+import {Link, Head} from '@inertiajs/react'
+import { JSX } from 'react';
 
 interface ProfileOverviewLayoutProps {
     children: React.ReactNode;
     auth: {
         user: { name: string; email: string; }
     }
+    headline?: string | JSX.Element[];
 }
 
-export default function ProfileOverviewLayout({ children, auth }: ProfileOverviewLayoutProps) {
+export default function ProfileOverviewLayout({ children, auth, headline }: ProfileOverviewLayoutProps) {
     return (
         <div className="bg-white text-gray-900 min-h-screen">
             <Head title="Profile Overview" />
@@ -20,21 +21,28 @@ export default function ProfileOverviewLayout({ children, auth }: ProfileOvervie
                             <span className="text-xl font-bold">Familiehjælp</span>
                         </Link>
                     </div>
-                    <h1>Velkommen {auth.user.name}</h1>
                     <nav className="flex space-x-4">
                         <Link href={route('profile.home')} className="text-white">
-                            Home
+                            Hjem
                         </Link>
                         <Link href={route('profile.todos')} className="text-white">
-                            Settings
+                            Opgaver
                         </Link>
+                        {/* <Link href={route('profile.settings')} className="text-white">
+                            Indstillinger
+                        </Link> */}
+                        {/* <Link href={route('profile.logout')} method="post" className="text-white">
+                            Log ud
+                        </Link> */}
                     </nav>
                 </div>
             </header>
-            <main>{children}</main>
-            <footer>
-                <Link href="/">Back to Home</Link>
-            </footer>
+            <main className="container mx-auto px-4 py-8">
+                {headline ? (
+                    <h1 className="text-2xl font-bold mb-4">{headline}</h1>
+                ) : <h1 className="text-2xl font-bold mb-4">Velkommen {auth.user.name}</h1>}
+                {children}
+            </main>
         </div>
     );
 }
