@@ -5,7 +5,6 @@ import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import {useOnboarding} from '@/contexts/OnboardingContext';
 import { type SharedData } from '@/types';
 
-
 interface CompletedMessageProps {
     name: string;
 }
@@ -23,14 +22,15 @@ interface LoadingProgressSteps {
 
 const OnboardingCompletedContent = () => {
     const { auth } = usePage<SharedData>().props;
-    console.log({ auth });
     const { onboardingState, getCurrentStepData } = useOnboarding();
     const name = getCurrentStepData(1)?.stepOne?.name || 'Familiehjælp';
+
     console.log('Onboarding State:', onboardingState);
     const [ response, setResponse ] = useState<LoadingProgressResponse>({
         message: '',
         status: ''
     });
+    
     const [ loading, setLoading ] = useState(true);
     const [loadingPercentage, setLoadingPercentage] = useState(0);
 
@@ -144,11 +144,11 @@ const OnboardingCompletedContent = () => {
             updateLoadingPercentage(100);
         }
 
-    }, [onboardingState]);
+    }, [auth?.user, onboardingState]);
 
     const updateLoadingPercentage = useCallback((percentage: number) => {
         setLoadingPercentage(percentage);
-    }, [loadingPercentage]);
+    }, []);
 
     // Call the post function when the component mounts
     useEffect(() => {

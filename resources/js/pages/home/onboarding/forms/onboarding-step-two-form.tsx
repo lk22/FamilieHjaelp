@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, Link, router } from "@inertiajs/react";
 
 import { Button } from "@/components/ui/button";
-import { TextArea } from "@/components/ui/TextArea";
+import { TextArea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
@@ -107,7 +107,7 @@ export default function OnboardingStepTwoForm() {
                                     data.checks.includes('deathborn') || 
                                     currentStepData.stepTwo?.checks.includes('deathborn')
                                 }
-                                onCheckedChange={(checked) => handleCheckChanges('deathborn', checked)}
+                                onCheckedChange={(checked) => handleCheckChanges('deathborn', checked === true)}
                                 className="mr-4"
                             />
                         </div>
@@ -119,7 +119,7 @@ export default function OnboardingStepTwoForm() {
                                     data.checks.includes('abort') || 
                                     currentStepData.stepTwo?.checks.includes('abort')
                                 }
-                                onCheckedChange={(checked) => handleCheckChanges('abort', checked)}
+                                onCheckedChange={(checked) => handleCheckChanges('abort', checked === true)}
                                 className="mr-4"
                             />
                         </div>
@@ -143,7 +143,7 @@ export default function OnboardingStepTwoForm() {
                                 data.checks.includes('other') || 
                                 currentStepData.stepTwo?.checks.includes('other')
                             }
-                            onCheckedChange={(checked) => handleCheckChanges('other', checked)}
+                            onCheckedChange={(checked) => handleCheckChanges('other', checked === true)}
                             className="mr-4"
                         />
                         </div>

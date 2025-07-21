@@ -10,7 +10,12 @@ interface ProfileOverviewLayoutProps {
     headline?: string | JSX.Element[];
 }
 
-export default function ProfileOverviewLayout({ children, auth, title, headline }: ProfileOverviewLayoutProps) {
+export default function ProfileOverviewLayout({ 
+    children, 
+    auth, 
+    title, 
+    headline 
+}: ProfileOverviewLayoutProps) {
     return (
         <div className="bg-white text-gray-900 min-h-screen">
             <Head title={title} />

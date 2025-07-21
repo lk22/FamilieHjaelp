@@ -149,13 +149,24 @@ class InertiaCreatePage extends Command
         $componentArguments = $this->buildPropertyParametersString($name, $args);
         $interfaceDefinition = $this->buildPropertyParametersInterface($name, $args);
 
+        // if the interface definition is empty, we will not include it in the stub
+        if (empty($interfaceDefinition['interfaceDefinition']) && empty($interfaceDefinition['interfaceName'])) {
+            $interfaceDefinition['interfaceDefinition'] = '';
+            $interfaceDefinition['interfaceName'] = '';
+            $functionArguments = '{}';
+        }
+
+        $functionArguments = (!empty($interfaceDefinition['interfaceName']) || !empty($interfaceDefinition['interfaceDefinition']))
+            ? "{$componentArguments}: {$interfaceDefinition['interfaceName']}"
+            : "";
+
         $stub = "
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
 {$interfaceDefinition['interfaceDefinition']}
 
-export default function {$name}({$componentArguments}: " . $interfaceDefinition['interfaceName'] . ") {
+export default function {$name}({$functionArguments}) {
     const { props } = usePage();
 
     return (
