@@ -38,6 +38,9 @@ class ProfileOverviewController extends Controller
      */
     public function todos(): Response
     {
-        return Inertia::render('Profile/Overview/todos');
+        $todos = auth()->user()->todos()->get();
+        return Inertia::render('Profile/Overview/todos', [
+            'todos' => $todos
+        ]);
     }
 }

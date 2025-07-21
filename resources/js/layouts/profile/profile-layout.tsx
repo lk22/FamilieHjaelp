@@ -6,13 +6,14 @@ interface ProfileOverviewLayoutProps {
     auth: {
         user: { name: string; email: string; }
     }
+    title: string;
     headline?: string | JSX.Element[];
 }
 
-export default function ProfileOverviewLayout({ children, auth, headline }: ProfileOverviewLayoutProps) {
+export default function ProfileOverviewLayout({ children, auth, title, headline }: ProfileOverviewLayoutProps) {
     return (
         <div className="bg-white text-gray-900 min-h-screen">
-            <Head title="Profile Overview" />
+            <Head title={title} />
             <header className="w-full p-4 flex items-center justify-between bg-blue-600 text-white">
                 <div className="container w-full mx-auto flex justify-between items-center">
                     <div className="logo">
@@ -28,12 +29,6 @@ export default function ProfileOverviewLayout({ children, auth, headline }: Prof
                         <Link href={route('profile.todos')} className="text-white">
                             Opgaver
                         </Link>
-                        {/* <Link href={route('profile.settings')} className="text-white">
-                            Indstillinger
-                        </Link> */}
-                        {/* <Link href={route('profile.logout')} method="post" className="text-white">
-                            Log ud
-                        </Link> */}
                     </nav>
                 </div>
             </header>

@@ -9,7 +9,7 @@ use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileOverviewController;
 use App\Http\Controllers\CompleteOnboardingController;
 
-Auth::logout(2);
+// Auth::logout(2);
 // Auth::loginUsingId(1);
 
 Route::get('/', [PageController::class, 'home'])->name('home');
