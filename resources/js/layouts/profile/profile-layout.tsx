@@ -1,5 +1,6 @@
-import {Link, Head} from '@inertiajs/react'
-import { JSX } from 'react';
+import React from 'react';
+import {Link, Head} from '@inertiajs/react';
+
 
 interface ProfileOverviewLayoutProps {
     children: React.ReactNode;

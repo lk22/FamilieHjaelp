@@ -15,11 +15,7 @@ class CheckAuthenticationMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ( ! $request->user() ) {
-            return redirect()
-                ->route('home')
-                ->with('error', 'You must be logged in to access this page.');
-        }
+
 
         return $next($request);
     }

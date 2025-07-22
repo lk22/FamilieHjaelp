@@ -4,6 +4,8 @@ import { type SharedData } from '@/types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 
+import {Skeleton} from '@/components/ui/skeleton';
+
 import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
 
 // Layout 
@@ -49,28 +51,34 @@ const ProfileOverviewHomeContent = () => {
     ]
 
     return (
-        <ProfileOverviewLayout auth={auth}>
+        <ProfileOverviewLayout
+            auth={auth}
+            title="Familiehjælp - Hjem"
+            headline={currentStepData?.headline || 'Velkommen til dit overblik'}
+        >
             <div>
                 <h1 className="text-2xl text-blue-800 font-bold mb-4">Hjælp til at komme videre</h1>
                 <p className="mb-4">
                     Vi er kede af jeres situation, det kan være svært at komme videre alene, Vi kan dirigere dig hurtigt videre til den nødvendige hjælp men vi skal bruge din hjælp.
                 </p>
-                <Swiper spaceBetween={25} slidesPerView={1.5}>
-                    {slides && (
-                        <>
-                            {slides.map((slide, index) => (
-                                <SwiperSlide key={index}>
-                                    <InformationSlide
-                                        title={slide.title}
-                                        link={slide.link}
-                                        description={slide.description}
-                                        backgroundColor={slide.backgroundColor}
-                                    />
-                                </SwiperSlide>
-                            ))}
-                        </>
-                    )}
-                </Swiper>
+                <Skeleton className="w-full h-64 mb-4">
+                    <Swiper spaceBetween={25} slidesPerView={1.5}>
+                        {slides && (
+                            <>
+                                {slides.map((slide, index) => (
+                                    <SwiperSlide key={index}>
+                                        <InformationSlide
+                                            title={slide.title}
+                                            link={slide.link}
+                                            description={slide.description}
+                                            backgroundColor={slide.backgroundColor}
+                                        />
+                                    </SwiperSlide>
+                                ))}
+                            </>
+                        )}
+                    </Swiper>
+                </Skeleton>
                 
                 <div className="home-tasks-overview">
                     <h2>Ting og huske</h2>

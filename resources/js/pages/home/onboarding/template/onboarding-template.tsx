@@ -47,7 +47,7 @@ export default function OnboardingTemplate({
                         </div>
                     </div>
                 </div>
-                <div className="container-fluid">
+                <div className="container-fluid h-screen">
                     {children}
                 </div>
             </main>
