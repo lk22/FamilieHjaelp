@@ -52,36 +52,22 @@ const ProfileOverviewHomeContent = () => {
 
     return (
         <ProfileOverviewLayout
-            auth={auth}
             title="Familiehjælp - Hjem"
-            headline={currentStepData?.headline || 'Velkommen til dit overblik'}
+            headline={<>
+                <h1 className="text-4xl font-bold mb-4">
+                    <span className="text-blue-800">Velkommen {auth.user.name}</span>
+                    <span className="text-gray-600"> - Her er din oversigt</span>
+                </h1>
+            </>}
         >
             <div>
                 <h1 className="text-2xl text-blue-800 font-bold mb-4">Hjælp til at komme videre</h1>
-                <p className="mb-4">
+                <p className="mb-4 w-6/12">
                     Vi er kede af jeres situation, det kan være svært at komme videre alene, Vi kan dirigere dig hurtigt videre til den nødvendige hjælp men vi skal bruge din hjælp.
                 </p>
-                <Skeleton className="w-full h-64 mb-4">
-                    <Swiper spaceBetween={25} slidesPerView={1.5}>
-                        {slides && (
-                            <>
-                                {slides.map((slide, index) => (
-                                    <SwiperSlide key={index}>
-                                        <InformationSlide
-                                            title={slide.title}
-                                            link={slide.link}
-                                            description={slide.description}
-                                            backgroundColor={slide.backgroundColor}
-                                        />
-                                    </SwiperSlide>
-                                ))}
-                            </>
-                        )}
-                    </Swiper>
-                </Skeleton>
                 
-                <div className="home-tasks-overview">
-                    <h2>Ting og huske</h2>
+                <div className="home-tasks-overview mb-4">
+                    <h2 className='text-xl text-blue-900 font-semibold mb-2'>Ting og huske</h2>
                     <p>Se alle de ting man skal huske når man får / mister et barn</p>
                     <img src="/images/tasks_graphics.svg" alt="tasks" />
                     <Link href={route('profile.todos')} className="text-blue-500 hover:underline">
@@ -89,6 +75,22 @@ const ProfileOverviewHomeContent = () => {
                     </Link>
                 </div>
             </div>
+            <Swiper spaceBetween={25} slidesPerView={1.5}>
+                {slides && (
+                    <>
+                        {slides.map((slide, index) => (
+                            <SwiperSlide key={index}>
+                                <InformationSlide
+                                    title={slide.title}
+                                    link={slide.link}
+                                    description={slide.description}
+                                    backgroundColor={slide.backgroundColor}
+                                />
+                            </SwiperSlide>
+                        ))}
+                    </>
+                )}
+            </Swiper>
         </ProfileOverviewLayout>
     );
 }

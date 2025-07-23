@@ -1,22 +1,36 @@
-import React from 'react';
-import {Link, Head} from '@inertiajs/react';
-
+import React, {JSX} from 'react';
+import {Link, Head, usePage, router} from '@inertiajs/react';
+import {type SharedData} from '@/types';
 
 interface ProfileOverviewLayoutProps {
     children: React.ReactNode;
-    auth: {
-        user: { name: string; email: string; }
-    }
     title: string;
-    headline?: string | JSX.Element[];
+    headline?: string | JSX.Element;
 }
+
 
 export default function ProfileOverviewLayout({ 
     children, 
-    auth, 
-    title, 
+    title,
     headline 
 }: ProfileOverviewLayoutProps) {
+    const { auth } = usePage<SharedData>().props;
+
+
+    const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        if (confirm('Er du sikker på, at du vil logge ud?')) {
+            router.post(route('logout'));
+        }
+    }
+
+    const handlePageTitle = (): JSX.Element[] => {
+        if (headline) {
+            return [<h1 className="text-2xl font-bold mb-4">{headline}</h1>];
+        }
+        return [<h1 className="text-2xl font-bold mb-4">Velkommen {auth.user.name}</h1>];
+    }
+
     return (
         <div className="bg-white text-gray-900 min-h-screen">
             <Head title={title} />
@@ -28,6 +42,13 @@ export default function ProfileOverviewLayout({
                             <span className="text-xl font-bold">Familiehjælp</span>
                         </Link>
                     </div>
+                    {
+                        ! route().current('profile.home') && (
+                            <span className="text-sm text-gray-200 font-semibold">
+                                {title} - <Link href={route('profile.home')} className="text-white hover:underline font-bold">Gå tilbage</Link>
+                            </span>
+                        )
+                    }
                     <nav className="flex space-x-4">
                         <Link href={route('profile.home')} className="text-white">
                             Hjem
@@ -35,13 +56,19 @@ export default function ProfileOverviewLayout({
                         <Link href={route('profile.todos')} className="text-white">
                             Opgaver
                         </Link>
+                        <form method="POST" action={route('logout')} className="inline">
+                            <input type="hidden" name="_token" value={document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''} />
+                            <button>
+                                <span className="text-white hover:underline" onClick={handleLogout}>
+                                    Log ud
+                                </span>
+                            </button>
+                        </form>
                     </nav>
                 </div>
             </header>
             <main className="container mx-auto px-4 py-8">
-                {headline ? (
-                    <h1 className="text-2xl font-bold mb-4">{headline}</h1>
-                ) : <h1 className="text-2xl font-bold mb-4">Velkommen {auth.user.name}</h1>}
+                {headline && handlePageTitle()}
                 {children}
             </main>
         </div>

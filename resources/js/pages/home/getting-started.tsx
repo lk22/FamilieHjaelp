@@ -60,7 +60,6 @@ const GettingStartedContent = ({step}: {step: string}) => {
                         <p className="mt-6 text-lg font-normal">
                             Du finder råd og støtte til at navigere i den svære tid både praktisk og følelsesmæssigt.
                         </p>
-                         
                         <p className="mt-6 text-lg font-normal">
                             Du behøver ikke gå vejen alene. Her er der plads til dig, lige som du er, med det du bærer på.
                         </p>

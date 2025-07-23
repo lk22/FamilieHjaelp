@@ -2,7 +2,7 @@ import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
 export default function Welcome() {
-    const { auth } = usePage<SharedData>().props;
+    const { auth, flash } = usePage<SharedData>().props;
 
     return (
         <>
@@ -34,7 +34,7 @@ export default function Welcome() {
                             {auth.user ? (
                                 <Link
                                     href={route('profile.home')}
-                                    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-xl leading-normal text-white hover:border-white dark:border-[#3E3E3A]"
+                                    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-xl leading-normal text-white border-white hover:border-white"
                                 >
                                     Dashboard
                                 </Link>

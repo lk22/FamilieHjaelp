@@ -9,11 +9,15 @@ use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileOverviewController;
 use App\Http\Controllers\CompleteOnboardingController;
 
-// Auth::logout(2);
+// Auth::logout();
 // Auth::loginUsingId(1);
 
-Route::get('/', [PageController::class, 'home'])->name('home');
-Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started');
+Route::get('/', [PageController::class, 'home'])
+    ->name('home');
+
+Route::get('/getting-started', [PageController::class, 'gettingStarted'])
+    ->name('getting-started')
+    ->middleware('guest');
 
 /**
  * Onboarding routes
@@ -25,7 +29,8 @@ Route::post('/onboarding', [OnboardingController::class, 'submitStep'])->name('o
 Route::post('/onboarding/complete', [OnboardingController::class, 'complete'])->name('onboarding.completing');
 Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('onboarding.process.complete');
 
-Route::get('/profile/overview/', [ProfileOverviewController::class, 'show'])->name('profile.info.page');
+Route::get('/profile/overview/', [ProfileOverviewController::class, 'show'])->name('profile.home');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');

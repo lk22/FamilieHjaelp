@@ -13,9 +13,8 @@ use Inertia\Response;
 
 enum RedirectRoute: string
 {
-    case DEFAULT_REDIRECT_ROUTE = 'user.overview';
+    case DEFAULT_REDIRECT_ROUTE = 'profile.home';
     case GETTING_STARTED_REDIRECT_ROUTE = 'getting-started';
-    // case ONBOARDING_COMPLETED_REDIRECT_ROUTE = 'onboarding.complete';
 }
 
 class AuthenticatedSessionController extends Controller
@@ -42,9 +41,14 @@ class AuthenticatedSessionController extends Controller
 
         $is_onboarded = $request->onboarding_completed ?? false;
 
-        // if the user is not onboarded, redirect to the getting started page
-        if ( ! $is_onboarded ) {
-            return redirect()->intended(route(RedirectRoute::GETTING_STARTED_REDIRECT_ROUTE, absolute: false));
+        $authenticatedUser = auth()->user();
+
+        // if the authenticated user is not onboarded, redirect to the getting started page
+        if ( ! $is_onboarded && $authenticatedUser->has_completed_onboarding === false ) {
+            return redirect()->intended(route(
+                RedirectRoute::GETTING_STARTED_REDIRECT_ROUTE,
+                absolute: false
+            ));
         }
 
         if ( $request->redirect_to ) {

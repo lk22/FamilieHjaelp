@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
+use Illuminate\Auth\Access\Gate;
+
 use App\Models\Todo;
 
 class TodoApiController extends Controller
@@ -17,6 +19,8 @@ class TodoApiController extends Controller
      */
     public function toggle($id): JsonResponse
     {
+        Gate::authorize('update', Todo::class);
+
         $todo = Todo::find($id);     
         $todo->completed = !$todo->completed;
         $todo->save();

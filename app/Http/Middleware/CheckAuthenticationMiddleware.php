@@ -15,7 +15,11 @@ class CheckAuthenticationMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-
+        // check if current route requires authentication
+        if ( ! $request->user() || $request->route()->middleware('auth') ) {
+            // if user is not authenticated, redirect to home page
+            return redirect()->route('home')->with('error', 'You must be logged in to access this page.');
+        }
 
         return $next($request);
     }
