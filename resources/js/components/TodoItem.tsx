@@ -33,15 +33,14 @@ export default function TodoItem({
     
     return (
         <div className={`${classes}`} onClick={handleCompleteToggle}>
-            <div className="flex">
+            <div className="flex mb-4 p-8">
                 <div className="todo-meta">
-                    <h2>{title}</h2>
+                    <h2 className="text-xl font-semibold text-[#1d4ed8]">{title}</h2>
                     <p>{description}</p>
-                    <p>{completed ? "Completed" : "Not Completed"}</p>
-                    <p>Due Date: {due_date}</p>
+                    <p>Due Date: {due_date ? <span>{due_date}</span> : <span className="text-gray-500">No Due Date</span>}</p>
                 </div>
                 <div className="todo-actions">
-                    <ToggleTodoForm id={id} completed={completed} />
+                    <ToggleTodoForm id={id} is_completed={completed} />
                 </div>
             </div>
         </div>

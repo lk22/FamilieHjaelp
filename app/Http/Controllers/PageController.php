@@ -11,7 +11,7 @@ class PageController extends Controller
 {
     /**
      * Rendering the home page
-     *
+     *  
      * @return Response
      */
     public function home(): Response
@@ -27,7 +27,6 @@ class PageController extends Controller
     public function gettingStarted(): Response
     {
         $step = session()->get('onboarding_data.data.steps.0.step', 'one');
-        $step = "one";
         return Inertia::render('home/getting-started', [
             'step' => $step ? $step : 'one',
         ]);
