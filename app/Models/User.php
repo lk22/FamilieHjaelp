@@ -59,9 +59,14 @@ class User extends Authenticatable
      */
     public function isOnboarded(): bool
     {
-        return $this->onboarding_completed ?? false;
+        return $this->has_completed_onboarding ?? false;
     }
 
+    /**
+     * Get todos associated with the user.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Todo>
+     */
     public function todos(): HasMany
     {
         return $this->hasMany(Todo::class);

@@ -36,7 +36,7 @@ class Todo extends Model
         'user_id'
     ];
 
-    public function user(): BeloingsTo 
+    public function user(): BelongsTo 
     {
         return $this->belongsTo(User::class);
     }

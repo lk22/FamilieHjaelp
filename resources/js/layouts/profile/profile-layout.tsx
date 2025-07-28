@@ -16,7 +16,6 @@ export default function ProfileOverviewLayout({
 }: ProfileOverviewLayoutProps) {
     const { auth } = usePage<SharedData>().props;
 
-
     const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         if (confirm('Er du sikker på, at du vil logge ud?')) {
@@ -26,9 +25,10 @@ export default function ProfileOverviewLayout({
 
     const handlePageTitle = (): JSX.Element[] => {
         if (headline) {
-            return [<h1 className="text-2xl font-bold mb-4">{headline}</h1>];
+            return [<h1 className="text-4xl font-bold mb-4 text-blue-900 border-b-2 pb-2" >{headline}</h1>];
         }
-        return [<h1 className="text-2xl font-bold mb-4">Velkommen {auth.user.name}</h1>];
+        
+        return [<h1 className="text-4xl font-bold mb-4 text-blue-900">Velkommen {auth.user.name}</h1>];
     }
 
     return (

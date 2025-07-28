@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use Illuminate\Http\RedirectResponse;
+
 class ProfileOverviewController extends Controller
 {
     /**
@@ -14,8 +16,12 @@ class ProfileOverviewController extends Controller
      * 
      * @return Response
      */
-    public function index(): Response
+    public function index(): Response|RedirectResponse
     {
+        if ( !auth()->user()->isOnboarded() ) {
+            return redirect()->route('getting-started');
+        }
+
         return Inertia::render('Profile/Overview/Home');
     }
 

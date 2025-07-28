@@ -42,7 +42,6 @@ const GettingStartedContent = ({step}: {step: string}) => {
                         </div>
                     </div>
                 </div>
-                {}
                 <div className="container-fluid bg-white max-w-full w-full">
                     <div className="container max-w-[960px] px-4 py-8 mx-auto text-black">
                         <p className="mt-6 text-lg font-normal">
@@ -67,7 +66,7 @@ const GettingStartedContent = ({step}: {step: string}) => {
                             Velkommen
                         </p>
                         <nav className="flex mt-8 items-center justify-start gap-4">
-                            {auth.user ? (
+                            {auth.user && auth.user.has_completed_onboarding ? (
                                 <Link
                                     href={route('dashboard')}
                                     className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
@@ -76,7 +75,10 @@ const GettingStartedContent = ({step}: {step: string}) => {
                                 </Link>
                             ) : (
                                 <>
-                                    <Link href={route('onboarding.step', {_query: {step: step}})} className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-xl leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
+                                    <Link 
+                                        href={route('onboarding.step', {_query: {step: step}})} 
+                                        className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-xl leading-normal text-white hover:border-white"
+                                    >
                                         Start
                                     </Link>
                                 </>

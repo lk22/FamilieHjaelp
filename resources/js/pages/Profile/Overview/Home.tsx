@@ -4,9 +4,11 @@ import { type SharedData } from '@/types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 
-import {Skeleton} from '@/components/ui/skeleton';
-
+// Contexts
 import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
+
+// utilities
+import { handleSwiperSlidesPerView } from '@/lib/SwiperSlidesPerViewUtil';
 
 // Layout 
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
@@ -23,6 +25,7 @@ interface SlideProperties {
 
 const ProfileOverviewHomeContent = () => {
     const { getCurrentStepData } = useOnboarding();
+    
     const { auth } = usePage<SharedData>().props;
 
     const currentStepData = getCurrentStepData(2);
@@ -61,11 +64,53 @@ const ProfileOverviewHomeContent = () => {
             </>}
         >
             <div>
-                <h1 className="text-2xl text-blue-800 font-bold mb-4">Hjælp til at komme videre</h1>
-                <p className="mb-4 w-6/12">
-                    Vi er kede af jeres situation, det kan være svært at komme videre alene, Vi kan dirigere dig hurtigt videre til den nødvendige hjælp men vi skal bruge din hjælp.
-                </p>
-                
+                <section>
+                    <h1 className="text-2xl text-blue-800 font-bold mb-4">Hjælp til at komme videre</h1>
+                    <p className="mb-4 w-6/12">
+                        Vi er kede af jeres situation, det kan være svært at komme videre alene, Vi kan dirigere dig hurtigt videre til den nødvendige hjælp men vi skal bruge din hjælp.
+                    </p>
+                    <Swiper spaceBetween={25} slidesPerView={handleSwiperSlidesPerView()} className="mySwiper">
+                        <SwiperSlide key={0}>
+                            <div className="bg-[#00027C] rounded-lg shadow-md bg-black text-white p-6">
+                                <h2 className="text-xl font-bold mb-2">Dansk center for familier og sorg</h2>
+                                <a 
+                                    href="https://familierogsorg.dk/" 
+                                    target="_blank" 
+                                    className={`inline-block px-4 py-2 text-white rounded bg-[#00027C]`}
+                                    rel="noopener noreferrer"
+                                >
+                                    Læs mere
+                                </a>
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide key={1}>
+                            <div className="bg-[#00027C] rounded-lg shadow-md bg-black text-white p-6">
+                                <h2 className="text-xl font-bold mb-2">Dansk center for familier og sorg</h2>
+                                <a 
+                                    href="https://familierogsorg.dk/" 
+                                    target="_blank" 
+                                    className={`inline-block px-4 py-2 text-white rounded bg-[#00027C]`}
+                                    rel="noopener noreferrer"
+                                >
+                                    Læs mere
+                                </a>
+                            </div>
+                        </SwiperSlide><SwiperSlide key={2}>
+                            <div className="bg-[#00027C] rounded-lg shadow-md bg-black text-white p-6">
+                                <h2 className="text-xl font-bold mb-2">Dansk center for familier og sorg</h2>
+                                <a 
+                                    href="https://familierogsorg.dk/" 
+                                    target="_blank" 
+                                    className={`inline-block px-4 py-2 text-white rounded bg-[#00027C]`}
+                                    rel="noopener noreferrer"
+                                >
+                                    Læs mere
+                                </a>
+                            </div>
+                        </SwiperSlide>
+                    </Swiper>
+                </section>
+
                 <div className="home-tasks-overview mb-4">
                     <h2 className='text-xl text-blue-900 font-semibold mb-2'>Ting og huske</h2>
                     <p>Se alle de ting man skal huske når man får / mister et barn</p>
@@ -75,7 +120,7 @@ const ProfileOverviewHomeContent = () => {
                     </Link>
                 </div>
             </div>
-            <Swiper spaceBetween={25} slidesPerView={1.5}>
+            <Swiper spaceBetween={25} slidesPerView={handleSwiperSlidesPerView()} className="mySwiper">
                 {slides && (
                     <>
                         {slides.map((slide, index) => (
