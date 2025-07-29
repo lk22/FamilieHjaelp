@@ -18,7 +18,8 @@ class ProfileOverviewController extends Controller
      */
     public function index(): Response|RedirectResponse
     {
-        if ( !auth()->user()->isOnboarded() ) {
+        // Check if the user is authenticated and has completed onboarding
+        if ( ! auth()->user()->isOnboarded() ) {
             return redirect()->route('getting-started');
         }
 
@@ -32,9 +33,14 @@ class ProfileOverviewController extends Controller
      * @param  string|null  $infoPage
      * @return Response
      */
-    public function show(string $page = 'home'): Response
+    public function show(?string $page): Response
     {
-        return Inertia::render('Profile/Overview/info/info-' . lcfirst($page));
+        $foundPage = auth()->user()
+            ->pages()
+            ->where('slug', $page)
+            ->firstOrFail();
+
+        return Inertia::render('Profile/Overview/info/info-' . $foundPage->slug);
     }
 
     /**

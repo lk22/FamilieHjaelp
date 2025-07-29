@@ -59,18 +59,21 @@ const OnboardingCompletedContent = () => {
                 }
             },
             {
-                name: 'Generating overview',
+                name: 'Generating todos overview',
                 percentage: 40,
                 action: async () => {
-                    setResponse({ message: 'Generating overview', status: 'Generating overview' });
-                    console.log('Generating overview...');
+                    setResponse({ message: 'Generating todos overview', status: 'Generating todos overview' });
+                    console.log('Generating todos overview...');
                     try {
-                        const response = await fetch(route('api.onboarding.process.complete.todos'), {
+                        const response = await fetch(route('onboarding.process.complete.todos'), {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+                                'X-Requested-With': 'XMLHttpRequest',
                             },
                             body: JSON.stringify(onboardingState),
+                            credentials: 'same-origin'
                         });
 
                         const data = await response.json();
@@ -84,17 +87,48 @@ const OnboardingCompletedContent = () => {
                 }
             },
             {
-                name: 'Completing onboarding process',
-                percentage: 60,
+                name: 'Generating pages overview',
+                percentage: 66,
                 action: async () => {
-                    setResponse({ message: 'Completing onboarding process', status: 'Completing onboarding process' });
+                    setResponse({ message: 'Generating pages overview', status: 'Generating pages overview' });
+                    console.log('Generating pages overview...');
                     try {
-                        const response = await fetch(route('api.onboarding.process.complete'), {
+                        const response = await fetch(route('onboarding.process.complete.pages'), {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+                                'X-Requested-With': 'XMLHttpRequest',
                             },
                             body: JSON.stringify(onboardingState),
+                            credentials: 'same-origin',
+                        });
+
+                        const data = await response.json();
+                        console.log('pages generated:', data);
+                        setResponse({ message: data.message || 'pages generated successfully', status: "Generating overview in progress" });
+
+                    } catch (error) {
+                        setResponse({ message: 'Error generating overview', status: 'An error occurred while generating overview' });
+                        console.error('Error generating overview:', error);
+                    }
+                }
+            },
+            {
+                name: 'Completing onboarding process',
+                percentage: 66,
+                action: async () => {
+                    setResponse({ message: 'Completing onboarding process', status: 'Completing onboarding process' });
+                    try {
+                        const response = await fetch(route('onboarding.process.complete'), {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+                            body: JSON.stringify(onboardingState),
+                            credentials: 'same-origin',
                         });
 
                         const data = await response.json();
@@ -111,7 +145,6 @@ const OnboardingCompletedContent = () => {
                 percentage: 100,
                 action: async () => {
                     setResponse({ message: 'Onboarding process completed', status: 'Completing onboarding process' });
-
                     setResponse({ message: 'Onboarding completed successfully', status: 'Onboarding process completed' });
                 }
             },
@@ -124,6 +157,10 @@ const OnboardingCompletedContent = () => {
             }
         ];
 
+        if ( auth?.user === undefined || auth?.user === null ) {
+            return;
+        }
+ 
         try {
             for (const step of steps) {
                 setLoadingPercentage(step.percentage);
@@ -182,20 +219,29 @@ const OnboardingCompletedContent = () => {
                         </div>
                         
                     </div>
-                    {loading && (
-                        <>
-                            <div className="text-white mt-4">
-                                <h1 className="text-3xl">Behandler dine svar...</h1>
-                                <p className="mt-2 text-xl">{response.status}</p>
+                    {
+                        auth?.user ? (
+                            <>
+                                {loading ? (
+                                    <>
+                                        <div className="text-white mt-4">
+                                            <h1 className="text-3xl">Behandler dine svar...</h1>
+                                            <p className="mt-2 text-xl">{response.status}</p>
+                                        </div>
+                                        <LoadingProgressBar percentage={loadingPercentage} />
+                                    </>
+                                ) : (
+                                    <div className="text-white mt-4 max-w-[960px] mx-auto text-center">
+                                        <CompletedMessage name={name} />
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                             <div className="text-white mt-4 max-w-[960px] mx-auto text-center">
+                                <CompletedMessage name={name} />
                             </div>
-                            <LoadingProgressBar percentage={loadingPercentage} />
-                        </>
-                    )}
-                    {!loading && (
-                        <div className="text-white mt-4 max-w-[960px] mx-auto text-center">
-                            <CompletedMessage name={name} />
-                        </div>
-                    )}
+                        )
+                    }
                 </div>
             </main>
         </>

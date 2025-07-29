@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 use App\Models\User;
 
-class StoreUserPages
+class StoreUserTodos
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,13 +20,11 @@ class StoreUserPages
      * Create a new event instance.
      */
     public function __construct(
-        public User $user, 
-        public array $steps = []
+        public User $user,
+        public array $steps
     )
     {
-        // Initialize the event with user and onboarding data
-        $this->user = $user;
-        $this->steps = $steps;
+        //
     }
 
     /**

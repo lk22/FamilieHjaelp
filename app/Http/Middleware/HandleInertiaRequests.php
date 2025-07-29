@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
 
+use App\Models\User;
+
 class HandleInertiaRequests extends Middleware
 {
     /**
@@ -46,6 +48,9 @@ class HandleInertiaRequests extends Middleware
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
                 'user' => $request->user(),
+                'todos' => $request->user() ? $request->user()->todos : [],
+                'pages' => $request->user() ? $request->user()->pages : [],
+                'isOnboarded' => $request->user()->isOnboarded()
             ],
             'onboarding' => session('onboarding_data') ?? null,
             'completedSteps' => session('onboarding_data.completed_steps', []),

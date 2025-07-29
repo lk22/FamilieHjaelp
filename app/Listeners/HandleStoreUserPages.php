@@ -22,11 +22,25 @@ class HandleStoreUserPages
      */
     public function handle(StoreUserPages $event): void
     {
-        if ($event instanceof StoreUserPages) {
-            $user = $event->user;
-            $onboardingData = $event->onboardingData;
+        $pages = [];
+        $pregnancyWeek = $event->steps[4]['data']['stepFive']['pregnancy_week_number'] ?? null;
+        $situationDate = $event->steps[3]['data']['stepFour']['situation_date'] ?? null;
 
-            // Handle the onboarding data for the user
+        if ( $event->steps[1]['data']['stepTwo']['checks'] ) {
+            $checks = $event->steps[1]['data']['stepTwo']['checks'];
+            
+            foreach ($checks as $check) {
+                if ( in_array($check, ['abort']) || in_array($check, ['deathborn'])) {
+                    $pages[] = [
+                        'title' => 'Sorgoverlov',
+                        'slug' => 'sorgoverlov',
+                        'page_title' => 'Sorgoverlov',
+                        'description' => 'Som forælder kan du have ret til orlov med dagpenge',
+                    ];
+                }
+            }
         }
+
+        $event->user->pages()->createMany($pages);
     }
 }

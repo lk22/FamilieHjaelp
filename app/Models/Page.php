@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class Page extends Model
 {
     /**
@@ -15,6 +17,9 @@ class Page extends Model
         'title',
         'slug',
         'page_title',
+        'description',
+        'user_id',
+        'category',
     ];
 
     /**
@@ -24,6 +29,25 @@ class Page extends Model
      */
     protected $casts = [
         'page_title' => 'string',
+    ];
+
+    /**
+     * The attributes that are guarded.
+     *
+     * @var array<string>
+     */
+    protected $guarded = [
+        'id',
+        'user_id'
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<string>
+     */
+    protected $hidden = [
+        'user_id'
     ];
 
     /**
@@ -44,5 +68,19 @@ class Page extends Model
     public function getPageTitleAttribute()
     {
         return $this->attributes['page_title'] ?: $this->title;
+    }
+
+    /**
+     * Get the user that owns the page.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User>
+     */
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id', 'id', 'users');
+    }
+
+    public function categories()
+    {
+        return $this->belongsTo(Category::class, 'category', 'slug', 'categories');
     }
 }

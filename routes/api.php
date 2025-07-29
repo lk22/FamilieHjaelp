@@ -12,17 +12,16 @@ Route::get('/health/auth', function () {
     }
     
     return response()->json(['message' => 'Authenticated'], 200);
-})->name('api.auth.check');
+})->name('api.auth.check')->middleware('auth');
 
-Route::post('/onboarding/process/complete/todos', [CompleteOnboardingController::class, 'storeTodos'])
-    ->name('api.onboarding.process.complete.todos');
-
-Route::post('/onboarding/process/complete/pages', [CompleteOnboardingController::class, 'storePages'])
-    ->name('api.onboarding.process.complete.pages');
-
-Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('api.onboarding.process.complete');
-
-Route::put('/profile/todos/{id}/toggle', [TodoApiController::class, 'toggle'])->name('profile.todos.toggle');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/onboarding/process/complete/todos', [CompleteOnboardingController::class, 'storeTodos'])
+        ->name('api.onboarding.process.complete.todos');
+    Route::post('/onboarding/process/complete/pages', [CompleteOnboardingController::class, 'storePages'])
+        ->name('api.onboarding.process.complete.pages');
+    Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('api.onboarding.process.complete');
+    Route::put('/profile/todos/{id}/toggle', [TodoApiController::class, 'toggle'])->name('profile.todos.toggle');
+});
 
 Route::get('/user', function (Request $request) {
     return $request->user();

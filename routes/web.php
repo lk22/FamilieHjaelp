@@ -9,11 +9,8 @@ use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileOverviewController;
 use App\Http\Controllers\CompleteOnboardingController;
 
-// Auth::logout();
-// Auth::loginUsingId(1);
-
 Route::get('/', [PageController::class, 'home'])
-    ->name('home');
+->name('home');
 
 Route::get('/getting-started', [PageController::class, 'gettingStarted'])
     ->name('getting-started')
@@ -21,7 +18,7 @@ Route::get('/getting-started', [PageController::class, 'gettingStarted'])
 
 /**
  * Onboarding routes
- */
+*/
 Route::get('/onboarding', [OnboardingController::class, 'render'])->name('onboarding.step');
 Route::get('/onboarding/reset', [OnboardingController::class, 'reset'])->name('onboarding.reset');
 Route::get('/onboarding/complete', [OnboardingController::class, 'completed'])->name('onboarding.complete');
@@ -30,6 +27,12 @@ Route::post('/onboarding/complete', [OnboardingController::class, 'complete'])->
 Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('onboarding.process.complete');
 
 Route::get('/profile/overview/', [ProfileOverviewController::class, 'show'])->name('profile.home');
+
+Route::post('/onboarding/process/complete/todos', [CompleteOnboardingController::class, 'storeTodos'])
+    ->name('onboarding.process.complete.todos');
+Route::post('/onboarding/process/complete/pages', [CompleteOnboardingController::class, 'storePages'])
+    ->name('onboarding.process.complete.pages');
+Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('onboarding.process.complete');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -40,6 +43,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/overview/todos', [ProfileOverviewController::class, 'todos'])->name('profile.todos');
     Route::get('/profile/overview/info/{page?}', [ProfileOverviewController::class, 'show'])->name('profile.info.page');
 });
+
+Route::get('/auth/check', function () {
+    return response()->json([
+        'authenticated' => Auth::check(),
+        'user' => Auth::user()
+    ])->setStatusCode(Auth::check() ? 200 : 401);
+})->name('auth.check');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -34,6 +34,7 @@ export default function Todos({ todos }: TodosProps) {
                         {todos.map((todo) => (
                             <TodoItem 
                                 key={todo.id}
+                                id={todo.id}
                                 title={todo.title} 
                                 description={todo.description} 
                                 completed={todo.completed} 

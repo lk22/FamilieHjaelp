@@ -1,4 +1,5 @@
 // Libraries
+import {JSX} from 'react';
 import { usePage, Link } from '@inertiajs/react';
 import { type SharedData } from '@/types';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -15,43 +16,37 @@ import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 
 // Components
 import InformationSlide from '@/components/Onboarding/InformationSlide';
+import { Key } from 'react';
+import { RouteParams } from 'vendor/tightenco/ziggy/src/js';
 
-interface SlideProperties {
+interface PageSlideProperty {
+    title: string;
+    slug: RouteParams<'profile.info.page'> | undefined;
+    description: string;
+    backgroundColor: string;
+}
+
+interface TodoProperty {
     title: string;
     description: string;
-    link: string;
-    backgroundColor: string;
+    due_date: string | null;
+    completed: boolean;
+}
+
+type PageIndex = {
+    index: number;
+    key: Key | null | undefined
 }
 
 const ProfileOverviewHomeContent = () => {
     const { getCurrentStepData } = useOnboarding();
     
     const { auth } = usePage<SharedData>().props;
+    console.log(auth)
 
     const currentStepData = getCurrentStepData(2);
 
     console.log('Current Step Data:', currentStepData);
-
-    const slides: SlideProperties[] = [
-        {
-            title: 'Sorgoverlov',
-            description: 'Har du mistet en nær pårørende? Få hjælp til at håndtere sorg og tab.',
-            link: route('profile.info.page', { page: 'sorgoverlov' }),
-            backgroundColor: 'bg-[#00027C]'
-        },
-        {
-            title: 'Barselsoverlov',
-            description: 'Har du brug for information om barselsoverlov? Få hjælp til at forstå dine rettigheder og muligheder.',
-            link: route('profile.info.page', { page: 'barselsoverlov' }),
-            backgroundColor: 'bg-gradient-to-r from-[#004EA7] to-[#007BFF]'
-        },
-        {
-            title: 'Slide 3',
-            description: 'This is the third slide description.',
-            link: route('profile.info.page', { page: 'slide-3' }),
-            backgroundColor: 'bg-gradient-to-r from-red-800 to-red-600'
-        }
-    ]
 
     return (
         <ProfileOverviewLayout
@@ -95,7 +90,8 @@ const ProfileOverviewHomeContent = () => {
                                     Læs mere
                                 </a>
                             </div>
-                        </SwiperSlide><SwiperSlide key={2}>
+                        </SwiperSlide>
+                        <SwiperSlide key={2}>
                             <div className="bg-[#00027C] rounded-lg shadow-md bg-black text-white p-6">
                                 <h2 className="text-xl font-bold mb-2">Dansk center for familier og sorg</h2>
                                 <a 
@@ -115,25 +111,35 @@ const ProfileOverviewHomeContent = () => {
                     <h2 className='text-xl text-blue-900 font-semibold mb-2'>Ting og huske</h2>
                     <p>Se alle de ting man skal huske når man får / mister et barn</p>
                     <img src="/images/tasks_graphics.svg" alt="tasks" />
+                    {(Array.isArray(auth?.user.todos) ? auth.user.todos : []).map((todo, index) => (
+                        <div key={index} className="bg-white rounded-lg shadow-md p-4 mb-4">
+                            <h3 className="text-lg font-semibold">{todo.title}</h3>
+                            <p>{todo.description}</p>
+                            <p>
+                                {todo.due_date ? `Forfaldsdato: ${new Date(todo.due_date).toLocaleDateString()}` : 'Ingen forfaldsdato'}
+                            </p>
+                        </div>
+                    ))}
                     <Link href={route('profile.todos')} className="text-blue-500 hover:underline">
                         Gå til opgaver
                     </Link>
                 </div>
             </div>
             <Swiper spaceBetween={25} slidesPerView={handleSwiperSlidesPerView()} className="mySwiper">
-                {slides && (
-                    <>
-                        {slides.map((slide, index) => (
-                            <SwiperSlide key={index}>
-                                <InformationSlide
-                                    title={slide.title}
-                                    link={slide.link}
-                                    description={slide.description}
-                                    backgroundColor={slide.backgroundColor}
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </>
+                {(Array.isArray(auth?.user.pages) ? auth.user.pages : []).map(
+                    (
+                        page: PageSlideProperty,
+                        index: PageIndex['index'],
+                    ): JSX.Element => (
+                        <SwiperSlide key={index}>
+                            <InformationSlide
+                                title={page.title}
+                                link={route('profile.info.page', page.slug)}
+                                description={page.description}
+                                backgroundColor='[#00027C]'
+                            />
+                        </SwiperSlide>
+                    )
                 )}
             </Swiper>
         </ProfileOverviewLayout>

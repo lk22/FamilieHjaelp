@@ -7,6 +7,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\CompleteOnboardingRequest;
 
+use App\Events\StoreUserPages;
+use App\Events\StoreUserTodos;
+
 class CompleteOnboardingController extends Controller
 {
     /**
@@ -41,23 +44,27 @@ class CompleteOnboardingController extends Controller
             }
         }
         
-        $preparedTodos = [];
-
         $todos = $user->todos()->get();
+        $pages = $user->pages()->get();
 
-        if ( ! $todos->isEmpty() ) {
+        // If todos or pages already exist, return a message indicating that onboarding is already completed
+        if ( ! $todos->isEmpty() || ! $pages->isEmpty() ) {
             return response()->json([
                 'message' => 'Onboarding already completed.',
-                'todos' => $todos
+                'todos' => $todos,
+                'pages' => $pages
             ]);
         }
-        
-        if ( $request->get('steps')[1]['data']['stepTwo']['checks'] ) {
-            $checks = $request->get('steps')[1]['data']['stepTwo']['checks'];
-            $preparingTodos = $this->initializeTodos($checks, $situation_date, $pregnancy_week);
 
-            $preparedTodos = array_merge($preparedTodos, $preparingTodos);
-            $user->todos()->createMany($preparedTodos);
+        if ( $todos->isEmpty() || $pages->isEmpty() ) {
+            return response()->json([
+                'message' => 'Onboarding incomplete, something went wrong.',
+                'todos' => $todos,
+                'pages' => $pages
+            ])->setStatusCode(400, 'Onboarding incomplete.')->withHeaders([
+                'Content-Type' => 'application/json',
+                'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            ]);
         }
 
         return response()->json([
@@ -98,9 +105,13 @@ class CompleteOnboardingController extends Controller
         $pregnancy_week = $request->input('steps.4.data.stepFive.pregnancy_week_number', null);
         $situation_date = $request->input('steps.3.data.stepFour.situation_date');
 
-        $existingTodos = $request->user()->todos()->get(); // returns null ?
+        if ( ! $user ) {
+            return response()->json([
+                'message' => 'Unauthorized, please log in to store todos.'
+            ], 401);
+        }
 
-        dd($user);
+        $existingTodos = $user->todos()->get();
 
         if ( ! $existingTodos->isEmpty() ) {
             return response()->json([
@@ -112,13 +123,7 @@ class CompleteOnboardingController extends Controller
             ]);
         }
 
-        $preparedTodos = $this->initializeTodos(
-            $steps[1]['data']['stepTwo']['checks'] ?? [],
-            $situation_date,
-            $pregnancy_week
-        );
-
-        $user->todos()->createMany($preparedTodos);
+        event(new StoreUserTodos($user, $steps));
 
         return response()->json([
             'message' => 'Todos initialized successfully.',
@@ -138,6 +143,7 @@ class CompleteOnboardingController extends Controller
     public function storePages(Request $request): JsonResponse
     {
         $user = $request->user();
+        $steps = $request->input('steps');
 
         $existingPages = $user->pages()->get();
 
@@ -150,7 +156,9 @@ class CompleteOnboardingController extends Controller
                 'Cache-Control' => 'no-cache, no-store, must-revalidate',
             ]);
         }
-    
+
+        event(new StoreUserPages($user, $steps));
+
         // default pages to be created
         return response()->json([
             'message' => 'Pages stored successfully.',
@@ -159,47 +167,5 @@ class CompleteOnboardingController extends Controller
             'Content-Type' => 'application/json',
             'Cache-Control' => 'no-cache, no-store, must-revalidate',
         ]);
-    }
-
-    /**
-     * Initialize todos based on the answers provided.
-     *
-     * @param array $answers
-     * @return array
-     */
-    private function initializeTodos(
-        array $answers = [], 
-        ?string $situation_date = "", 
-        ?int $pregnancy_week = null
-    ): array
-    {
-        if ( ! $answers ) {
-            return [];
-        }
-
-        if ( ! $situation_date ) {
-            return [];
-        }
-
-        if ( in_array('deathborn', $answers) || in_array('abort', $answers) && $pregnancy_week >= 22 ) {
-            return [
-                [
-                    'title' => 'Anmeldelse af dødfødsel',
-                    'description' => 'Hvis du har mistet et barn, kan du anmelde dødfødsel til myndighederne. Dette kan gøres online eller ved at henvende dig til kirkekontoret i dit kirkesogn.',
-                    'is_completed' => false,
-                    'link' => 'https://www.borger.dk/borger/boern-og-unge/boern-og-unge/boern-og-unge/boern-og-unge/dodfodsel',
-                    'completed_at' => null
-                ],
-                [
-                    'title' => 'Registrering af forældreskab',
-                    'description' => 'Hvis du ikke er gift med barnets anden forælder, skal du registrere forældreskabet. Dette kan gøres online eller ved at henvende dig til kommunen.',
-                    'is_completed' => false,
-                    'link' => 'https://www.borger.dk/borger/boern-og-unge/boern-og-unge/boern-og-unge/boern-og-unge/forældreskab',
-                    'completed_at' => null
-                ]
-            ];
-        }
-
-        return [];
     }
 }

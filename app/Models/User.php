@@ -71,4 +71,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Todo::class);
     }
+
+    /**
+     * Get the pages associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Page>
+     */
+    public function pages()
+    {
+        return $this->hasMany(Page::class, 'user_id', 'id', 'pages');
+    }
 }
