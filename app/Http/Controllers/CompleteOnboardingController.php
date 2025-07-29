@@ -130,12 +130,48 @@ class CompleteOnboardingController extends Controller
     }
 
     /**
+     * Store pages for the user.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function storePages(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        $existingPages = $user->pages()->get();
+
+        if ( $existingPages->isNotEmpty() ) {
+            return response()->json([
+                'message' => 'Pages already exist for this user.',
+                'pages' => $existingPages
+            ])->setStatusCode(200, 'Pages already exist.')->withHeaders([
+                'Content-Type' => 'application/json',
+                'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            ]);
+        }
+    
+        // default pages to be created
+        return response()->json([
+            'message' => 'Pages stored successfully.',
+            'pages' => $user->pages()->get()
+        ])->setStatusCode(201, 'Pages created successfully.')->withHeaders([
+            'Content-Type' => 'application/json',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+        ]);
+    }
+
+    /**
      * Initialize todos based on the answers provided.
      *
      * @param array $answers
      * @return array
      */
-    private function initializeTodos(array $answers = [], ?string $situation_date = "", ?int $pregnancy_week = null): array
+    private function initializeTodos(
+        array $answers = [], 
+        ?string $situation_date = "", 
+        ?int $pregnancy_week = null
+    ): array
     {
         if ( ! $answers ) {
             return [];
