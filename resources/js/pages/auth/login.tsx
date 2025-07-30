@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AuthLayout from '@/layouts/auth-layout';
+import AuthLayout from '@/layouts/auth/auth-split-layout';
 
 import { useQueryParams } from '@/lib/utils';
 
@@ -66,7 +66,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email adresse</Label>
+                        <Label className="text-white" htmlFor="email">Email adresse</Label>
                         <Input
                             id="email"
                             type="email"
@@ -77,15 +77,16 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
                             placeholder="email@example.com"
+                            className="text-white focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100"
                         />
                         <InputError message={errors.email} />
                     </div>
 
                     <div className="grid gap-2">
                         <div className="flex items-center">
-                            <Label htmlFor="password">Adgangskode</Label>
+                            <Label className="text-white" htmlFor="password">Adgangskode</Label>
                             {canResetPassword && (
-                                <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
+                                <TextLink href={route('password.request')} className="ml-auto text-sm text-white" tabIndex={5}>
                                     Glemt adgangskode?
                                 </TextLink>
                             )}
@@ -99,6 +100,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
                             placeholder="Password"
+                            className="text-white focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100"
                         />
                         <InputError message={errors.password} />
                     </div>
@@ -111,7 +113,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             onClick={() => setData('remember', !data.remember)}
                             tabIndex={3}
                         />
-                        <Label htmlFor="remember">Husk mig</Label>
+                        <Label className="text-white" htmlFor="remember">Husk mig</Label>
                     </div>
 
                     <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
@@ -122,7 +124,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
                 <div className="text-center text-sm text-muted-foreground">
                     <span>Har du ikke en konto? </span>
-                    <TextLink href={route('register')} tabIndex={5}>
+                    <TextLink href={route('register')} className="text-white font-bold" tabIndex={5}>
                         Opret konto
                     </TextLink>
                 </div>

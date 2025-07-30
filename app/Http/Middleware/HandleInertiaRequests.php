@@ -30,6 +30,18 @@ class HandleInertiaRequests extends Middleware
         return parent::version($request);
     }
 
+    public function shareRandomBackgroundImage(): string
+    {
+        $images = public_path('images/background');
+
+        // get all image files in the directory check if the directory exists and make a image extension filter and exclude .. and . directories
+        $files = array_filter(scandir($images, SCANDIR_SORT_NONE), function ($file) use ($images) {
+            return !is_dir($images . '/' . $file) && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file);
+        });
+
+        return $files ? asset('/images/background/' . $files[array_rand($files)]) : null;
+    }
+
     /**
      * Define the props that are shared by default.
      *
@@ -46,6 +58,7 @@ class HandleInertiaRequests extends Middleware
             // 'name' => config('app.name'),
             'name' => 'FamilieHjælp',
             'quote' => ['message' => trim($message), 'author' => trim($author)],
+            'background_image' => $this->shareRandomBackgroundImage(),
             'auth' => [
                 'user' => $request->user(),
                 'todos' => $request->user() ? $request->user()->todos : [],
