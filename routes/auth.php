@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\LoggedOutController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -54,3 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
+
+// only allow access to this route if you are comming from the logout post route
+Route::get('logged-out', [LoggedOutController::class, '__invoke'])
+    ->name('logged-out')
+    ->middleware('guest')
+    ->withoutMiddleware(['throttle']); // Disable throttling for this route

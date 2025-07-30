@@ -15,6 +15,7 @@ enum RedirectRoute: string
 {
     case DEFAULT_REDIRECT_ROUTE = 'profile.home';
     case GETTING_STARTED_REDIRECT_ROUTE = 'getting-started';
+    case LOGGED_OUT_REDIRECT_ROUTE = 'logged-out';
 }
 
 class AuthenticatedSessionController extends Controller
@@ -69,6 +70,9 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect(route(
+            RedirectRoute::LOGGED_OUT_REDIRECT_ROUTE,
+            absolute: false
+        )); // Redirect to the logged out page
     }
 }

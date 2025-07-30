@@ -30,7 +30,12 @@ class HandleInertiaRequests extends Middleware
         return parent::version($request);
     }
 
-    public function shareRandomBackgroundImage(): string
+    /**
+     * Share a random background image from the public/images/background directory.
+     * 
+     * @return string|null
+     */
+    public function shareRandomBackgroundImage(): string|null
     {
         $images = public_path('images/background');
 
@@ -56,7 +61,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             // 'name' => config('app.name'),
-            'name' => 'FamilieHjælp',
+            'name' => 'Forældrehjælp',
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'background_image' => $this->shareRandomBackgroundImage(),
             'auth' => [
