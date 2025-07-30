@@ -217,7 +217,6 @@ const OnboardingCompletedContent = () => {
                                 className="mt-8 w-full max-w-[400px] mx-auto"
                             />
                         </div>
-                        
                     </div>
                     {
                         auth?.user ? (

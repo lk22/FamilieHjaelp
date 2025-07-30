@@ -13,12 +13,13 @@ export default function InformationSlide({ title, link, description, backgroundC
     console.log({ title, link, description, backgroundColor });
     
     return (
-        <div className={`p-6 rounded-lg shadow-md bg-${hasBackground}` + ' text-white'}>
-            <h2 className="text-xl text-white font-semibold mb-4">{title}</h2>
-            <p className="text-white mb-4">{description}</p>
+        <>
             <Link href={link} className="text-white hover:underline">
-                Learn more
+                <div className={`p-6 rounded-lg shadow-md bg-${hasBackground}` + ' text-white'}>
+                    <h2 className="text-xl text-white font-semibold mb-4">{title}</h2>
+                    <p className="text-white mb-4">{description}</p>
+                </div>
             </Link>
-        </div>
+        </>
     );
 }

@@ -67,7 +67,7 @@ export default function ProfileOverviewLayout({
                     </nav>
                 </div>
             </header>
-            <main className="container mx-auto px-4 py-8">
+            <main className="container mx-auto px-4 py-16">
                 {headline && handlePageTitle()}
                 {children}
             </main>
