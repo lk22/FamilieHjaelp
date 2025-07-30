@@ -32,7 +32,7 @@ export default function TodoItem({
     }
     
     return (
-        <div className={`${classes}`} onClick={handleCompleteToggle}>
+        <div className={`${classes} rounded`} onClick={handleCompleteToggle}>
             <div className="flex mb-4 p-8">
                 <div className="todo-meta">
                     <h2 className="text-xl font-semibold text-[#1d4ed8]">{title}</h2>
