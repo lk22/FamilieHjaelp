@@ -4,9 +4,7 @@ import {type SharedData} from '@/types';
 
 import {
     Dialog,
-    DialogTitle,
     DialogContent,
-    DialogHeader,
     DialogFooter,
     DialogDescription,
     DialogClose
