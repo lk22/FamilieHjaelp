@@ -1,6 +1,16 @@
-import React, {JSX} from 'react';
+import React, {JSX, useState} from 'react';
 import {Link, Head, usePage, router} from '@inertiajs/react';
 import {type SharedData} from '@/types';
+
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogHeader,
+    DialogFooter,
+    DialogDescription,
+    DialogClose
+} from '@/components/ui/dialog';
 
 interface ProfileOverviewLayoutProps {
     children: React.ReactNode;
@@ -16,11 +26,13 @@ export default function ProfileOverviewLayout({
 }: ProfileOverviewLayoutProps) {
     const { auth } = usePage<SharedData>().props;
 
-    const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const [isLoggingOutDialog, setIsLoggingOutDialog] = useState(false);
+
+    const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (confirm('Er du sikker på, at du vil logge ud?')) {
-            router.post(route('logout'));
-        }
+
+        // needs improvement (needs to have a processing state
+        router.post(route('logout'));
     }
 
     const handlePageTitle = (): JSX.Element[] => {
@@ -56,14 +68,27 @@ export default function ProfileOverviewLayout({
                         <Link href={route('profile.todos')} className="text-white">
                             Opgaver
                         </Link>
-                        <form method="POST" action={route('logout')} className="inline">
-                            <input type="hidden" name="_token" value={document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''} />
-                            <button>
-                                <span className="text-white hover:underline" onClick={handleLogout}>
-                                    Log ud
-                                </span>
-                            </button>
-                        </form>
+                        <span className="text-white hover:underline" onClick={() => setIsLoggingOutDialog(true)}>
+                            Log ud
+                        </span>
+                        <Dialog open={isLoggingOutDialog} onOpenChange={setIsLoggingOutDialog}>
+                            <DialogContent className="bg-slate-800 text-white">
+                                <DialogDescription>
+                                    Er du sikker på, at du vil logge ud?
+                                </DialogDescription>
+                                <DialogFooter>
+                                    <DialogClose className="cursor-pointer" onClick={() => setIsLoggingOutDialog(false)}>
+                                        Annuller
+                                    </DialogClose>
+                                    <form method="POST" action={route('logout')} className="inline">
+                                        <input type="hidden" name="_token" value={document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''} />
+                                        <button onClick={(e) => handleLogout(e)} className="cursor-pointer bg-blue-600 text-white px-2 py-2 rounded animate">
+                                            Log ud
+                                        </button>
+                                    </form>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
                     </nav>
                 </div>
             </header>
