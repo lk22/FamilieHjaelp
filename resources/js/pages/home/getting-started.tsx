@@ -4,9 +4,14 @@ import { Head, Link, usePage } from '@inertiajs/react';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
-const GettingStartedContent = ({step}: {step: string}) => {
+const GettingStartedContent = ({step}: {step?: string}) => {
     const { auth, name } = usePage<SharedData>().props;
     const { onboardingState } = useOnboarding();
+
+    // this need to be improved, we need to handle the step in a better way from this page
+    // we need to tell the user what step they are on, and what they need to do next with a link to the next step
+    console.log('GettingStartedContent rendered with auth:', auth);
+    console.log('Onboarding State:', onboardingState);
 
     return (
         <>
@@ -20,7 +25,7 @@ const GettingStartedContent = ({step}: {step: string}) => {
                     </div>
                 </nav>
             </header>
-            <main className="bg-[#0a0a0a]">
+            <main className="bg-[#0a0a0a] text-white min-h-screen">
                 <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white bg-[#0a0a0a]">
                     <div className="container max-w-[960px] flex-col py-8 items-center justify-center text-center">
                         <div className="logo">
