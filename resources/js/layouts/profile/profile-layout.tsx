@@ -2,13 +2,9 @@ import React, {JSX, useState} from 'react';
 import {Link, Head, usePage, router} from '@inertiajs/react';
 import {type SharedData} from '@/types';
 
-import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogDescription,
-    DialogClose
-} from '@/components/ui/dialog';
+import { LogoutDialog } from '@/components/Profile/Dialogs/LogoutDialog';
+
+import { ProfileMainMenu } from '@/components/Profile/DropdownMenus/ProfileMainMenu';
 
 interface ProfileOverviewLayoutProps {
     children: React.ReactNode;
@@ -59,33 +55,12 @@ export default function ProfileOverviewLayout({
                         )
                     }
                     <nav className="flex space-x-4">
-                        <Link href={route('profile.home')} className="text-white">
-                            Hjem
-                        </Link>
-                        <Link href={route('profile.todos')} className="text-white">
-                            Opgaver
-                        </Link>
-                        <span className="text-white hover:underline" onClick={() => setIsLoggingOutDialog(true)}>
-                            Log ud
-                        </span>
-                        <Dialog open={isLoggingOutDialog} onOpenChange={setIsLoggingOutDialog}>
-                            <DialogContent className="bg-slate-800 text-white">
-                                <DialogDescription>
-                                    Er du sikker på, at du vil logge ud?
-                                </DialogDescription>
-                                <DialogFooter>
-                                    <DialogClose className="cursor-pointer" onClick={() => setIsLoggingOutDialog(false)}>
-                                        Annuller
-                                    </DialogClose>
-                                    <form method="POST" action={route('logout')} className="inline">
-                                        <input type="hidden" name="_token" value={document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''} />
-                                        <button onClick={(e) => handleLogout(e)} className="cursor-pointer bg-blue-600 text-white px-2 py-2 rounded animate">
-                                            Log ud
-                                        </button>
-                                    </form>
-                                </DialogFooter>
-                            </DialogContent>
-                        </Dialog>
+                        <ProfileMainMenu setIsLoggingOutDialog={setIsLoggingOutDialog} />
+                        <LogoutDialog 
+                            isLoggingOut={isLoggingOutDialog} 
+                            setIsLoggingOutDialog={setIsLoggingOutDialog}
+                            handleLogout={handleLogout}
+                        />
                     </nav>
                 </div>
             </header>
