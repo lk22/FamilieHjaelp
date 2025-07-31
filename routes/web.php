@@ -8,6 +8,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileOverviewController;
 use App\Http\Controllers\CompleteOnboardingController;
+use App\Http\Controllers\ProfileTodoController;
 
 Route::get('/', [PageController::class, 'home'])
 ->name('home');
@@ -26,13 +27,17 @@ Route::post('/onboarding', [OnboardingController::class, 'submitStep'])->name('o
 Route::post('/onboarding/complete', [OnboardingController::class, 'complete'])->name('onboarding.completing');
 Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('onboarding.process.complete');
 
-Route::get('/profile/overview/', [ProfileOverviewController::class, 'show'])->name('profile.home');
-
+/**
+ * Completing onboarding process routes
+ */
 Route::post('/onboarding/process/complete/todos', [CompleteOnboardingController::class, 'storeTodos'])
-    ->name('onboarding.process.complete.todos');
+->name('onboarding.process.complete.todos');
 Route::post('/onboarding/process/complete/pages', [CompleteOnboardingController::class, 'storePages'])
-    ->name('onboarding.process.complete.pages');
+->name('onboarding.process.complete.pages');
 Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('onboarding.process.complete');
+
+// Profile overview routes 
+Route::get('/profile/overview/', [ProfileOverviewController::class, 'show'])->name('profile.home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -42,6 +47,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/overview', [ProfileOverviewController::class, 'index'])->name('profile.home');
     Route::get('/profile/overview/todos', [ProfileOverviewController::class, 'todos'])->name('profile.todos');
     Route::get('/profile/overview/info/{page?}', [ProfileOverviewController::class, 'show'])->name('profile.info.page');
+
+    Route::put('/profile/todos/{id}/toggle', [ProfileTodoController::class, 'toggle'])
+        ->name('profile.todos.toggle');
 });
 
 Route::get('/auth/check', function () {

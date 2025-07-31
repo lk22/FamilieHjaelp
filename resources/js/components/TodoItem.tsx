@@ -11,7 +11,7 @@ interface TodoItemProps {
     title: string; 
     description: string;
     due_date: string; 
-    completed: boolean;
+    isCompleted: boolean;
 }
 
 export default function TodoItem({
@@ -19,28 +19,28 @@ export default function TodoItem({
     title,
     description,
     due_date,
-    completed
+    isCompleted
 }: TodoItemProps) {
-    
-    const classes = completed 
-        ? 'bg-blue-900 shadow-lg' 
-        : 'bg-white shadow-md';
 
-    const handleCompleteToggle = () => {
-        // Logic to toggle completion status
-        console.log(`Toggling completion for: ${title}`);
-    }
+    console.log({isCompleted})
+    
+    const classes = isCompleted 
+        ? 'bg-blue-900 shadow-lg data-[state=completed]:bg-blue-900 data-[state=completed]:text-white' 
+        : 'bg-white shadow-md';
     
     return (
-        <div className={`${classes} rounded`} onClick={handleCompleteToggle}>
+        <div className={`${classes} rounded`} data-state={isCompleted ? 'completed' : 'incomplete'}>
             <div className="flex mb-4 p-8">
                 <div className="todo-meta">
-                    <h2 className="text-xl font-semibold text-[#1d4ed8]">{title}</h2>
-                    <p>{description}</p>
-                    <p>Due Date: {due_date ? <span>{due_date}</span> : <span className="text-gray-500">No Due Date</span>}</p>
+                    <h2 className="text-xl font-semibold data-[state=completed]:text-white data-[state=incomplete]:text-[#1d4ed8]">{title}</h2>
+                    <p className="mb-4">{description}</p>
+                    <p>Due Date: {due_date ? <span>{due_date}</span> : <span className="text-gray-500">Ingen forfaldsdato</span>}</p>
+                    <p className="mt-2 text-slate-400">
+                        Hvordan gør jeg ? 
+                    </p>
                 </div>
                 <div className="todo-actions">
-                    <ToggleTodoForm id={id} is_completed={completed} />
+                    <ToggleTodoForm id={id} isCompleted={isCompleted} />
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@ type TodoItem = {
     id: number;
     title: string;
     description: string;
-    completed: boolean;
+    is_completed: boolean;
     dueDate: string;
 }
 
@@ -37,7 +37,7 @@ export default function Todos({ todos }: TodosProps) {
                                 id={todo.id}
                                 title={todo.title} 
                                 description={todo.description} 
-                                completed={todo.completed} 
+                                isCompleted={todo.is_completed} 
                                 due_date={todo.dueDate} 
                             />
                         ))}
