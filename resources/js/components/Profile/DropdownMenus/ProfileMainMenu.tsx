@@ -47,10 +47,24 @@ export function ProfileMainMenu({ setIsLoggingOutDialog }: ProfileMainMenuProps)
                 <div className={`overlay z-0 inset fixed h-full w-full bg-blue-500 left-0 top-0 bottom-0 ${MenuOverlayClasses} transition-opacity duration-300 ease-in-out`}></div>
                 <div className={`fixed py-2  top-0 ${isMobile ? 'w-full px-4' : 'w-8/12 px-16'} h-full bg-blue-800 bg-opacity-50 z-50 transition-right ease-in-out duration-300 ${MobileMenuClasses}`} onClick={() => setIsMenuOpen(false)}>
                     <div className="flex flex-col items-end p-4">
-                        <button className="text-white hover:underline" onClick={handleMobileMenuToggle}>
+                        <button className="text-white hover:underline cursor-pointer" onClick={handleMobileMenuToggle}>
                             <FaX size={24} />
                         </button>
                     </div>
+                    <nav className="mobile-nav-list p-8">
+                        <ul className="space-y-4">
+                            <li className="border-b-2 border-white pb-2">
+                                <Link href={route('profile.home')} className="text-white hover:underline text-2xl">
+                                    {route().current('profile.home') ? 'Hjem' : 'Gå tilbage'}
+                                </Link>
+                            </li>
+                            <li className="border-b-2 border-white pb-2">
+                                <Link href={route('profile.todos')} className="text-white hover:underline text-2xl">
+                                    {route().current('profile.todos') ? 'Opgaver' : 'Gå til Opgaver'}
+                                </Link>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </>
         ) : (
