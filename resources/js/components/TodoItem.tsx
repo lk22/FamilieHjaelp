@@ -35,7 +35,7 @@ export default function TodoItem({
                     <h2 className="text-xl font-semibold data-[state=completed]:text-white data-[state=incomplete]:text-[#1d4ed8]">{title}</h2>
                     <p className="mb-4">{description}</p>
                     <p>Due Date: {due_date ? <span>{due_date}</span> : <span className="text-gray-500">Ingen forfaldsdato</span>}</p>
-                    <p className="mt-2 text-slate-400">
+                    <p className="mt-2 text-slate-400 font-bold underline cursor-pointer">
                         Hvordan gør jeg ? 
                     </p>
                 </div>

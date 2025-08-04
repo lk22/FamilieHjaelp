@@ -1,9 +1,9 @@
 import {useIsMobile} from '@/hooks/use-mobile';
 import {useIsTablet} from '@/hooks/use-tablet';
 
-const MOBILE_SLIDES_PER_VIEW = 1.5;
-const TABLET_SLIDES_PER_VIEW = 2;
-const DESKTOP_SLIDES_PER_VIEW = 2.5;
+const MOBILE_SLIDES_PER_VIEW = 1;
+const TABLET_SLIDES_PER_VIEW = 1;
+const DESKTOP_SLIDES_PER_VIEW = 1.5;
 
 export function handleSwiperSlidesPerView(): number {
     const isMobile = useIsMobile();

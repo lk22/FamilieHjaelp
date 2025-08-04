@@ -6,7 +6,7 @@ export default function SorgoverlovInfoPage() {
             title="Familiehjælp - Sorgoverlov"
             headline="Praktisk information om sorgoverlov"
         >
-            <div className="bg-white rounded-lg">
+            <div className="bg-white rounded-lg p-8 shadow-md">
                 <h2 className="text-3xl font-semibold mb-4 text-blue-700">Når du har brug for tid til at bearbejde sorg</h2>
                 <section className="mb-6">
                     <p className="text-gray-700 text-xl">

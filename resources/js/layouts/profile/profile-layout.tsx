@@ -37,7 +37,7 @@ export default function ProfileOverviewLayout({
     }
 
     return (
-        <div className="bg-white text-gray-900 min-h-screen">
+        <div className="bg-slate-100 text-gray-900 min-h-screen">
             <Head title={title} />
             <header className="w-full p-4 flex items-center justify-between bg-blue-600 text-white">
                 <div className="container w-full mx-auto flex justify-between items-center">

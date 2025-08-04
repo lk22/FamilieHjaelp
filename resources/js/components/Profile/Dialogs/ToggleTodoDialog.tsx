@@ -33,14 +33,14 @@ export function ToggleTodoDialog({
                         className="text-white bg-gray-500 px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-200 ease-in-out" 
                         onClick={() => setIsPromptOpen(false)}
                     >
-                        Cancel
+                        Annuler
                     </button>
                     <button 
                         type="button" 
                         className="cursor-pointer text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200 ease-in-out"
                         onClick={handleCompleteToggle}
                     >
-                        Confirm
+                        Bekræft
                     </button>
                 </DialogFooter>
             </DialogContent>
