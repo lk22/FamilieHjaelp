@@ -26,7 +26,7 @@ export default function TodoListSection({todos}: TodoListProps) {
                                 <>
                                     <div className="flex">
                                         <div className="todos-desc-con w-6/12">
-                                            <h2 className='text-4xl text-blue-500 font-bold mb-2'>Ting og huske</h2>
+                                            <h2 className='text-4xl text-blue-800 font-bold mb-2'>Ting og huske</h2>
                                             <p className="text-lg">Her er en liste over ting, man skal huske, når man får / mister et barn:</p>
                                             <Divider marginBlock="8" />
                                             <Link href={route('profile.todos')} className="bg-blue-900 px-4 py-2 rounded-sm text-white hover:underline">
@@ -40,7 +40,7 @@ export default function TodoListSection({todos}: TodoListProps) {
                                 </>
                             ) : (
                                 <div className="todos-desc-con w-5/12">
-                                    <h2 className='text-4xl text-blue-500 font-bold mb-2'>Ting og huske</h2>
+                                    <h2 className='text-4xl text-blue-800 font-bold mb-2'>Ting og huske</h2>
                                     <p className="text-lg">Her er en liste over ting, man skal huske, når man får / mister et barn:</p>
                                     <img src="/images/tasks_graphics.svg" alt="tasks" className="my-4 w-6/12" />
                                     <Divider marginBlock="8" />
