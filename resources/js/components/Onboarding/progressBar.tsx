@@ -59,10 +59,11 @@ const ProgressStep = ({
     isCompleted,
     stepName,
 }: ProgressStepProps) => {
+    console.log(stepName, 'stepName'); // Debugging step name
     // give me the last element in the array;
     return (
         <>
-            {currentStep === step ? (
+            {isCompleted ? (
                 <Link href={route('onboarding.step', { step: stepName })} className="relative flex items-center">
                     <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-900 text-white hover:bg-blue-700' : 'bg-white text-blue-900'}`}>{step}</div>
                 </Link>

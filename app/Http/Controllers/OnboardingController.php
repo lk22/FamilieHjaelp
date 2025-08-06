@@ -35,6 +35,7 @@ class OnboardingController extends Controller
                 ...$initialState
             ]);
         }
+        
         $stepData = session()->get('onboarding_data.data.steps', []);
         $completedSteps = session()->get('onboarding_data.completed_steps', []);
 
