@@ -42,13 +42,6 @@ export default function OnboardingStepSixForm() {
                 other: data.other
             }
         });
-
-        completeOnboarding();
-        post(route('onboarding.step.submit', { _query: { step: 'last' } }), {
-            onError: () => {
-                console.error("Error submitting step:", errors);
-            },
-        });
     };
 
     /**
