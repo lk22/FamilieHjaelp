@@ -95,20 +95,6 @@ const ProfileOverviewHomeContent = () => {
                                     </a>
                                 </div>
                             </SwiperSlide>
-                            <SwiperSlide key={2}>
-                                <div className="bg-[#2C6DB6] rounded-lg shadow-md text-white p-6 transition-colors duration-300 ease-in-out hover:bg-[#1A4D8D]">
-                                    <h2 className="text-xl font-bold mb-2">Sorggrupper</h2>
-                                    <p className="mb-4">Sorggrupper for forældre, der har mistet et barn.</p>
-                                    <a 
-                                        href="https://www.sorgvejviser.dk/sorgtilbud/sorggrupper-for-foraeldre-der-har-mistet-et-barn/" 
-                                        target="_blank" 
-                                        className={`inline-block py-2 text-white`}
-                                        rel="noopener noreferrer"
-                                    >
-                                        Læs mere
-                                    </a>
-                                </div>
-                            </SwiperSlide>
                         </Swiper>
                     </div>
                 </section>
