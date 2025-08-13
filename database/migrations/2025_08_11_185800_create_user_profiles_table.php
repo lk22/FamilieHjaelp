@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use Illuminate\Support\Facades\DB;
+
 return new class extends Migration
 {
     /**
@@ -13,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                  ->constrained('users')
-                  ->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+            $table->jsonb('onboarding_data')->nullable();
+            $table->jsonb('preferences')->nullable();
+            $table->jsonb('meta_data')->nullable();
+            $table->jsonb('pages')->nullable();
+
             $table->boolean('onboarding_completed')->default(false);
-            $table->json('preferences')->nullable();
-            $table->json('onboarding_data')->nullable();
-            $table->json('pages')->nullable();
-            $table->json('meta_data')->nullable();
             $table->datetime('onboarding_completed_at')->nullable();
             $table->timestamps();
         });

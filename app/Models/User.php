@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Todo;
+use App\Models\Profile;
 
 class User extends Authenticatable
 {
@@ -80,5 +81,13 @@ class User extends Authenticatable
     public function pages()
     {
         return $this->hasMany(Page::class, 'user_id', 'id', 'pages');
+    }
+
+    /**
+     * get the profile associated with the user
+     */
+    public function profile()
+    {
+        $this->hasOne(Profile::class);
     }
 }
