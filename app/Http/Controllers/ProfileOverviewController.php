@@ -35,10 +35,7 @@ class ProfileOverviewController extends Controller
      */
     public function show(?string $page): Response
     {
-        $foundPage = auth()->user()
-            ->pages()
-            ->where('slug', $page)
-            ->firstOrFail();
+        $foundPage = auth()->user()->pages()->where('slug', $page)->first();
 
         return Inertia::render('Profile/Overview/info/info-' . $foundPage->slug);
     }
