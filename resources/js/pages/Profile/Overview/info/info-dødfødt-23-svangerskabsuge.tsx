@@ -67,7 +67,6 @@ export default function DødfødtInfoPage() {
                             </ExternalLink>
                         </li>
                     </ul>
-
                 </section>
             </div>
         </ProfileOverviewLayout>

@@ -69,7 +69,17 @@ class HandleStoreUserTodos
                 'due_date' => $registerFathershipDueDate ?? null,
                 'link' => 'https://www.borger.dk/borger/boern-og-unge/boern-og-unge/boern-og-unge/boern-og-unge/forældreskab',
                 'completed_at' => null
+            ],
+            [
+                'title' => 'Søg begravelseshjælp',
+                'description' => 'Hvis du har mistet et barn, kan du søge om begravelseshjælp. Dette kan gøres online eller via blanket "Søg begravelseshjælp" som kan findes på borger.dk eller ved at kontakt en bedemand.',
+                'is_completed' => false,
+                'due_date' => $deathbornDueDate ?? null,
+                'link' => route('profile.info.page', ['page' => 'begravelse-eller-bisaettelse']),
+                'completed_at' => null
             ]
+            // TODO add more todos for planning funeral or burial
+            // TODO add todos for applying for funeral assistance
         ];
     }
 }

@@ -54,8 +54,8 @@ export default function TodoListSection({todos}: TodoListProps) {
                             {(Array.isArray(todos) ? todos : []).map((todo, index) => (
                                 <div key={index} className="bg-white rounded-lg shadow-md p-4 mb-4 border-t-2 border-blue-800 inset">
                                     <h3 className="text-2xl font-bold mb-2 text-blue-900">{todo.title}</h3>
-                                    <p>{todo.description}</p>
-                                    <p className="mt-4 text-sm text-gray-600 font-bold">
+                                    <p className="text-sm">{todo.description}</p>
+                                    <p className="mt-4 text-xs text-gray-600 font-bold">
                                         {todo.due_date ? `Forfaldsdato: ${new Date(todo.due_date).toLocaleDateString()}` : 'Ingen forfaldsdato'}
                                     </p>
                                 </div>
