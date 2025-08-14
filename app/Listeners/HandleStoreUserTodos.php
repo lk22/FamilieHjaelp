@@ -71,6 +71,14 @@ class HandleStoreUserTodos
                 'completed_at' => null
             ],
             [
+                'title' => 'Planlæg begravelse eller bisættelse',
+                'description' => 'Planlægning af begravelse eller bisættelse for dit barn kan være hårdt og gå igennem som, dette kan gøres ved at kontakte en bedemand eller kommunen',
+                'is_completed' => false,
+                'due_date' => null,
+                'link' => '',
+                'complted_at' => null
+            ],
+            [
                 'title' => 'Søg begravelseshjælp',
                 'description' => 'Hvis du har mistet et barn, kan du søge om begravelseshjælp. Dette kan gøres online eller via blanket "Søg begravelseshjælp" som kan findes på borger.dk eller ved at kontakt en bedemand.',
                 'is_completed' => false,
@@ -78,8 +86,6 @@ class HandleStoreUserTodos
                 'link' => route('profile.info.page', ['page' => 'begravelse-eller-bisaettelse']),
                 'completed_at' => null
             ]
-            // TODO add more todos for planning funeral or burial
-            // TODO add todos for applying for funeral assistance
         ];
     }
 }
