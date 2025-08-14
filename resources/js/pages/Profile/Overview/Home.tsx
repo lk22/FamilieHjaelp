@@ -102,7 +102,7 @@ const ProfileOverviewHomeContent = () => {
                 <section className="mt-8 p-8 rounded-lg shadow-md border-t-2 border-blue-800 inset bg-gradient-to-r from-blue-700 to-blue-900">
                     <h2 className="text-4xl text-blue-800 font-bold mb-4 text-white">Praktisk information</h2>
                     <p className="mb-4 text-xl font-semibold text-white">Her er nogle nyttige sider, der kan hjælpe dig med at forstå dine rettigheder og muligheder:</p>
-                    <Swiper spaceBetween={25} slidesPerView={handleSwiperSlidesPerView()} className="mySwiper">
+                    <Swiper spaceBetween={25} slidesPerView={2.5} className="mySwiper">
                         {(Array.isArray(auth?.user.pages) ? auth.user.pages : []).map(
                             (
                                 page: PageSlideProperty,
