@@ -48,8 +48,8 @@ class HandleStoreUserTodos
      *
      * @return array<array<string, mixed>>
      */
-    private function initializeAbortDeathbornTodos(?string $formattedDate): array {
-
+    private function initializeAbortDeathbornTodos(?string $formattedDate): array 
+    {
         $deathbornDueDate = $formattedDate ? date('Y-m-d', strtotime($formattedDate . ' + 30 days')) : null;
         $registerFathershipDueDate = $formattedDate ? date('Y-m-d', strtotime($formattedDate . ' + 4 weeks')) : null;
 
