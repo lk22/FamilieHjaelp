@@ -37,6 +37,27 @@ class HandleStoreUserPages
                         'page_title' => 'Sorgoverlov',
                         'description' => 'Som forælder kan du have ret til orlov med dagpenge',
                     ];
+
+                    $pages = [
+                        [
+                            'title' => 'Sorgoverlov',
+                            'slug' => 'sorgoverlov',
+                            'page_title' => 'Sorgoverlov',
+                            'description' => 'Som forælder kan du have ret til orlov med dagpenge',
+                        ],
+                        [
+                            "title" => "Dødfødsel efter 23 svangerskabsuge",
+                            "slug" => "dødfødt-23-svangerskabsuge",
+                            "page_title" => "Praktisk information om dødfødt 23 svangerskabsuge",
+                            "description" => "Er dit barn dødfødt efter 23 svangerskabsuge?"
+                        ],
+                        [
+                            "title" => "Begravelses eller bisættelse",
+                            "slug" => "begravelse-eller-bisaettelse",
+                            "page_title" => "Begravelse eller bisættelse af dødfødt barn",
+                            "description" => "Skal du planlægge en begravelse eller bissætelse?"
+                        ]
+                    ];
                 }
             }
         }
