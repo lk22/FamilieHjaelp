@@ -24,11 +24,20 @@ class GenerateProfilePages
                 return $this->generateAbortionInformationPages();
             }
 
+            if (in_array($checks, ['is_parents'])) {
+                return $this->generateParentingInformationPages();
+            }
+
             if ( in_array($checks, ['some_other_check']) ) {
                 return $this->generateOtherInformationPages();
             }
         }
 
+        return [];
+    }
+
+    private function generateParentingInformationPages(): array
+    {
         return [];
     }
 
