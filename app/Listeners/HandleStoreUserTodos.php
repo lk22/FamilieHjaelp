@@ -8,6 +8,8 @@ use Illuminate\Queue\InteractsWithQueue;
 
 use App\Events\StoreUserPages;
 
+use App\Actions\Onboarding\GenerateProfileTodos;
+
 class HandleStoreUserTodos
 {
     /**
