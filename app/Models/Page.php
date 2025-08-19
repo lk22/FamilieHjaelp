@@ -69,18 +69,4 @@ class Page extends Model
     {
         return $this->attributes['page_title'] ?: $this->title;
     }
-
-    /**
-     * Get the user that owns the page.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User>
-     */
-    public function user() {
-        return $this->belongsTo(User::class, 'user_id', 'id', 'users');
-    }
-
-    public function categories()
-    {
-        return $this->belongsTo(Category::class, 'category', 'slug', 'categories');
-    }
 }

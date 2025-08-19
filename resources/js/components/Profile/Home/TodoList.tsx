@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, Deferred } from '@inertiajs/react';
 
 // hooks
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -20,6 +20,7 @@ export default function TodoListSection({todos}: TodoListProps) {
     return (
         <>
             <section>
+                <Deferred data="todos" fallback={<TodosFallbackComponent />}>
                     <div className={`home-tasks-overview my-8 flex ${isMobile ? 'flex-col' : 'flex-row gap-8'}`}>
                         {
                             isMobile ? (
@@ -62,7 +63,15 @@ export default function TodoListSection({todos}: TodoListProps) {
                             ))}
                         </div>
                     </div>
+                    </Deferred>
                 </section>
         </>
     );
+}
+
+
+const TodosFallbackComponent = () => {
+    return (
+        <div className="text-center text-white">Indlæser opgaver...</div>
+    )
 }

@@ -66,8 +66,6 @@ class HandleInertiaRequests extends Middleware
             'background_image' => $this->shareRandomBackgroundImage(),
             'auth' => [
                 'user' => $request->user(),
-                'todos' => $request->user() ? $request->user()->todos : [],
-                'pages' => $request->user() ? $request->user()->pages : [],
                 'isOnboarded' => $request->user() ? $request->user()->isOnboarded() : false
             ],
             'onboarding' => session('onboarding_data') ?? null,

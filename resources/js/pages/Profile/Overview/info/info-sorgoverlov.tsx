@@ -37,12 +37,12 @@ export default function SorgoverlovInfoPage() {
                     </Paragraph>
                     <Paragraph>
                         for at opfylde betingelserne for at få dagpenge under sorgoverlov, skal du opfylde følgende krav:
-                        <ul className="ml-4 mt-4 list-enter leading-7 font-bold text-blue-900">
-                            <li className="marker:checked text-md">- Du skal have været ansat i mindst 160 timer inden for de seneste fire hele måneder før orloven.</li>
-                            <li className="marker:checked text-md">- Du skal have arbejdet i mindst 40 timer om måneden i mindst tre af de fire måneder.</li>
-                            <li className="marker:checked text-md">- Din arbejdsgiver skal indberette din orlov til Udbetaling Danmark.</li>
-                        </ul>
                     </Paragraph>
+                    <ul className="ml-4 my-4 list-enter leading-7 font-bold text-blue-900">
+                        <li className="marker:checked text-md">- Du skal have været ansat i mindst 160 timer inden for de seneste fire hele måneder før orloven.</li>
+                        <li className="marker:checked text-md">- Du skal have arbejdet i mindst 40 timer om måneden i mindst tre af de fire måneder.</li>
+                        <li className="marker:checked text-md">- Din arbejdsgiver skal indberette din orlov til Udbetaling Danmark.</li>
+                    </ul>
                     <Paragraph>
                         <strong>Udbetaling Danmark får automatisk oplysningerne om din ansættelse og timer, når din arbejdsgiver indberetter orloven.</strong>
                     </Paragraph>
