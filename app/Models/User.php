@@ -88,6 +88,6 @@ class User extends Authenticatable
      */
     public function profile()
     {
-        $this->hasOne(Profile::class);
+        $this->hasOne(Profile::class, 'user_id', 'id');
     }
 }

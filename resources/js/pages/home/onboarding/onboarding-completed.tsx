@@ -35,7 +35,6 @@ const OnboardingCompletedContent = () => {
     const [loadingPercentage, setLoadingPercentage] = useState(0);
 
     const postOnboardingData = useCallback(async () => {
-
         const steps: LoadingProgressSteps[] = [
             {
                 name: 'Checking authentication status',
@@ -182,7 +181,6 @@ const OnboardingCompletedContent = () => {
             await new Promise(resolve => setTimeout(resolve, 2000));
             updateLoadingPercentage(100);
         }
-
     }, [auth?.user, onboardingState]);
 
     const updateLoadingPercentage = useCallback((percentage: number) => {
@@ -251,10 +249,7 @@ const OnboardingCompletedContent = () => {
 
 const CompletedMessage = ({name}: CompletedMessageProps) => {
     const { auth } = usePage<SharedData>().props;
-    console.log(auth)
-
     const isAuthenticated = auth?.user !== undefined && auth?.user !== null;
-    console.log('isAuthenticated:', isAuthenticated);
 
     return (
         <>

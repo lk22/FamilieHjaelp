@@ -26,6 +26,14 @@ return new class extends Migration
             $table->datetime('onboarding_completed_at')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('user_profile_meta', function(Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_profile_id')->constrained('user_profiles')->onDelete('cascade');
+            $table->string('key');
+            $table->string('value');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -33,6 +41,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('user_profile_meta');
         Schema::dropIfExists('user_profiles');
     }
 };
