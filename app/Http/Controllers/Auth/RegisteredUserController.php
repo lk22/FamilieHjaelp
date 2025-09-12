@@ -16,7 +16,7 @@ use Inertia\Response;
 class RegisteredUserController extends Controller
 {
 
-    public string $intendedRedirectRoute = 'dashboard';
+    public string $intendedRedirectRoute = 'getting-started';
 
     /**
      * Show the registration page.
@@ -52,21 +52,15 @@ class RegisteredUserController extends Controller
             $registeredUserData['has_completed_onboarding'] = true;
         }
 
-        if ( $request->redirect_to) {
-            $this->intendedRedirectRoute = $request->redirect_to;
-        }
-
         $user = User::create($registeredUserData);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect()->intended(
-            route(
-                $this->intendedRedirectRoute,
-                absolute: true
-            )
-        );
+        // Determine intended redirect route
+        $intendedRedirectRoute = $request->redirect_to ?? 'getting-started';
+
+        return redirect()->route($intendedRedirectRoute);
     }
 }

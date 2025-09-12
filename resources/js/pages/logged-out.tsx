@@ -1,8 +1,7 @@
-
-import { type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 export default function LoggedOut() {
+
     return (
         <>
             <Head title="Hjem | Familiehjælp" />

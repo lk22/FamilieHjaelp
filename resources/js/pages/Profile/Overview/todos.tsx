@@ -5,7 +5,6 @@ import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 
 import TodoItem from '@/components/TodoItem';
 
-
 type TodoItem = {
     id: number;
     title: string;
@@ -19,12 +18,12 @@ interface TodosProps {
 }
 
 export default function Todos({ todos }: TodosProps) {
-    const { auth } = usePage<SharedData>();
+    const { auth } = usePage<SharedData>().props;
 
     console.log('Todos component rendered with auth:', auth);
 
     return (
-        <ProfileOverviewLayout auth={auth} title="Opgaver" description="Her kan du se alle dine opgaver.">
+        <ProfileOverviewLayout title="Opgaver">
             <div className="container mx-auto p-6">
                 <h1 className="text-4xl font-bold mb-4 text-blue-900">Ting at huske</h1>
                 <p className="mb-4">Her kan du se alle de opgaver, du skal huske at udføre.</p>

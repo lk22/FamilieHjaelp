@@ -4,7 +4,6 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 // defining the progress step properties
 interface ProgressStepProps {
     step: number;
-    currentStep: number;
     lastStep?: boolean;
     isCompleted: boolean;
     stepName: string;
@@ -27,7 +26,6 @@ export default function ProgressBar() {
             const lastStep = steps.length - 1 === index;
             const isCompleted = step.progress.completed;
             const stepName = step.name; // Fallback to step id if name is not defined
-            const currentStep = onboardingState.currentStep;
             
             return (
                 <div key={index} className="relative flex-1">
@@ -36,7 +34,6 @@ export default function ProgressBar() {
                         lastStep={lastStep} 
                         isCompleted={isCompleted} 
                         stepName={stepName}
-                        currentStep={currentStep}
                     />
                 </div>
             );
@@ -54,12 +51,10 @@ export default function ProgressBar() {
 
 const ProgressStep = ({
     step,
-    currentStep,
     lastStep,
     isCompleted,
     stepName,
 }: ProgressStepProps) => {
-    console.log(stepName, 'stepName'); // Debugging step name
     // give me the last element in the array;
     return (
         <>

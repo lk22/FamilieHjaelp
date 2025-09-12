@@ -152,6 +152,8 @@ const OnboardingCompletedContent = () => {
                 name: 'removing progress state',
                 percentage: 100,
                 action: async () => {
+                    // remove the the users onboarding state (it should only be used during onboarding)
+                    window.localStorage.removeItem('onboarding_shared_state');
                     setLoading(false);
                 }
             }

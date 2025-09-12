@@ -15,7 +15,7 @@ Route::get('/', [PageController::class, 'home'])
 
 Route::get('/getting-started', [PageController::class, 'gettingStarted'])
     ->name('getting-started')
-    ->middleware('guest');
+    ->middleware(['guest']);
 
 /**
  * Onboarding routes

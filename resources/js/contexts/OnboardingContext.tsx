@@ -28,19 +28,22 @@ const OnboardingContext = createContext<OnboardingContextType | undefined>(undef
  * Provides onboarding state management with both localStorage persistence and React Context reactivity
  */
 export function OnboardingProvider({ children }: { children: React.ReactNode }) {
+    const sharedStateName = 'onboarding_shared_state';
+
     // Use both useRemember (for Inertia.js integration) and useLocalStorage (for cross-component sync)
     const [inertiaState, setInertiaState] = useRemember<OnboardingState>(
         InitialOnboardingState,
-        'onboarding_shared_state'
+        sharedStateName
     );
     
     const [localStorageState, setLocalStorageState] = useLocalStorage<OnboardingState>(
-        'onboarding_shared_state',
+        sharedStateName,
         InitialOnboardingState
     );
 
     // Use the most recent state (localStorage takes precedence for cross-component sync)
     const onboardingState = localStorageState;
+    console.log({ initialState: onboardingState });
 
     // Sync states when either changes
     useEffect(() => {
@@ -54,7 +57,6 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
     const updateOnboardingState = useCallback((newState: OnboardingState | ((prev: OnboardingState) => OnboardingState)) => {
         const stateToSet = typeof newState === 'function' ? newState(onboardingState) : newState;
         
-        // Update both states
         setLocalStorageState(stateToSet);
         setInertiaState(stateToSet);
     }, [onboardingState, setLocalStorageState, setInertiaState]);
@@ -64,6 +66,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         updateOnboardingState(prev => ({
             ...prev,
             currentStep: stepId + 1, // Move to next step
+            nextStep: stepId + 1,
             completedSteps: prev.completedSteps.includes(stepId) 
                 ? prev.completedSteps 
                 : [...prev.completedSteps, stepId],

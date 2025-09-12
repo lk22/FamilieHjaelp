@@ -118,9 +118,9 @@ const ProfileOverviewHomeContent = ({ todos, pages }: ProfileOverviewHomeProps) 
                     </div>
                 </section>
                 <TodoListSection todos={Todos} />
-                <section className="mt-8 p-8 rounded-lg shadow-md border-t-2 border-blue-800 inset bg-gradient-to-r from-blue-700 to-blue-900">
-                    <h2 className="text-4xl text-blue-800 font-bold mb-4 text-white">Praktisk information</h2>
-                    <p className="mb-4 text-xl font-semibold text-white">Her er nogle nyttige sider, der kan hjælpe dig med at forstå dine rettigheder og muligheder:</p>
+                <section className="mt-8">
+                    <h2 className="text-4xl text-blue-800 font-bold mb-4">Praktisk information</h2>
+                    <p className="mb-4 text-xl font-semibold text-blue-800">Her er nogle nyttige sider, der kan hjælpe dig med at forstå dine rettigheder og muligheder:</p>
                     <Deferred
                         data="pages"
                         fallback={<PagesFallbackComponent />}

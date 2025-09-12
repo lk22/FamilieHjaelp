@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useForm, Link, router } from "@inertiajs/react";
 
@@ -123,15 +124,15 @@ export default function OnboardingStepTwoForm() {
                                 className="mr-4"
                             />
                         </div>
-                        <div className="pb-4 flex-row-reverse justify-end hidden text-blue-900">
+                        <div className="flex pb-4 flex-row-reverse justify-end text-blue-900">
                             <Label htmlFor="graviditet" className="text-2xl">Jeg har oplevet en almindelig graviditet</Label>
                             <Checkbox 
                                 id="graviditet" 
                                 checked={
-                                    data.checks.includes('pregnancy') || 
-                                    currentStepData.stepTwo?.checks.includes('pregnancy')
+                                    data.checks.includes('parents') || 
+                                    currentStepData.stepTwo?.checks.includes('parents')
                                 }
-                                onCheckedChange={() => handleCheckChanges('pregnancy')}
+                                onCheckedChange={(checked) => handleCheckChanges('parents', checked === true)}
                                 className="mr-4"
                             />
                         </div>
