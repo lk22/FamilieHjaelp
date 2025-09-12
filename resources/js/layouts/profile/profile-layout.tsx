@@ -28,12 +28,12 @@ export default function ProfileOverviewLayout({
         router.post(route('logout'));
     }
 
-    const handlePageTitle = (): JSX.Element[] => {
+    const handlePageTitle = (): JSX.Element => {
         if (headline) {
-            return [<h1 className="text-4xl font-bold mb-4 text-blue-900 border-b-2 pb-2">{headline}</h1>];
+            return <h1 className="text-4xl font-bold mb-4 text-blue-900 border-b-2 pb-2">{headline}</h1>;
         }
         
-        return [<h1 className="text-4xl font-bold mb-4 text-blue-900">Velkommen {auth.user.name}</h1>];
+        return <h1 className="text-4xl font-bold mb-4 text-blue-900">Velkommen {auth.user.name}</h1>;
     }
 
     return (
