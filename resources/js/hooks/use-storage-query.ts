@@ -1,14 +1,11 @@
 
 
-import { useState, useEffect } from 'react';
 
 export default function useStorageQuery() {
-    const [data, setData] = useState(null);
-
-    useEffect(() => {
-        // Fetch or compute data here
-    }, []);
-
+    const data: object[] = [
+        {id:1},
+        {id:2},
+    ];
     return data;
 }
         

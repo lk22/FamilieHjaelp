@@ -5,7 +5,7 @@ const MOBILE_SLIDES_PER_VIEW = 1;
 const TABLET_SLIDES_PER_VIEW = 1;
 const DESKTOP_SLIDES_PER_VIEW = 1.5;
 
-export function handleSwiperSlidesPerView(): number {
+export function HandleSwiperSlidesPerView(): number {
     const isMobile = useIsMobile();
     const isTablet = useIsTablet();
 

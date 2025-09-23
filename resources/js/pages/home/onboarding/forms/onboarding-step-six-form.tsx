@@ -12,14 +12,13 @@ export default function OnboardingStepSixForm() {
         completeStep, 
         isStepCompleted, 
         getCurrentStepData, 
-        updateStepProgress, 
-        completeOnboarding 
+        updateStepProgress,
     } = useOnboarding();
 
     const currentStepData = getCurrentStepData(6);
     const isCompleted = isStepCompleted(6);
 
-    const { data, setData, processing, post, errors } = useForm<{
+    const { data, setData, processing } = useForm<{
         step: number;
         checks: string[];
         other: string;

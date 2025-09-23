@@ -1,21 +1,12 @@
-
-import {usePage} from '@inertiajs/react';
 import {Head} from '@inertiajs/react';
-import {type PageProps} from '@inertiajs/core';
-import { type OnboardingData } from '@/types/onboarding';
-import { type OnboardingInitialSteps } from '@/types/onboarding';
 import OnboardingTemplate from './template/onboarding-template';
 import OnboardingStepSixForm from './forms/onboarding-step-six-form';
 
-type OnboardingStepSixData = PageProps & {
-    onboarding: OnboardingData;
-}
-
-export default function OnboardingStepSix({ currentStep, totalSteps }: OnboardingInitialSteps) {
+export default function OnboardingStepSix() {
 
     const stateStorage = JSON.parse(localStorage.getItem('onboarding_shared_state') || '{}');
-    const situationStepData = stateStorage?.steps?.find((step: any) => step.id === 2);
-    const partnerStepData = stateStorage?.steps?.find((step: any) => step.id === 3);
+    const situationStepData = stateStorage?.steps?.find((step: {id: number}) => step.id === 2);
+    const partnerStepData = stateStorage?.steps?.find((step: {id: number}) => step.id === 3);
 
     const handleStepDescription = () => {
         const situation = situationStepData?.data?.stepTwo?.checks || [];
@@ -48,8 +39,6 @@ export default function OnboardingStepSix({ currentStep, totalSteps }: Onboardin
             title={`Spørgsmål`} 
             description={handleStepDescription()}
             screenGraphic={null}
-            steps={totalSteps}
-            currentStep={currentStep || 6}
         >
             <Head title={`Spørgsmål | Familiehjælp`} />
             <div className="container max-w-[960px] px-4 py-8 mx-auto">

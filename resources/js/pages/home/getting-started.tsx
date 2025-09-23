@@ -4,6 +4,7 @@ import { Head, Link, usePage } from '@inertiajs/react';
 
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { useOnboarding } from '@/contexts/OnboardingContext';
+import { OnboardingState } from '@/state/onboardingState';
 
 // TODO: i want to implement unique onboarding process steps for a given user instead of the deafult global state but have a global state for a authenticated user profile
 
@@ -180,7 +181,7 @@ const CompletedStepContent = ({ step }: { step: number }) => {
 }
 
 // TODO set a type for state parameter
-function StepProcessDescription({step, state}: {step: number, state?: any}) {
+function StepProcessDescription({step, state}: {step: number, state?: OnboardingState}) {
     console.log({state})
     switch (step) {
         case 1:
@@ -211,46 +212,46 @@ function StepProcessDescription({step, state}: {step: number, state?: any}) {
 }
 
 // TODO set a type for state parameter
-function stepProcessDescriptionContent({step, state}: {step: number, state?: any}) {
+// function stepProcessDescriptionContent({step, state}: {step: number, state?: any}) {
     
-    const situationState = state?.steps.find((s: { id: number; }) => s.id === 2);
-    console.log({situationState})
+//     const situationState = state?.steps.find((s: { id: number; }) => s.id === 2);
+//     console.log({situationState})
 
 
-    switch (step) {
-        case 1:
-        case 2:
-            return (
-                <>
-                    <p className="text-lg mb-4">
-                        Forældrehjælp er platformen til dig der søger hjælp og vejledning efter din nuværende situation. Vi forstår, at det kan være overvældende at navigere gennem de mange følelser og beslutninger, der kan medfølge.
-                    </p>
-                    <p className="text-lg mb-4">
-                        Gennem denne proces vil vi guide dig gennem forskellige trin, der er designet til at adressere dine specifikke behov og bekymringer. Hvert trin er vigtigt, da det hjælper med at forstå din situation bedre og giver dig mulighed for at udtrykke dine følelser og tanker.
-                    </p>
-                    <p className="text-lg mb-4">
-                        Vi opfordrer dig til at tage dig tid til at reflektere over hvert trin og være åben omkring dine følelser. Husk, at du ikke er alene i denne rejse, og vi er her for at støtte dig hvert skridt på vejen.
-                    </p>
-                </>
-            );
-        case 3:
-            if (situationState?.data)
-            return (
-                <>
-                </>
-            );
-            break;
-        case 4:
-        case 5:
-        case 6:
-        default:
-            return (
-                <>
-                    <p>Du er nu på et ukendt trin.</p>
-                </>
-            );
-    }
-}
+//     switch (step) {
+//         case 1:
+//         case 2:
+//             return (
+//                 <>
+//                     <p className="text-lg mb-4">
+//                         Forældrehjælp er platformen til dig der søger hjælp og vejledning efter din nuværende situation. Vi forstår, at det kan være overvældende at navigere gennem de mange følelser og beslutninger, der kan medfølge.
+//                     </p>
+//                     <p className="text-lg mb-4">
+//                         Gennem denne proces vil vi guide dig gennem forskellige trin, der er designet til at adressere dine specifikke behov og bekymringer. Hvert trin er vigtigt, da det hjælper med at forstå din situation bedre og giver dig mulighed for at udtrykke dine følelser og tanker.
+//                     </p>
+//                     <p className="text-lg mb-4">
+//                         Vi opfordrer dig til at tage dig tid til at reflektere over hvert trin og være åben omkring dine følelser. Husk, at du ikke er alene i denne rejse, og vi er her for at støtte dig hvert skridt på vejen.
+//                     </p>
+//                 </>
+//             );
+//         case 3:
+//             if (situationState?.data)
+//             return (
+//                 <>
+//                 </>
+//             );
+//             break;
+//         case 4:
+//         case 5:
+//         case 6:
+//         default:
+//             return (
+//                 <>
+//                     <p>Du er nu på et ukendt trin.</p>
+//                 </>
+//             );
+//     }
+// }
 
 export default function GettingStarted() {
     return (
