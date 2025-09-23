@@ -39,6 +39,9 @@ Route::post('/onboarding/process/complete', [CompleteOnboardingController::class
 // Profile overview routes 
 Route::get('/profile/overview/', [ProfileOverviewController::class, 'show'])->name('profile.home');
 
+// requiring parents routes for development purposes
+require __DIR__.'/parents.php';
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
