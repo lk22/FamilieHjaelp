@@ -21,3 +21,15 @@ export interface ScheduledEvent {
     description: string;
     child: Child;
 }
+
+/**
+ * ScheduledActivity representing a scheduled activity for a parent
+ * 
+ * @interface ScheduledActivity
+ */
+export interface ScheduledActivity {
+    id: number;
+    title: string;
+    date: string;
+    description: string;
+}

@@ -5,8 +5,8 @@ import ProfileParentsOverviewLayout from '@/layouts/profile/profile-parents-layo
 import  {OnboardingProvider} from '@/contexts/OnboardingContext';
 
 // components
-import ChildList from '@/components/Profile/Home/Parents/ChildList'
 import ScheduledEventsList from '@/components/Profile/Home/Parents/SchedulesEventsList'
+import ScheduledActivitiesList from '@/components/Profile/Home/Parents/ScheduledActivities';
 
 const ProfileOverviewParentsContent = () => {
     return (
@@ -19,17 +19,24 @@ const ProfileOverviewParentsContent = () => {
             }>
             <section 
                 id="home-scheduled-events-list"
-                className="my-8 bg-blue-700 p-8 flex rounded"    
+                className="flex gap-2 mt-8"
             >
-                <div className="w-6/12 text-white">
-                    <h3>Planlagte arrangementer og begivenheder</h3>
+                <div className="w-6/12 bg-gray-50 p-8 rounded-lg shadow-md relative">
+                    <h3 className="text-2xl font-bold text-blue-700">Planlagte arrangementer og begivenheder</h3>
                     <p>Se alle planlagte arrangementer & begivenheder</p>
+                    <div className="mt-4">
+                        <ScheduledEventsList />
+                    </div>
                 </div>
-                <div className="w-6/12 text-white">
-                    <ScheduledEventsList />
+                <div className="w-6/12 bg-gray-50 p-8 rounded-lg shadow-md relative">
+                    <h3 className="text-2xl font-bold text-blue-700">
+                        Seneste aktiviteter
+                    </h3>
+                    <div className="mt-4">
+                        <ScheduledActivitiesList />
+                    </div>
                 </div>
             </section>
-            <ChildList />
             </ProfileParentsOverviewLayout>
         </>
     );

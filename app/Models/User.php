@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Todo;
 use App\Models\Profile;
 
@@ -85,8 +86,10 @@ class User extends Authenticatable
 
     /**
      * get the profile associated with the user
+     * 
+     * @return HasOne<Profile>
      */
-    public function profile()
+    public function profile(): hasOne
     {
         $this->hasOne(Profile::class, 'user_id', 'id');
     }
