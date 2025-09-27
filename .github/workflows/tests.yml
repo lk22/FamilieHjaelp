@@ -33,6 +33,11 @@ jobs:
 
       - name: Install Node Dependencies
         run: npm ci
+      
+      - name: Create missing files (if needed)
+        run: |
+          mkdir -p resources/js/state
+          touch resources/js/state/OnboardingState.ts
 
       - name: Build Assets
         run: npm run build
