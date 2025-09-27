@@ -128,11 +128,12 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
 
     const completeOnboarding = useCallback(() => {
         updateOnboardingState(prev => ({
+            ...prev,
             onboardingCompleted: true,
             currentStep: 0, // Reset current step
             completedSteps: prev.steps.map(step => step.id) // Mark all steps as completed
-        }));
-    }, [updateOnboardingState]);
+        }))
+    }, [updateOnboardingState])
 
     const contextValue: OnboardingContextType = {
         onboardingState,
