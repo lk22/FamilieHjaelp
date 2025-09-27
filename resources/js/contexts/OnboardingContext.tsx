@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useCallback, useEffect } from 'react';
 import { useRemember } from '@inertiajs/react';
 import { OnboardingState, InitialOnboardingState, type StepData } from '@/state/onboardingState';
+
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 type ProgressProperties = {
