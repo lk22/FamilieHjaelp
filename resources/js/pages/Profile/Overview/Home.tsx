@@ -9,7 +9,7 @@ import 'swiper/swiper-bundle.css';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 
 // utilities
-import { handleSwiperSlidesPerView } from '@/lib/SwiperSlidesPerViewUtil';
+import { HandleSwiperSlidesPerView } from '@/lib/SwiperSlidesPerViewUtil';
 
 // hooks
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -83,7 +83,7 @@ const ProfileOverviewHomeContent = ({ todos, pages }: ProfileOverviewHomeProps) 
                     </div>
                     <div className={`relative ${isMobile ? 'w-full' : 'w-6/12'}`}>
                         <Swiper spaceBetween={25} 
-                            slidesPerView={handleSwiperSlidesPerView()} 
+                            slidesPerView={HandleSwiperSlidesPerView()} 
                             className="mySwiper after:content-[''] after:block after:clear-both after:right-0 after:bg-white after:absolute"
                         >
                             <SwiperSlide key={0}>
