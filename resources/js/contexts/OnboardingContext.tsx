@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useCallback, useEffect } from 'react';
 import { useRemember } from '@inertiajs/react';
-import { OnboardingState, InitialOnboardingState, type StepData } from '@/state/onboardingState';
+import { OnboardingState, InitialOnboardingState, type StepData } from '@/state/OnboardingState';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 

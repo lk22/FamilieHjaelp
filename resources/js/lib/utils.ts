@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import { OnboardingState } from '@/state/onboardingState';
+import { OnboardingState } from '@/state/OnboardingState';
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));

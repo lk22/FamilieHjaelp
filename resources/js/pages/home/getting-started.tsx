@@ -4,7 +4,7 @@ import { Head, Link, usePage } from '@inertiajs/react';
 
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { useOnboarding } from '@/contexts/OnboardingContext';
-import { OnboardingState } from '@/state/onboardingState';
+import { OnboardingState } from '@/state/OnboardingState';
 
 // TODO: i want to implement unique onboarding process steps for a given user instead of the deafult global state but have a global state for a authenticated user profile
 
