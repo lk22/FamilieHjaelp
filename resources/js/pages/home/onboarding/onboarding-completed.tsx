@@ -33,8 +33,11 @@ const OnboardingCompletedContent = () => {
     
     const [ loading, setLoading ] = useState(true);
     const [loadingPercentage, setLoadingPercentage] = useState(0);
-
+    const updateLoadingPercentage = useCallback((percentage: number) => {
+        setLoadingPercentage(percentage);
+    }, []);
     const postOnboardingData = useCallback(async () => {
+
         const steps: LoadingProgressSteps[] = [
             {
                 name: 'Checking authentication status',
@@ -181,11 +184,7 @@ const OnboardingCompletedContent = () => {
             await new Promise(resolve => setTimeout(resolve, 2000));
             updateLoadingPercentage(100);
         }
-    }, [auth?.user, onboardingState]);
-
-    const updateLoadingPercentage = useCallback((percentage: number) => {
-        setLoadingPercentage(percentage);
-    }, []);
+    }, [auth?.user, onboardingState, updateLoadingPercentage]);
 
     // Call the post function when the component mounts
     useEffect(() => {
