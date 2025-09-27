@@ -11,7 +11,7 @@ vi.mock('@inertiajs/react', () => ({
       title ? React.createElement('title', null, title) : null,
       children
     ),
-  Link: ({ children, href, ...props }: any) =>
+  Link: ({ children, href, ...props }: {children: React.ReactNode[], href: string}) =>
     React.createElement('a', { href, ...props }, children),
   usePage: () => ({
     props: {
@@ -37,15 +37,19 @@ vi.mock('@inertiajs/react', () => ({
 }))
 
 // Mock Laravel route helper
-global.route = vi.fn((name: string, params?: any) => {
-  const routes: Record<string, string> = {
-    'profile.home': '/profile',
-    'profile.todos': '/profile/todos',
-    'profile.info.page': `/profile/info/${params}`,
-    'getting-started': '/getting-started',
-  }
-  return routes[name] || `/${name}`
-})
+// setup.ts
+vi.stubGlobal(
+    'route',
+    (name: string, params?: string | number | Record<string, unknown>) => {
+        const routes: Record<string, string> = {
+            'profile.home': '/profile',
+            'profile.todos': '/profile/todos',
+            'profile.info.page': `/profile/info/${params}`,
+            'getting-started': '/getting-started',
+        }
+        return routes[name] || `/${name}`
+    }
+)
 
 // Mock localStorage
 Object.defineProperty(window, 'localStorage', {
