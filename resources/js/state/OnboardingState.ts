@@ -5,7 +5,7 @@ type StepProgress = {
     in_progress: boolean;
     completed: boolean;
     not_started: boolean;
-}
+} 
 
 interface StepData {
     stepOne?: {

@@ -8,7 +8,7 @@ type ProgressProperties = {
     not_started: boolean;
     in_progress: boolean;
     completed: boolean;
-}
+} 
 
 interface OnboardingContextType {
     onboardingState: OnboardingState;
