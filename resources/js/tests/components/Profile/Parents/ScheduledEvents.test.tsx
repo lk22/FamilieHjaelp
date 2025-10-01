@@ -30,17 +30,26 @@ const mockedEvent: ScheduledEventProps = {
     }
 }
 
-// vi.mock('@/components/Profile/Home/Parents/SchedulesEventsList', () => ({
-//     __esModule: true,
-//     default: () => (
-//         <div>
-//             <div data-testid="event-title">{mockedEvent.title}</div>
-//             <div data-testid="event-date">Dato: {mockedEvent.date}</div>
-//             <div data-testid="event-child">Barn: {mockedEvent.child.name}</div>
-//         </div>
-//     ),
+vi.mock('@/components/Profile/Home/Parents/SchedulesEventsList', () => ({
+    __esModule: true,
+    default: () => (
+        <div>
+            <h3>
+                <span>Begivenhed: </span>
+                {mockedEvent.title}
+            </h3>
+            <p>
+                <span>Dato:</span>
+                Dato: {mockedEvent.date}
+            </p>
+            <p>
+                <span>Barn:</span>
+                Barn: {mockedEvent.child.name}
+            </p>
+        </div>
+    ),
 
-// }));
+}));
 
 
 describe('Scheduled Events List component', () => {
@@ -56,11 +65,11 @@ describe('Scheduled Events List component', () => {
             const eventTitle = screen.getByText(mockedEvent.title);
             expect(eventTitle).toBeInTheDocument();
 
-            // const eventDate = screen.getByText(`Dato: ${mockedEvent.date}`);
-            // expect(eventDate).toBeInTheDocument();
+            const eventDate = screen.getByText(`Dato: ${mockedEvent.date}`);
+            expect(eventDate).toBeInTheDocument();
 
-            // const eventChild = screen.getByText(`${mockedEvent.child.name}`);
-            // expect(eventChild).toBeInTheDocument();
+            const eventChild = screen.getByText(`Barn: ${mockedEvent.child.name}`);
+            expect(eventChild).toBeInTheDocument();
         });
     })
 })
