@@ -51,8 +51,8 @@ export default function ScheduledEventsList() {
                                 <HiOutlineCalendar className="inline-block mr-2 text-blue-700" />
                             </span>
                             <span className="sr-only">Dato:</span>
-                                Dato: {event.date}
-                            </p>
+                            Dato: {event.date}
+                        </p>
                         <p className="text-gray-600">Beskrivelse: {event.description}</p>
                         <p className="text-gray-600">
                             <span className="icon">
