@@ -38,8 +38,8 @@ export default function ScheduledActivitiesList() {
                                 <HiOutlineCalendar className="inline-block mr-2 text-blue-700" />
                             </span>
                             <span className="sr-only">Dato:</span>
-                                Dato: {activity.date}
-                            </p>
+                            Dato: {activity.date}
+                        </p>
                         <p className="text-gray-600">Beskrivelse: {activity.description}</p>
                     </div>
                 ))
@@ -49,7 +49,7 @@ export default function ScheduledActivitiesList() {
                 href={route('profile.parents.activities.index')}
                 className="text-blue-700 font-bold text-center absolute bottom-8 left-8"    
             >
-                Se aktiviteter
+                Se planlagte
             </Link>
         </>
     );
