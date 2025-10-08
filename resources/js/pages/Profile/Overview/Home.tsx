@@ -71,24 +71,26 @@ const ProfileOverviewHomeContent = ({ todos, pages }: ProfileOverviewHomeProps) 
             </>}
         >
             <div>
-                <section className={`mt-8 pl-8 py-8 bg-white rounded-lg shadow-md flex ${isMobile ? 'flex-col' : 'flex-row'} gap-8 border-t-2 border-blue-800 inset`}>
+                <section className={`mt-8 px-16 pt-16 pb-32 bg-white rounded shadow-md flex ${isMobile ? 'flex-col' : 'flex-row'} gap-8 inset`}>
                     <div className={`${isMobile ? 'w-full' : 'w-6/12'}`}>
                         <h1 className="text-4xl text-blue-800 font-bold mb-2">Hjælp til at komme videre</h1>
-                        <p className={`mb-10 w-full text-sm`}>
+                        <p className={`mb-10 w-full text-lg`}>
                             Vi er kede af jeres situation, det kan være svært at komme videre alene, Vi kan dirigere dig hurtigt videre til den nødvendige hjælp men vi skal bruge din hjælp.
                         </p>
                         <Link href="#" className="bg-blue-900 px-4 py-2 rounded-sm text-white hover:underline transition-colors duration-300 ease-in-out hover:bg-blue-800">
                             Se mere
                         </Link> 
                     </div>
-                    <div className={`relative ${isMobile ? 'w-full' : 'w-6/12'}`}>
+                </section>
+                <section className="w-full">
+                    <div className={`relative mx-16 bottom-16 flex justify-center items-center`}>
                         <Swiper spaceBetween={25} 
                             slidesPerView={HandleSwiperSlidesPerView()} 
                             className="mySwiper after:content-[''] after:block after:clear-both after:right-0 after:bg-white after:absolute"
                         >
                             <SwiperSlide key={0}>
-                                <div className="bg-blue-600 rounded-lg shadow-md text-white p-6 transition-colors duration-300 ease-in-out hover:bg-[#1A4D8D]">
-                                    <h2 className="text-xl font-bold mb-2">Dansk center for familier og sorg</h2>
+                                <div className="bg-blue-600 rounded shadow-md text-white p-6 transition-colors duration-300 ease-in-out hover:bg-[#1A4D8D]">
+                                    <h2 className="text-2xl font-bold mb-2">Dansk center for familier og sorg</h2>
                                     <p className="mb-4 text-sm">Vi tilbyder støtte og rådgivning til familier i sorg.</p>
                                     <a 
                                         href="https://familierogsorg.dk/" 
@@ -101,8 +103,8 @@ const ProfileOverviewHomeContent = ({ todos, pages }: ProfileOverviewHomeProps) 
                                 </div>
                             </SwiperSlide>
                             <SwiperSlide key={1}>
-                                <div className="bg-[#2C6DB6] rounded-lg shadow-md text-white p-6 transition-colors duration-300 ease-in-out hover:bg-[#1A4D8D]">
-                                    <h2 className="text-xl font-bold mb-2">Sorggrupper</h2>
+                                <div className="bg-[#2C6DB6] rounded shadow-md text-white p-6 transition-colors duration-300 ease-in-out hover:bg-[#1A4D8D]">
+                                    <h2 className="text-2xl font-bold mb-2">Sorggrupper</h2>
                                     <p className="mb-4 text-sm">Sorggrupper for forældre, der har mistet et barn.</p>
                                     <a 
                                         href="https://www.sorgvejviser.dk/sorgtilbud/sorggrupper-for-foraeldre-der-har-mistet-et-barn/" 
@@ -118,7 +120,7 @@ const ProfileOverviewHomeContent = ({ todos, pages }: ProfileOverviewHomeProps) 
                     </div>
                 </section>
                 <TodoListSection todos={Todos} />
-                <section className="mt-8">
+                <section className="mt-8 relative bottom-12 mx-16">
                     <h2 className="text-4xl text-blue-800 font-bold mb-4">Praktisk information</h2>
                     <p className="mb-4 text-xl font-semibold text-blue-800">Her er nogle nyttige sider, der kan hjælpe dig med at forstå dine rettigheder og muligheder:</p>
                     <Deferred

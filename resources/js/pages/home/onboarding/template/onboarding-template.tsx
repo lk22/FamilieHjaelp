@@ -32,11 +32,11 @@ export default function OnboardingTemplate({
                             </div>
                             {screenGraphic && (
                                 <div className="illustration-wrapper">
-                                        <img
-                                            src={`/images/${screenGraphic}.svg`}
-                                            alt="Familiehjælp Illustration"
-                                            className="mt-8 w-full max-w-[400px] mx-auto"
-                                        />
+                                    <img
+                                        src={`/images/${screenGraphic}.svg`}
+                                        alt="Familiehjælp Illustration"
+                                        className="mt-8 w-full max-w-[400px] mx-auto"
+                                    />
                                 </div>
                             )}
                             <h1 className="text-3xl font-bold mt-8">{title}</h1>

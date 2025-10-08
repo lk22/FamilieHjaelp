@@ -32,10 +32,10 @@ export default function TodoItem({
         <div className={`${classes} rounded`} data-state={isCompleted ? 'completed' : 'incomplete'}>
             <div className="flex mb-4 p-8">
                 <div className="todo-meta">
-                    <h2 className="text-xl font-semibold data-[state=completed]:text-white data-[state=incomplete]:text-[#1d4ed8]">{title}</h2>
+                    <h2 className="text-3xl mb-4 font-semibold data-[state=completed]:text-white data-[state=incomplete]:text-[#1d4ed8]">{title}</h2>
                     <p className="mb-4">{description}</p>
-                    <p>Due Date: {due_date ? <span>{due_date}</span> : <span className="text-gray-500">Ingen forfaldsdato</span>}</p>
-                    <p className="mt-2 text-slate-400 font-bold underline cursor-pointer">
+                    <p className="data-[state=completed]:text-slate-100 data-[state=incompleted]:text-slate-400 font-bold">Due Date: {due_date ? <span className="data-[state=incompleted]:text-slate-400 data-[state=completed]:text-slate-100">{due_date}</span> : <span className="data-[state=completed]:text-gray-500 data-[state=incompleted]:text-gray-100">Ingen forfaldsdato</span>}</p>
+                    <p className="mt-2 data-[state=completed]:text-slate-100 data-[state=incompleted]:text-slate-400 font-bold underline cursor-pointer text-xl">
                         Hvordan gør jeg ? 
                     </p>
                 </div>

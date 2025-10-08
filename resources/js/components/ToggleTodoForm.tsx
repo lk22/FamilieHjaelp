@@ -59,7 +59,7 @@ export default function ToggleTodoForm({ id, isCompleted }: ToggleTodoFormProps)
     }
     
     return (
-        <div className="h-full w-[350px] flex items-center justify-center">
+        <div className="h-full w-[150px] flex items-end justify-center">
             <form action="" method="POST" onSubmit={(e) => e.preventDefault()}>
                 <Checkbox 
                     checked={isCompleted} 

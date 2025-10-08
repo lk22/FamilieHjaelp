@@ -11,7 +11,7 @@ export default function DødfødtInfoPage() {
             title="Familiehjælp - Dødfødt 23 Svangerskabsuge"
             headline="Praktisk information om dødfødt 23 svangerskabsuge"
         >
-            <div className="bg-white rounded-lg p-8 shadow-md">
+            <div className="bg-white rounded-lg p-16 shadow-md">
                 <Heading level={2}>Praktisk information om dødfødt 23 svangerskabsuge</Heading>
                 <section className="mb-6">
                     <Paragraph>
