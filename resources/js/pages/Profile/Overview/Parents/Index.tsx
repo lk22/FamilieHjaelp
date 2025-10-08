@@ -19,7 +19,7 @@ const ProfileOverviewParentsContent = () => {
             }>
             <section 
                 id="home-scheduled-events-list"
-                className="flex gap-2 mt-8"
+                className="flex gap-6 mt-8"
             >
                 <div className="w-6/12 bg-gray-50 p-8 rounded-lg shadow-md relative">
                     <h3 className="text-2xl font-bold text-blue-700">Planlagte arrangementer og begivenheder</h3>
