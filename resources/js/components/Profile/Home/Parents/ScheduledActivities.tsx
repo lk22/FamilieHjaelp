@@ -3,7 +3,6 @@ import {Link} from '@inertiajs/react';
 import { type ScheduledActivity } from "@/types/Profile/Parents/types";
 import { HiOutlineCalendar } from "react-icons/hi";
 
-
 export default function ScheduledActivitiesList() {
     const activities: ScheduledActivity[] = [
         {
