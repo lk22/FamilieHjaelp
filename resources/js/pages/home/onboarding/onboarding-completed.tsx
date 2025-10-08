@@ -161,7 +161,10 @@ const OnboardingCompletedContent = () => {
             }
         ];
 
+        // what does it mean if there is no auth user at this point ?
         if ( auth?.user === undefined || auth?.user === null ) {
+            console.warn('No authenticated user found, skipping onboarding data submission.');
+            setLoading(false);
             return;
         }
  
