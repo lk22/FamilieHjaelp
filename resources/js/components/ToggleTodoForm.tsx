@@ -44,7 +44,7 @@ export default function ToggleTodoForm({ id, isCompleted }: ToggleTodoFormProps)
     }
 
     const handleCompleteToggle = () => {
-        console.log({data})
+        console.log({data});
         if (data.isCompleted) {
             setIsPromptOpen(true);
         } else {

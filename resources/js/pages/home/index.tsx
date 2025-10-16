@@ -34,19 +34,19 @@ export default function Welcome() {
                             {auth.user ? (
                                 <Link
                                     href={route(`${auth.isOnboarded ? 'dashboard' : 'getting-started'}`)}
-                                    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-xl leading-normal text-white border-white hover:border-white"
+                                    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-xl leading-normal text-white border-white bg-white text-blue-500 hover:border-white"
                                 >
                                     {auth.isOnboarded ? 'Gå til dashboard' : 'Kom i gang'}
                                 </Link>
                             ) : (
                                 <> 
                                     <Link href={route('register')} className="text-white">Registrer dig her</Link>
-                                    <Link href={route('getting-started')} className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal text-white hover:border-white">
+                                    <Link href={route('getting-started')} className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white">
                                         Kom i gang
                                     </Link>
                                     <Link
                                         href={route('login')}
-                                        className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"
+                                        className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"
                                     >
                                         Log ind
                                     </Link>
