@@ -70,11 +70,11 @@ export function NotesListDialog({ isNotesListOpen, setIsNotesListOpen }: NotesLi
 
     return (
         <Dialog open={isNotesListOpen} onOpenChange={setIsNotesListOpen}>
-            <DialogContent className="bg-slate-800 text-white max-w-[800px]]">
+            <DialogContent className="text-white sm:max-w-3xl bg-white text-blue-900 border border-gray-700 shadow-xl shadow-blue-900/50">
                 <DialogHeader>
-                    <DialogTitle className="text-white font-semibold">Seneste noter</DialogTitle>
+                    <DialogTitle className="text-blue-900 text-3xl font-semibold">Seneste noter</DialogTitle>
                 </DialogHeader>
-                <DialogDescription>
+                <DialogDescription className="text-blue-900 text-2xl">
                     Du har {notesCount} noter. Her er de seneste noter:
                 </DialogDescription>
                 <div className="max-h-96 overflow-y-auto mt-4">
@@ -92,7 +92,7 @@ export function NotesListDialog({ isNotesListOpen, setIsNotesListOpen }: NotesLi
                 <DialogFooter>
                     <button 
                         type="button" 
-                        className="text-white bg-gray-500 px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-200 ease-in-out" 
+                        className="text-white bg-blue-900 px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-200 ease-in-out" 
                         onClick={() => setIsNotesListOpen(false)}
                     >
                         Luk

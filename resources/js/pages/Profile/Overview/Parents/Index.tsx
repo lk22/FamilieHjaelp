@@ -24,7 +24,7 @@ const ProfileOverviewParentsContent = () => {
                         </div>
                         <div className="flex-grow text-lg float-right">
                             <p className="text-sm">Vælg barn</p>
-                            <select name="child-selector border-b-2" id="child-selector">
+                            <select name="child-selector" id="child-selector">
                                 <option value="Leo Knudsen">Leo Knudsen</option>
                                 <option value="Leo Knudsen">Zita Laursen</option>
                                 <option value="Leo Knudsen">Jonatan Laursen Knudsen</option>
@@ -37,24 +37,12 @@ const ProfileOverviewParentsContent = () => {
             }>
             <section 
                 id="parents-home-intro" 
-                className="mb-8 p-12 pb-32 rounded-lg bg-blue-700 shadow-md text-white"
+                className="mb-8 p-12 pb-32 rounded-lg bg-blue-700 shadow-md text-white mt-8"
             >
                 <h3 className="text-4xl font-bold mb-4">Se dit overblik</h3>
                 <p className="w-10/12">
                     Velkommen til dit forældre dashboard! Her kan du nemt holde styr på dine børns aktiviteter, arrangementer og vigtige opdateringer. Brug menuen til at navigere mellem forskellige sektioner som skemaer, beskeder og rapporter. Vi er her for at hjælpe dig med at få det bedste ud af din oplevelse som forælder.
                 </p>
-
-                <div className="grid grid-cols-3 column-gap-5">
-                    <div className="mt-4">
-                        <h4 className="font-bold mb-2">Du har oprettet 5 notater</h4>
-                    </div>
-                    <div className="mt-4">
-                        <h4 className="font-bold mb-2">Du har ialt 3 arrangementer</h4>
-                    </div>
-                    <div className="mt-4">
-                        <h4 className="font-bold mb-2">Du har ialt 5 aktiviteter</h4>
-                    </div>
-                </div>
             </section>
             <section 
                 id="home-scheduled-events-list"
@@ -62,6 +50,7 @@ const ProfileOverviewParentsContent = () => {
             >
                 <div className="w-6/12 bg-gray-50 p-8 rounded-lg shadow-lg relative">
                     <h3 className="text-3xl font-bold text-blue-900">Se seneste notater</h3>
+                    <h4 className="font-bold mb-2 text-lg">Du har oprettet ialt 5 notater</h4>
                     <p>Se seneste notater og ting du skal være opmærksom på</p>
                     <div className="mt-4">
                         <LatestParentNotes />
@@ -77,11 +66,13 @@ const ProfileOverviewParentsContent = () => {
                     <h3 className="text-3xl font-bold text-blue-900">
                         Seneste aktiviteter
                     </h3>
+                    <h4 className="font-bold mb-2 text-lg">Du har ialt 5 aktiviteter</h4>
                     <div className="my-4">
                         <ScheduledActivitiesList />
                     </div>
                     <h3 className="text-3xl mt-8 font-bold text-blue-900">Planlagte arrangementer og begivenheder</h3>
                     <p>Se alle planlagte arrangementer & begivenheder</p>
+                    <h4 className="font-bold mb-2 text-lg">Du har ialt 5 arrangementer</h4>
                     <div className="mt-4">
                         <ScheduledEventsList />
                     </div>

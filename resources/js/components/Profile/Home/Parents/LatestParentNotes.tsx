@@ -59,22 +59,6 @@ export default function LatestParentNotes() {
             wantsReminder: false,
             reminderDate: null
         },
-        {
-            id: 3,
-            title: "Skal hentes tidligere",
-            date: "2025-05-01",
-            description: 'Husk at hente Emma tidligere fra skole',
-            wantsReminder: true,
-            reminderDate: "2025-04-30"
-        },
-        {
-            id: 4,
-            title: "Møde med lærere",
-            date: "2025-05-01",
-            description: "Husk møde med lærere for Emma",
-            wantsReminder: false,
-            reminderDate: null
-        },
     ];
 
     return (
