@@ -16,11 +16,11 @@ export default function Welcome() {
                         <div className="logo">
                             <Link href={route('home')}>
                             <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="mb-6 w-auto  h-[50px] mx-auto" />
-                            <img
-                                src="/images/logo.svg"
-                                alt="Familiehjælp Logo"
-                                className="mb-6 w-auto h-[100px] mx-auto"
-                            />
+                                <img
+                                    src="/images/logo.svg"
+                                    alt="Familiehjælp Logo"
+                                    className="mb-6 w-auto h-[100px] mx-auto"
+                                />
                             </Link>
                         </div>
                         <div className="illustration-wrapper">
@@ -31,16 +31,26 @@ export default function Welcome() {
                             />
                         </div>
                         <nav className="flex mt-8 items-center justify-center gap-4">
-                            {auth.user ? (
-                                <Link
-                                    href={route(`${auth.isOnboarded ? 'dashboard' : 'getting-started'}`)}
-                                    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-xl leading-normal text-white border-white bg-white text-blue-500 hover:border-white"
-                                >
-                                    {auth.isOnboarded ? 'Gå til dashboard' : 'Kom i gang'}
-                                </Link>
-                            ) : (
-                                <> 
-                                    <Link href={route('register')} className="text-white">Registrer dig her</Link>
+                            <div className="auth-actions">
+                                {!auth.user ? (
+                                    <>
+                                        <div className="w-full flex gap-4 justify-start mb-4 sm:items-start sm:justify-start">
+                                            <Link href={route('register')} className="text-white sm:w-full">Registrer dig her</Link>
+                                        </div>
+                                        <div className="flex gap-4">
+                                            <Link href={route('getting-started')} className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white">
+                                                Kom i gang
+                                            </Link>
+                                            <Link
+                                                href={route('login')}
+                                                className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"
+                                            >
+                                                Log ind
+                                            </Link>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
                                     <Link href={route('getting-started')} className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white">
                                         Kom i gang
                                     </Link>
@@ -50,8 +60,9 @@ export default function Welcome() {
                                     >
                                         Log ind
                                     </Link>
-                                </>
-                            )}
+                                    </>
+                                )}
+                            </div>
                         </nav>
                     </div>
                 </div>
