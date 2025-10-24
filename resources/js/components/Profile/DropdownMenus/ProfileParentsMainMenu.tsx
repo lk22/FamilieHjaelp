@@ -38,14 +38,14 @@ export function ProfileParentsMainMenu({ setIsLoggingOutDialog }: ProfileMainMen
         <>
         {isMobile || isTablet ? (
             <>
-                <div className="" onClick={handleMobileMenuToggle}>
+                <div onClick={handleMobileMenuToggle}>
                     <FaBars 
                         className="text-white hover:underline cursor-pointer"
                         size={24}
                     />
                 </div>
                 <div className={`overlay z-0 inset fixed h-full w-full bg-blue-500 left-0 top-0 bottom-0 ${MenuOverlayClasses} transition-opacity duration-300 ease-in-out`}></div>
-                <div className={`fixed py-2  top-0 ${isMobile ? 'w-full px-4' : 'w-8/12 px-16'} h-full bg-blue-800 bg-opacity-50 z-50 transition-right ease-in-out duration-300 ${MobileMenuClasses}`} onClick={() => setIsMenuOpen(false)}>
+                <div className={`fixed py-2 top-0 ${isMobile ? 'w-full px-4' : 'w-8/12 px-16'} h-full bg-blue-800 bg-opacity-50 z-50 transition-right ease-in-out duration-300 ${MobileMenuClasses}`} onClick={() => setIsMenuOpen(false)}>
                     <div className="flex flex-col items-end p-4">
                         <button className="text-white hover:underline cursor-pointer" onClick={handleMobileMenuToggle}>
                             <FaX size={24} />
@@ -75,24 +75,19 @@ export function ProfileParentsMainMenu({ setIsLoggingOutDialog }: ProfileMainMen
                             Menu
                         </button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-blue-700 text-white border-0">
-                        <DropdownMenuItem className="hover:bg-blue-800">
-                            <Link href={route('profile.home')} className="text-white">
+                    <DropdownMenuContent className="bg-blue-700 text-white border-0 rounded-5 w-48 p-4">
+                        <DropdownMenuItem className="focus:bg-transparent">
+                            <Link href={route('profile.home')} className="text-lg">
                                 {route().current('profile.home') ? 'Hjem' : 'Gå tilbage'}
                             </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuContent>
-                            <Link href={route('profile.parents.children.index')} className="text-white">
-                                {route().current('profile.parents.children.index') ? 'Børn' : 'Se dine børn'}
-                            </Link>
-                        </DropdownMenuContent>
-                        <DropdownMenuItem>
-                            <Link href={route('profile.todos')} className="text-white hover:underline">
+                        <DropdownMenuItem className="focus:bg-transparent">
+                            <Link href={route('profile.todos')} className="text-lg">
                                 {route().current('profile.todos') ? 'Opgaver' : 'Gå til Opgaver'}
                             </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-blue-800" onClick={() => setIsLoggingOutDialog(true)}>
-                            Log ud
+                        <DropdownMenuItem className="focus:bg-transparent" onClick={() => setIsLoggingOutDialog(true)}>
+                            <span className="text-lg">Log ud</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
