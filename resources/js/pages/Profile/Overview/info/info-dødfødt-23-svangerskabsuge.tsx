@@ -8,11 +8,11 @@ import ExternalLink from '@/components/Blocks/ExternalLink';
 export default function DødfødtInfoPage() {
     return (
         <ProfileOverviewLayout
-            title="Familiehjælp - Dødfødt 23 Svangerskabsuge"
-            headline="Praktisk information om dødfødt 23 svangerskabsuge"
+            title="Familiehjælp - Dødfødt 22 Svangerskabsuge"
+            headline="Praktisk information om dødfødt 22 svangerskabsuge"
         >
             <div className="bg-white rounded-lg p-16 shadow-md">
-                <Heading level={2}>Praktisk information om dødfødt 23 svangerskabsuge</Heading>
+                <Heading level={2}>Praktisk information om dødfødt 22 svangerskabsuge</Heading>
                 <section className="mb-6">
                     <Paragraph>
                         Når du har brug for tid til at bearbejde sorg, er det vigtigt at få den rette støtte og information. Som forælder kan du have ret til orlov med dagpenge, hvis dit barn er dødfødt i 23. svangerskabsuge eller senere.

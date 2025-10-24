@@ -56,8 +56,8 @@ class GenerateProfilePages
                 'description' => 'Som forælder kan du have ret til orlov med dagpenge',
             ],
             [
-                "title" => "Dødfødsel efter 23 svangerskabsuge",
-                "slug" => "dødfødt-23-svangerskabsuge",
+                "title" => "Dødfødsel efter 22 svangerskabsuge",
+                "slug" => "dødfødt-22-svangerskabsuge",
                 "page_title" => "Praktisk information om dødfødt 22 svangerskabsuge",
                 "description" => "Er dit barn dødfødt efter 22 svangerskabsuge?"
             ],
@@ -66,6 +66,42 @@ class GenerateProfilePages
                 "slug" => "begravelse-eller-bisaettelse",
                 "page_title" => "Begravelse eller bisættelse af dødfødt barn",
                 "description" => "Skal du planlægge en begravelse eller bissætelse?"
+            ],
+            [
+                "title" => "Har du oplevet eller venter du en abort?",
+                "slug" => "har-du-oplevet-eller-venter-du-en-abort",
+                "page_title" => "Abort i Danmark: Sådan er reglerne",
+                "description" => "Få overblik over reglerne for abort i Danmark"
+            ],
+            [
+                "title" => "Hvordan fortæller jeg det til andre?",
+                "slug" => "hvordan-fortaeller-jeg-det-til-andre",
+                "page_title" => "Hvordan fortæller jeg det til andre?",
+                "description" => "Tips til at fortælle om din abort eller dødfødsel"
+            ],
+            [
+                "title" => "Støtte og hjælp efter abort eller dødfødsel",
+                "slug" => "stoette-og-hjaelp-efter-abort-eller-doedfoedsel",
+                "page_title" => "Støtte og hjælp efter abort eller dødfødsel",
+                "description" => "Find støtte og hjælp efter en abort eller dødfødsel"
+            ],
+            [
+                "title" => "Hvordan håndterer jeg sorgen?",
+                "slug" => "hvordan-haandterer-jeg-sorgen",
+                "page_title" => "Hvordan håndterer jeg sorgen?",
+                "description" => "Råd til at håndtere sorgen efter abort eller dødfødsel",
+            ],
+            [
+                "title" => "Oplevet en dødfødsel?",
+                "slug" => "oplevet-en-doedfoedsel",
+                "page_title" => "Hvordan registrerer jeg mit barn?",
+                "description" => "Få vejledning i at registrere dit barn efter dødfødsel",
+            ],
+            [
+                "title" => "Registrering af forældreskab, hvordan gør jeg?",
+                "slug" => "registrering-af-foraeldreskab",
+                "page_title" => "Registrering af forældreskab, hvordan gør jeg?",
+                "description" => "er du blevet forældre, er det vigtigt og vide hvordan du og din partner registrere jeres forældreskab til jeres barn"
             ]
         ];
     }
