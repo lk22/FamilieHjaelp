@@ -58,8 +58,8 @@ class GenerateProfilePages
             [
                 "title" => "Dødfødsel efter 23 svangerskabsuge",
                 "slug" => "dødfødt-23-svangerskabsuge",
-                "page_title" => "Praktisk information om dødfødt 23 svangerskabsuge",
-                "description" => "Er dit barn dødfødt efter 23 svangerskabsuge?"
+                "page_title" => "Praktisk information om dødfødt 22 svangerskabsuge",
+                "description" => "Er dit barn dødfødt efter 22 svangerskabsuge?"
             ],
             [
                 "title" => "Begravelses eller bisættelse",
