@@ -105,7 +105,6 @@ type UseQueryParamsHookReturnType<T extends Record<string, unknown> = Record<str
     getQueryParam: (key: keyof T | string) => unknown;
 };
 
-// describe how this hook works
 /**
  * Custom hook to manage query parameters in a React application.
  * @returns {UseQueryParamsHookReturnType} An object containing query parameters and a function to get a specific parameter.
