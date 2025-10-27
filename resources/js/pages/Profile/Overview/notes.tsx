@@ -1,6 +1,3 @@
-import {usePage} from '@inertiajs/react';
-import {type SharedData} from '@/types';
-
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 
 import NoteItem from '@/components/note-item';
@@ -21,7 +18,7 @@ export default function Notes({ notes }: NotesProps) {
     const isMobile = useIsMobile() ? 'hidden' : '';
 
     return (
-        <ProfileOverviewLayout title="Opgaver">
+        <ProfileOverviewLayout title="Notater">
             <div className="container mx-auto p-6">
                 <h1 className="text-6xl font-bold mb-4 text-blue-900">Ting at huske</h1>
                 <p className="mb-4">Her kan du se alle de opgaver, du skal huske at udføre.</p>

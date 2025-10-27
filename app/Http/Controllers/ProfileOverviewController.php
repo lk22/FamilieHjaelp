@@ -17,6 +17,7 @@ class ProfileOverviewController extends Controller
     /**
      * Show the profile overview home page.
      * 
+     * @param  Request  $request
      * @return Response
      */
     public function index(Request $request): Response|RedirectResponse
@@ -52,6 +53,7 @@ class ProfileOverviewController extends Controller
     /**
      * Show the todos page in the profile overview.
      * 
+     * @param  Request  $request
      * @return Response
      */
     public function todos(Request $request): Response
@@ -65,6 +67,9 @@ class ProfileOverviewController extends Controller
 
     /*
     * Show the notes page in the profile overview.
+    *
+    * @param  Request  $request
+    * @return Response
     */
     public function notes(Request $request): Response
     {
@@ -77,7 +82,9 @@ class ProfileOverviewController extends Controller
 
     /**
      * Show the notifications page in the profile overview.
-     */
+     * @param  Request  $request
+     * @return Response 
+    */
     public function notifications(Request $request): Response
     {
         $notifications = []; // profile notifications to be implemented

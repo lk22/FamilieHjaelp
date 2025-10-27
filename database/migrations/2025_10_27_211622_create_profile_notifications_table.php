@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profile_notes', function (Blueprint $table) {
+        Schema::create('profile_notifications', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('profile_id');
-            $table->unsignedBigInteger('child_id')->nullable();
-            $table->text('note_content');
+            $table->unsignedInteger('profile_id');
+            $table->string('notification_type');
+            $table->text('message');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }
@@ -25,8 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropColumnIfExists('user_id');
-        Schema::dropColumnIfExists('child_id');
-        Schema::dropIfExists('profile_notes');
+        Schema::dropColumnIfExists('profile_id');
+        Schema::dropIfExists('profile_notifications');
     }
 };
