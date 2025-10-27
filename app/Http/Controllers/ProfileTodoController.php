@@ -36,7 +36,16 @@ class ProfileTodoController extends Controller
         $todo->is_completed = !$todo->is_completed;
         $todo->save();
 
-        // TODO: add dispatching event for sending notificiation to user if todo is the first completed todo
+        if ( $todo->is_completed ) {
+            // is it the first completed todo?
+            $completedTodosCount = Todo::where('user_id', $todo->user_id)
+                ->where('is_completed', true)
+                ->count();
+
+                if ( $completedTodosCount === 1 ) {
+                    // @TODO: dispatch first completed todo mail event
+                }
+        }
 
         return redirect()->route('profile.todos')->with([
             'message' => 'Todo status updated successfully.',

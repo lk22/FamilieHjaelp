@@ -13,9 +13,7 @@ use App\Http\Controllers\ProfileTodoController;
 Route::get('/', [PageController::class, 'home'])
 ->name('home');
 
-Route::get('/getting-started', [PageController::class, 'gettingStarted'])
-    ->name('getting-started')
-    ->middleware(['guest']);
+Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started')->middleware(['guest']);
 
 /**
  * Onboarding routes
@@ -30,10 +28,8 @@ Route::post('/onboarding/process/complete', [CompleteOnboardingController::class
 /**
  * Completing onboarding process routes
  */
-Route::post('/onboarding/process/complete/todos', [CompleteOnboardingController::class, 'storeTodos'])
-->name('onboarding.process.complete.todos');
-Route::post('/onboarding/process/complete/pages', [CompleteOnboardingController::class, 'storePages'])
-->name('onboarding.process.complete.pages');
+Route::post('/onboarding/process/complete/todos', [CompleteOnboardingController::class, 'storeTodos'])->name('onboarding.process.complete.todos');
+Route::post('/onboarding/process/complete/pages', [CompleteOnboardingController::class, 'storePages'])->name('onboarding.process.complete.pages');
 Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('onboarding.process.complete');
 
 // Profile overview routes 
