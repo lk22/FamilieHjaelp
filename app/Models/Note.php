@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-use App\Models\User;
+use App\Models\Profile;
 
 class Note extends Model
 {
@@ -23,8 +23,8 @@ class Note extends Model
      * 
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo 
+    public function profile(): BelongsTo 
     {
-        return $this->belongsTo(User::class, 'user_id', 'id', 'notes');
+        return $this->belongsTo(Profile::class, 'user_id', 'id', 'notes');
     }
 }

@@ -48,11 +48,21 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the notes for the profile
+     * 
+     * @return HasMany<Note>
+     */
     public function notes(): HasMany
     {
         return $this->hasMany(Note::class);
     }
 
+    /**
+     * Get the profile notifications
+     * 
+     * @return HasMany<ProfileNotification>
+     */
     public function notifications(): HasMany
     {
         return $this->hasMany(ProfileNotification::class);
