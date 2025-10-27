@@ -75,19 +75,29 @@ export function ProfileMainMenu({ setIsLoggingOutDialog }: ProfileMainMenuProps)
                             Menu
                         </button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-blue-700 text-white border-0">
-                        <DropdownMenuItem className="hover:bg-blue-800">
-                            <Link href={route('profile.home')} className="text-white hover:underline">
+                    <DropdownMenuContent className="bg-blue-700 text-white border-0 rounded-5 w-68 p-4">
+                        <DropdownMenuItem className="focus:bg-transparent">
+                            <Link href={route('profile.home')} className="text-white hover:underline text-lg">
                                 {route().current('profile.home') ? 'Hjem' : 'Gå tilbage'}
                             </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Link href={route('profile.todos')} className="text-white hover:underline">
+                        <DropdownMenuItem className="focus:bg-transparent">
+                            <Link href={route('profile.todos')} className="text-white hover:underline text-lg">
                                 {route().current('profile.todos') ? 'Opgaver' : 'Gå til Opgaver'}
                             </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-blue-800" onClick={() => setIsLoggingOutDialog(true)}>
-                            Log ud
+                        <DropdownMenuItem className="focus:bg-transparent">
+                            <Link href={route('profile.todos')} className="text-white hover:underline text-lg">
+                                {route().current('profile.todos') ? 'Notifikationer' : 'Gå til notifikationer'}
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="focus:bg-transparent">
+                            <Link href={route('profile.todos')} className="text-white hover:underline text-lg">
+                                {route().current('profile.todos') ? 'Noter' : 'Gå til noter'}
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="focus:bg-transparent" onClick={() => setIsLoggingOutDialog(true)}>
+                            <span className="text-lg cursor-pointer hover:underline">Log ud</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

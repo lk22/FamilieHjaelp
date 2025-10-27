@@ -6,10 +6,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 use App\Models\Todo;
 use App\Models\Profile;
+use App\Models\Page;
+use App\Models\Note;
 
 class User extends Authenticatable
 {
@@ -85,9 +88,21 @@ class User extends Authenticatable
 
     /**
      * get the profile associated with the user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Profile>
      */
     public function profile()
     {
         $this->hasOne(Profile::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get the notes associated with the user.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Note>
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class, 'user_id', 'id', 'notes');
     }
 }

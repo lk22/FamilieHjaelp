@@ -46,7 +46,6 @@ class ProfileOverviewController extends Controller
     public function show(Request $request, ?string $page): Response
     {
         $foundPage = $request->user()->pages()->where('slug', $page)->first();
-
         return Inertia::render('Profile/Overview/info/info-' . $foundPage->slug);
     }
 
@@ -58,8 +57,33 @@ class ProfileOverviewController extends Controller
     public function todos(Request $request): Response
     {
         $todos = $request->user()->todos;
-        return Inertia::render('Profile/Overview/todos', [
+        return Inertia::render('Profile/Overview/todos', 
+        [
             'todos' => $todos
+        ]);
+    }
+
+    /*
+    * Show the notes page in the profile overview.
+    */
+    public function notes(Request $request): Response
+    {
+        $notes = $request->user()->notes;
+        return Inertia::render('Profile/Overview/notes', 
+        [
+            'notes' => $notes
+        ]);
+    }
+
+    /**
+     * Show the notifications page in the profile overview.
+     */
+    public function notifications(Request $request): Response
+    {
+        $notifications = []; // profile notifications to be implemented
+        return Inertia::render('Profile/Overview/notifications', 
+        [
+            'notifications' => $notifications
         ]);
     }
 }
