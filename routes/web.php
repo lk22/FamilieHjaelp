@@ -47,9 +47,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/overview', [ProfileOverviewController::class, 'index'])->name('profile.home');
     Route::get('/profile/overview/todos', [ProfileOverviewController::class, 'todos'])->name('profile.todos');
     Route::get('/profile/overview/info/{page?}', [ProfileOverviewController::class, 'show'])->name('profile.info.page');
-
-    Route::put('/profile/todos/{id}/toggle', [ProfileTodoController::class, 'toggle'])
-        ->name('profile.todos.toggle');
+    Route::get('/profile/overview/notifications/', [ProfileOverviewController::class, 'notifications'])->name('profile.page.notifications');
+    Route::get('/profile/overview/settings/', [ProfileOverviewController::class, 'notes'])->name('profile.page.notes');
+    Route::put('/profile/todos/{id}/toggle', [ProfileTodoController::class, 'toggle'])->name('profile.todos.toggle');
 });
 
 Route::get('/auth/check', function () {
