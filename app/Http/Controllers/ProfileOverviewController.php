@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 
 use App\Models\Todo;
 use App\Models\Page;
+use App\Models\Profile;
 
 class ProfileOverviewController extends Controller
 {

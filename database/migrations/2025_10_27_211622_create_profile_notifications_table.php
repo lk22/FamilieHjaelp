@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('profile_notifications', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('profile_id');
+            $table->unsignedInteger('user_id');
             $table->string('notification_type');
             $table->text('message');
             $table->boolean('is_read')->default(false);

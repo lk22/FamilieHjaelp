@@ -87,13 +87,13 @@ export function ProfileMainMenu({ setIsLoggingOutDialog }: ProfileMainMenuProps)
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem className="focus:bg-transparent">
-                            <Link href={route('profile.todos')} className="text-white hover:underline text-lg">
-                                {route().current('profile.todos') ? 'Notifikationer' : 'Gå til notifikationer'}
+                            <Link href={route('profile.notes')} className="text-white hover:underline text-lg">
+                                {route().current('profile.notes') ? 'Noter' : 'Gå til noter'}
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem className="focus:bg-transparent">
                             <Link href={route('profile.todos')} className="text-white hover:underline text-lg">
-                                {route().current('profile.todos') ? 'Noter' : 'Gå til noter'}
+                                {route().current('profile.notifications') ? 'Notifikationer' : 'Gå til notifikationer'}
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem className="focus:bg-transparent" onClick={() => setIsLoggingOutDialog(true)}>

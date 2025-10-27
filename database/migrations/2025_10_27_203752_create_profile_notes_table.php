@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('profile_notes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('profile_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('child_id')->nullable();
             $table->text('note_content');
             $table->timestamps();

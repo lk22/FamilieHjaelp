@@ -97,6 +97,36 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the notifications associated with the user.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ProfileNotification>
+     */
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(ProfileNotification::class, 'user_id', 'id', 'notifications');
+    }
+
+    /**
+     * Get the count of unread notifications for the user.
+     * 
+     * @return int
+     */
+    public function unreadNotificationsCount(): int
+    {
+        return $this->notifications()->where('is_read', false)->count();
+    }
+
+    /**
+     * Get the read notifications associated with the user.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ProfileNotification>
+     */
+    public function readNotifications(): HasMany
+    {
+        return $this->notifications()->where('is_read', true);
+    }
+
+    /**
      * Get the notes associated with the user.
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Note>
