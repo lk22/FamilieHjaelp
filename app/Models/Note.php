@@ -17,7 +17,23 @@ class Note extends Model
     protected $fillable = [
         'user_id', 
         'child_id', 
-        'note_content'
+        'note_content',
+        'created_at'
+    ];
+
+    protected $casts = [
+        'note_content' => 'string',
+        'created_at' => 'datetime',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $hidden = [
+        'user_id',
+        'child_id'
     ];
 
     /**
