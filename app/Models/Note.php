@@ -51,10 +51,16 @@ class Note extends Model
 
             if ( $user ) {
                 Log::info('Note created by user: ', $user->toArray());
+                // send first profile notification if its the users first or second note
                 if ( $user->notes()->count() < 2 ) {
                     // if the user has created less than 2 notesm send the user an email notification
                     Log::info('User has less than 2 notes. Consider sending notification email.');
                     $user->notify(new FirstNoteCreated($note, $user->notes()->count()));
+                    $user->notifications->create([
+                        'notification_type' => 'first_note_created',
+                        'message' => 'Tillykke med din første note! Du har nu oprettet din første note.',
+                        'is_read' => false,
+                    ]);
                 }
              } else {
                 Log::warning('User not found for note: ' . $note->id);

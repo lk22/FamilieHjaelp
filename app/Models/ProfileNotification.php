@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProfileNotification extends Model
 {
     protected $fillable = [
-        'profile_id',
+        'user_id',
         'message',
         'is_read',
         'notification_type'
@@ -16,6 +16,14 @@ class ProfileNotification extends Model
     protected $casts = [
         'is_read' => 'boolean',
         'notification_type' => 'string'
+    ];
+
+    protected $hidden = [
+        'user_id'
+    ];
+
+    protected $guarded = [
+        'user_id'
     ];
 
     public function profile()
