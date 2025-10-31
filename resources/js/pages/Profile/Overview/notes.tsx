@@ -1,3 +1,4 @@
+import {usePage} from '@inertiajs/react';
 import {useState} from 'react';
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 
@@ -8,8 +9,13 @@ import {useIsMobile} from '@/hooks/use-mobile';
 
 type NoteItem = {
     id: number;
-    noteContent: string;
+    note_content: string;
     created_at: string;
+}
+
+interface FlashMessageProperties {
+    success?: string;
+    error?: string;
 }
 
 interface NotesProps {
@@ -17,27 +23,28 @@ interface NotesProps {
 }
 
 export default function Notes({ notes }: NotesProps) {
+    const { flash } = usePage<{flash: FlashMessageProperties}>().props;
     const isMobile = useIsMobile() ? 'hidden' : '';
     const [isCreateNoteDialogOpen, setIsCreateNoteDialogOpen] = useState<boolean>(false);
 
-    const handleCreateNote = () => {
-        // implement note creation logic here
-        const newNote = {
-            id: notes.length + 1,
-            noteContent: note.noteContent,
-            created_at: new Date().toISOString(),
-        }
-
-        notes.push(newNote);
-        setIsCreateNoteDialogOpen(false);
-    }
+    console.log(notes)
 
     return (
         <ProfileOverviewLayout title="Notater">
-            <div className="container mx-auto p-6">
+            <div className="container mx-auto p-8 bg-white/90 backdrop-blur-sm border border-white/20 shadow-lg rounded-lg shadow-blue-500/30">
                 <h1 className="text-6xl font-bold mb-4 text-blue-900">Se alle dine noter</h1>
                 <p className="mb-4">Her kan du administrere alle dine nuværende noter som din del af din rejse.</p>
-                <div className="flex gap-16">
+                {flash.success && (
+                    <div className="mb-4 p-4 bg-green-100 text-green-800 border border-green-200 rounded">
+                        {flash.success}
+                    </div>
+                )}
+                {flash.error && (
+                    <div className="mb-4 p-4 bg-red-100 text-red-800 border border-red-200 rounded">
+                        {flash.error}
+                    </div>
+                )}
+                <div className="flex gap-16 flex-col">
                     <div className="flex flex-col gap-4">
                         {notes.length > 0 ? (
                             <>
@@ -45,7 +52,7 @@ export default function Notes({ notes }: NotesProps) {
                                     <NoteItem 
                                         key={note.id}
                                         id={note.id}
-                                        noteContent={note.noteContent}
+                                        noteContent={note.note_content}
                                         created_at={note.created_at}
                                     />
                                 ))}
@@ -54,7 +61,7 @@ export default function Notes({ notes }: NotesProps) {
                             <p className="text-gray-500">Du har ingen noter endnu.</p>
                         )}
                     </div>
-                    <div id="create-new-note-">
+                    <div id="create-new-note">
                         <div className={`p-4 border-2 border-dashed border-gray-300 rounded-lg ${isMobile}`}>
                             <h2 className="text-2xl font-semibold mb-2">Opret en ny note</h2>
                             <button
@@ -66,7 +73,6 @@ export default function Notes({ notes }: NotesProps) {
                             <CreateNoteDialog 
                                 isDialogOpen={isCreateNoteDialogOpen}
                                 setIsDialogOpen={setIsCreateNoteDialogOpen}
-                                handleCreateNote={handleCreateNote}
                             />
                         </div>
                     </div>

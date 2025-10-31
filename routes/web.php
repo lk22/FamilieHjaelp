@@ -9,6 +9,7 @@ use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileOverviewController;
 use App\Http\Controllers\CompleteOnboardingController;
 use App\Http\Controllers\ProfileTodoController;
+use App\Http\Controllers\ProfileNoteController;
 
 Route::get('/', [PageController::class, 'home'])
 ->name('home');
@@ -45,6 +46,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/overview/info/{page?}', [ProfileOverviewController::class, 'show'])->name('profile.info.page');
     Route::get('/profile/overview/notifications/', [ProfileOverviewController::class, 'notifications'])->name('profile.notifications');
     Route::get('/profile/overview/notes/', [ProfileOverviewController::class, 'notes'])->name('profile.notes');
+    Route::post('/profile/notes/create', [ProfileNoteController::class, 'storeNote'])->name('profile.notes.create');
+    Route::delete('/profile/notes/{note}', [ProfileNoteController::class, 'destroy'])->name('profile.notes.destroy');
     Route::put('/profile/todos/{id}/toggle', [ProfileTodoController::class, 'toggle'])->name('profile.todos.toggle');
 });
 
