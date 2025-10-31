@@ -6,27 +6,22 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
 use App\Http\Requests\StoreProfileNoteRequest;
-use App\Models\Note;
 
-use Illuminate\Support\Facades\Log;
+use App\Models\Note;
 
 class ProfileNoteController extends Controller
 {
+    public function __construct(protected Note $note){}
+
     public function storeNote(StoreProfileNoteRequest $request)
-    {
-        Log::info('Raw request data:', $request->all());
-
-        $validatedData = $request->validated();
-        Log::info('Validated data:', $validatedData);
-
-        $created = Note::create([
+    {   
+        $this->note->create([
             'note_content' => $request->input('noteContent'),
-            'user_id' => $request->input('user_id'),
+            'user_id' => $request->user()->id,
             'child_id' => $request->input('child_id'),
             'created_at' => $request->input('created_at'),
         ]);
 
-        Log::info('Created Note:', $created->toArray());
         return redirect()->back()->with('success', 'Din note er blevet oprettet');
     }
 

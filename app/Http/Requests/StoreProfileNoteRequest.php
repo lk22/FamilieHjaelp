@@ -17,9 +17,9 @@ class StoreProfileNoteRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'note_content.required' => 'Du skal udfylde indholdet af noten.',
-            'note_content.string' => 'Din note skal være en gyldig tekststreng.',
-            'note_content.max' => 'Din note må maksimalt være 1000 tegn lang.',
+            'noteContent.required' => 'Du skal udfylde indholdet af noten.',
+            'noteContent.string' => 'Din note skal være en gyldig tekststreng.',
+            'noteContent.max' => 'Din note må maksimalt være 1000 tegn lang.',
         ];
     }
 
@@ -31,7 +31,7 @@ class StoreProfileNoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "note_content" => ["required", "string", "max:1000"], // ← Fixed max length to match frontend
+            "noteContent" => ["required", "string", "max:1000"], // ← Fixed max length to match frontend
             "user_id" => ["nullable", "integer"],
             "child_id" => ["nullable", "integer"],
         ];
