@@ -1,5 +1,4 @@
-import {useState} from 'react';
-import { type ShareData, usePage, useForm} from '@inertiajs/react';
+import {usePage, useForm} from '@inertiajs/react';
 import {
     Dialog,
     DialogHeader,
@@ -12,11 +11,10 @@ import {
 interface CreateNoteDialogProps {
     isDialogOpen: boolean;
     setIsDialogOpen: (open: boolean) => void;
-    // handleCreateNote: () => void;
 }
 
 // Define the shape of page props so TypeScript knows auth.user.id exists
-interface PageProps {
+type PageProps = {
     auth: {
         user: {
             id: number;
