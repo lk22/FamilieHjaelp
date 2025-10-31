@@ -51,13 +51,9 @@ export function CreateNoteDialog({
 
     const handleCreateNote = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Form data:', data);
 
-        // Remove unnecessary setData and newNote creation
-        // Just use the form's post method directly
         post(route('profile.notes.create'), {
             onSuccess: () => {
-                console.log('Note created successfully!');
                 setIsDialogOpen(false);
                 reset();
             },

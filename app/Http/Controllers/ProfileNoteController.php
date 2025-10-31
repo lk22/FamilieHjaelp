@@ -11,11 +11,9 @@ use App\Models\Note;
 
 class ProfileNoteController extends Controller
 {
-    public function __construct(protected Note $note){}
-
     public function storeNote(StoreProfileNoteRequest $request)
     {   
-        $this->note->create([
+        Note::create([
             'note_content' => $request->input('noteContent'),
             'user_id' => $request->user()->id,
             'child_id' => $request->input('child_id'),

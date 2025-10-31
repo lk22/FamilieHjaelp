@@ -63,6 +63,24 @@ export function ProfileMainMenu({ setIsLoggingOutDialog }: ProfileMainMenuProps)
                                     {route().current('profile.todos') ? 'Opgaver' : 'Gå til Opgaver'}
                                 </Link>
                             </li>
+                            <li className="border-b-2 border-white pb-2">
+                                <Link href={route('profile.notes')} className="text-white hover:underline text-2xl">
+                                    {route().current('profile.notes') ? 'Noter' : 'Gå til noter'}
+                                </Link>
+                            </li>
+                            <li className="border-b-2 border-white pb-2">
+                                <Link href={route('profile.notifications')} className="text-white hover:underline text-2xl">
+                                    {route().current('profile.notifications') ? 'Notifikationer' : 'Gå til notifikationer'}
+                                </Link>
+                            </li>
+                            <li className="border-b-2 border-white pb-2">
+                                <span 
+                                    className="text-white hover:underline text-2xl cursor-pointer"
+                                    onClick={() => setIsLoggingOutDialog(true)}
+                                >
+                                    Log ud
+                                </span>
+                            </li>
                         </ul>
                     </nav>
                 </div>
