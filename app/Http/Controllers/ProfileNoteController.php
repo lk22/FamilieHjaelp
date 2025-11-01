@@ -35,11 +35,11 @@ class ProfileNoteController extends Controller
         $user = $request->user();
 
         if ($note->user_id !== $user->id) {
-            return redirect()->back()->with('error', 'You are not authorized to delete this note.');
+            return redirect()->back()->with('error', 'Du har ikke myndighed til at slette denne note.');
         }
 
         $note->delete();
 
-        return redirect()->back()->with('success', 'Note deleted successfully!');
+        return redirect()->back()->with('success', 'Din note er nu fjernet');
     }
 }

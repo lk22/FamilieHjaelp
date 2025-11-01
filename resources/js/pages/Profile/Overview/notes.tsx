@@ -1,5 +1,5 @@
-import {usePage} from '@inertiajs/react';
 import {useState} from 'react';
+import {usePage} from '@inertiajs/react';
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 
 import NoteItem from '@/components/note-item';
@@ -27,7 +27,6 @@ export default function Notes({ notes }: NotesProps) {
     const isMobile = useIsMobile() ? 'hidden' : '';
     const [isCreateNoteDialogOpen, setIsCreateNoteDialogOpen] = useState<boolean>(false);
 
-    console.log(notes)
 
     return (
         <ProfileOverviewLayout title="Notater">

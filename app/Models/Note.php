@@ -40,6 +40,21 @@ class Note extends Model
         'child_id'
     ];
 
+    /**
+     * Getting default key name for route model bindings
+     * 
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'id';
+    }
+
+    /**
+     * Apply model event hooks
+     * 
+     * @return void
+     */
     protected static function booted(): void
     {
         static::created(function ($note) {
@@ -56,11 +71,11 @@ class Note extends Model
                     // if the user has created less than 2 notesm send the user an email notification
                     Log::info('User has less than 2 notes. Consider sending notification email.');
                     $user->notify(new FirstNoteCreated($note, $user->notes()->count()));
-                    $user->notifications->create([
-                        'notification_type' => 'first_note_created',
-                        'message' => 'Tillykke med din første note! Du har nu oprettet din første note.',
-                        'is_read' => false,
-                    ]);
+                    // $user->notifications->create([
+                    //     'notification_type' => 'first_note_created',
+                    //     'message' => 'Tillykke med din første note! Du har nu oprettet din første note.',
+                    //     'is_read' => false,
+                    // ]);
                 }
              } else {
                 Log::warning('User not found for note: ' . $note->id);
