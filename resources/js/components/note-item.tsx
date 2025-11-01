@@ -19,7 +19,7 @@ export default function NoteItem({
 }: NoteItemProps) {
     console.log('Rendering NoteItem with content:', noteContent, 'and created_at:', created_at);
 
-    const {data, setData, delete : destroy, processing, errors, reset} = useForm<{ id: number }>({
+    const {delete : destroy, processing} = useForm<{ id: number }>({
         id: id,
     });
 
