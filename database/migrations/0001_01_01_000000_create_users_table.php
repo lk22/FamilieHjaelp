@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('has_completed_onboarding')->default(false);
             $table->boolean('is_verified')->default(true);
             $table->boolean('is_admin')->default(false);
+            $table->integer('notes_count')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

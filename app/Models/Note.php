@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Notifications\FirstNoteCreated;
 
 use App\Models\User;
+use App\Models\ProfileNotification;
 
 use Illuminate\Support\Facades\Log;
 
@@ -71,11 +72,13 @@ class Note extends Model
                     // if the user has created less than 2 notesm send the user an email notification
                     Log::info('User has less than 2 notes. Consider sending notification email.');
                     $user->notify(new FirstNoteCreated($note, $user->notes()->count()));
-                    // $user->notifications->create([
-                    //     'notification_type' => 'first_note_created',
-                    //     'message' => 'Tillykke med din første note! Du har nu oprettet din første note.',
-                    //     'is_read' => false,
-                    // ]);
+
+                    $user->notifications()->create([
+                        "notification_type" => 'first_note_created',
+                        'message' => "Tillykke med din første note! Du har nu oprettet din første note.",
+                        "is_read" => false,
+                        "user_id" => $user->id
+                    ]);
                 }
              } else {
                 Log::warning('User not found for note: ' . $note->id);

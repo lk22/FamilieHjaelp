@@ -13,9 +13,14 @@ class ProfileNoteController extends Controller
 {
     public function storeNote(StoreProfileNoteRequest $request)
     {   
-        Note::create([
+        $user = $request->user();
+
+        $notesCount = $user->notes()->count();
+
+        $user->update(['notes_count' => $notesCount + 1]);
+        
+        $user->notes()->create([
             'note_content' => $request->input('noteContent'),
-            'user_id' => $request->user()->id,
             'child_id' => $request->input('child_id'),
             'created_at' => $request->input('created_at'),
         ]);

@@ -30,6 +30,7 @@ class User extends Authenticatable
         'is_admin',
         'has_completed_onboarding',
         'is_verified',
+        'notes_count'
     ];
 
     /**

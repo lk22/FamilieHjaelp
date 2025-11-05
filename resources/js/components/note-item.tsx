@@ -24,11 +24,7 @@ export default function NoteItem({
     });
 
     const handleDeleteNoteItem = () => {
-        destroy(route('profile.notes.destroy', {id: id}), {
-            onSuccess: () => {
-                console.log('Note deleted successfully');
-            },
-        });
+        destroy(route('profile.notes.destroy', {id: id}));
     }
 
     return (
