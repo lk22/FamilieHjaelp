@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
+import GettingStartedModal from '@/components/Onboarding/Modals/GettingStartedModal';
+
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     return (
         <>
@@ -38,9 +42,10 @@ export default function Welcome() {
                                             <Link href={route('register')} className="text-white sm:w-full">Registrer dig her</Link>
                                         </div>
                                         <div className="flex gap-4">
-                                            <Link href={route('getting-started')} className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white">
+                                            <button onClick={() => setModalOpen(true)} className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer">
+                                                <span className="sr-only">Kom igang</span>
                                                 Kom i gang
-                                            </Link>
+                                            </button>
                                             <Link
                                                 href={route('login')}
                                                 className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"
@@ -51,9 +56,6 @@ export default function Welcome() {
                                     </>
                                 ) : (
                                     <>
-                                    <Link href={route('getting-started')} className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white">
-                                        Kom i gang
-                                    </Link>
                                     <Link
                                         href={route('login')}
                                         className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"
@@ -66,6 +68,7 @@ export default function Welcome() {
                         </nav>
                     </div>
                 </div>
+                <GettingStartedModal isOpen={modalOpen} />
                 <div className="hidden h-14.5 lg:block"></div>
             </main>
         </>
