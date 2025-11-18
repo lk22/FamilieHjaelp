@@ -3,13 +3,16 @@ import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
 import GettingStartedModal from '@/components/Onboarding/Modals/GettingStartedModal';
+import { OnboardingProvider } from '@/contexts/OnboardingContext';
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [ modalOpen, setModalOpen ] = useState<boolean>(false);
+
 
     return (
         <>
+        <OnboardingProvider>
             <Head title="Hjem | Familiehjælp">
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
@@ -71,6 +74,7 @@ export default function Welcome() {
                 <GettingStartedModal isOpen={modalOpen} />
                 <div className="hidden h-14.5 lg:block"></div>
             </main>
+        </OnboardingProvider>
         </>
     );
 }
