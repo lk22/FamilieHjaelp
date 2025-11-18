@@ -24,7 +24,7 @@ const GettingStartedContent = () => {
         <>
             <Head title={`Kom i gang | ${name}`} />
             <header>
-                <nav className="fixed top-0 left-0 z-50 w-full bg-transparent bg-[#0a0a0a]">
+                <nav className="fixed top-0 left-0 z-50 w-full bg-[#004EA7] shadow-md">
                     <div className="container mx-auto flex h-16 items-center justify-between px-4">
                         <Link href={route('home')} className="flex items-center text-white">
                             Gå tilbage
@@ -32,10 +32,10 @@ const GettingStartedContent = () => {
                     </div>
                 </nav>
             </header>
-            <main className="bg-[#0a0a0a] text-white h-screen">
+            <main className="bg-[#0a0a0a] text-white h-screen pt-16">
                 <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white bg-[#0a0a0a]">
                     <div className="container max-w-[960px] flex-col py-8 items-center justify-center text-center">
-                        <div className="logo">
+                        <div className="logo pt-30">
                             <Link href={route('home')}>
                                 <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear  relative bottom-4 animate-in mb-6 w-auto h-[50px] mx-auto" />
                                 <img
@@ -45,7 +45,7 @@ const GettingStartedContent = () => {
                                 />
                             </Link>
                         </div>
-                        <div className="illustration-wrapper">
+                        <div className="illustration-wrapper pb-30">
                             <img
                                 src="/images/getting_started_illustration.svg"
                                 alt="Familiehjælp Illustration"

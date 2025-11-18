@@ -15,7 +15,6 @@ interface GettingStartedModalProps {
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 export default function GettingStartedModal({ isOpen }: GettingStartedModalProps) {
-
     const { resetOnboarding, onboardingState } = useOnboarding();
 
     return (
