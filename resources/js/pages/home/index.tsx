@@ -71,7 +71,7 @@ export default function Welcome() {
                         </nav>
                     </div>
                 </div>
-                <GettingStartedModal isOpen={modalOpen} />
+                <GettingStartedModal isOpen={modalOpen} closeModal={() => setModalOpen(false)}/>
                 <div className="hidden h-14.5 lg:block"></div>
             </main>
         </OnboardingProvider>
