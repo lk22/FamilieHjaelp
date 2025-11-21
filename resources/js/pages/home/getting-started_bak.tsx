@@ -6,9 +6,8 @@ import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { OnboardingState } from '@/state/OnboardingState';
 
-import {router} from '@inertiajs/react';
 
-// TODO: i want to implement unique onboarding process steps for a given user instead of the deafult global state but have a global state for a authenticated user profile
+// TODO: i want to implement unique onboarding process steps for a given user instead of the default global state but have a global state for a authenticated user profile
 
 const GettingStartedContent = () => {
     const { auth, name } = usePage<SharedData>().props;
@@ -23,8 +22,8 @@ const GettingStartedContent = () => {
             : 1;
 
     // TODO: implement a check on query param to jump to a specific step if needed
-    const queryParams = new URLSearchParams(window.location.search);
-    const category = queryParams.get('category');
+    // const queryParams = new URLSearchParams(window.location.search);
+    //const category = queryParams.get('category');
 
     return (
         <>
@@ -63,7 +62,7 @@ const GettingStartedContent = () => {
                 <div className="container-fluid bg-white max-w-full w-full h-screen">
                     <div className="container max-w-[960px] px-4 py-8 mx-auto text-black">
                         {
-                            nextProceededStep < 0 ? (
+                            completedSteps.length === 0 ? (
                                 <GettingStartedDescriptionContent />
                             ) : (
                                 <CompletedStepContent step={nextProceededStep} />
@@ -81,7 +80,7 @@ const GettingStartedDescriptionContent = () => {
     const { onboardingState, resetOnboarding } = useOnboarding();
 
     const completedSteps = onboardingState.completedSteps;
-    const currentStep = completedSteps.lastIndexOf(completedSteps[completedSteps.length - 1]) + 1 || 1;
+    const currentStep = completedSteps.length > 0 ? completedSteps[completedSteps.length - 1] + 1 : 1;
     console.log('Current Step:', currentStep);
 
     let nextStep = currentStep;
@@ -217,47 +216,7 @@ function StepProcessDescription({step, state}: {step: number, state?: Onboarding
     }
 }
 
-// TODO set a type for state parameter
-// function stepProcessDescriptionContent({step, state}: {step: number, state?: any}) {
-    
-//     const situationState = state?.steps.find((s: { id: number; }) => s.id === 2);
-//     console.log({situationState})
 
-
-//     switch (step) {
-//         case 1:
-//         case 2:
-//             return (
-//                 <>
-//                     <p className="text-lg mb-4">
-//                         Forældrehjælp er platformen til dig der søger hjælp og vejledning efter din nuværende situation. Vi forstår, at det kan være overvældende at navigere gennem de mange følelser og beslutninger, der kan medfølge.
-//                     </p>
-//                     <p className="text-lg mb-4">
-//                         Gennem denne proces vil vi guide dig gennem forskellige trin, der er designet til at adressere dine specifikke behov og bekymringer. Hvert trin er vigtigt, da det hjælper med at forstå din situation bedre og giver dig mulighed for at udtrykke dine følelser og tanker.
-//                     </p>
-//                     <p className="text-lg mb-4">
-//                         Vi opfordrer dig til at tage dig tid til at reflektere over hvert trin og være åben omkring dine følelser. Husk, at du ikke er alene i denne rejse, og vi er her for at støtte dig hvert skridt på vejen.
-//                     </p>
-//                 </>
-//             );
-//         case 3:
-//             if (situationState?.data)
-//             return (
-//                 <>
-//                 </>
-//             );
-//             break;
-//         case 4:
-//         case 5:
-//         case 6:
-//         default:
-//             return (
-//                 <>
-//                     <p>Du er nu på et ukendt trin.</p>
-//                 </>
-//             );
-//     }
-// }
 
 export default function GettingStarted() {
     return (

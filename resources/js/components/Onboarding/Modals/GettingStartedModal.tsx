@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { Link, router } from '@inertiajs/react';
 
 import {
@@ -23,13 +23,20 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
 
     const prepareOnboarding = () => {
         setPreparing(true);
-
-        console.log(preparing)
-
-        setTimeout(() => {
-            router.visit(route('getting-started'));
-        }, 2000)
     }
+
+    useEffect(() => {
+        if ( ! preparing) return;
+        const timer = setTimeout(() => {
+            try {
+                router.visit(route('getting-started'));
+            } catch (error) {
+                console.error("Failed to navigate to getting started:", error);
+            }
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [preparing])
 
     return (
         <Dialog open={isOpen} modal={true}>
