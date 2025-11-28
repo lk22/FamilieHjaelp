@@ -1,8 +1,8 @@
 import {useEffect, useState, useCallback} from 'react'
 import { Head, Link, usePage} from '@inertiajs/react';
 
-import { OnboardingProvider } from '@/contexts/OnboardingContext';
-import {useOnboarding} from '@/contexts/OnboardingContext';
+import { OnboardingProvider } from '@/contexts/OnboardingContext_bak';
+import {useOnboarding} from '@/contexts/OnboardingContext_bak';
 import { type SharedData } from '@/types';
 
 interface CompletedMessageProps {

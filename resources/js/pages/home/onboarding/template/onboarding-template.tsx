@@ -1,6 +1,6 @@
 import React from 'react';
 import ProgressBar from '@/components/Onboarding/progressBar';
-import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import { OnboardingProvider } from '@/contexts/OnboardingContext_bak';
 import OnboardingHeader from '@/components/Onboarding/onboarding-header';
 
 interface OnboardingTemplateInterface {

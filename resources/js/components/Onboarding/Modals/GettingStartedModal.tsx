@@ -15,7 +15,7 @@ interface GettingStartedModalProps {
     closeModal?: () => void;
 }
 
-import { useOnboarding } from '@/contexts/OnboardingContext';
+import { useOnboarding } from '@/contexts/OnboardingContext_bak';
 
 export default function GettingStartedModal({ isOpen, closeModal }: GettingStartedModalProps) {
     const { resetOnboarding, onboardingState } = useOnboarding();

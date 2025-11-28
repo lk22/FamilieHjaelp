@@ -2,8 +2,8 @@ import {useEffect} from 'react';
 import {type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
-import { OnboardingProvider } from '@/contexts/OnboardingContext';
-import { useOnboarding } from '@/contexts/OnboardingContext';
+import { OnboardingProvider } from '@/contexts/OnboardingContext_bak';
+import { useOnboarding } from '@/contexts/OnboardingContext_bak';
 import { OnboardingState } from '@/state/OnboardingState';
 
 
@@ -176,7 +176,7 @@ const CompletedStepContent = ({ step }: { step: number }) => {
                     </>
                 ) : (
                     <>
-                       <StepProcessDescription step={step} state={onboardingState} />
+                        <StepProcessDescription step={step} state={onboardingState} />
                         <GettingStartedDescriptionContent />
                     </>
                     

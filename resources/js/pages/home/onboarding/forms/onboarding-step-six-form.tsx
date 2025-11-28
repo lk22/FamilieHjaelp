@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
 import { TextArea } from "@/components/ui/textarea";
 
-import { useOnboarding } from "@/contexts/OnboardingContext";
+import { useOnboarding } from "@/contexts/OnboardingContext_bak";
 
 export default function OnboardingStepSixForm() {
     const { 

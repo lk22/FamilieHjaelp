@@ -20,6 +20,12 @@ Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name(
  * Onboarding routes
 */
 Route::get('/onboarding', [OnboardingController::class, 'render'])->name('onboarding.step');
+
+Route::get('/getting-started', [OnboardingController::class, 'show'])->name('getting-started');
+Route::post('/onboarding/update-step', [OnboardingController::class, 'updateStep'])->name('onboarding.update-step');
+Route::post('/onboarding/complete', [OnboardingController::class, 'complete'])->name('onboarding.complete');
+
+
 Route::get('/onboarding/reset', [OnboardingController::class, 'reset'])->name('onboarding.reset');
 Route::get('/onboarding/complete', [OnboardingController::class, 'completed'])->name('onboarding.complete');
 Route::post('/onboarding', [OnboardingController::class, 'submitStep'])->name('onboarding.step.submit');

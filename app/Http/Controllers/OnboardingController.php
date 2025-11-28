@@ -7,8 +7,89 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
 
+use App\Models\OnboardingSession;
+
 class OnboardingController extends Controller
 {
+
+    public function show(Request $request): Response
+    {
+        $userId = $request->user()?->id;
+        $sessionToken = $request->cookie('onboarding_session_token');
+
+        // find or create onboarding session
+        $session = OnboardingSession::findOrCreateSession($userId, $sessionToken);
+
+        if ( ! $userId && ! $sessionToken ) {
+            cookie()->queue('onboarding_session_token', $session->session_token, 60 * 24 * 30);
+        }
+
+        return inertia('home/getting-started', [
+            'onboardingSession' => [
+                'token' => $session->session_token,
+                'currentStep' => $session->current_step,
+                'stepsData' => $session->steps_data,
+                'formData' => $session->form_data,
+                'completed' => $session->completed,
+            ]
+        ]);
+    }
+
+    public function updateStep(Request $request) {
+        $validated = $request->validate([
+            'session_token' => 'required|string',
+            'current_step' => 'required|string',
+            'steps_data' => 'nullable|array',
+            'form_data' => 'nullable|array',
+        ]);
+
+        $userId = $request->user()?->id;
+
+        $session = OnboardingSession::findWhen($userId, $validated['session_token']);
+
+        $session->update([
+            'current_step' => $validated['current_step'],
+            'steps_data' => array_merge($session->steps_data ?? [], $validated["steps_data"] ?? []),
+            'form_data' => array_merge($session->form_data ?? [], $validated['form_data'] ?? [])
+        ]);
+
+        return response()->json([
+            'success' => true, 
+            'session' => $session
+        ]);
+    }
+
+    public function complete(Request $request)
+    {
+        $validated = $request->validate([
+            'session_token' => 'required|string',
+        ]);
+
+        $userId = $request->user()?->id;
+        $session = OnboardingSession::findWhen($userId, $validated['session_token']);
+
+        $session->markAsCompleted();
+
+        return redirect()->route('onboarding.complete')->with('success', 'Onboarding completed successfully!');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Render the onboarding step view based on the step query parameter.
      *
@@ -121,14 +202,14 @@ class OnboardingController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function complete(Request $request): RedirectResponse
-    {
-        $data = session()->get('onboarding_data.data.steps');
-        // Here you can handle the completion logic, e.g., saving to the database or processing the data
+    // public function complete(Request $request): RedirectResponse
+    // {
+    //     $data = session()->get('onboarding_data.data.steps');
+    //     // Here you can handle the completion logic, e.g., saving to the database or processing the data
 
-        session()->forget('onboarding_data'); // Clear onboarding data after completion
-        return redirect()->route('home')->with('success', 'Onboarding completed successfully!');
-    }
+    //     session()->forget('onboarding_data'); // Clear onboarding data after completion
+    //     return redirect()->route('home')->with('success', 'Onboarding completed successfully!');
+    // }
 
     /**
      * Reset the onboarding process.

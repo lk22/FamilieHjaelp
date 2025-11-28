@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 
 // Contexts & Providers
-import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import { OnboardingProvider } from '@/contexts/OnboardingContext_bak';
 
 // utilities
 import { HandleSwiperSlidesPerView } from '@/lib/SwiperSlidesPerViewUtil';

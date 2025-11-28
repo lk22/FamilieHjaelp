@@ -1,4 +1,4 @@
-import { useOnboarding } from '@/contexts/OnboardingContext';
+import { useOnboarding } from '@/contexts/OnboardingContext_bak';
 import { router } from '@inertiajs/react';
 
 export default function OnboardingHeader() {

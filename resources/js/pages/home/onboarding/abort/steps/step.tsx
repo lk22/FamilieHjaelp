@@ -2,8 +2,8 @@ import { Head } from '@inertiajs/react';
 import OnboardingTemplate from '@/pages/home/onboarding/template/onboarding-template';
 import StepForm from '@/pages/home/onboarding/abort/form/step-form';
 
-import {OnboardingProvider} from '@/contexts/OnboardingContext';
-import { useOnboarding } from '@/contexts/OnboardingContext';
+import {OnboardingProvider} from '@/contexts/OnboardingContext_bak';
+import { useOnboarding } from '@/contexts/OnboardingContext_bak';
 
 export default function OnboardingStep() {
     return (

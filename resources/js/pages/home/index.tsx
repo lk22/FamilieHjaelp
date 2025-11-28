@@ -3,7 +3,7 @@ import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
 import GettingStartedModal from '@/components/Onboarding/Modals/GettingStartedModal';
-import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import { OnboardingProvider } from '@/contexts/OnboardingContext_bak';
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
