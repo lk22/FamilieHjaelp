@@ -10,6 +10,6 @@ class AbortOnboardingController extends Controller
 {
     public function index(): Response
     {
-        return inertia('Home/Onboarding/Abort/getting-started')
+        return inertia('Home/Onboarding/Abort/getting-started');
     }
 }

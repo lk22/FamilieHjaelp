@@ -10,6 +10,7 @@ export default function Welcome() {
     const [ modalOpen, setModalOpen ] = useState<boolean>(false);
 
 
+
     return (
         <>
         <OnboardingProvider>
@@ -45,10 +46,28 @@ export default function Welcome() {
                                             <Link href={route('register')} className="text-white sm:w-full">Registrer dig her</Link>
                                         </div>
                                         <div className="flex gap-4">
-                                            <button onClick={() => setModalOpen(true)} className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer">
-                                                <span className="sr-only">Kom igang</span>
-                                                Kom i gang
-                                            </button>
+                                            {
+                                                onboarding_started ? (
+                                                    <>
+                                                        <Link
+                                                            href={route('onboarding.step', { step: 'one' })}
+                                                            className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer"
+                                                        >
+                                                            <span className="sr-only">Kom igang</span>
+                                                            Kom i gang
+                                                        </Link>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <button
+                                                            onClick={() => setModalOpen(true)}
+                                                            className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer">
+                                                            <span className="sr-only">Kom igang</span>
+                                                            Kom i gang
+                                                        </button>
+                                                    </>
+                                                )
+                                            }
                                             <Link
                                                 href={route('login')}
                                                 className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"

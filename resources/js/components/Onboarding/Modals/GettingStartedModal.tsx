@@ -21,7 +21,26 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
     const { resetOnboarding, onboardingState } = useOnboarding();
     const [preparing, setPreparing] = useState<boolean>(false);
 
+    /**
+     * Setting a cookie to indicate that onboarding has started
+     * @returns void
+     */
+    const setOnboardingStartedCookie = () => {
+        // first check if the cookie is already set
+
+        const onboardingStarted = document.cookie.split('; ').find(row => row.startsWith('onboarding_started='))?.split('=')[1] === '1';
+        if (onboardingStarted) {
+            return;
+        }
+
+        const date = new Date();
+        date.setTime(date.getTime() + (30*24*60*60*1000)); // 30 days
+        const expires = "expires="+ date.toUTCString();
+        document.cookie = "onboarding_started=1;" + expires + ";path=/";
+    }
+
     const prepareOnboarding = () => {
+        setOnboardingStartedCookie();
         setPreparing(true);
     }
 
@@ -108,8 +127,8 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
                                 <>
                                     <div className="flex gap-4 justify-end">
                                         <div className="reset-onboarding cursor-pointer" onClick={() => resetOnboarding()}>
-                                            <button 
-                                                className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer" 
+                                            <button
+                                                className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer"
                                                 onClick={() => prepareOnboarding()}
                                                 disabled={preparing}
                                             >

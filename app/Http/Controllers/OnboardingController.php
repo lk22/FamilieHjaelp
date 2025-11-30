@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
 
@@ -16,6 +15,8 @@ class OnboardingController extends Controller
     {
         $userId = $request->user()?->id;
         $sessionToken = $request->cookie('onboarding_session_token');
+
+
 
         // find or create onboarding session
         $session = OnboardingSession::findOrCreateSession($userId, $sessionToken);
@@ -54,7 +55,7 @@ class OnboardingController extends Controller
         ]);
 
         return response()->json([
-            'success' => true, 
+            'success' => true,
             'session' => $session
         ]);
     }
@@ -116,7 +117,7 @@ class OnboardingController extends Controller
                 ...$initialState
             ]);
         }
-        
+
         $stepData = session()->get('onboarding_data.data.steps', []);
         $completedSteps = session()->get('onboarding_data.completed_steps', []);
 
@@ -129,11 +130,11 @@ class OnboardingController extends Controller
             'stepData' => $stepData,
         ]);
     }
-    
+
     /**
      * Handle the submission of an onboarding step.
      * TODO: refactor this method to handle the step submission logic more cleanly.
-     * 
+     *
      * @param Request $request
      * @return Response|RedirectResponse
      */
@@ -147,14 +148,14 @@ class OnboardingController extends Controller
         if (!$currentStep) {
             throw new \InvalidArgumentException('Step parameter is required.');
         }
-    
+
         // validate the current step
         if ($currentStep == "last") {
             return redirect()->route('onboarding.complete');
         }
-        
+
         $numberToStep = $this->formatStepNumberToString($currentStep);
-        
+
         $nextStep = $currentStep + 1;
         $formattedCurrentStep = $this->formatStepNumberToString($currentStep);
         $formattedNextStep = $this->formatStepNumberToString($nextStep);

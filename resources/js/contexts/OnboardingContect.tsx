@@ -28,7 +28,7 @@ interface UpdateStepPayload {
     data?: Record<string, any>;
 }
 
-interface OnboardingSessionPayload {
+interface OnboardingSessionPayload extends FormOptions {
     session_token: string;
     current_step: string,
     steps_data: Record<string, any>;
@@ -63,14 +63,19 @@ export function OnboardingProvider({
             } : onboardingState.stepsData,
         }
 
-        updatePut(route('onboarding-update-step'), {
-            ...payload
-        }); 
+        updatePut(route('onboarding-update-step') {
+            onSuccess: () => {
+                setOnboardingState(prevState => ({
+                    ...prevState,
+                    ...payload
+                })
+            }
+        });
     }
 
     /**
      * Merges new data into the existing form data
-     * 
+     *
      * @param data Data to merge into the existing form data
      */
     const updateFormData = (data: Record<string, any>) => {
@@ -88,7 +93,14 @@ export function OnboardingProvider({
      */
     const completeOnboarding = () => {
         completePost(route('onboarding-complete'), {
-            session_token: onboardingState.token
+            session_token: onboardingState.token,
+        }, {
+            onSuccess: () => {
+                setOnboardingState((prevState) => ({
+                    ...prevState,
+                    completed: true,
+                }));
+            }
         })
     }
 
