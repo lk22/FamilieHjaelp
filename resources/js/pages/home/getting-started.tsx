@@ -1,13 +1,35 @@
+import {useState} from 'react';
 import {type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
-import { OnboardingProvider } from '@/contexts/OnboardingContext_bak';
+import { OnboardingProvider, useOnboarding } from '@/contexts/OnboardingContext';
 
+interface OnboardingSessionProps {
+    onboardingSession: {
+        token: string | null;
+        currentStep: string | null;
+        stepsData: Record<string, any>;
+        formData: Record<string, any>;
+        completed: boolean;
+    };
+}
 
-const GettingStartedContent = () => {
+const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
     const { name } = usePage<SharedData>().props;
+    const [scenario, setScenario] = useState<string | null>(null);
+    const {updateCurrentScenario, onboardingState} = useOnboarding();
 
-    // TODO: implement a check on query param to jump to a specific step if needed
+    const session = onboardingSession;
+    console.log('Onboarding Session:', session)
+    console.log('Onboarding State:', onboardingState);
+
+    const handleScenarioChange = (newScenario: string) => {
+        console.log('Selected scenario:', newScenario);
+        setScenario(newScenario);
+        setTimeout(() => {
+            updateCurrentScenario(newScenario);
+        }, 2000);
+    }
 
     return (
         <>
@@ -46,8 +68,8 @@ const GettingStartedContent = () => {
                         <div className="container max-w-[1440px] px-8 py-4 mx-auto text-black">
                             <div className="category-picker flex flex-wrap">
                                 <div className="w-full py-4">
-                                    <h1 className="text-4xl font-bold">Kom godt i gang med familiehjælp</h1> 
-                                    <div className="text-xl">
+                                    <h1 className="text-4xl font-bold">Kom godt i gang med familiehjælp</h1>
+                                    <div className="text-xl w-10/12">
                                         <p className="my-4">
                                             Vi ønsker at gøre din oplevelse med FamilieHjælp så personlig og relevant som muligt. For at hjælpe os med dette, vil vi gerne invitere dig til at gennemføre vores onboarding-proces. Dette vil give os mulighed for bedre at forstå dine behov og præferencer, så vi kan tilbyde dig den bedst mulige støtte og ressourcer.
                                         </p>
@@ -60,38 +82,69 @@ const GettingStartedContent = () => {
                                     </div>
                                 </div>
                                 <div className="w-full pl-0 md:pl-0">
-                                    <ul className="list-disc list-inside my-4 list-none flex gap-4 pl-0">
-                                        <li className="bg-white border border-blue-800 hover:bg-blue-900 hover:shadow-lg shadow-blue-900 text-blue-900 p-8 rounded-md hover:scale-[1.025] hover:text-white transition duration-[1s]">
-                                            <a className="font-bold" href="#">
-                                                <div className="title">
-                                                    <p className="text-2xl mb-4">Står overfor en abort eller senabort?</p>
-                                                </div>
-                                                <div className="description mb-4">
-                                                    <p>Vi forstår, at det kan være en svær tid, og vi er her for at støtte dig gennem processen. Vores app tilbyder ressourcer og vejledning til at hjælpe dig med at navigere i de følelsesmæssige og praktiske aspekter af abort eller senabort.</p>
-                                                </div>
-                                            </a>
+                                    <ul className="list-disc list-inside my-4 list-none flex gap-4 pl-0 flex-col">
+                                        <li>
+                                            <input
+                                                type="radio"
+                                                name="onboarding_scenario"
+                                                id="onboarding-scenario-abortion"
+                                                className="ml-4"
+                                                checked={scenario === 'abort'}
+                                                onChange={() => handleScenarioChange('abortion')}
+                                            />
+                                            <label htmlFor="onboarding-scenario" className="ml-4 text-xl">
+                                                <span className="sr-only">Jeg står midt i en abort / har oplevet en abort</span>
+                                                Jeg står midt i en abort / har oplevet en abort
+                                            </label>
                                         </li>
-                                        <li className="bg-white border border-blue-800 hover:bg-blue-900 hover:shadow-lg shadow-blue-900 text-blue-900 p-8 rounded-md hover:scale-[1.025] hover:text-white transition duration-[1s]">
-                                            <a className="font-bold" href="#">
-                                                <div className="title">
-                                                    <p className="text-2xl mb-4">Er blevet forælder til et dødfødt barn?</p>
-                                                </div>
-                                                <div className="description mb-4">
-                                                    <p>Vi forstår, at det kan være en svær tid, og vi er her for at støtte dig gennem processen. Vores app tilbyder ressourcer og vejledning til at hjælpe dig med at navigere i de følelsesmæssige og praktiske aspekter af abort eller senabort.</p>
-                                                </div>
-                                            </a>
+                                        <li>
+                                            <input
+                                                type="radio"
+                                                name="onboarding_scenario"
+                                                id="onboarding-scenario-stillbirth"
+                                                className="ml-4"
+                                                checked={scenario === 'stillbirth'}
+                                                onChange={() => handleScenarioChange('stillbirth')}
+                                            />
+                                            <label htmlFor="onboarding-scenario-stillbirth" className="ml-4 text-xl">
+                                                <span className="sr-only">Er blevet forælder til et dødfødt barn</span>
+                                                Er blevet forælder til et dødfødt barn
+                                            </label>
                                         </li>
-                                        <li className="bg-white border border-blue-800 hover:bg-blue-900 hover:shadow-lg shadow-blue-900 text-blue-900 p-8 rounded-md hover:scale-[1.025] hover:text-white transition duration-[1s]">
-                                            <a className="font-bold" href="#">
-                                                <div className="title">
-                                                    <p className="text-2xl mb-4">Er blevet forælder til et rask barn?</p>
-                                                </div>
-                                                <div className="description mb-4">
-                                                    <p>Vi forstår, at det kan være en svær tid, og vi er her for at støtte dig gennem processen. Vores app tilbyder ressourcer og vejledning til at hjælpe dig med at navigere i de følelsesmæssige og praktiske aspekter af abort eller senabort.</p>
-                                                </div>
-                                            </a>
+                                        <li>
+                                            <input
+                                                type="radio"
+                                                name="onboarding_scenario"
+                                                id="onboarding-scenario-parents"
+                                                className="ml-4"
+                                                checked={scenario === 'parents'}
+                                                onChange={() => handleScenarioChange('parents')}
+                                            />
+                                            <label htmlFor="onboarding-category-parents" className="ml-4 text-xl">
+                                                <span className="sr-only">Er blevet forælder til et rask barn</span>
+                                                Er blevet forælder til et rask barn
+                                            </label>
                                         </li>
                                     </ul>
+                                    <p className="text-left text-lg mt-8">
+                                        {
+                                            !scenario ? (
+                                                <>
+
+                                                    <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: '' })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300 ml-4">
+                                                        Kom i gang
+                                                    </Link>
+                                                    <span className="text-gray-500">Vælg venligst en situation for at fortsætte</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300">
+                                                        Gå videre
+                                                    </Link>
+                                                </>
+                                            )
+                                        }
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -102,10 +155,11 @@ const GettingStartedContent = () => {
     );
 }
 
-export default function GettingStarted() {
+
+export default function GettingStarted({onboardingSession}: OnboardingSessionProps) {
     return (
-        <OnboardingProvider>
-            <GettingStartedContent />
+        <OnboardingProvider initialSession={onboardingSession}>
+            <GettingStartedContent onboardingSession={onboardingSession}/>
         </OnboardingProvider>
     );
 }

@@ -9,7 +9,11 @@ export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
     const [ modalOpen, setModalOpen ] = useState<boolean>(false);
 
+    const onboarding_started = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('onboarding_started='))?.split('=')[1] === '1';
 
+    console.log("onboarding_started cookie:", onboarding_started);
 
     return (
         <>

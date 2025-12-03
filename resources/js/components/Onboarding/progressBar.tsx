@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { useOnboarding } from '@/contexts/OnboardingContext_bak';
+import { useOnboarding } from '@/contexts/OnboardingContext';
 
 // defining the progress step properties
 interface ProgressStepProps {
@@ -16,23 +16,24 @@ interface ProgressStepProps {
  * Now uses OnboardingContext for real-time state updates across all components.
  */
 export default function ProgressBar() {
-    
     // Get onboarding state from context - this will automatically update when state changes
     const { onboardingState } = useOnboarding();
+    console.log('Rendering ProgressBar with onboardingState:', onboardingState);
+    const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
+    const steps = currentScenario ? currentScenario.steps : [];
 
     const handleStepsList = () => {
-        const { steps } = onboardingState;
         return steps.map((step, index: number) => {
             const lastStep = steps.length - 1 === index;
-            const isCompleted = step.progress.completed;
-            const stepName = step.name; // Fallback to step id if name is not defined
-            
+            const isCompleted = step.completed;
+            const stepName = step.stepName; // Fallback to step id if name is not defined
+
             return (
                 <div key={index} className="relative flex-1">
-                    <ProgressStep 
-                        step={index + 1} 
-                        lastStep={lastStep} 
-                        isCompleted={isCompleted} 
+                    <ProgressStep
+                        step={index + 1}
+                        lastStep={lastStep}
+                        isCompleted={isCompleted}
                         stepName={stepName}
                     />
                 </div>
@@ -49,6 +50,17 @@ export default function ProgressBar() {
     )
 }
 
+/**
+ * Component for individual progress step
+ *
+ * @param step
+ * @param lastStep
+ * @param isCompleted
+ * @param stepName
+ *
+ * @description Renders a single step in the progress bar, indicating whether it is completed or not.
+ * @returns JSX.Element
+ */
 const ProgressStep = ({
     step,
     lastStep,

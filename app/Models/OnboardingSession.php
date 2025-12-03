@@ -16,6 +16,7 @@ class OnboardingSession extends Model
         'user_id',
         'scenario',
         'current_step',
+        'state',
         'steps_data',
         'form_data',
         'completed',
@@ -30,7 +31,7 @@ class OnboardingSession extends Model
 
     /**
      * Get the user that owns the onboarding session.
-     * 
+     *
      * @return BelongsTo<User>
      */
     public function user(): BelongsTo
@@ -40,7 +41,7 @@ class OnboardingSession extends Model
 
     /**
      * Generating a unique session token for a onboarding process
-     * 
+     *
      * @return string
      */
     public static function generateToken(): string
@@ -50,7 +51,7 @@ class OnboardingSession extends Model
 
     /**
      * find or create session for guest or authenticated user
-     * 
+     *
      * @param int|null $userId
      * @param string|null $token
      * @return self
@@ -68,9 +69,9 @@ class OnboardingSession extends Model
         // if guest with existing token, find by token
         if ($token) {
             $session = self::where('session_token', $token)
-                ->whereNull('user_id')
-                ->where('completed', false)
-                ->first();
+            ->whereNull('user_id')
+            ->where('completed', false)
+            ->first();
 
             if ($session) {
                 return $session;
@@ -85,7 +86,7 @@ class OnboardingSession extends Model
 
     /**
      * link session to authenticated user
-     * 
+     *
      * @return void
      */
     public function linkToUser(int $userId): void
@@ -95,7 +96,7 @@ class OnboardingSession extends Model
 
     /**
      * Find session by user ID and token
-     * 
+     *
      * @param int|null $userId
      * @param string|null $token
      * @return self|null
@@ -110,7 +111,7 @@ class OnboardingSession extends Model
 
     /**
      * mark onboarding as completed
-     * 
+     *
      * @return void
      */
     public function markAsCompleted(): void
@@ -119,5 +120,4 @@ class OnboardingSession extends Model
         $this->completed_at = now();
         $this->save();
     }
-    
 }

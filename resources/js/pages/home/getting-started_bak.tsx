@@ -4,7 +4,7 @@ import { Head, Link, usePage } from '@inertiajs/react';
 
 import { OnboardingProvider } from '@/contexts/OnboardingContext_bak';
 import { useOnboarding } from '@/contexts/OnboardingContext_bak';
-import { OnboardingState } from '@/state/OnboardingState';
+import { OnboardingState } from '@/state/OnboardingState_bak';
 
 
 // TODO: i want to implement unique onboarding process steps for a given user instead of the default global state but have a global state for a authenticated user profile
@@ -15,10 +15,10 @@ const GettingStartedContent = () => {
 
     console.log('GettingStartedContent rendered with auth:', auth);
     const { completedSteps, nextStep } = onboardingState;
-    const nextProceededStep = nextStep 
-        ? nextStep 
-        : completedSteps.length > 0 
-            ? completedSteps[completedSteps.length - 1] + 1 
+    const nextProceededStep = nextStep
+        ? nextStep
+        : completedSteps.length > 0
+            ? completedSteps[completedSteps.length - 1] + 1
             : 1;
 
     // TODO: implement a check on query param to jump to a specific step if needed
@@ -134,8 +134,8 @@ const GettingStartedDescriptionContent = () => {
                 </Link>
             ) : (
                 <>
-                    <Link 
-                        href={route('onboarding.step', {_query: {step: stepName}})} 
+                    <Link
+                        href={route('onboarding.step', {_query: {step: stepName}})}
                         className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-xl leading-normal text-white hover:border-white"
                     >
                         Start
@@ -179,7 +179,7 @@ const CompletedStepContent = ({ step }: { step: number }) => {
                         <StepProcessDescription step={step} state={onboardingState} />
                         <GettingStartedDescriptionContent />
                     </>
-                    
+
                 )}
         </div>
     );

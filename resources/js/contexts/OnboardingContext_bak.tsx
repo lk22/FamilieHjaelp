@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useCallback, useEffect } from 'react';
 import { useRemember } from '@inertiajs/react';
-import { OnboardingState, InitialOnboardingState, type StepData } from '@/state/OnboardingState';
+import { OnboardingState, InitialOnboardingState, type StepData } from '@/state/OnboardingState_bak';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
@@ -8,7 +8,7 @@ type ProgressProperties = {
     not_started: boolean;
     in_progress: boolean;
     completed: boolean;
-} 
+}
 
 interface OnboardingContextType {
     onboardingState: OnboardingState;
@@ -36,7 +36,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         InitialOnboardingState,
         sharedStateName
     );
-    
+
     const [localStorageState, setLocalStorageState] = useLocalStorage<OnboardingState>(
         sharedStateName,
         InitialOnboardingState
@@ -57,7 +57,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
     // Update both states simultaneously
     const updateOnboardingState = useCallback((newState: OnboardingState | ((prev: OnboardingState) => OnboardingState)) => {
         const stateToSet = typeof newState === 'function' ? newState(onboardingState) : newState;
-        
+
         setLocalStorageState(stateToSet);
         setInertiaState(stateToSet);
     }, [onboardingState, setLocalStorageState, setInertiaState]);
@@ -68,10 +68,10 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
             ...prev,
             currentStep: stepId + 1, // Move to next step
             nextStep: stepId + 1,
-            completedSteps: prev.completedSteps.includes(stepId) 
-                ? prev.completedSteps 
+            completedSteps: prev.completedSteps.includes(stepId)
+                ? prev.completedSteps
                 : [...prev.completedSteps, stepId],
-            steps: prev.steps.map(step => 
+            steps: prev.steps.map(step =>
                 step.id === stepId ? {
                     ...step,
                     progress: {
@@ -115,7 +115,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         (stepId: number, progress: ProgressProperties): void => {
             updateOnboardingState(prev => ({
                 ...prev,
-                steps: prev.steps.map(step => 
+                steps: prev.steps.map(step =>
                     step.id === stepId ? {
                         ...step,
                         progress

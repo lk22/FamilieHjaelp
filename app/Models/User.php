@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use App\Models\Todo;
 use App\Models\Profile;
@@ -68,7 +69,7 @@ class User extends Authenticatable
 
     /**
      * Get todos associated with the user.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Todo>
      */
     public function todos(): HasMany
@@ -88,7 +89,7 @@ class User extends Authenticatable
 
     /**
      * get the profile associated with the user
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne<Profile>
      */
     public function profile()
@@ -98,7 +99,7 @@ class User extends Authenticatable
 
     /**
      * Get the notifications associated with the user.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<ProfileNotification>
      */
     public function notifications(): HasMany
@@ -108,7 +109,7 @@ class User extends Authenticatable
 
     /**
      * Get the count of unread notifications for the user.
-     * 
+     *
      * @return int
      */
     public function unreadNotificationsCount(): int
@@ -118,7 +119,7 @@ class User extends Authenticatable
 
     /**
      * Get the read notifications associated with the user.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<ProfileNotification>
      */
     public function readNotifications(): HasMany
@@ -128,11 +129,21 @@ class User extends Authenticatable
 
     /**
      * Get the notes associated with the user.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Note>
      */
     public function notes(): HasMany
     {
         return $this->hasMany(Note::class, 'user_id', 'id', 'notes');
+    }
+
+    /**
+     * Get the onboarding session associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<OnboardingSession>
+     */
+    public function onboardingSession(): HasOne
+    {
+        return $this->hasOne(OnboardingSession::class, 'user_id', 'id');
     }
 }

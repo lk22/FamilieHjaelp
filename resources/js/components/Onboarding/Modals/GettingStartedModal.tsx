@@ -19,23 +19,33 @@ import { useOnboarding } from '@/contexts/OnboardingContext_bak';
 
 export default function GettingStartedModal({ isOpen, closeModal }: GettingStartedModalProps) {
     const { resetOnboarding, onboardingState } = useOnboarding();
-    const [preparing, setPreparing] = useState<boolean>(false);
+    const [ preparing, setPreparing ] = useState<boolean>(false);
 
     /**
      * Setting a cookie to indicate that onboarding has started
      * @returns void
      */
     const setOnboardingStartedCookie = () => {
-        // first check if the cookie is already set
+        // check if cookie already set
+        const onboardingStarted = document.cookie.split('; ')
+            .find(row => row.startsWith('onboarding_started='))
+            ?.split('=')[1] === '1';
 
-        const onboardingStarted = document.cookie.split('; ').find(row => row.startsWith('onboarding_started='))?.split('=')[1] === '1';
         if (onboardingStarted) {
             return;
         }
 
+        console.log("Setting onboarding started cookie");
+
         const date = new Date();
+
+        // set 30 days expiration
         date.setTime(date.getTime() + (30*24*60*60*1000)); // 30 days
+
+        // set exiration date
         const expires = "expires="+ date.toUTCString();
+
+        // define the cookie in the document
         document.cookie = "onboarding_started=1;" + expires + ";path=/";
     }
 

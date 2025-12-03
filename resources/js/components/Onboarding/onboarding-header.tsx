@@ -1,4 +1,4 @@
-import { useOnboarding } from '@/contexts/OnboardingContext_bak';
+import { useOnboarding } from '@/contexts/OnboardingContext';
 import { router } from '@inertiajs/react';
 
 export default function OnboardingHeader() {
@@ -17,8 +17,8 @@ export default function OnboardingHeader() {
                     <a href={route('home')} className="flex items-center text-white">
                         Gå tilbage
                     </a>
-                    <a 
-                        href={route('onboarding.reset')} 
+                    <a
+                        href={route('onboarding.reset')}
                         className="flex items-center text-white"
                         onClick={(e) => handleStateReset(e)}
                     >

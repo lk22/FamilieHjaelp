@@ -10,19 +10,42 @@ use App\Models\OnboardingSession;
 
 class OnboardingController extends Controller
 {
-
-    public function show(Request $request): Response
+    /**
+     * Render getting started view mand handle onboarding session.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function show(Request $request): Response|RedirectResponse
     {
         $userId = $request->user()?->id;
         $sessionToken = $request->cookie('onboarding_session_token');
 
-
+        $category = $request->query('category', null);
+        $step = $request->query('step', 'one');
 
         // find or create onboarding session
         $session = OnboardingSession::findOrCreateSession($userId, $sessionToken);
 
         if ( ! $userId && ! $sessionToken ) {
             cookie()->queue('onboarding_session_token', $session->session_token, 60 * 24 * 30);
+        }
+
+        // if category is chosen, redirect to the first step of the category
+        if ($category && $step === 'one') {
+            $category = $request->query('category');
+            return redirect()->route(
+                'onboarding.step', [
+                    'step' => 'one',
+                    'category' => $category
+                ]);
+        } else if ($category && $step !== 'one') {
+            // if category is chosen and step is not one, redirect to the category step
+            return redirect()->route(
+                'onboarding.step', [
+                    'step' => $step,
+                    'category' => $category
+                ]);
         }
 
         return inertia('home/getting-started', [
@@ -36,7 +59,14 @@ class OnboardingController extends Controller
         ]);
     }
 
+    /**
+     * Update the current onboarding step data.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateStep(Request $request) {
+        dump($request->all());
         $validated = $request->validate([
             'session_token' => 'required|string',
             'current_step' => 'required|string',
@@ -60,6 +90,31 @@ class OnboardingController extends Controller
         ]);
     }
 
+    /**
+     * Show a specific onboarding step.
+     *
+     * @param Request $request
+     * @param string $scenario
+     * @param string $step
+     * @return Response
+     */
+    public function showStep(Request $request, string $scenario, string $step): Response
+    {
+        $session = OnboardingSession::findOrCreateSession(request()->user()?->id, request()->cookie('onboarding_session_token'));
+
+        return inertia("home/onboarding/{$scenario}/steps/step", [
+            'currentStep' => $step,
+            'scenario' => $scenario,
+            'onboardingSession' => [
+                'token' => $session->session_token,
+                'currentStep' => $session->current_step,
+                'stepsData' => $session->steps_data,
+                'formData' => $session->form_data,
+                'completed' => $session->completed,
+            ],
+        ]);
+    }
+
     public function complete(Request $request)
     {
         $validated = $request->validate([
@@ -74,7 +129,26 @@ class OnboardingController extends Controller
         return redirect()->route('onboarding.complete')->with('success', 'Onboarding completed successfully!');
     }
 
+    /**
+     * Reset the onboarding process.
+     *
+     * @return RedirectResponse
+     */
+    public function reset(): RedirectResponse
+    {
+        $userId = request()->user()?->id;
+        $sessionToken = request()->cookie('onboarding_session_token');
 
+        $session = OnboardingSession::findWhen($userId, $sessionToken);
+
+        if ($session) {
+            $session->delete();
+        }
+
+        cookie()->queue(cookie()->forget('onboarding_session_token'));
+
+        return redirect()->route('getting-started')->with('success', 'Onboarding has been reset successfully!');
+    }
 
 
 
@@ -217,13 +291,13 @@ class OnboardingController extends Controller
      *
      * @return RedirectResponse
      */
-    public function reset(): RedirectResponse
-    {
-        // Clear the onboarding data from the session
-        session()->forget('onboarding_data');
-        // Redirect to the first step of the onboarding process
-        return redirect()->route('onboarding.step', ['step' => 'one'])->with('success', 'Onboarding has been reset successfully!');
-    }
+    // public function reset(): RedirectResponse
+    // {
+    //     // Clear the onboarding data from the session
+    //     session()->forget('onboarding_data');
+    //     // Redirect to the first step of the onboarding process
+    //     return redirect()->route('onboarding.step', ['step' => 'one'])->with('success', 'Onboarding has been reset successfully!');
+    // }
 
     /**
      * Format the step number to a string representation.
