@@ -17,7 +17,7 @@ interface OnboardingSessionProps {
 const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
     const { name } = usePage<SharedData>().props;
     const [scenario, setScenario] = useState<string | null>(null);
-    const {updateCurrentScenario, onboardingState} = useOnboarding();
+    const {updateCurrentScenario, updateCurrentStep, onboardingState} = useOnboarding();
 
     const session = onboardingSession;
     console.log('Onboarding Session:', session)
@@ -28,6 +28,7 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
         setScenario(newScenario);
         setTimeout(() => {
             updateCurrentScenario(newScenario);
+            updateCurrentStep('one');
         }, 2000);
     }
 
@@ -116,7 +117,7 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                                 type="radio"
                                                 name="onboarding_scenario"
                                                 id="onboarding-scenario-parents"
-                                                className="ml-4"
+                                                className="ms-4"
                                                 checked={scenario === 'parents'}
                                                 onChange={() => handleScenarioChange('parents')}
                                             />
@@ -131,14 +132,14 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                             !scenario ? (
                                                 <>
 
-                                                    <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: '' })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300 ml-4">
+                                                    <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: '' })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300 ms-4">
                                                         Kom i gang
                                                     </Link>
-                                                    <span className="text-gray-500">Vælg venligst en situation for at fortsætte</span>
+                                                    <span className="text-gray-500 ms-4">Vælg venligst en situation for at fortsætte</span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300">
+                                                    <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300 ms-4">
                                                         Gå videre
                                                     </Link>
                                                 </>

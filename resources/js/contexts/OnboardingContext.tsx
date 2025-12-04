@@ -1,10 +1,14 @@
 import React, {
     createContext,
     useContext,
-    useState,
     useMemo,
-    useCallback
+    useCallback,
+    useEffect
 } from 'react';
+
+import {useRemember} from '@inertiajs/react';
+
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 import {
     InitialOnboardingStateInterface,
@@ -31,7 +35,8 @@ interface OnboardingContextType {
     pauseOnboarding: () => void;
     resumeOnboarding: () => void;
     startOnboarding: () => void;
-    completeStep: (step: string) => void;
+    completeStep: (step: string, currentScenarioId: string) => void;
+    updateCurrentStep: (step: string) => void;
 }
 
 interface OnboardingSessionPayload {
@@ -47,33 +52,79 @@ export function OnboardingProvider({
     initialSession,
 }: {
     children: React.ReactNode;
-    initialSession: OnboardingSession;
+    initialSession?: OnboardingSession;
 }) {
+    /**
+     * Shared state name for both Inertia and localStorage
+     */
+    const sharedStateName = 'onboarding_shared_state';
 
-    // Merge initial onboarding state with session data
-    const [onboardingState, setOnboardingState] = useState<InitialOnboardingStateInterface & OnboardingSession>({
+    /**
+     * Using Inertia to remember onboarding state across page visits
+     */
+    const [inertiaState, setInertiaState] = useRemember<InitialOnboardingStateInterface & OnboardingSession>({
         ...InitialOnboardingState,
         ...initialSession,
-    });
+    }, sharedStateName);
 
-    const completeStep = useCallback((step: string) => {
-        // Logic to mark the current step as completed can be added here
-        const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
-        if (currentScenario) {
-            const updatedSteps = currentScenario.steps.map((s) =>
-                s.stepName === step ? { ...s, completed: true } : s
-            );
+    /**
+     * Using localStorage to persist onboarding state across components and page reloads
+     */
+    const [localStorageState, setLocalStorageState] = useLocalStorage<InitialOnboardingStateInterface & OnboardingSession>(
+        sharedStateName,
+        {...InitialOnboardingState, ...initialSession},
+    );
 
-            const updatedScenarios = onboardingState.scenarios.map((scenario) =>
-                scenario.id === currentScenario.id ? { ...scenario, steps: updatedSteps } : scenario
-            );
+    const onboardingState = localStorageState;
 
-            setOnboardingState((prevState) => ({
+    useEffect(() => {
+        if (JSON.stringify(localStorageState) !== JSON.stringify(inertiaState)) {
+            setInertiaState(localStorageState);
+        }
+    }, [onboardingState, localStorageState, inertiaState])
+
+    const updateOnboardingState = useCallback((newState: InitialOnboardingStateInterface & OnboardingSession | ((prev: InitialOnboardingStateInterface & OnboardingSession) => InitialOnboardingStateInterface & OnboardingSession)) => {
+        const stateToSet = typeof newState === 'function' ? newState(onboardingState) : newState;
+
+        setLocalStorageState(stateToSet);
+        setInertiaState(stateToSet);
+    }, [onboardingState, setLocalStorageState, setInertiaState]);
+
+    /**
+     * Completed the current Step in a scenario
+     *
+     * @param step The step to mark as completed
+     */
+    const completeStep = useCallback((step: string, currentScenarioId: string) => {
+        console.log("Completing step:", step, "in scenario:", currentScenarioId);
+
+        updateOnboardingState((prevState) => {
+            const updatedScenarios = prevState.scenarios.map((scenario) => {
+                if (scenario.id !== currentScenarioId) return scenario;
+
+                return {
+                    ...scenario,
+                    steps: scenario.steps.map((s) => {
+                        if (s.stepName !== step) return s;
+
+                        return {
+                            ...s,
+                            completed: true,
+                            progress: {
+                                not_started: false,
+                                in_progress: false,
+                                completed: true,
+                            },
+                        };
+                    }),
+                };
+            });
+
+            return {
                 ...prevState,
                 scenarios: updatedScenarios,
-            }));
-        }
-
+            };
+        });
     }, []);
 
     /**
@@ -91,10 +142,22 @@ export function OnboardingProvider({
             } : onboardingState.stepsData,
         };
 
-        setOnboardingState((prevState) => ({
+        updateOnboardingState((prevState) => ({
             ...prevState,
             currentStep: step,
             stepsData: payload.steps_data,
+        }))
+    }, []);
+
+    /**
+     * Updating the current step in the onboarding state
+     *
+     * @param step The step to set as current
+     */
+    const updateCurrentStep = useCallback((step: string) => {
+        updateOnboardingState((prevState) => ({
+            ...prevState,
+            currentStep: step,
         }))
     }, []);
 
@@ -104,7 +167,7 @@ export function OnboardingProvider({
      * @param data Data to merge into the existing form data
      */
     const updateFormData = useCallback((data: Record<string, any>) => {
-        setOnboardingState((prevState) => ({
+        updateOnboardingState((prevState) => ({
             ...prevState,
             formData: {
                 ...data
@@ -118,21 +181,31 @@ export function OnboardingProvider({
      * @return void
      */
     const pauseOnboarding = useCallback(() => {
-        setOnboardingState((prevState) => ({
+        updateOnboardingState((prevState) => ({
             ...prevState,
             progress: 'paused'
         }));
     }, [])
 
+    /**
+     * Resumes the onboarding process by updating the progress state
+     *
+     * @return void
+     */
     const resumeOnboarding = useCallback(() => {
-        setOnboardingState((prevState) => ({
+        updateOnboardingState((prevState) => ({
             ...prevState,
             progress: 'in_progress'
         }));
     }, [])
 
+    /**
+     * Starts the onboarding process by updating the progress state
+     *
+     * @return void
+     */
     const startOnboarding = useCallback(() => {
-        setOnboardingState((prevState) => ({
+        updateOnboardingState((prevState) => ({
             ...prevState,
             progress: 'in_progress'
         }));
@@ -144,7 +217,7 @@ export function OnboardingProvider({
      * @return void
      */
     const completeOnboarding = useCallback(() => {
-        setOnboardingState((prevState) => ({
+        updateOnboardingState((prevState) => ({
             ...prevState,
             completed: true
         }))
@@ -156,7 +229,7 @@ export function OnboardingProvider({
      * @param scenarioId string
      */
     const updateCurrentScenario = useCallback((scenarioId: string) => {
-        setOnboardingState((prevState) => ({
+        updateOnboardingState((prevState) => ({
             ...prevState,
             currentScenario: scenarioId,
         }))
@@ -182,9 +255,10 @@ export function OnboardingProvider({
      * Resets the onboarding state to the initial session provided
      */
     const resetOnboarding = () => {
-        setOnboardingState({
+        updateOnboardingState({
             ...InitialOnboardingState,
             ...initialSession,
+            progress: 'not_started',
             currentStep: 'welcome',
             stepsData: {},
             formData: {},
@@ -204,6 +278,7 @@ export function OnboardingProvider({
         resumeOnboarding,
         startOnboarding,
         completeStep,
+        updateCurrentStep,
         onboardingState,
     }), [
         updateCurrentScenario,
@@ -217,6 +292,7 @@ export function OnboardingProvider({
         resumeOnboarding,
         startOnboarding,
         completeStep,
+        updateCurrentStep,
         onboardingState,
     ]);
 

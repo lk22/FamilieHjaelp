@@ -1,6 +1,9 @@
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import FirstStepForm from "@/pages/home/onboarding/abortion/form/FirstStepForm";
+import SecondStepForm from "./SecondStepForm";
 import {useForm} from "@inertiajs/react";
+import { T } from "vitest/dist/chunks/reporters.d.BFLkQcL6.js";
+import ThirdStepForm from "./ThirdStepForm";
 
 /**
  * StepForm Component
@@ -37,8 +40,8 @@ const StepFormContent = ({
     scenario: string
 }) => {
     const {onboardingState} = useOnboarding();
-    const currentScenario = onboardingState.scenarios.find((s) => s.id === scenario);
-    const stepQuestion = currentScenario?.steps.find((s) => s.stepName === currentStep);
+    const currentScenario = onboardingState.scenarios.find((s: any) => s.id === scenario);
+    const stepQuestion = currentScenario?.steps.find((s: any) => s.stepName === currentStep);
 
     return (
         <div>
@@ -61,7 +64,7 @@ const StepFormFieldsDisplay = ({
     scenario: string;
 }) => {
     const {onboardingState, updateFormData, updateStep, completeStep} = useOnboarding();
-    const {data, setData, post, processing, errors} = useForm<{
+    const {data, setData, processing, errors} = useForm<{
         step: string;
         scenario: string;
         session_token: string;
@@ -73,6 +76,7 @@ const StepFormFieldsDisplay = ({
         data: {},
     });
 
+
     const submitStep = (data: Record<string, any>) => {
         // setting form data for submission
         setData('data', data);
@@ -80,25 +84,16 @@ const StepFormFieldsDisplay = ({
         // updating the onboarding state context
         updateStep(currentStep, data);
         updateFormData(data);
-        completeStep(currentStep);
-
-        console.log('Updated onboardingState:', onboardingState);
-
-        // TODO send the data to the backend or handle it as needed
-        // post(route('onboarding.scenario.update-step', { scenario: scenario, step: currentStep }), {
-        //     onSuccess: () => {
-        //         console.log('Step submitted successfully');
-        //     }
-        // });
+        completeStep(currentStep, scenario);
     }
 
     switch (currentStep) {
         case 'one':
             return <FirstStepForm handleStepSubmit={submitStep} />;
         case 'two':
-            return <div>Form Fields for Step Two</div>;
+            return <SecondStepForm handleStepSubmit={submitStep} />;
         case 'three':
-            return <div>Form Fields for Step Three</div>;
+            return <ThirdStepForm handleStepSubmit={submitStep} />;
         default:
             return <div>Unknown Step</div>;
     }

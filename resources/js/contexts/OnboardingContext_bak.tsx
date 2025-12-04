@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useCallback, useEffect } from 'react';
 import { useRemember } from '@inertiajs/react';
-import { OnboardingState, InitialOnboardingState, type StepData } from '@/state/OnboardingState_bak';
+import { OnboardingState, InitialOnboardingState, type StepData } from '@/state/OnboardingState';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
@@ -64,7 +64,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
 
     // Helper function to complete a step
     const completeStep = useCallback((stepId: number, stepData?: Partial<StepData>) => {
-        updateOnboardingState(prev => ({
+        updateOnboardingState((prev) => ({
             ...prev,
             currentStep: stepId + 1, // Move to next step
             nextStep: stepId + 1,

@@ -3,17 +3,11 @@ import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
 import GettingStartedModal from '@/components/Onboarding/Modals/GettingStartedModal';
-import { OnboardingProvider } from '@/contexts/OnboardingContext_bak';
+import { OnboardingProvider } from '@/contexts/OnboardingContext';
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
     const [ modalOpen, setModalOpen ] = useState<boolean>(false);
-
-    const onboarding_started = document.cookie
-        .split('; ')
-        .find((row) => row.startsWith('onboarding_started='))?.split('=')[1] === '1';
-
-    console.log("onboarding_started cookie:", onboarding_started);
 
     return (
         <>
@@ -50,28 +44,12 @@ export default function Welcome() {
                                             <Link href={route('register')} className="text-white sm:w-full">Registrer dig her</Link>
                                         </div>
                                         <div className="flex gap-4">
-                                            {
-                                                onboarding_started ? (
-                                                    <>
-                                                        <Link
-                                                            href={route('onboarding.step', { step: 'one' })}
-                                                            className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer"
-                                                        >
-                                                            <span className="sr-only">Kom igang</span>
-                                                            Kom i gang
-                                                        </Link>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <button
-                                                            onClick={() => setModalOpen(true)}
-                                                            className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer">
-                                                            <span className="sr-only">Kom igang</span>
-                                                            Kom i gang
-                                                        </button>
-                                                    </>
-                                                )
-                                            }
+                                            <button
+                                                onClick={() => setModalOpen(true)}
+                                                className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer">
+                                                <span className="sr-only">Kom igang</span>
+                                                Kom i gang
+                                            </button>
                                             <Link
                                                 href={route('login')}
                                                 className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"

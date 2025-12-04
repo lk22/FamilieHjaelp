@@ -15,43 +15,20 @@ interface GettingStartedModalProps {
     closeModal?: () => void;
 }
 
-import { useOnboarding } from '@/contexts/OnboardingContext_bak';
+import { useOnboarding } from '@/contexts/OnboardingContext';
 
 export default function GettingStartedModal({ isOpen, closeModal }: GettingStartedModalProps) {
     const { resetOnboarding, onboardingState } = useOnboarding();
     const [ preparing, setPreparing ] = useState<boolean>(false);
-
+''
     /**
      * Setting a cookie to indicate that onboarding has started
      * @returns void
      */
-    const setOnboardingStartedCookie = () => {
-        // check if cookie already set
-        const onboardingStarted = document.cookie.split('; ')
-            .find(row => row.startsWith('onboarding_started='))
-            ?.split('=')[1] === '1';
-
-        if (onboardingStarted) {
-            return;
-        }
-
-        console.log("Setting onboarding started cookie");
-
-        const date = new Date();
-
-        // set 30 days expiration
-        date.setTime(date.getTime() + (30*24*60*60*1000)); // 30 days
-
-        // set exiration date
-        const expires = "expires="+ date.toUTCString();
-
-        // define the cookie in the document
-        document.cookie = "onboarding_started=1;" + expires + ";path=/";
-    }
 
     const prepareOnboarding = () => {
-        setOnboardingStartedCookie();
-        setPreparing(true);
+        resetOnboarding(); // resets the onboarding state
+        setPreparing(true); // setting preparing loading state
     }
 
     useEffect(() => {
@@ -98,7 +75,7 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
                             ) : (
                                 <>
                                     {
-                                        onboardingState.completedSteps.length > 0 ? (
+                                        onboardingState.completed ? (
                                             <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
                                                 <p className="font-bold">Bemærk:</p>
                                                 <p>Det ser ud til, at du allerede har påbegyndt onboarding-processen. Ved at klikke på "Lad os komme i gang!" nedenfor, vil din tidligere fremgang blive nulstillet, og du kan starte forfra.</p>
@@ -118,7 +95,7 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
                 <DialogFooter>
                     <div className="mt-6">
                         {
-                            onboardingState.completedSteps.length > 0 ? (
+                            onboardingState.completed ? (
                                 <>
                                     <div className="flex gap-4 justify-end">
                                         <div className="reset-onboarding" onClick={() => resetOnboarding()}>
@@ -159,7 +136,6 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
                             )
                         }
                     </div>
-
                 </DialogFooter>
             </DialogContent>
         </Dialog>

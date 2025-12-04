@@ -65,29 +65,9 @@ class OnboardingController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateStep(Request $request) {
-        dump($request->all());
-        $validated = $request->validate([
-            'session_token' => 'required|string',
-            'current_step' => 'required|string',
-            'steps_data' => 'nullable|array',
-            'form_data' => 'nullable|array',
-        ]);
+    public function updateStep(Request $request, string $scenario, string $step) {
+        return "test";
 
-        $userId = $request->user()?->id;
-
-        $session = OnboardingSession::findWhen($userId, $validated['session_token']);
-
-        $session->update([
-            'current_step' => $validated['current_step'],
-            'steps_data' => array_merge($session->steps_data ?? [], $validated["steps_data"] ?? []),
-            'form_data' => array_merge($session->form_data ?? [], $validated['form_data'] ?? [])
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'session' => $session
-        ]);
     }
 
     /**
@@ -151,59 +131,45 @@ class OnboardingController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * Render the onboarding step view based on the step query parameter.
      *
      * @return Response
      */
-    public function render(): Response
-    {
-        // dd(session()->get('onboarding_data.data.steps.0'));
-        $step = request()->query('step', 'situation');
-        $stepData = [];
+    // public function render(): Response
+    // {
+    //     // dd(session()->get('onboarding_data.data.steps.0'));
+    //     $step = request()->query('step', 'situation');
+    //     $stepData = [];
 
-        // if the onboarding data is not set in the session, initialize it
-        foreach ( collect([1,2,3,4,5,6]) as $key => $value ) {
-            $initialState[$value] = [
-                'step' => $this->formatStepNumberToString($value),
-                'data' => [],
-                'is_completed' => false,
-                'stepNumber' => $value
-            ];
-        }
+    //     // if the onboarding data is not set in the session, initialize it
+    //     foreach ( collect([1,2,3,4,5,6]) as $key => $value ) {
+    //         $initialState[$value] = [
+    //             'step' => $this->formatStepNumberToString($value),
+    //             'data' => [],
+    //             'is_completed' => false,
+    //             'stepNumber' => $value
+    //         ];
+    //     }
 
-        if ( ! session()->has('onboarding_data') ) {
-            session()->put('onboarding_data.data.steps', [
-                ...$initialState
-            ]);
-        }
+    //     if ( ! session()->has('onboarding_data') ) {
+    //         session()->put('onboarding_data.data.steps', [
+    //             ...$initialState
+    //         ]);
+    //     }
 
-        $stepData = session()->get('onboarding_data.data.steps', []);
-        $completedSteps = session()->get('onboarding_data.completed_steps', []);
+    //     $stepData = session()->get('onboarding_data.data.steps', []);
+    //     $completedSteps = session()->get('onboarding_data.completed_steps', []);
 
-        $view = 'home/onboarding/onboarding-step-' . $step;
-        return inertia($view, [
-            'currentStep' => $step,
-            'totalStepsCount' => count([0,1,2,3,4,5,6]),
-            'totalSteps' => [0,1,2,3,4,5,6],
-            'completedSteps' => $completedSteps,
-            'stepData' => $stepData,
-        ]);
-    }
+    //     $view = 'home/onboarding/onboarding-step-' . $step;
+    //     return inertia($view, [
+    //         'currentStep' => $step,
+    //         'totalStepsCount' => count([0,1,2,3,4,5,6]),
+    //         'totalSteps' => [0,1,2,3,4,5,6],
+    //         'completedSteps' => $completedSteps,
+    //         'stepData' => $stepData,
+    //     ]);
+    // }
 
     /**
      * Handle the submission of an onboarding step.
@@ -212,64 +178,64 @@ class OnboardingController extends Controller
      * @param Request $request
      * @return Response|RedirectResponse
      */
-    public function submitStep(Request $request)
-    {
-        // Get step from query parameter or request input
-        $currentStep = $request->query('step') ?? $request->input('step');
+    // public function submitStep(Request $request)
+    // {
+    //     // Get step from query parameter or request input
+    //     $currentStep = $request->query('step') ?? $request->input('step');
 
-        $completedSteps = session()->get('onboarding_data.completed_steps', []);
+    //     $completedSteps = session()->get('onboarding_data.completed_steps', []);
 
-        if (!$currentStep) {
-            throw new \InvalidArgumentException('Step parameter is required.');
-        }
+    //     if (!$currentStep) {
+    //         throw new \InvalidArgumentException('Step parameter is required.');
+    //     }
 
-        // validate the current step
-        if ($currentStep == "last") {
-            return redirect()->route('onboarding.complete');
-        }
+    //     // validate the current step
+    //     if ($currentStep == "last") {
+    //         return redirect()->route('onboarding.complete');
+    //     }
 
-        $numberToStep = $this->formatStepNumberToString($currentStep);
+    //     $numberToStep = $this->formatStepNumberToString($currentStep);
 
-        $nextStep = $currentStep + 1;
-        $formattedCurrentStep = $this->formatStepNumberToString($currentStep);
-        $formattedNextStep = $this->formatStepNumberToString($nextStep);
+    //     $nextStep = $currentStep + 1;
+    //     $formattedCurrentStep = $this->formatStepNumberToString($currentStep);
+    //     $formattedNextStep = $this->formatStepNumberToString($nextStep);
 
-        if ( ! session()->has('onboarding_data.completed_steps') ) {
-            session()->put('onboarding_data.completed_steps', []);
-        }
+    //     if ( ! session()->has('onboarding_data.completed_steps') ) {
+    //         session()->put('onboarding_data.completed_steps', []);
+    //     }
 
-        // get current step state from session
-        $currentStepData = session()->get('onboarding_data.data.steps.' . $currentStep, []);
+    //     // get current step state from session
+    //     $currentStepData = session()->get('onboarding_data.data.steps.' . $currentStep, []);
 
-        // check if the current step data is already completed
-        // update the current step data with the request data
-        $currentStepData = [
-            'step' => $formattedCurrentStep,
-            'data' => $request->except('step'),
-            'is_completed' => true,
-            'stepNumber' => (int) $currentStep
-        ];
+    //     // check if the current step data is already completed
+    //     // update the current step data with the request data
+    //     $currentStepData = [
+    //         'step' => $formattedCurrentStep,
+    //         'data' => $request->except('step'),
+    //         'is_completed' => true,
+    //         'stepNumber' => (int) $currentStep
+    //     ];
 
-        // update the session with the current step data
-        session()->put('onboarding_data.data.steps.' . $currentStep - 1, $currentStepData);
+    //     // update the session with the current step data
+    //     session()->put('onboarding_data.data.steps.' . $currentStep - 1, $currentStepData);
 
-        session()->put('onboarding_data.completed_steps', [
-            ...session()->get('onboarding_data.completed_steps', []),
-            $currentStep
-        ]);
+    //     session()->put('onboarding_data.completed_steps', [
+    //         ...session()->get('onboarding_data.completed_steps', []),
+    //         $currentStep
+    //     ]);
 
-        // Redirect to the next step using query parameter
-        // return redirect()->route('onboarding.step', ['step' => $formattedNextStep])->with('success', 'Onboarding step completed successfully!');
-    }
+    //     // Redirect to the next step using query parameter
+    //     // return redirect()->route('onboarding.step', ['step' => $formattedNextStep])->with('success', 'Onboarding step completed successfully!');
+    // }
 
     /**
      * Render the onboarding completed view.
      * @return Response
      */
-    public function completed(): Response
-    {
-        return inertia('home/onboarding/onboarding-completed');
-    }
+    // public function completed(): Response
+    // {
+    //     return inertia('home/onboarding/onboarding-completed');
+    // }
 
     /**
      * complete the onboarding process.
@@ -305,9 +271,9 @@ class OnboardingController extends Controller
      * @param int $step
      * @return string
      */
-    private function formatStepNumberToString(int $step): string
-    {
-        $steps = ['one', 'two', 'three', 'four', 'five', 'six'];
-        return $steps[$step - 1] ?? 'one';
-    }
+    // private function formatStepNumberToString(int $step): string
+    // {
+    //     $steps = ['one', 'two', 'three', 'four', 'five', 'six'];
+    //     return $steps[$step - 1] ?? 'one';
+    // }
 }

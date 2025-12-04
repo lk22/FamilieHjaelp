@@ -3,6 +3,8 @@ import ProgressBar from '@/components/Onboarding/progressBar';
 import OnboardingHeader from '@/components/Onboarding/onboarding-header';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
+import InactivityModal from '@/components/Onboarding/Modals/InactivityModal';
+
 interface OnboardingTemplateInterface {
     children?: React.ReactNode[];
     title?: string;
@@ -18,7 +20,7 @@ export default function OnboardingTemplate({
     screenGraphic,
     state,
 }: OnboardingTemplateInterface) {
-    const { pauseOnboarding, updateCurrentScenario, onboardingState } = useOnboarding();
+    const { onboardingState, pauseOnboarding, updateCurrentScenario, resumeOnboarding } = useOnboarding();
 
     // Store context functions in refs so they don't cause re-renders
     const pauseOnboardingRef = useRef(pauseOnboarding);
@@ -40,6 +42,7 @@ export default function OnboardingTemplate({
      * Now this won't recreate because it uses refs
      */
     const handleInactivity = useCallback(() => {
+        const fiiveMinutes = 5 * 60 * 1000;
         if (inactivityTimerRef.current) {
             clearTimeout(inactivityTimerRef.current);
         }
@@ -47,12 +50,13 @@ export default function OnboardingTemplate({
         inactivityTimerRef.current = setTimeout(() => {
             console.log('User inactive for 15 seconds, pausing onboarding session...');
             pauseOnboardingRef.current(); // ← Use ref
-        }, 15000);
+        }, fiiveMinutes);
     }, []); // Empty deps!
 
     const handleResumeSession = useCallback(() => {
         if (inactivityTimerRef.current) {
             console.log('User activity detected, resuming onboarding session...');
+            resumeOnboarding();
             clearTimeout(inactivityTimerRef.current);
         }
 
@@ -139,6 +143,7 @@ export default function OnboardingTemplate({
                                 {description}
                             </div>
                             <ProgressBar />
+                            <InactivityModal isOpen={state?.progress === 'paused'} closeModal={handleResumeSession} />
                         </div>
                     </div>
                 </div>

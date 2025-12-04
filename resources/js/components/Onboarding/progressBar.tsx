@@ -26,6 +26,7 @@ export default function ProgressBar() {
         return steps.map((step, index: number) => {
             const lastStep = steps.length - 1 === index;
             const isCompleted = step.completed;
+            console.log(isCompleted)
             const stepName = step.stepName; // Fallback to step id if name is not defined
 
             return (

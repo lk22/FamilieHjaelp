@@ -2,12 +2,8 @@ interface ScenarioStepProperties {
     id: number;
     stepName: string;
     question: string;
+    description: string;
     completed: boolean;
-    progress: {
-        not_started: boolean;
-        in_progress: boolean;
-        completed: boolean;
-    };
     data: {
         [key: string]: any;
     };
@@ -19,7 +15,7 @@ interface ScenarioProperties {
     steps: ScenarioStepProperties[];
 }
 
-type ProgressStatus = 'in_progress' | 'completed' | 'paused';
+type ProgressStatus = 'not_started' | 'in_progress' | 'completed' | 'paused';
 
 export interface InitialOnboardingStateInterface {
     onboardingCompleted: boolean;
@@ -31,7 +27,7 @@ export interface InitialOnboardingStateInterface {
 export const InitialOnboardingState: InitialOnboardingStateInterface = {
     onboardingCompleted: false,
     currentScenario: '',
-    progress: 'in_progress',
+    progress: 'not_started',
     scenarios: [
         {
             id: 'abortion',
@@ -41,12 +37,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     id: 1,
                     stepName: 'one',
                     question: 'Hvad er dit navn?',
+                    description: '',
                     completed: false,
-                    progress: {
-                        not_started: true,
-                        in_progress: false,
-                        completed: false,
-                    },
                     data: {
                         name: '',
                     }
@@ -55,12 +47,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     id: 2,
                     stepName: 'two',
                     question: 'Hvad er din køn?',
+                    description: '',
                     completed: false,
-                    progress: {
-                        not_started: true,
-                        in_progress: false,
-                        completed: false,
-                    },
                     data: {
                         gender: '',
                     }
@@ -69,12 +57,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     id: 3,
                     stepName: 'three',
                     question: 'Har du en partner?',
+                    description: '',
                     completed: false,
-                    progress: {
-                        not_started: true,
-                        in_progress: false,
-                        completed: false,
-                    },
                     data: {
                         hasPartner: null,
                     },
@@ -82,13 +66,9 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                 {
                     id: 4,
                     stepName: 'four',
-                    question: 'har du og din partner søgt om abort?',
+                    question: 'Har du og din partner søgt om abort?',
+                    description: 'Dette hjælper os med at forstå din situation bedre.',
                     completed: false,
-                    progress: {
-                        not_started: true,
-                        in_progress: false,
-                        completed: false,
-                    },
                     data: {
                         partnerSoughtAbort: null,
                     }
@@ -97,12 +77,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     id: 5,
                     stepName: 'five',
                     question: 'Hvornår forventer du at få din abort?',
+                    description: 'Dette kan give indflydelse på din støtteplan.',
                     completed: false,
-                    progress: {
-                        not_started: true,
-                        in_progress: false,
-                        completed: false,
-                    },
                     data: {
                         expectedAbortDate: '',
                     }
@@ -111,12 +87,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     id: 6,
                     stepName: 'six',
                     question: 'Hvor langt er du i din abort?',
+                    description: '',
                     completed: false,
-                    progress: {
-                        not_started: true,
-                        in_progress: false,
-                        completed: false,
-                    },
                     data: {
                         abortionProgress: '',
                     }
@@ -131,12 +103,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     id: 1,
                     stepName: 'one',
                     question: 'Hvad er dit navn?',
+                    description: '',
                     completed: false,
-                    progress: {
-                        not_started: true,
-                        in_progress: false,
-                        completed: false,
-                    },
                     data: {
                         name: '',
                     }
@@ -151,12 +119,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     id: 1,
                     stepName: 'one',
                     question: 'Hvad er dit navn?',
+                    description: '',
                     completed: false,
-                    progress: {
-                        not_started: true,
-                        in_progress: false,
-                        completed: false,
-                    },
                     data: {
                         name: '',
                     }

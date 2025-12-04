@@ -21,9 +21,12 @@ Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name(
 */
 Route::get('/onboarding', [OnboardingController::class, 'render'])->name('onboarding.step');
 
-Route::get('/getting-started', [OnboardingController::class, 'show'])->name('getting-started');
+Route::get('/getting-started', [OnboardingController::class, 'show'])->middleware('guest')->name('getting-started');
 Route::get('/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'showStep'])->name('onboarding.scenario.step');
-Route::post('/onboarding/{scenario}/update-step/{step}', [OnboardingController::class, 'updateStep'])->name('onboarding.scenario.update-step');
+// Route::post('/onboarding/{scenario}/update-step/{step}', [OnboardingController::class, 'updateStep'])->name('onboarding.scenario.update-step');
+Route::post('/onboarding/{scenario}/step/{step}/update', function() {
+    return response()->json(['message' => 'This route is deprecated. Please use the context API to manage onboarding state.'], 410);
+})->name('onboarding.scenario.update-step');
 Route::post('/onboarding/{scenario}/complete', [OnboardingController::class, 'complete'])->name('onboarding.scenario.complete');
 Route::get('/onboarding/reset', [OnboardingController::class, 'reset'])->name('onboarding.reset');
 
