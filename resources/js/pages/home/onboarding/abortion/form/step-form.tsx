@@ -1,9 +1,13 @@
 import { useOnboarding } from "@/contexts/OnboardingContext";
+import {useForm} from "@inertiajs/react";
+
 import FirstStepForm from "@/pages/home/onboarding/abortion/form/FirstStepForm";
 import SecondStepForm from "./SecondStepForm";
-import {useForm} from "@inertiajs/react";
-import { T } from "vitest/dist/chunks/reporters.d.BFLkQcL6.js";
 import ThirdStepForm from "./ThirdStepForm";
+import FourthStepForm from "./FourthStepForm";
+import FifthStepForm from "./FifthStepForm";
+import SixthStepForm from "./SixthStepForm";
+import SeventhStepForm from "./SeventStepForm";
 
 /**
  * StepForm Component
@@ -22,7 +26,7 @@ export default function StepForm({
     scenario: string
 }) {
     return (
-        <div className="container max-w-[960px] px-4 py-8 mx-auto">
+        <div className="container py-8 mx-auto">
             <StepFormContent currentStep={currentStep} scenario={scenario}/>
         </div>
     );
@@ -41,11 +45,9 @@ const StepFormContent = ({
 }) => {
     const {onboardingState} = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s: any) => s.id === scenario);
-    const stepQuestion = currentScenario?.steps.find((s: any) => s.stepName === currentStep);
 
     return (
         <div>
-            <h2 className="text-2xl font-semibold mb-6">{stepQuestion?.question}</h2>
             <StepFormFieldsDisplay currentStep={currentStep} scenario={scenario}/>
         </div>
     )
@@ -63,28 +65,12 @@ const StepFormFieldsDisplay = ({
     currentStep: string;
     scenario: string;
 }) => {
-    const {onboardingState, updateFormData, updateStep, completeStep} = useOnboarding();
-    const {data, setData, processing, errors} = useForm<{
-        step: string;
-        scenario: string;
-        session_token: string;
-        data: Record<string, any>;
-    }>({
-        step: currentStep,
-        scenario: scenario,
-        session_token: onboardingState.token || '',
-        data: {},
-    });
-
+    const {updateFormData, updateStep, completeStep} = useOnboarding();
 
     const submitStep = (data: Record<string, any>) => {
-        // setting form data for submission
-        setData('data', data);
-
-        // updating the onboarding state context
         updateStep(currentStep, data);
         updateFormData(data);
-        completeStep(currentStep, scenario);
+        completeStep(currentStep, scenario, data);
     }
 
     switch (currentStep) {
@@ -94,6 +80,14 @@ const StepFormFieldsDisplay = ({
             return <SecondStepForm handleStepSubmit={submitStep} />;
         case 'three':
             return <ThirdStepForm handleStepSubmit={submitStep} />;
+        case 'four':
+            return <FourthStepForm handleStepSubmit={submitStep} />;
+        case 'five':
+            return <FifthStepForm handleStepSubmit={submitStep} />;
+        case 'six':
+            return <SixthStepForm handleStepSubmit={submitStep} />;
+        case 'seven':
+            return <SeventhStepForm handleStepSubmit={submitStep} />;
         default:
             return <div>Unknown Step</div>;
     }

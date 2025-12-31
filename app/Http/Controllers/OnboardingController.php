@@ -97,6 +97,7 @@ class OnboardingController extends Controller
 
     public function complete(Request $request)
     {
+        dd($request);
         $validated = $request->validate([
             'session_token' => 'required|string',
         ]);

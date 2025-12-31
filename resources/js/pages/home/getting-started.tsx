@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import {type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
@@ -16,21 +16,14 @@ interface OnboardingSessionProps {
 
 const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
     const { name } = usePage<SharedData>().props;
-    const [scenario, setScenario] = useState<string | null>(null);
-    const {updateCurrentScenario, updateCurrentStep, onboardingState} = useOnboarding();
+    const [ scenario, setScenario ] = useState<string | null>(null);
+    const { updateCurrentScenario, updateCurrentStep, onboardingState} = useOnboarding();
 
-    const session = onboardingSession;
-    console.log('Onboarding Session:', session)
-    console.log('Onboarding State:', onboardingState);
-
-    const handleScenarioChange = (newScenario: string) => {
-        console.log('Selected scenario:', newScenario);
-        setScenario(newScenario);
-        setTimeout(() => {
-            updateCurrentScenario(newScenario);
-            updateCurrentStep('one');
-        }, 2000);
-    }
+    const handleScenarioChange = useCallback((selectedScenario: string) => {
+        setScenario(selectedScenario);
+        updateCurrentScenario(selectedScenario);
+        updateCurrentStep('one');
+    }, [updateCurrentScenario, updateCurrentStep]);
 
     return (
         <>
@@ -46,25 +39,6 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
             </header>
             <main>
                 <div className="container-fluid flex flex-wrap">
-                    <div className="xs:w-full sm:w-full md:w-full lg:w-4/12 animate-appear bg-[#004EA7] text-white flex flex-col items-center justify-center">
-                        <div className="logo pt-30 w-full">
-                            <Link href={route('home')}>
-                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className=" animate-appear relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />
-                                <img
-                                    src="/images/logo.svg"
-                                    alt="Familiehjælp Logo"
-                                    className="mb-6 w-auto h-[100px] mx-auto"
-                                />
-                            </Link>
-                        </div>
-                        <div className="illustration-wrapper pb-30">
-                            <img
-                                src="/images/getting_started_illustration.svg"
-                                alt="Familiehjælp Illustration"
-                                className="mt-8 w-full max-w-[400px] mx-auto"
-                            />
-                        </div>
-                    </div>
                     <div className="xs:w-full sm:w-full md:w-full lg:w-8/12 bg-white flex flex-col items-center justify-center min-h-screen">
                         <div className="container max-w-[1440px] px-8 py-4 mx-auto text-black">
                             <div className="category-picker flex flex-wrap">
@@ -150,12 +124,30 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                             </div>
                         </div>
                     </div>
+                    <div className="xs:w-full xs:hidden sm:hidden md:hidden lg:block sm:w-full md:w-full lg:w-4/12 animate-appear bg-[#004EA7] text-white flex flex-col items-center justify-center">
+                        <div className="logo pt-30 w-full">
+                            <Link href={route('home')}>
+                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate-appear relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />
+                                <img
+                                    src="/images/logo.svg"
+                                    alt="Familiehjælp Logo"
+                                    className="mb-6 w-auto h-[100px] mx-auto"
+                                />
+                            </Link>
+                        </div>
+                        <div className="illustration-wrapper pb-30">
+                            <img
+                                src="/images/getting_started_illustration.svg"
+                                alt="Familiehjælp Illustration"
+                                className="mt-8 w-full max-w-[400px] mx-auto"
+                            />
+                        </div>
+                    </div>
                 </div>
             </main>
         </>
     );
 }
-
 
 export default function GettingStarted({onboardingSession}: OnboardingSessionProps) {
     return (

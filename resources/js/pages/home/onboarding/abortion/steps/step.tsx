@@ -6,7 +6,6 @@ import { usePage } from '@inertiajs/react';
 import { type SharedData } from '@/types';
 import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
 
-
 interface SessionProps extends SharedData {
     currentStep: string;
     scenario: string;
@@ -58,7 +57,7 @@ const OnboardingStepContent = ({
     currentStep,
     scenario,
 }: OnboardingStepProperties) =>  {
-    const {onboardingState, updateCurrentScenario, pauseOnboarding} = useOnboarding();
+    const {onboardingState, updateCurrentScenario} = useOnboarding();
     const scenarioData = onboardingState.scenarios.find((s) => s.id === scenario);
     const stepData = scenarioData?.steps.find((s) => s.stepName === currentStep);
 
@@ -78,12 +77,12 @@ const OnboardingStepContent = ({
     return (
         <OnboardingTemplate
             title={stepData?.question || "Onboarding Step"}
-            description={stepData?.question || ""}
+            description={stepData?.description || ""}
             screenGraphic={null}
             state={onboardingState}
         >
             <Head title={stepData?.question || "Onboarding Step"} />
-            <div className="container max-w-[960px] px-4 py-8 mx-auto">
+            <div className="container py-8 mx-auto">
                 <StepForm
                     currentStep={currentStep}
                     scenario={scenario}

@@ -14,7 +14,7 @@ export default function OnboardingHeader() {
         <header>
             <nav className="fixed top-0 left-0 z-50 w-full bg-transparent">
                 <div className="container mx-auto flex h-16 items-center justify-between px-4">
-                    <a href={route('home')} className="flex items-center text-white">
+                    <a href={route('home')} className="flex items-center text-blue-900">
                         Gå tilbage
                     </a>
                     <a

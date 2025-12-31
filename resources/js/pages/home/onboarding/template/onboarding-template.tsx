@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
+import {Link} from '@inertiajs/react';
 import ProgressBar from '@/components/Onboarding/progressBar';
 import OnboardingHeader from '@/components/Onboarding/onboarding-header';
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -115,20 +116,9 @@ export default function OnboardingTemplate({
         <>
             <OnboardingHeader />
             <main className="dark:bg-white height-full">
-                <div className="container-fluid py-18 max-w-full flex w-full flex-col bg-[#004EA7] text-white">
-                    <div className="container max-w-[960px] flex-col py-8 m-auto">
-                        <div className="">
-                            <div className="logo">
-                                <a href={route('home')}>
-                                    <span className="flex items-center gap-4">
-                                        <img
-                                            src="/images/inline_logo.svg"
-                                            alt="Familiehjælp Logo"
-                                            className="animate animate-fade-up animate-ease-linear relative bottom-4 animate-in w-auto h-[50px]"
-                                        />
-                                    </span>
-                                </a>
-                            </div>
+                <div className="container-fluid flex flex-wrap">
+                    <div className="right xs:w-full sm:w-full md:w-full lg:w-8/12 bg-white flex flex-col items-center justify-center min-h-screen">
+                        <div className="container px-16 py-4 mx-auto text-black">
                             {screenGraphic && (
                                 <div className="illustration-wrapper">
                                     <img
@@ -144,11 +134,28 @@ export default function OnboardingTemplate({
                             </div>
                             <ProgressBar />
                             <InactivityModal isOpen={state?.progress === 'paused'} closeModal={handleResumeSession} />
+                    {children}
                         </div>
                     </div>
-                </div>
-                <div className="container-fluid h-screen">
-                    {children}
+                    <div className="xs:w-full sm:w-full md:w-full lg:w-4/12 animate-appear bg-[#004EA7] text-white flex flex-col items-center justify-center">
+                        <div className="logo pt-30 w-full">
+                            <Link href={route('home')}>
+                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className=" animate-appear relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />
+                                <img
+                                    src="/images/logo.svg"
+                                    alt="Familiehjælp Logo"
+                                    className="mb-6 w-auto h-[100px] mx-auto"
+                                />
+                            </Link>
+                        </div>
+                        <div className="illustration-wrapper pb-30">
+                            <img
+                                src="/images/getting_started_illustration.svg"
+                                alt="Familiehjælp Illustration"
+                                className="mt-8 w-full max-w-[400px] mx-auto"
+                            />
+                        </div>
+                    </div>
                 </div>
             </main>
         </>

@@ -168,3 +168,23 @@
         line-height: 1.5;
     }
 }
+
+/*
+* Animation keyframes
+*/
+#keyframes animate-completed {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.step-after::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    animation: animate-completed 1s ease-in-out forwards;
+}

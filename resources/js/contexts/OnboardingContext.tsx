@@ -6,7 +6,7 @@ import React, {
     useEffect
 } from 'react';
 
-import {useRemember} from '@inertiajs/react';
+import { useRemember } from '@inertiajs/react';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
@@ -29,13 +29,13 @@ interface OnboardingContextType {
     updateFormData: (data: Record<string, any>) => void;
     resetOnboarding: () => void;
     completeOnboarding: () => void;
-    updateCurrentScenario: (scenarioId: string) => void;
+    updateCurrentScenario: (selectedScenario: string) => void;
     getCurrentStep: () => string;
-    getCurrentScenario: () => any;
+    getCurrentScenario: () => void;
     pauseOnboarding: () => void;
     resumeOnboarding: () => void;
     startOnboarding: () => void;
-    completeStep: (step: string, currentScenarioId: string) => void;
+    completeStep: (step: string, currentScenarioId: string, data: Record<string, any>) => void;
     updateCurrentStep: (step: string) => void;
 }
 
@@ -70,9 +70,15 @@ export function OnboardingProvider({
     /**
      * Using localStorage to persist onboarding state across components and page reloads
      */
-    const [localStorageState, setLocalStorageState] = useLocalStorage<InitialOnboardingStateInterface & OnboardingSession>(
+    const [
+        localStorageState,
+        setLocalStorageState
+    ] = useLocalStorage<InitialOnboardingStateInterface & OnboardingSession>(
         sharedStateName,
-        {...InitialOnboardingState, ...initialSession},
+        {
+            ...InitialOnboardingState,
+            ...initialSession,
+        }
     );
 
     const onboardingState = localStorageState;
@@ -80,23 +86,26 @@ export function OnboardingProvider({
     useEffect(() => {
         if (JSON.stringify(localStorageState) !== JSON.stringify(inertiaState)) {
             setInertiaState(localStorageState);
+            console.log("Synchronizing Inertia state with localStorage state:", localStorageState);
         }
     }, [onboardingState, localStorageState, inertiaState])
 
     const updateOnboardingState = useCallback((newState: InitialOnboardingStateInterface & OnboardingSession | ((prev: InitialOnboardingStateInterface & OnboardingSession) => InitialOnboardingStateInterface & OnboardingSession)) => {
         const stateToSet = typeof newState === 'function' ? newState(onboardingState) : newState;
-
         setLocalStorageState(stateToSet);
         setInertiaState(stateToSet);
+        console.log(newState)
     }, [onboardingState, setLocalStorageState, setInertiaState]);
 
     /**
      * Completed the current Step in a scenario
      *
      * @param step The step to mark as completed
+     * @param currentScenarioId The current scenario identifier
+     * @param data Optional data to associate with the completed step
      */
-    const completeStep = useCallback((step: string, currentScenarioId: string) => {
-        console.log("Completing step:", step, "in scenario:", currentScenarioId);
+    const completeStep = useCallback((step: string, currentScenarioId: string, data: Record<string, any>) => {
+        console.log("Completing step:", step, "in scenario:", currentScenarioId, "with data:", data);
 
         updateOnboardingState((prevState) => {
             const updatedScenarios = prevState.scenarios.map((scenario) => {
@@ -109,12 +118,8 @@ export function OnboardingProvider({
 
                         return {
                             ...s,
+                            data: data,
                             completed: true,
-                            progress: {
-                                not_started: false,
-                                in_progress: false,
-                                completed: true,
-                            },
                         };
                     }),
                 };
@@ -226,18 +231,20 @@ export function OnboardingProvider({
     /**
      * updating the current scenario in the onboarding state
      *
-     * @param scenarioId string
+     * @param selectedScenario string
+     * @returns void
      */
-    const updateCurrentScenario = useCallback((scenarioId: string) => {
+    const updateCurrentScenario = useCallback((selectedScenario: string) => {
+        console.log("Updating current scenario to:", selectedScenario);
         updateOnboardingState((prevState) => ({
             ...prevState,
-            currentScenario: scenarioId,
+            currentScenario: selectedScenario,
         }))
     }, [])
 
     /**
      * Getter for current step
-     * @returns
+     * @returns string
      */
     const getCurrentStep = useCallback(() => {
         return onboardingState.currentStep;
@@ -245,7 +252,7 @@ export function OnboardingProvider({
 
     /**
      * Getter for current scenario
-     * @returns
+     * @returns string
      */
     const getCurrentScenario = useCallback(() => {
         return onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
@@ -255,15 +262,18 @@ export function OnboardingProvider({
      * Resets the onboarding state to the initial session provided
      */
     const resetOnboarding = () => {
-        updateOnboardingState({
-            ...InitialOnboardingState,
-            ...initialSession,
-            progress: 'not_started',
-            currentStep: 'welcome',
-            stepsData: {},
-            formData: {},
+        updateOnboardingState((prevState) => ({
+            ...prevState,
             completed: false,
-        });
+            scenarios: InitialOnboardingState.scenarios.map((scenario) => ({
+                ...scenario,
+                steps: scenario.steps.map((step) => ({
+                    ...step,
+                    completed: false,
+                })),
+            })),
+            currentStep: 'welcome',
+        }));
     };
 
     const contextValue = useMemo(() => ({
