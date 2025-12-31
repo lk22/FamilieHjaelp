@@ -369,5 +369,5 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                 }
             ]
         }
-    ]
-};
+    ],
+}
