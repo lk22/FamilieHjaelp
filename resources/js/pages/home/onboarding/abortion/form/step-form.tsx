@@ -48,7 +48,7 @@ const StepFormContent = ({
 
     return (
         <div>
-            <StepFormFieldsDisplay currentStep={currentStep} scenario={scenario}/>
+            <StepFormFieldsDisplay currentStep={currentStep} scenario={currentScenario}/>
         </div>
     )
 }
@@ -68,9 +68,10 @@ const StepFormFieldsDisplay = ({
     const {updateFormData, updateStep, completeStep} = useOnboarding();
 
     const submitStep = (data: Record<string, any>) => {
+        const currentScenario = scenario?.id;
         updateStep(currentStep, data);
         updateFormData(data);
-        completeStep(currentStep, scenario, data);
+        completeStep(currentStep, currentScenario, data);
     }
 
     switch (currentStep) {

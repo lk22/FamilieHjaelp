@@ -37,6 +37,8 @@ interface OnboardingContextType {
     startOnboarding: () => void;
     completeStep: (step: string, currentScenarioId: string, data: Record<string, any>) => void;
     updateCurrentStep: (step: string) => void;
+    getOnboardingProperties: (step: string, prop: string) => string;
+
 }
 
 interface OnboardingSessionPayload {
@@ -86,15 +88,18 @@ export function OnboardingProvider({
     useEffect(() => {
         if (JSON.stringify(localStorageState) !== JSON.stringify(inertiaState)) {
             setInertiaState(localStorageState);
-            console.log("Synchronizing Inertia state with localStorage state:", localStorageState);
         }
     }, [onboardingState, localStorageState, inertiaState])
 
+    /**
+     * Updating onboarding state callback
+     *
+     * @param newState: InitialONboardingStateInterface
+     */
     const updateOnboardingState = useCallback((newState: InitialOnboardingStateInterface & OnboardingSession | ((prev: InitialOnboardingStateInterface & OnboardingSession) => InitialOnboardingStateInterface & OnboardingSession)) => {
         const stateToSet = typeof newState === 'function' ? newState(onboardingState) : newState;
         setLocalStorageState(stateToSet);
         setInertiaState(stateToSet);
-        console.log(newState)
     }, [onboardingState, setLocalStorageState, setInertiaState]);
 
     /**
@@ -236,9 +241,10 @@ export function OnboardingProvider({
      */
     const updateCurrentScenario = useCallback((selectedScenario: string) => {
         console.log("Updating current scenario to:", selectedScenario);
+
         updateOnboardingState((prevState) => ({
             ...prevState,
-            currentScenario: selectedScenario,
+            currentScenario: selectedScenario
         }))
     }, [])
 
@@ -257,6 +263,11 @@ export function OnboardingProvider({
     const getCurrentScenario = useCallback(() => {
         return onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
     }, [onboardingState.scenarios, onboardingState.currentScenario]);
+
+    // TODO: needs to return a given prop from the state
+    const getOnboardingProperties = (step: string, prop: string) => {
+        return prop;
+    }
 
     /**
      * Resets the onboarding state to the initial session provided
@@ -290,6 +301,7 @@ export function OnboardingProvider({
         completeStep,
         updateCurrentStep,
         onboardingState,
+        getOnboardingProperties
     }), [
         updateCurrentScenario,
         getCurrentStep,
@@ -304,6 +316,7 @@ export function OnboardingProvider({
         completeStep,
         updateCurrentStep,
         onboardingState,
+        getOnboardingProperties
     ]);
 
     return (

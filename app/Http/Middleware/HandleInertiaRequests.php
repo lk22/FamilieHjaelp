@@ -65,7 +65,7 @@ class HandleInertiaRequests extends Middleware
         return [
             'token' => $session->session_token ?? "",
             'currentStep' => $session->current_step ?? "",
-            'currentScenario' => $session->current_scenario ?? "",
+            'currentScenario' => $session->scenario ?? "",
             'stepsData' => $session->steps_data ?? [],
             'formData' => $session->form_data ?? [],
             'completed' => $session->completed ?? false,

@@ -30,16 +30,17 @@ export default function FirstStepForm({ handleStepSubmit }: FirstStepFormProps) 
   const [step, setStep] = useState<string>('one');
   const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario } = useOnboarding();
+  const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
 
   const currentScenario = getCurrentScenario();
-  console.log({currentScenario, onboardingState})
-  const currentStep = currentScenario.steps[0]; // First step (index 0)
 
-  const currentName = currentStep.data.name || '';
-  const currentAge = currentStep.data.age || '';
-  const currentAgeOfPartner = currentStep.data.ageOfPartner || '';
-  const currentGender = currentStep.data.gender || '';
+  // TODO: this needs fix
+  const currentStep = currentScenario?.steps[0]; // First step (index 0)
+
+  const currentName = currentStep?.data.name || '';
+  const currentAge = currentStep?.data.age || '';
+  const currentAgeOfPartner = currentStep?.data.ageOfPartner || '';
+  const currentGender = currentStep?.data.gender || '';
 
   const { data, setData, post, processing, errors } = useForm<{
     name: string;
@@ -56,15 +57,17 @@ export default function FirstStepForm({ handleStepSubmit }: FirstStepFormProps) 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const submitetedData: StepData = {
+    const submittedData: StepData = {
       name,
       age,
       ageOfPartner,
       gender,
     }
 
+    console.log(submittedData)
+
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ ...submitetedData });
+    handleStepSubmit({ ...submittedData });
     setSubmitted(true);
 
     setTimeout(() => {
@@ -74,7 +77,7 @@ export default function FirstStepForm({ handleStepSubmit }: FirstStepFormProps) 
         scenario: onboardingState.currentScenario,
         step: 'two'
       }));
-    }, 5000);
+    }, 1000);
   };
 
   const handleStepChange = (step: string) => {

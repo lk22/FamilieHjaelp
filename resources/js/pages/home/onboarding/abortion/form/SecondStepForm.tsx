@@ -28,12 +28,17 @@ export default function SecondStepForm({ handleStepSubmit }: FormStepProps) {
   const [abortionMethod, setAbortionMethod] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const { onboardingState } = useOnboarding();
-  const currentScenario = onboardingState.scenarios.find((s: any) => s.id === onboardingState.currentScenario);
+  const { onboardingState, getCurrentScenario, getOnboardingProperties } = useOnboarding();
+  const currentScenario = getCurrentScenario();
   const currentStep = currentScenario?.steps[1]; // second step
-  const currentAbortionWeeksValue = currentStep.data.abortionWeeks;
-  const currentHasDoctorsPermitValue = currentStep.data.hasDoctorsPermit;
-  const currentAbortionMethodValue = currentStep.data.abortionMethod;
+  const currentAbortionWeeksValue = currentStep?.data.abortionWeeks;
+  const currentHasDoctorsPermitValue = currentStep?.data.hasDoctorsPermit;
+  const currentAbortionMethodValue = currentStep?.data.abortionMethod;
+
+  const firstStep = currentScenario?.steps[0];
+  const gender = firstStep.data.gender;
+
+  console.log(gender)
 
   /**
    * Handle step submit flow
@@ -70,7 +75,7 @@ export default function SecondStepForm({ handleStepSubmit }: FormStepProps) {
             <>
             <div className="step-field">
                 <label htmlFor="abortion-weeks">
-                  Hvor langt er du i graviditeten
+                  {gender === 'female' ? 'Hvor langt er du i graviditeten' : 'Hvor langt er din partner i graviditeten'}
                 </label>
                 <div className="flex items-center">
                   <Input

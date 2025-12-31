@@ -72,8 +72,6 @@ const OnboardingStepContent = ({
         handleInitialize();
     }, []);
 
-    console.log('Current Onboarding state:', onboardingState);
-
     return (
         <OnboardingTemplate
             title={stepData?.question || "Onboarding Step"}

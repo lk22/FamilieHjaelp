@@ -110,6 +110,16 @@ class OnboardingSession extends Model
     }
 
     /**
+     * find session by session token
+     *
+     * @params string $token
+     * @return OnboardingSession
+     */
+    public static function findByToken(string $token) {
+        return self::where('session_token', $token)->firstOrFail();
+    }
+
+    /**
      * mark onboarding as completed
      *
      * @return void
