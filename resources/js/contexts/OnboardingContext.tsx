@@ -30,7 +30,6 @@ interface OnboardingContextType {
     resetOnboarding: () => void;
     completeOnboarding: () => void;
     updateCurrentScenario: (selectedScenario: string) => void;
-<<<<<<< HEAD
     getCurrentStep: () => string;
     getCurrentScenario: () => void;
     pauseOnboarding: () => void;
@@ -44,9 +43,6 @@ interface OnboardingSessionPayload {
     session_token: string;
     current_step: string;
     steps_data: Record<string, any>;
-=======
-    updateCurrentStep: (stepName: string) => void;
->>>>>>> main
 }
 
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
@@ -159,7 +155,6 @@ export function OnboardingProvider({
     }, []);
 
     /**
-<<<<<<< HEAD
      * Updating the current step in the onboarding state
      *
      * @param step The step to set as current
@@ -234,8 +229,6 @@ export function OnboardingProvider({
     }, []);
 
     /**
-=======
->>>>>>> main
      * updating the current scenario in the onboarding state
      *
      * @param selectedScenario string
@@ -247,7 +240,6 @@ export function OnboardingProvider({
             ...prevState,
             currentScenario: selectedScenario,
         }))
-<<<<<<< HEAD
     }, [])
 
     /**
@@ -282,41 +274,6 @@ export function OnboardingProvider({
             })),
             currentStep: 'welcome',
         }));
-=======
-    }, [updateOnboardingState])
-
-    /**
-     * updating the current step in the onboarding state
-     *
-     * @param stepName string
-     * @returns void
-     */
-    const updateCurrentStep = useCallback((stepName: string) => {
-        console.log("Updating current step to:", stepName);
-        // Find the step by name and update currentStep to its id
-        const step = onboardingState.steps.find(s => s.name === stepName);
-        if (step) {
-            updateOnboardingState((prevState) => ({
-                ...prevState,
-                currentStep: step.id,
-                nextStep: step.id
-            }))
-        }
-    }, [onboardingState.steps, updateOnboardingState])
-
-    const contextValue: OnboardingContextType = {
-        onboardingState,
-        updateOnboardingState,
-        completeStep,
-        goToStep,
-        resetOnboarding,
-        isStepCompleted,
-        getCurrentStepData,
-        updateStepProgress,
-        completeOnboarding,
-        updateCurrentScenario,
-        updateCurrentStep
->>>>>>> main
     };
 
     const contextValue = useMemo(() => ({
