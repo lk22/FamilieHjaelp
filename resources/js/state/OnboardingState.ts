@@ -44,6 +44,7 @@ interface OnboardingState {
     currentStep: CurrentStep;
     completedSteps: CompletedSteps[];
     nextStep: number;
+    currentScenario: string;
     steps: StepsInterface;
 }
 
@@ -302,6 +303,7 @@ export const InitialOnboardingState: OnboardingState = {
     currentStep: 1,
     completedSteps: [],
     nextStep: 1,
+    currentScenario: '',
     steps: [
         {
             id: 1,

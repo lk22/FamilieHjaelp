@@ -26,6 +26,10 @@ vi.mock('@inertiajs/react', () => ({
       },
     },
   }),
+  useRemember: <T,>(initialValue: T) => {
+    const [state, setState] = React.useState<T>(initialValue)
+    return [state, setState] as const
+  },
   router: {
     get: vi.fn(),
     post: vi.fn(),

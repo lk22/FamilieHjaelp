@@ -20,6 +20,8 @@ interface OnboardingContextType {
     getCurrentStepData: (stepId: number) => StepData;
     updateStepProgress: (stepId: number, progress: ProgressProperties) => void;
     completeOnboarding: () => void;
+    updateCurrentScenario: (selectedScenario: string) => void;
+    updateCurrentStep: (stepName: string) => void;
 }
 
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
@@ -135,6 +137,39 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         }))
     }, [updateOnboardingState])
 
+    /**
+     * updating the current scenario in the onboarding state
+     *
+     * @param selectedScenario string
+     * @returns void
+     */
+    const updateCurrentScenario = useCallback((selectedScenario: string) => {
+        console.log("Updating current scenario to:", selectedScenario);
+        updateOnboardingState((prevState) => ({
+            ...prevState,
+            currentScenario: selectedScenario,
+        }))
+    }, [updateOnboardingState])
+
+    /**
+     * updating the current step in the onboarding state
+     *
+     * @param stepName string
+     * @returns void
+     */
+    const updateCurrentStep = useCallback((stepName: string) => {
+        console.log("Updating current step to:", stepName);
+        // Find the step by name and update currentStep to its id
+        const step = onboardingState.steps.find(s => s.name === stepName);
+        if (step) {
+            updateOnboardingState((prevState) => ({
+                ...prevState,
+                currentStep: step.id,
+                nextStep: step.id
+            }))
+        }
+    }, [onboardingState.steps, updateOnboardingState])
+
     const contextValue: OnboardingContextType = {
         onboardingState,
         updateOnboardingState,
@@ -144,7 +179,9 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
         isStepCompleted,
         getCurrentStepData,
         updateStepProgress,
-        completeOnboarding
+        completeOnboarding,
+        updateCurrentScenario,
+        updateCurrentStep
     };
 
     return (
