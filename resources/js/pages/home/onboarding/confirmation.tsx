@@ -1,0 +1,133 @@
+import React from 'react'
+import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
+
+interface OnboardingSessionProps {
+  onboardingSession: {
+    token: string | null;
+    currentStep: string | null;
+    stepsData: Record<string, any>;
+    formData: Record<string, any>;
+    completed: boolean;
+  }
+}
+
+const ConfirmationContent = () => {
+  const { onboardingState, getCurrentScenario } = useOnboarding();
+
+  console.log('Onboarding State in Confirmation:', onboardingState);
+
+  const getCurrentScenarioDescription = () => {
+    const scenario = getCurrentScenario();
+
+    switch (scenario?.id) {
+      case 'abortion':
+        return 'Vi har noteret i er igennem en abort process.';
+      case 'deathborn':
+        return 'Vi har noteret i er igennem en død fødsel.';
+      case 'parenting_support':
+        return 'Vi har noteret i har brug for støtte til forældreskab.';
+      default:
+        return 'Din valgte situation er ukendt.';
+    }
+  }
+
+  const getProcessData = (stepId: string) => {
+    const scenario = getCurrentScenario();
+
+    const step = scenario?.steps.find((step: string) => step.stepName === stepId);
+    const question = step?.question;
+    const data = step?.data;
+
+    // if the step is not existing in the state dont render the data
+    if ( ! step ) return;
+
+    return (
+      <>
+        {question && <div className="detail-item mt-8 border-b-2">
+          <strong className='text-xl'>{question}</strong>
+        </div>}
+        {Object.entries(data).map(([key, value]) => (
+          <div key={key} className="detail-item mt-2">
+            <strong className="text-lg">{key}: </strong> {String(value)}
+          </div>
+        ))}
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div id="confirmation" className="bg-white">
+        <div className="container w-[1200px] h-screen flex flex-col justify-center items-start m-36 mx-auto text-center">
+          <div className="logo-content flex mb-4">
+            <img
+                src={`/images/logo.svg`}
+                alt="Familiehjælp Illustration"
+                className="mt-8 mx-auto w-[100px]"
+            />
+            <img
+                src={`/images/FamilieHjælp_text_logo.svg`}
+                alt="Familiehjælp Illustration"
+                className="mt-8 mx-auto w-[200px] ml-4"
+            />
+          </div>
+          <h1 className="text-2xl font-bold">Vi har modtaget dine svar</h1>
+          <div className="confirmation-details bg-white shadow-md w-full text-left p-8">
+            <div className="details-header">
+              <h3 className="text-xl font-semibold mt-4">
+                Hvad sker der nu?
+              </h3>
+              <p className="mt-2">
+                Vi gennemgår dine oplysninger og vender tilbage til dig inden for 24 timer med de næste skridt i processen.
+              </p>
+            </div>
+            <div className="details-body">
+              <h3 className="text-xl font-semibold mt-4">
+                Vi har stillet dig nogle spørgsmål for at forstå din situation bedre
+              </h3>
+              <p className="mt-2 mb-2">
+                Baseret på dine svar vil vi kunne tilbyde dig den bedst mulige støtte og vejledning gennem hele processen.
+              </p>
+              <h2 className="mt-4 text-lg font-bold">{getCurrentScenarioDescription()}</h2>
+              {getProcessData('one')}
+              {getProcessData('two')}
+              {getProcessData('three')}
+              {getProcessData('four')}
+              {getProcessData('five')}
+              {getProcessData('six')}
+              {getProcessData('seven')}
+              {getProcessData('eight')}
+              {getProcessData('nine')}
+              {getProcessData('ten')}
+              {getProcessData('eleven')}
+              {getProcessData('twelve')}
+              {getProcessData('thirteen')}
+            </div>
+          </div>
+          <div className="details-footer flex flex-col items-start">
+              <p className="mt-8">
+                Hvis du har spørgsmål eller brug for yderligere assistance, er du velkommen til at kontakte vores supportteam.
+              </p>
+              <p className="mt-2">
+                Tak fordi du valgte Familiehjælp. Vi ser frem til at støtte dig gennem denne tid.
+              </p>
+            <div className="actions flex gap-4">
+              <button className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-blue-700">Færdiggør</button>
+              <button className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-gray-700">Gå tilbage</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default function Confirmation({onboardingSession}: OnboardingSessionProps) {
+  return (
+    <OnboardingProvider
+      initialSession={onboardingSession}
+    >
+      <ConfirmationContent />
+    </OnboardingProvider>
+  )
+}

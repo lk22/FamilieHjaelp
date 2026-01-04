@@ -35,15 +35,10 @@ export default function SeventhStepForm({ handleStepSubmit }: SeventhStepFormPro
     setSubmitted(true);
 
     console.log({data});
-    post(route('onboarding.completed'), {
-      onSuccess: () => {
-        console.log('Onboarding completed successfully');
-      },
-      onError: (errors) => {
-        console.log('Error completing onboarding:', errors);
-      },
-    });
-    // router.get(route('onboarding.completed.view'));
+    router.get(route('onboarding.confirmation', {
+      scenario: onboardingState.currentScenario,
+    }));
+
   };
 
   return (

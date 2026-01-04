@@ -23,6 +23,7 @@ Route::get('/onboarding', [OnboardingController::class, 'render'])->name('onboar
 
 Route::get('/getting-started', [OnboardingController::class, 'show'])->middleware('guest')->name('getting-started');
 Route::get('/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'showStep'])->name('onboarding.scenario.step');
+Route::get('/onboarding/confirmation', [OnboardingController::class, 'showConfirmation'])->name('onboarding.confirmation');
 
 Route::get('/onboarding/completed', function() {
     return Inertia::render('home/onboarding/CompletedOnboarding');

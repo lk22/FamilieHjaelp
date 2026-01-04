@@ -1,5 +1,4 @@
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import {useForm} from "@inertiajs/react";
 
 import FirstStepForm from "@/pages/home/onboarding/abortion/form/FirstStepForm";
 import SecondStepForm from "./SecondStepForm";

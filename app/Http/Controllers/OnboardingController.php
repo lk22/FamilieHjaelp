@@ -95,6 +95,34 @@ class OnboardingController extends Controller
         ]);
     }
 
+    /**
+     * Show the confirmation page after completing onboarding steps.
+     *
+     * @param Request $request
+     * @param string $scenario
+     * @return Response
+     */
+    public function showConfirmation(Request $request): Response
+    {
+        $session = OnboardingSession::findOrCreateSession(request()->user()?->id, request()->cookie('onboarding_session_token'));
+
+        return inertia("home/onboarding/confirmation", [
+            'onboardingSession' => [
+                'token' => $session->session_token,
+                'currentStep' => $session->current_step,
+                'stepsData' => $session->steps_data,
+                'formData' => $session->form_data,
+                'completed' => $session->completed,
+            ],
+        ]);
+    }
+
+    /**
+     * complete the onboarding process.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function complete(Request $request)
     {
         dd($request);
