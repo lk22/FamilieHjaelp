@@ -124,21 +124,25 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                 {
                     id: 1,
                     stepName: 'one',
-                    question: 'Hvad er dit navn?',
-                    description: '',
+                    question: 'Fortæl os lidt om dig selv',
+                    description: 'Dette hjælper os med at tilpasse informationen til dig og sikre, at vi giver dig den bedst mulige vejledning gennem abortprocessen.',
                     completed: false,
                     data: {
-                        name: '',
+                        name: null,
+                        age: null,
+                        ageOfPartner: null,
+                        gender: null,
+                        hasCprNumber: null,
                     }
                 },
                 {
                     id: 2,
                     stepName: 'two',
-                    question: 'Var det før eller efter graviditetsuge 22?',
-                    description: 'Dette er juridisk afgørende. Fra uge 22+0 betragtes det som et dødfødt barn med ret til sorgorlov (26 uger til hver), CPR-nummer og begravelseshjælp. Før uge 22 har I ret til graviditetsbetinget sygemelding i stedet for sorgorlov.',
+                    question: 'Er jeres barn født før eller efter uge 22+0?',
+                    description: 'Dette er vigtigt, da det påvirker jeres rettigheder og de muligheder for støtte, I har. Ved dødfødsel fra uge 22 har I flere juridiske rettigheder og støtteordninger sammenlignet med før uge 22.',
                     completed: false,
                     data: {
-                        beforeOrAfterTwentyTwoWeeks: null,
+                        weekNumber: null,
                     }
                 },
                 {
@@ -148,14 +152,14 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     description: 'Dette hjælper os med at vise jer den rigtige information. På hospitalet får I akut støtte, mens hjemme skal I navigere i praktiske opgaver og kontakt til myndigheder.',
                     completed: false,
                     data: {
-                        whereIsPlaced: '',
+                        placedLocation: null,
                     }
                 },
                 {
                     id: 4,
                     stepName: 'four',
                     question: 'Har I fået information om sorgorlov/sygemelding?',
-                    description: 'Ved dødfødsel fra uge 22: I har begge ret til 26 ugers betalt sorgorlov. Før uge 22: Mor har ret til graviditetsbetinget sygemelding. Det er vigtigt I kender jeres rettigheder, så I kan tage den tid I har brug for.',
+                    description: 'Som forældre til et dødfødt barn har I ret til sorgorlov. Lønmodtagere får orlov via arbejdsgiver, mens selvstændige skal ansøge i NemRefusion. Vi kan hjælpe jer med at forstå jeres rettigheder og processen.',
                     completed: false,
                     data: {
                         informedAboutBereavementLeave: null,
@@ -214,7 +218,7 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                 {
                     id: 10,
                     stepName: 'ten',
-                    question: 'Kender i til støttemuligheder?',
+                    question: 'Kender i til jeres støttemuligheder',
                     description: 'Der findes gratis professionel hjælp: Terapeutiske samtaler hos Familier & Sorg, sorggrupper hvor I møder andre i samme situation, og psykologsamtaler gennem sundhedsvæsenet. I er ikke alene.',
                     completed: false,
                     data: {
@@ -234,8 +238,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
             ]
         },
         {
-            id: 'parents',
-            title: 'Parents',
+            id: 'parenting',
+            title: 'Parenting',
             steps: [
                 {
                     id: 1,

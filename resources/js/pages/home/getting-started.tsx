@@ -57,7 +57,7 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                     </div>
                                 </div>
                                 <div className="w-full pl-0 md:pl-0">
-                                    <ul className="list-disc list-inside my-4 list-none flex gap-4 pl-0 flex-col">
+                                    <ul className="my-4 list-none flex gap-4 pl-0 flex-col">
                                         <li>
                                             <input
                                                 type="radio"
@@ -92,8 +92,8 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                                 name="onboarding_scenario"
                                                 id="onboarding-scenario-parents"
                                                 className="ms-4"
-                                                checked={scenario === 'parents'}
-                                                onChange={() => handleScenarioChange('parents')}
+                                                checked={scenario === 'parenting'}
+                                                onChange={() => handleScenarioChange('parenting')}
                                             />
                                             <label htmlFor="onboarding-category-parents" className="ml-4 text-xl">
                                                 <span className="sr-only">Er blevet forælder til et rask barn</span>

@@ -31,7 +31,7 @@ const ConfirmationContent = () => {
     }
   }
 
-  const getProcessData = (stepId: string) => {
+  const getStepDetails = (stepId: string) => {
     const scenario = getCurrentScenario();
 
     const step = scenario?.steps.find((step: string) => step.stepName === stepId);
@@ -43,12 +43,12 @@ const ConfirmationContent = () => {
 
     return (
       <>
-        {question && <div className="detail-item mt-8 border-b-2">
-          <strong className='text-xl'>{question}</strong>
+        {question && <div className="detail-item mt-8 border-b-2 border-white">
+          <strong className='text-2xl'>{question}</strong>
         </div>}
         {Object.entries(data).map(([key, value]) => (
-          <div key={key} className="detail-item mt-2">
-            <strong className="text-lg">{key}: </strong> {String(value)}
+          <div key={key} className="detail-item mt-2 text-xl">
+            <strong className="text-xl">{key}: </strong> {String(value)}
           </div>
         ))}
       </>
@@ -58,28 +58,22 @@ const ConfirmationContent = () => {
   return (
     <>
       <div id="confirmation" className="bg-white">
-        <div className="container w-[1200px] h-screen flex flex-col justify-center items-start m-36 mx-auto text-center">
-          <div className="logo-content flex mb-4">
-            <img
-                src={`/images/logo.svg`}
-                alt="Familiehjælp Illustration"
-                className="mt-8 mx-auto w-[100px]"
-            />
-            <img
-                src={`/images/FamilieHjælp_text_logo.svg`}
-                alt="Familiehjælp Illustration"
-                className="mt-8 mx-auto w-[200px] ml-4"
-            />
-          </div>
-          <h1 className="text-2xl font-bold">Vi har modtaget dine svar</h1>
-          <div className="confirmation-details bg-white shadow-md w-full text-left p-8">
+        <div className="container w-[1200px] h-screen flex flex-col justify-start items-start m-36 mx-auto">
+          <div className="confirmation-details bg-blue-600 text-white shadow-md w-full text-left p-8 rounded-lg">
             <div className="details-header">
-              <h3 className="text-xl font-semibold mt-4">
-                Hvad sker der nu?
-              </h3>
-              <p className="mt-2">
-                Vi gennemgår dine oplysninger og vender tilbage til dig inden for 24 timer med de næste skridt i processen.
-              </p>
+              <div className="logo-content flex mb-8">
+                <img
+                    src={`/images/logo.svg`}
+                    alt="Familiehjælp Illustration"
+                    className="mt-8 w-[100px]"
+                />
+                <img
+                    src={`/images/FamilieHjælp_text_logo.svg`}
+                    alt="Familiehjælp Illustration"
+                    className="mt-8 mx-auto w-[200px] ml-4"
+                />
+              </div>
+              <h2 className="text-4xl font-bold">Tak for dine oplysninger!</h2>
             </div>
             <div className="details-body">
               <h3 className="text-xl font-semibold mt-4">
@@ -89,22 +83,22 @@ const ConfirmationContent = () => {
                 Baseret på dine svar vil vi kunne tilbyde dig den bedst mulige støtte og vejledning gennem hele processen.
               </p>
               <h2 className="mt-4 text-lg font-bold">{getCurrentScenarioDescription()}</h2>
-              {getProcessData('one')}
-              {getProcessData('two')}
-              {getProcessData('three')}
-              {getProcessData('four')}
-              {getProcessData('five')}
-              {getProcessData('six')}
-              {getProcessData('seven')}
-              {getProcessData('eight')}
-              {getProcessData('nine')}
-              {getProcessData('ten')}
-              {getProcessData('eleven')}
-              {getProcessData('twelve')}
-              {getProcessData('thirteen')}
+              {getStepDetails('one')}
+              {getStepDetails('two')}
+              {getStepDetails('three')}
+              {getStepDetails('four')}
+              {getStepDetails('five')}
+              {getStepDetails('six')}
+              {getStepDetails('seven')}
+              {getStepDetails('eight')}
+              {getStepDetails('nine')}
+              {getStepDetails('ten')}
+              {getStepDetails('eleven')}
+              {getStepDetails('twelve')}
+              {getStepDetails('thirteen')}
             </div>
           </div>
-          <div className="details-footer flex flex-col items-start">
+          <div className="details-footer flex flex-col items-start pb-32">
               <p className="mt-8">
                 Hvis du har spørgsmål eller brug for yderligere assistance, er du velkommen til at kontakte vores supportteam.
               </p>
