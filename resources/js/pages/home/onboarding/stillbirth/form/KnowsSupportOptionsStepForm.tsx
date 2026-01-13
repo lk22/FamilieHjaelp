@@ -7,17 +7,17 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import { router } from '@inertiajs/react';
 
 interface StepData {
-  wantsInformationAboutAutopsy: string;
+  knowsSupportOptions: string;
 }
 
 interface FirstStepFormProps {
   handleStepSubmit: (data: {
-    wantsInformationAboutAutopsy: string;
+    knowsSupportOptions: string;
   }) => void;
 }
 
 export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [wantsInformationAboutAutopsy, setWantsInformationAboutAutopsy] = useState<string>('');
+  const [knowsSupportOptions, setknowsSupportOptions] = useState<string>('');
   const [step, setStep] = useState<string>('one');
   const [submitted, setSubmitted] = useState<boolean>(false);
 
@@ -28,19 +28,19 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: FirstS
   // TODO: this needs fix
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
-  const currentwantsInformationAboutAutopsy = currentStep?.data.wantsInformationAboutAutopsy || '';
+  const currentknowsSupportOptions = currentStep?.data.knowsSupportOptions || '';
 
   const { data, setData, post, processing, errors } = useForm<{
-    wantsInformationAboutAutopsy: string
+    knowsSupportOptions: string
   }>({
-    wantsInformationAboutAutopsy: ''
+    knowsSupportOptions: ''
   });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     const submittedData: StepData = {
-      wantsInformationAboutAutopsy: wantsInformationAboutAutopsy,
+      knowsSupportOptions: knowsSupportOptions,
     }
 
     console.log(submittedData)
@@ -71,21 +71,21 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: FirstS
             <>
               <input type="hidden" name="step" value={step} />
               <Checkbox
-                id="wantsInformationAboutAutopsy"
-                value={wantsInformationAboutAutopsy}
-                onChange={(e) => setWantsInformationAboutAutopsy(e.target.value)}
+                id="knowsSupportOptions"
+                value={knowsSupportOptions}
+                onChange={(e) => setknowsSupportOptions(e.target.value)}
                 className="mr-2"
               />
-              <label htmlFor="wantsInformationAboutAutopsy" className="block mt-4 mb-2 font-medium text-gray-700">
+              <label htmlFor="knowsSupportOptions" className="block mt-4 mb-2 font-medium text-gray-700">
                 Ja, jeg ønsker information om obduktion
               </label>
               <Checkbox
-                id="wantsInformationAboutAutopsyNo"
+                id="knowsSupportOptionsNo"
                 value="no"
-                onChange={(e) => setWantsInformationAboutAutopsy(e.target.value)}
+                onChange={(e) => setknowsSupportOptions(e.target.value)}
                 className="mr-2"
               />
-              <label htmlFor="wantsInformationAboutAutopsyNo" className="block mt-4 mb-2 font-medium text-gray-700">
+              <label htmlFor="knowsSupportOptionsNo" className="block mt-4 mb-2 font-medium text-gray-700">
                 Nej, jeg ønsker ikke information om obduktion
               </label>
               <Button

@@ -30,7 +30,7 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
 
   const currentneedsHelpApplyingForBereavementLeave = currentStep?.data.needsHelpApplyingForBereavementLeave || '';
 
-  const { data, setData, post, processing, errors } = useForm<{
+  const { processing } = useForm<{
     needsHelpApplyingForBereavementLeave: string
   }>({
     needsHelpApplyingForBereavementLeave: ''

@@ -8,34 +8,34 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
 
-interface ThirdStepFormProps {
-  handleStepSubmit: (data: {needsInterpreter: boolean}) => void;
+type WantsSupportConversationStepProps = {
+  handleStepSubmit: (data: {wantsSupportConversation: boolean}) => void;
 }
 
-export default function ThirdStepForm({ handleStepSubmit }: ThirdStepFormProps) {
-  const [needsInterpreter, setneedsInterpreter] = useState<boolean>(false);
+export default function WantsSupportConversationStepForm({ handleStepSubmit }: WantsSupportConversationStepProps) {
+  const [wantsSupportConversation, setWantsSupportConversation] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   const { onboardingState } = useOnboarding();
   console.log({onboardingState})
 
   const { data, setData, processing } = useForm<{
-    needsInterpreter: boolean;
+    wantsSupportConversation: boolean;
   }>({
-    needsInterpreter: false,
+    wantsSupportConversation: null,
   });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    setneedsInterpreter(data.needsInterpreter);
+    setWantsSupportConversation(data.wantsSupportConversation);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ needsInterpreter: data.needsInterpreter });
+    handleStepSubmit({ wantsSupportConversation: data.wantsSupportConversation });
     setSubmitted(true);
 
     router.get(route('onboarding.scenario.step', {
       scenario: onboardingState.currentScenario,
-      step: 'four'
+      step: 'five'
     }));
   };
 
@@ -51,28 +51,28 @@ export default function ThirdStepForm({ handleStepSubmit }: ThirdStepFormProps) 
             <>
             <div className="flex items-center">
                 <Checkbox
-                  id="needs-translator"
-                  checked={data.needsInterpreter}
-                  onCheckedChange={(checked) => setData('needsInterpreter', Boolean(checked))}
+                  id="has_partner"
+                  checked={data.wantsSupportConversation}
+                  onCheckedChange={(checked) => setData('wantsSupportConversation', Boolean(checked))}
                   className="mt-2 mb-4"
                 >
-                  Ja, jeg har brug for en tolk
+                  Ja jeg ønsker en samtale med en støtteperson
                 </Checkbox>
-                <Label htmlFor="needs" className="ml-2 text-lg">
-                  Ja, jeg har brug for en tolk
+                <Label htmlFor="wantsSupportConversation" className="ml-2 text-lg">
+                  Ja jeg ønsker en samtale med en støtteperson
                 </Label>
             </div>
             <div className="flex items-center">
                 <Checkbox
-                  id="needs-translator"
-                  checked={!data.needsInterpreter}
-                  onCheckedChange={(checked) => setData('needsInterpreter', !Boolean(checked))}
+                  id="signed"
+                  checked={!data.wantsSupportConversation}
+                  onCheckedChange={(checked) => setData('wantsSupportConversation', !Boolean(checked))}
                   className="mt-2 mb-4"
                 >
-                  Nej jeg har ikke brug for en tolk
+                  Nej jeg ønsker ikke en samtale med en støtteperson
                 </Checkbox>
-                <Label htmlFor="needs" className="ml-2 text-lg">
-                  Nej jeg har ikke brug for en tolk
+                <Label htmlFor="wantsSupportConversation" className="ml-2 text-lg">
+                  Nej jeg ønsker ikke en samtale med en støtteperson
                 </Label>
             </div>
               <Button

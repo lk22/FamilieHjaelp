@@ -6,17 +6,17 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
 
-interface StepData {
+type StepData = {
   hasReceivedDeathCertificate: string;
 }
 
-interface FirstStepFormProps {
+type HasReceivedDeathCertificateStepProps = {
   handleStepSubmit: (data: {
     hasReceivedDeathCertificate: string;
   }) => void;
 }
 
-export default function HasReceivedDeathCertificateStepForm({ handleStepSubmit }: FirstStepFormProps) {
+export default function HasReceivedDeathCertificateStepForm({ handleStepSubmit }: HasReceivedDeathCertificateStepProps) {
   const [hasReceivedDeathCertificate, setHasReceivedDeathCertificate] = useState<string>('');
   const [step, setStep] = useState<string>('one');
   const [submitted, setSubmitted] = useState<boolean>(false);

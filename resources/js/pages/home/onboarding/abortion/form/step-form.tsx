@@ -1,12 +1,12 @@
 import { useOnboarding } from "@/contexts/OnboardingContext";
 
-import FirstStepForm from "@/pages/home/onboarding/abortion/form/FirstStepForm";
-import SecondStepForm from "./SecondStepForm";
-import ThirdStepForm from "./ThirdStepForm";
-import FourthStepForm from "./FourthStepForm";
-import FifthStepForm from "./FifthStepForm";
-import SixthStepForm from "./SixthStepForm";
-import SeventhStepForm from "./SeventStepForm";
+import UserInformationStepForm from "@/pages/home/onboarding/abortion/form/UserInformationStepForm";
+import AbortionInformationStepForm from "./AbortionInformationStepForm";
+import NeedsInterpreterStepForm from "./NeedsInterpreterStepForm";
+import WantsSupportConversationStepForm from "./WantsSupportConversationStepForm";
+import WantsContraceptionInformationStepForm from "./WantsContraceptionInformationStepForm";
+import NeedsPostpartumSupportInfoStepForm from "./NeedsPostpartumSupportInfoStepForm";
+import KnowsConfidentialityRightsStepForm from "./KnowsConfidentialityRightsStepForm";
 
 /**
  * StepForm Component
@@ -75,19 +75,19 @@ const StepFormFieldsDisplay = ({
 
     switch (currentStep) {
         case 'one':
-            return <FirstStepForm handleStepSubmit={submitStep} />;
+            return <UserInformationStepForm handleStepSubmit={submitStep} />;
         case 'two':
-            return <SecondStepForm handleStepSubmit={submitStep} />;
+            return <AbortionInformationStepForm handleStepSubmit={submitStep} />;
         case 'three':
-            return <ThirdStepForm handleStepSubmit={submitStep} />;
+            return <NeedsInterpreterStepForm handleStepSubmit={submitStep} />;
         case 'four':
-            return <FourthStepForm handleStepSubmit={submitStep} />;
+            return <WantsSupportConversationStepForm handleStepSubmit={submitStep} />;
         case 'five':
-            return <FifthStepForm handleStepSubmit={submitStep} />;
+            return <WantsContraceptionInformationStepForm handleStepSubmit={submitStep} />;
         case 'six':
-            return <SixthStepForm handleStepSubmit={submitStep} />;
+            return <NeedsPostpartumSupportInfoStepForm handleStepSubmit={submitStep} />;
         case 'seven':
-            return <SeventhStepForm handleStepSubmit={submitStep} />;
+            return <KnowsConfidentialityRightsStepForm handleStepSubmit={submitStep} />;
         default:
             return <div>Unknown Step</div>;
     }

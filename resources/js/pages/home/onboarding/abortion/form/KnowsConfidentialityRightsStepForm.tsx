@@ -2,38 +2,43 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { useForm, router } from '@inertiajs/react';
+import { useForm, router, usePage } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
-interface SixthStepFormProps {
-  handleStepSubmit: (data: {needsPostpartumSupportInfo: string}) => void;
+type KnowsConfidentialityRightsStepFormProps = {
+  handleStepSubmit: (data: {knowsConfidentialityRights: string}) => void;
 }
 
-export default function SixthStepForm({ handleStepSubmit }: SixthStepFormProps) {
-  const [needsPostpartumSupportInfo, setNeedsPostpartumSupportInfo] = useState<string>('');
+export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }: KnowsConfidentialityRightsStepFormProps) {
+  const [knowsConfidentialityRights, setKnowsConfidentialityRights] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const {onboardingSession} = usePage().props as any;
+  console.log({onboardingSession})
 
   const { onboardingState } = useOnboarding();
   console.log({onboardingState})
 
   const { data, setData, post, processing, errors } = useForm<{
-    needsPostpartumSupportInfo: string;
+    knowsConfidentialityRights: string;
+    onboardingSession: any;
   }>({
-    needsPostpartumSupportInfo: '',
+    knowsConfidentialityRights: '',
+    onboardingSession: onboardingSession,
   });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    setNeedsPostpartumSupportInfo(needsPostpartumSupportInfo);
+    setKnowsConfidentialityRights(knowsConfidentialityRights);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ needsPostpartumSupportInfo });
+    handleStepSubmit({ knowsConfidentialityRights });
     setSubmitted(true);
 
-    router.get(route('onboarding.scenario.step', {
+    console.log({data});
+    router.get(route('onboarding.confirmation', {
       scenario: onboardingState.currentScenario,
-      step: 'seven'
     }));
+
   };
 
   return (
@@ -48,23 +53,23 @@ export default function SixthStepForm({ handleStepSubmit }: SixthStepFormProps) 
             <>
               <div className="check-field flex items-center">
                 <Checkbox
-                  id="needs_postpartum_support_info"
-                  value={data.needsPostpartumSupportInfo}
-                  onChange={() => setData('needsPostpartumSupportInfo', data.needsPostpartumSupportInfo)}
+                  id="knows_confidentiality_rights"
+                  value={data.knowsConfidentialityRights}
+                  onChange={() => setData('knowsConfidentialityRights', data.knowsConfidentialityRights)}
                   className="mt-2 mb-4"
                 />
-                <label htmlFor="needs_postpartum_support_info" className="text-lg ml-4">
+                <label htmlFor="knows_confidentiality_rights" className='text-lg ml-4'>
                   Ja, jeg ønsker information om efterfødselsstøtte
                 </label>
               </div>
               <div className="check-field flex items-center">
                 <Checkbox
-                  id="needs_postpartum_support_info"
-                  value={data.needsPostpartumSupportInfo}
-                  onChange={() => setData('needsPostpartumSupportInfo', data.needsPostpartumSupportInfo)}
+                  id="knows_confidentiality_rights"
+                  value={data.knowsConfidentialityRights}
+                  onChange={() => setData('knowsConfidentialityRights', data.knowsConfidentialityRights)}
                   className="mt-2 mb-4"
                 />
-                <label htmlFor="needs_postpartum_support_info" className='text-lg ml-4'>
+                <label htmlFor="knows_confidentiality_rights" className='text-lg ml-4'>
                   Nej, jeg har ikke brug for information om efterfødselsstøtte
                 </label>
               </div>

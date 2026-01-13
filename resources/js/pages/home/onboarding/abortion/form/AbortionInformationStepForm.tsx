@@ -1,14 +1,12 @@
 import {useState} from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {Select} from '@/components/ui/select';
 
-import { useForm } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
 
-interface FormStepProps {
+type AbortionInformationStepProps = {
     handleStepSubmit: (data: {
       abortionWeeks: string;
       hasDoctorsPermit: boolean;
@@ -16,13 +14,13 @@ interface FormStepProps {
     }) => void;
 }
 
-interface AbortionDataProps {
+type AbortionDataProps = {
   abortionWeeks: string;
   hasDoctorsPermit: boolean;
   abortionMethod: string;
 }
 
-export default function SecondStepForm({ handleStepSubmit }: FormStepProps) {
+export default function AbortionInformationStepForm({ handleStepSubmit }: AbortionInformationStepProps) {
   const [abortionWeeks, setAbortionWeeks] = useState<string>('');
   const [hasDoctorsPermit, setHasDoctorsPermit] = useState<boolean | null>(null);
   const [abortionMethod, setAbortionMethod] = useState<string>('');

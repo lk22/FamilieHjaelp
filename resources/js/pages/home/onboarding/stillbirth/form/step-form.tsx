@@ -9,7 +9,8 @@ import NeedToPlanFuneralStepForm from "./NeedToPlanFuneralStepForm";
 import HasReceivedDeathCertificateStepForm from "./HasReceivedDeathCertificateStepForm";
 import WantsInformationAboutAutopsyStepForm from "./WantsInformationAboutAutopsyStepForm";
 import HasOtherChildrenAtHomeStepForm from "./HasOtherChildrenAtHomeStepForm";
-
+import KnowsSupportOptionsStepForm from "./KnowsSupportOptionsStepForm";
+import NeedsHelpApplyingForBereavementLeave from './NeedsHelpApplyingForBereavementLeave'
 /**
  * StepForm Component
  * Dynamically renders form fields based on the current onboarding step.

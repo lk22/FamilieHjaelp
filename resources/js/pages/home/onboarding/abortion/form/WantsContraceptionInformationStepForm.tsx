@@ -7,11 +7,11 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
 
-interface FifthStepFormProps {
+type WantsContraptionsInformationProps = {
   handleStepSubmit: (data: {wantsContraceptionInfo: boolean}) => void;
 }
 
-export default function FifthStepForm({ handleStepSubmit }: FifthStepFormProps) {
+export default function WantsContraceptionInformationStepForm({ handleStepSubmit }: WantsContraptionsInformationProps) {
   const [wantsContraceptionInfo, setWantsContraceptionInfo] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
 

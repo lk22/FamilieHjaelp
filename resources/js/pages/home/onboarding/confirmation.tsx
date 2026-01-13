@@ -31,6 +31,21 @@ const ConfirmationContent = () => {
     }
   }
 
+  const getFormattedKeyValue = (value: string | boolean) => {
+    if (typeof value === 'boolean') {
+      return value ? 'Ja' : 'Nej';
+    }
+    return value;
+  }
+
+  const getFormattedKey = (key: string) => {
+    // Convert camelCase or snake_case to normal text
+    return key
+      .replace(/([A-Z])/g, ' $1') // camelCase to words
+      .replace(/_/g, ' ') // snake_case to words
+      .replace(/\b\w/g, char => char.toUpperCase()); // capitalize first letter of each word
+  }
+
   const getStepDetails = (stepId: string) => {
     const scenario = getCurrentScenario();
 
@@ -41,6 +56,9 @@ const ConfirmationContent = () => {
     // if the step is not existing in the state dont render the data
     if ( ! step ) return;
 
+    const hasData = data && Object.keys(data).length > 0;
+    if ( ! hasData ) return;
+
     return (
       <>
         {question && <div className="detail-item mt-8 border-b-2 border-white">
@@ -48,7 +66,7 @@ const ConfirmationContent = () => {
         </div>}
         {Object.entries(data).map(([key, value]) => (
           <div key={key} className="detail-item mt-2 text-xl">
-            <strong className="text-xl">{key}: </strong> {String(value)}
+            <strong className="text-xl">{getFormattedKey(key)}: </strong> {getFormattedKeyValue(String(value))}
           </div>
         ))}
       </>
@@ -90,12 +108,6 @@ const ConfirmationContent = () => {
               {getStepDetails('five')}
               {getStepDetails('six')}
               {getStepDetails('seven')}
-              {getStepDetails('eight')}
-              {getStepDetails('nine')}
-              {getStepDetails('ten')}
-              {getStepDetails('eleven')}
-              {getStepDetails('twelve')}
-              {getStepDetails('thirteen')}
             </div>
           </div>
           <div className="details-footer flex flex-col items-start pb-32">

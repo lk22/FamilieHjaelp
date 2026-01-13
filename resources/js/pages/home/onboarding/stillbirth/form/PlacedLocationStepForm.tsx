@@ -28,7 +28,7 @@ export default function PlacedLocationStepForm({ handleStepSubmit }: FirstStepFo
   // TODO: this needs fix
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
-  const currentName = currentStep?.data.placedLocation || '';
+  const currentPlacedLocation = currentStep?.data.placedLocation || '';
 
   const { data, setData, post, processing, errors } = useForm<{
     name: string;
@@ -65,13 +65,30 @@ export default function PlacedLocationStepForm({ handleStepSubmit }: FirstStepFo
     }, 1000);
   };
 
+  /**
+   * Getting current placed location from defined state
+   *
+   * @return JSX.Element
+   */
+  const getCurrentPlacedLocation = () => {
+    if ( ! currentPlacedLocation ) return;
+
+    if (currentPlacedLocation === "not_at_hospital") {
+      return <p>Du har angivet at du ikke befinder dig på hospitalet</p>
+    }
+
+    if ( currentPlacedLocation === "at_hospital" ) {
+      return <p>Du har angivet at du befinder dig på hospitalet</p>
+    }
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
         {
           submitted ? (
           <>
-            <p className="mt-4 text-green-600">Tak, {placedLocation}! Du kan nu fortsætte til næste trin.</p>
+            <p className="mt-4 text-green-600">Tak, {name}! Du kan nu fortsætte til næste trin.</p>
           </>
           ) : (
             <>
@@ -95,6 +112,9 @@ export default function PlacedLocationStepForm({ handleStepSubmit }: FirstStepFo
                 className="mr-2"
               />
               <label htmlFor="placed-location-hospital" className="mr-4">Er på hospitalet</label>
+              <div className="divider">
+                {currentPlacedLocation && getCurrentPlacedLocation()}
+              </div>
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"

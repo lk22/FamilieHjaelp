@@ -6,14 +6,14 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
 
-interface StepData {
+type StepData = {
   name: string;
   age: string;
   ageOfPartner: string;
   gender: string;
 }
 
-interface FirstStepFormProps {
+type UserInformationProps = {
   handleStepSubmit: (data: {
     name: string;
     age: string;
@@ -22,7 +22,7 @@ interface FirstStepFormProps {
   }) => void;
 }
 
-export default function FirstStepForm({ handleStepSubmit }: FirstStepFormProps) {
+export default function UserInformationStepForm({ handleStepSubmit }: UserInformationProps) {
   const [name, setName] = useState<string>('');
   const [age, setAge] = useState<string>('');
   const [gender, setGender] = useState<string>('');
@@ -79,10 +79,6 @@ export default function FirstStepForm({ handleStepSubmit }: FirstStepFormProps) 
       }));
     }, 1000);
   };
-
-  const handleStepChange = (step: string) => {
-    setStep(step);
-  }
 
   return (
     <>
