@@ -18,7 +18,7 @@ type IStepData = Record<string, unknown>;
 /**
  * Use this hook to manage onboarding actions such as updating step progress and data.
  * @param onboardingStep
- * @param setOnboardingStep
+ * @param setOnboardingState
  */
 export function useOnboardingActions(
     onboardingStep: OnboardingState,
@@ -51,7 +51,7 @@ export function useOnboardingActions(
     };
 
     /**
-     * Completed a step in the onboarding process and optinally moves to the next step.
+     * Completed a step in the onboarding process and optionally moves to the next step.
      * @param stepId
      * @param stepData
      * @param nextStep

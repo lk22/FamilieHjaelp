@@ -19,11 +19,16 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
     const [ scenario, setScenario ] = useState<string | null>(null);
     const { updateCurrentScenario, updateCurrentStep, onboardingState} = useOnboarding();
 
+    const setOnboardingSessionTokenCookie = (token: string) => {
+        document.cookie = `onboarding_session_token=${token}; path=/; max-age=${60 * 60 * 24 * 30}`;
+    }
+
     const handleScenarioChange = useCallback((selectedScenario: string) => {
         setScenario(selectedScenario);
         updateCurrentScenario(selectedScenario);
         updateCurrentStep('one');
-    }, [updateCurrentScenario, updateCurrentStep]);
+        setOnboardingSessionTokenCookie(onboardingSession.token);
+    }, [updateCurrentScenario, updateCurrentStep, onboardingSession.token]);
 
     return (
         <>
@@ -64,10 +69,10 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                                 name="onboarding_scenario"
                                                 id="onboarding-scenario-abortion"
                                                 className="ml-4"
-                                                checked={scenario === 'abort'}
+                                                checked={scenario === 'abortion'}
                                                 onChange={() => handleScenarioChange('abortion')}
                                             />
-                                            <label htmlFor="onboarding-scenario" className="ml-4 text-xl">
+                                            <label htmlFor="onboarding-scenario-abortion" className="ml-4 text-xl">
                                                 <span className="sr-only">Jeg står midt i en abort / har oplevet en abort</span>
                                                 Jeg står midt i en abort / har oplevet en abort
                                             </label>
@@ -91,11 +96,11 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                                 type="radio"
                                                 name="onboarding_scenario"
                                                 id="onboarding-scenario-parents"
-                                                className="ms-4"
+                                                className="ml-4"
                                                 checked={scenario === 'parenting'}
                                                 onChange={() => handleScenarioChange('parenting')}
                                             />
-                                            <label htmlFor="onboarding-category-parents" className="ml-4 text-xl">
+                                            <label htmlFor="onboarding-scenario-parents" className="ml-4 text-xl">
                                                 <span className="sr-only">Er blevet forælder til et rask barn</span>
                                                 Er blevet forælder til et rask barn
                                             </label>
@@ -124,7 +129,7 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                             </div>
                         </div>
                     </div>
-                    <div className="xs:w-full xs:hidden sm:hidden md:hidden lg:block sm:w-full md:w-full lg:w-4/12 animate-appear bg-[#004EA7] text-white flex flex-col items-center justify-center">
+                    <div className="xs:w-full xs:hidden sm:hidden md:hidden lg:flex sm:w-full md:w-full lg:w-4/12 animate-appear bg-[#004EA7] text-white flex flex-col items-center justify-center ">
                         <div className="logo pt-30 w-full">
                             <Link href={route('home')}>
                                 <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate-appear relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />

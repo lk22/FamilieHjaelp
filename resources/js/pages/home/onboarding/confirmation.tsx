@@ -11,6 +11,17 @@ interface OnboardingSessionProps {
   }
 }
 
+// defining step name type
+type StepName = {
+  stepName: string;
+}
+
+type Step = {
+  stepName: string;
+  question?: string;
+  data?: Record<string, any>;
+}
+
 const ConfirmationContent = () => {
   const { onboardingState, getCurrentScenario } = useOnboarding();
 
@@ -49,7 +60,7 @@ const ConfirmationContent = () => {
   const getStepDetails = (stepId: string) => {
     const scenario = getCurrentScenario();
 
-    const step = scenario?.steps.find((step: string) => step.stepName === stepId);
+    const step = scenario?.steps.find((step: any) => step.stepName === stepId);
     const question = step?.question;
     const data = step?.data;
 

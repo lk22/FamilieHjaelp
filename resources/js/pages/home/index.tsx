@@ -47,7 +47,6 @@ export default function Welcome() {
                                             <button
                                                 onClick={() => setModalOpen(true)}
                                                 className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer">
-                                                <span className="sr-only">Kom igang</span>
                                                 Kom i gang
                                             </button>
                                             <Link

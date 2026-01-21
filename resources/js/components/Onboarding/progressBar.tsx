@@ -26,7 +26,7 @@ export default function ProgressBar() {
         return steps.map((step, index: number) => {
             const lastStep = steps.length - 1 === index;
             const isCompleted = step.completed;
-            const stepName = step.stepName; // Fallback to step id if name is not defined
+            const stepName = step.stepName;
 
             return (
                 <div key={index} className="relative flex-1">
@@ -70,7 +70,6 @@ const ProgressStep = ({
     stepName,
     currentScenario
 }: ProgressStepProps) => {
-    // give me the last element in the array;
     return (
         <>
             {isCompleted ? (
@@ -78,9 +77,9 @@ const ProgressStep = ({
                     <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-900 text-white hover:bg-blue-700' : 'bg-white text-blue-900'}`}>{step}</div>
                 </Link>
             ) : (
-                <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center cursor-pointer justify-center border-2 border-blue-900 ${isCompleted ? 'bg-blue-900 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-900'} ${isCompleted ? 'animate-completed-step' : ''}`}>{step}</div>
+                <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center cursor-pointer justify-center border-2 border-blue-900 ${isCompleted ? 'bg-blue-900 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-900'} ${isCompleted ? 'step-completed' : ''}`}>{step}</div>
             )}
-            <div className={` step-after absolute top-[60px] left-0 w-full h-1 ${isCompleted ? 'bg-blue-900' : 'bg-gray-300'} ${lastStep ? 'hidden': ''} `}></div>
+            <div className={` step-after absolute top-[60px] left-0 w-full h-1 ${isCompleted ? 'bg-blue-900 step-completed' : 'bg-gray-300'} ${lastStep ? 'hidden': ''} `}></div>
         </>
     )
 }

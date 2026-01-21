@@ -26,8 +26,8 @@ interface OnboardingStepProperties {
 /**
  * OnboardingStep component renders the onboarding step with the given properties.
  * @param currentStep The current step identifier
- * @param category The category of the onboarding
- * @returns void
+ * @param scenario The scenario of the onboarding
+ * @returns JSX.Element
  */
 export default function OnboardingStep({
     currentStep,
@@ -51,7 +51,7 @@ export default function OnboardingStep({
  * OnboardingStepContent component renders the content for a specific onboarding step.
  * @param currentStep The current step identifier
  * @param scenario The scenario of the onboarding
- * @returns void
+ * @returns JSX.Element
  */
 const OnboardingStepContent = ({
     currentStep,
@@ -61,16 +61,10 @@ const OnboardingStepContent = ({
     const scenarioData = onboardingState.scenarios.find((s) => s.id === scenario);
     const stepData = scenarioData?.steps.find((s) => s.stepName === currentStep);
 
-    const handleInitialize = () => {
-        if (onboardingState.currentScenario !== scenario) {
-            console.log(`Initializing scenario: ${scenario}`);
-            updateCurrentScenario(scenario);
-        }
-    };
-
     useEffect(() => {
-        handleInitialize();
-    }, []);
+        console.log('OnboardingStepContent mounted or scenario changed:', {currentScenario: onboardingState.currentScenario, scenario});
+        updateCurrentScenario(scenario);
+    }, [onboardingState.currentScenario, scenario, updateCurrentScenario]);
 
     return (
         <OnboardingTemplate

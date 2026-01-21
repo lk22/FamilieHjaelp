@@ -77,7 +77,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
         scenario: onboardingState.currentScenario,
         step: 'two'
       }));
-    }, 1000);
+    }, 3000);
   };
 
   return (

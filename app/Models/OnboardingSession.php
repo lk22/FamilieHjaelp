@@ -59,6 +59,20 @@ class OnboardingSession extends Model
     public static function findOrCreateSession(?int $userId = null, ?string $token = null): self
     {
         // if user is authenticated, find by user_id
+        /**
+         * If user is not authenticated when creating onboarding session
+         * then user_id is null and we should create a session without user_id
+         */
+        if ($userId === null) {
+            return self::firstOrCreate(
+                ['session_token' => $token, 'user_id' => null, 'completed' => false],
+                ['session_token' => self::generateToken()]
+            );
+        }
+
+        /**
+         * If user is authenticated, find or create new session and attached the user to the session
+         */
         if ($userId) {
             return self::firstOrCreate(
                 ['user_id' => $userId, 'completed' => false],
@@ -66,7 +80,9 @@ class OnboardingSession extends Model
             );
         }
 
-        // if guest with existing token, find by token
+        /**
+         * If no user is authenticated, try to find session by token for guest user
+         */
         if ($token) {
             $session = self::where('session_token', $token)
             ->whereNull('user_id')
@@ -81,6 +97,10 @@ class OnboardingSession extends Model
         // create new session for guest
         return self::create([
             'session_token' => self::generateToken(),
+            'completed' => false,
+            'steps_data' => [],
+            'form_data' => [],
+            'current_step' => 'welcome',
         ]);
     }
 
@@ -99,10 +119,10 @@ class OnboardingSession extends Model
      *
      * @param int|null $userId
      * @param string|null $token
-     * @return self|null
+     * @return self
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public static function findWhen(?int $userId, ?string $token): ?self
+    public static function findWhen(?int $userId, ?string $token): self
     {
         return self::where('session_token', $token)
             ->when($userId, fn($q) => $q->where('user_id', $userId))
@@ -112,10 +132,10 @@ class OnboardingSession extends Model
     /**
      * find session by session token
      *
-     * @params string $token
+     * @param string $token
      * @return OnboardingSession
      */
-    public static function findByToken(string $token) {
+    public static function findByToken(string $token): self {
         return self::where('session_token', $token)->firstOrFail();
     }
 

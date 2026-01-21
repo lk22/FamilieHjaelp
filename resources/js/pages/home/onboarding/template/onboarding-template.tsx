@@ -134,7 +134,7 @@ export default function OnboardingTemplate({
                             </div>
                             <ProgressBar />
                             <InactivityModal isOpen={state?.progress === 'paused'} closeModal={handleResumeSession} />
-                    {children}
+                            {children}
                         </div>
                     </div>
                     <div className="xs:w-full sm:w-full md:w-full lg:w-4/12 animate-appear bg-[#004EA7] text-white flex flex-col items-center justify-center">

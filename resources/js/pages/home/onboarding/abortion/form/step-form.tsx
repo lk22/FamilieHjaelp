@@ -14,7 +14,6 @@ import KnowsConfidentialityRightsStepForm from "./KnowsConfidentialityRightsStep
  *
  * @param currentStep The current step identifier
  * @param scenario The scenario of the onboarding
- * @param onboardingSession The onboarding session data
  * @returns
  */
 export default function StepForm({
@@ -43,13 +42,29 @@ const StepFormContent = ({
     scenario: string
 }) => {
     const {onboardingState} = useOnboarding();
-    const currentScenario = onboardingState.scenarios.find((s: any) => s.id === scenario);
+    const currentScenario = onboardingState.scenarios.find((s) => s.id === scenario);
+
+    if (!currentScenario) {
+        return <div>Scenario not found</div>;
+    }
 
     return (
         <div>
             <StepFormFieldsDisplay currentStep={currentStep} scenario={currentScenario}/>
         </div>
     )
+}
+
+type ScenarioStepsList = {
+    id: string;
+    stepName: string;
+    completed: boolean;
+}
+
+type Scenario = {
+    id: string;
+    name: string;
+    steps: Array<ScenarioStepsList>;
 }
 
 /**
@@ -62,7 +77,7 @@ const StepFormFieldsDisplay = ({
     scenario
 }: {
     currentStep: string;
-    scenario: string;
+    scenario: Scenario;
 }) => {
     const {updateFormData, updateStep, completeStep} = useOnboarding();
 

@@ -19,13 +19,11 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 
 export default function GettingStartedModal({ isOpen, closeModal }: GettingStartedModalProps) {
     const { resetOnboarding, onboardingState } = useOnboarding();
-    const [ preparing, setPreparing ] = useState<boolean>(false);
-''
+    const [preparing, setPreparing] = useState<boolean>(false);
     /**
-     * Setting a cookie to indicate that onboarding has started
+     * Prepares the onboarding by resetting state and setting loading
      * @returns void
      */
-
     const prepareOnboarding = () => {
         resetOnboarding(); // resets the onboarding state
         setPreparing(true); // setting preparing loading state
@@ -45,7 +43,7 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
     }, [preparing])
 
     return (
-        <Dialog open={isOpen} modal={true}>
+        <Dialog open={isOpen} modal={true} onOpenChange={closeModal}>
             <DialogContent className="sm:max-w-6xl  p-8">
                 <DialogHeader>
                     <DialogTitle className="text-4xl font-semibold mb-4 text-white">
@@ -113,7 +111,7 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
                             ) : (
                                 <>
                                     <div className="flex gap-4 justify-end">
-                                        <div className="reset-onboarding cursor-pointer" onClick={() => resetOnboarding()}>
+                                        <div className="reset-onboarding cursor-pointer">
                                             <button
                                                 className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer"
                                                 onClick={() => prepareOnboarding()}

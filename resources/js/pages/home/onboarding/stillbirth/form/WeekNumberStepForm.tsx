@@ -20,6 +20,9 @@ interface WeekNumberDate {
 
 export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) {
   const [weekNumber, setWeekNumber] = useState<string>('');
+  const [abortionWeeks, setAbortionWeeks] = useState<string>('');
+  const [hasDoctorsPermit, setHasDoctorsPermit] = useState<boolean | null>(null);
+  const [abortionMethod, setAbortionMethod] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   const { onboardingState, getCurrentScenario, getOnboardingProperties } = useOnboarding();
@@ -41,11 +44,14 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
     event.preventDefault();
     setSubmitted(true);
 
-    const weekNumberdata: WeekNumberDate = {
+    const weekNumberData = {
       weekNumber: weekNumber,
+      abortionWeeks: abortionWeeks,
+      hasDoctorsPermit: hasDoctorsPermit,
+      abortionMethod: abortionMethod,
     }
 
-    handleStepSubmit({...weekNumberdata})
+    handleStepSubmit(weekNumberData)
 
     router.get(route('onboarding.scenario.step', {
       scenario: onboardingState.currentScenario,

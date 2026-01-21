@@ -53,7 +53,7 @@ class HandleInertiaRequests extends Middleware
      *
      * @return array
      */
-    public function getOnboardingSession() : array
+    public function getOnboardingSession(Request $request) : array
     {
         $request = request();
 
@@ -61,6 +61,8 @@ class HandleInertiaRequests extends Middleware
         $sessionToken = $request->cookie('onboarding_session_token');
 
         $session = OnboardingSession::findOrCreateSession($userId, $sessionToken);
+
+        $request->session()->put('onboarding_session_token', $session->session_token);
 
         return [
             'token' => $session->session_token ?? "",
@@ -105,9 +107,9 @@ class HandleInertiaRequests extends Middleware
                 'warning' => $request->session()->get('warning'),
                 'info' => $request->session()->get('info'),
             ],
-            'onboarding' => session('onboarding_data') ?? null,
+            'onboarding' => session('onboarding_data'),
             'completedSteps' => session('onboarding_data.completed_steps', []),
-            'onboardingSession' => $this->getOnboardingSession(),
+            'onboardingSession' => $this->getOnboardingSession($request),
         ];
     }
 }

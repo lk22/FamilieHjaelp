@@ -19,7 +19,7 @@ export default class ProcessStack {
     const length = this.stack.length;
 
     if (length > 0) {
-      const lastStep = this.stack[length - 1]
+      const lastStep = this.stack[length - 1];
 
       // take the last step and push it again to the stack
       this.stack.push(lastStep);
