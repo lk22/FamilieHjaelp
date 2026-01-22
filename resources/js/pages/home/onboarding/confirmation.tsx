@@ -1,5 +1,5 @@
-import React from 'react'
 import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
+import { router } from '@inertiajs/react';
 
 interface OnboardingSessionProps {
   onboardingSession: {
@@ -11,42 +11,16 @@ interface OnboardingSessionProps {
   }
 }
 
-// defining step name type
-type StepName = {
-  stepName: string;
-}
-
-type Step = {
-  stepName: string;
-  question?: string;
-  data?: Record<string, any>;
-}
-
 const ConfirmationContent = () => {
-  const { onboardingState, getCurrentScenario } = useOnboarding();
+  const { onboardingState, getCurrentScenario, resetOnboarding } = useOnboarding();
 
   console.log('Onboarding State in Confirmation:', onboardingState);
 
-  const getCurrentScenarioDescription = () => {
-    const scenario = getCurrentScenario();
+  const handleResetOnboarding = () => {
+    resetOnboarding();
 
-    switch (scenario?.id) {
-      case 'abortion':
-        return 'Vi har noteret i er igennem en abort process.';
-      case 'deathborn':
-        return 'Vi har noteret i er igennem en død fødsel.';
-      case 'parenting_support':
-        return 'Vi har noteret i har brug for støtte til forældreskab.';
-      default:
-        return 'Din valgte situation er ukendt.';
-    }
-  }
-
-  const getFormattedKeyValue = (value: string | boolean) => {
-    if (typeof value === 'boolean') {
-      return value ? 'Ja' : 'Nej';
-    }
-    return value;
+    // redirect to the getting started page
+    router.visit(route('getting-started'));
   }
 
   const getFormattedKey = (key: string) => {
@@ -57,6 +31,11 @@ const ConfirmationContent = () => {
       .replace(/\b\w/g, char => char.toUpperCase()); // capitalize first letter of each word
   }
 
+  /**
+   * Get details for a specific step in the onboarding process.
+   * @param stepId string
+   * @returns JSX.Element | undefined
+   */
   const getStepDetails = (stepId: string) => {
     const scenario = getCurrentScenario();
 
@@ -66,71 +45,94 @@ const ConfirmationContent = () => {
 
     // if the step is not existing in the state dont render the data
     if ( ! step ) return;
+    if( ! data ) return;
 
     const hasData = data && Object.keys(data).length > 0;
     if ( ! hasData ) return;
 
-    return (
-      <>
-        {question && <div className="detail-item mt-8 border-b-2 border-white">
-          <strong className='text-2xl'>{question}</strong>
-        </div>}
-        {Object.entries(data).map(([key, value]) => (
-          <div key={key} className="detail-item mt-2 text-xl">
-            <strong className="text-xl">{getFormattedKey(key)}: </strong> {getFormattedKeyValue(String(value))}
-          </div>
-        ))}
+     return (
+       <>
+        {
+          Object.entries(data).map(([key, value]) => {
+            let formattedValue;
+
+            if ( typeof value === 'boolean' && value === false ) {
+              formattedValue = 'Nej';
+            }
+
+            if ( typeof value === 'boolean' && value === true ) {
+              formattedValue = 'Ja';
+            }
+
+            if ( (typeof value === 'string' && value === '') || (formattedValue === undefined || formattedValue === '') ) {
+              formattedValue = 'Ingen svar givet';
+            }
+
+            if ( typeof value === 'string' && value !== '' ) {
+              formattedValue = value;
+            }
+
+            return (
+              <div key={key} className="detail-item mt-2 text-xl">
+                <strong className="text-lg">{getFormattedKey(key)}: </strong> <span>{String(formattedValue)}</span>
+              </div>
+            )
+          })
+        }
       </>
     );
   }
 
   return (
     <>
-      <div id="confirmation" className="bg-white">
-        <div className="container w-[1200px] h-screen flex flex-col justify-start items-start m-36 mx-auto">
-          <div className="confirmation-details bg-blue-600 text-white shadow-md w-full text-left p-8 rounded-lg">
-            <div className="details-header">
-              <div className="logo-content flex mb-8">
-                <img
-                    src={`/images/logo.svg`}
-                    alt="Familiehjælp Illustration"
-                    className="mt-8 w-[100px]"
-                />
-                <img
-                    src={`/images/FamilieHjælp_text_logo.svg`}
-                    alt="Familiehjælp Illustration"
-                    className="mt-8 mx-auto w-[200px] ml-4"
-                />
+      <div id="confirmation" className="bg-white p-8">
+        <div className="container-fluid w-[1400px] mx-auto flex flex-col h-[1200px]">
+          <div className="flex gap-8 items-center justify-center h-full">
+            <div className="w-5/12 flex flex-col justify-center items-start">
+              <img
+                  src={`/images/logo.svg`}
+                  alt="Familiehjælp Illustration"
+                  className="my-4 w-[100px]"
+              />
+              <h1 className="text-3xl font-bold mt-4">Tak for dine svar</h1>
+              <p className="mt-4 text-lg">
+                Vi har samlet dine svar nedenfor. Du kan gennemgå dem og foretage eventuelle ændringer, hvis det er nødvendigt.
+              </p>
+              <p className="mt-4 text-xl font-semibold">
+                Hvad skal der ske nu?
+              </p>
+              <p className="mt-4 text-lg">
+                Du vil få en skræderersyet platform baseret på dine svar og situation. som vil guide dig gennem de næste trin i din proces.
+              </p>
+              <p className="mt-4 text-lg">
+                Hvis du har spørgsmål eller brug for yderligere assistance, er du velkommen til at kontakte vores supportteam. Tak fordi du valgte Familiehjælp. Vi ser frem til at støtte dig gennem denne tid.
+              </p>
+              <div className="actions flex gap-4">
+                <button className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-blue-700">Færdiggør</button>
+                <button onClick={() => handleResetOnboarding()} className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-blue-700">Start forfra</button>
               </div>
-              <h2 className="text-4xl font-bold">Tak for dine oplysninger!</h2>
             </div>
-            <div className="details-body">
-              <h3 className="text-xl font-semibold mt-4">
-                Vi har stillet dig nogle spørgsmål for at forstå din situation bedre
-              </h3>
-              <p className="mt-2 mb-2">
-                Baseret på dine svar vil vi kunne tilbyde dig den bedst mulige støtte og vejledning gennem hele processen.
-              </p>
-              <h2 className="mt-4 text-lg font-bold">{getCurrentScenarioDescription()}</h2>
-              {getStepDetails('one')}
-              {getStepDetails('two')}
-              {getStepDetails('three')}
-              {getStepDetails('four')}
-              {getStepDetails('five')}
-              {getStepDetails('six')}
-              {getStepDetails('seven')}
-            </div>
-          </div>
-          <div className="details-footer flex flex-col items-start pb-32">
-              <p className="mt-8">
-                Hvis du har spørgsmål eller brug for yderligere assistance, er du velkommen til at kontakte vores supportteam.
-              </p>
-              <p className="mt-2">
-                Tak fordi du valgte Familiehjælp. Vi ser frem til at støtte dig gennem denne tid.
-              </p>
-            <div className="actions flex gap-4">
-              <button className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-blue-700">Færdiggør</button>
-              <button className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-gray-700">Gå tilbage</button>
+            <div className="w-7/12 flex flex-col justify-center items-center overflow-scroll ">
+              <div className="details bg-gray-100 -ml-px -mt-2 p-8 w-full shadow-lg">
+                <div className="bg-white p-4 rounded shadow-md mb-4">
+                  {getStepDetails('one')}
+                </div>
+                <div className="bg-white p-4 rounded shadow-md mb-4">
+                  {getStepDetails('two')}
+                </div>
+                <div className="bg-white p-4 rounded shadow-md mb-4">
+                  {getStepDetails('three')}
+                </div>
+                <div className="bg-white p-4 rounded shadow-md mb-4">
+                  {getStepDetails('four')}
+                </div>
+                <div className="bg-white p-4 rounded shadow-md mb-4">
+                  {getStepDetails('five')}
+                </div>
+                <div className="bg-white p-4 rounded shadow-md mb-4">
+                  {getStepDetails('six')}
+                </div>
+              </div>
             </div>
           </div>
         </div>

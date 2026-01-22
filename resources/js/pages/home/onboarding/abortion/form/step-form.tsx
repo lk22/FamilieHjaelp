@@ -24,9 +24,9 @@ export default function StepForm({
     scenario: string
 }) {
     return (
-        <div className="container py-8 mx-auto">
+        <>
             <StepFormContent currentStep={currentStep} scenario={scenario}/>
-        </div>
+        </>
     );
 }
 
@@ -41,15 +41,15 @@ const StepFormContent = ({
     currentStep: string;
     scenario: string
 }) => {
-    const {onboardingState} = useOnboarding();
+    const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === scenario);
 
-    if (!currentScenario) {
+    if ( ! currentScenario ) {
         return <div>Scenario not found</div>;
     }
 
     return (
-        <div>
+        <div className="bg-gray-50 p-8 rounded shadow-md mt-8">
             <StepFormFieldsDisplay currentStep={currentStep} scenario={currentScenario}/>
         </div>
     )

@@ -20,6 +20,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 export default function GettingStartedModal({ isOpen, closeModal }: GettingStartedModalProps) {
     const { resetOnboarding, onboardingState } = useOnboarding();
     const [preparing, setPreparing] = useState<boolean>(false);
+
     /**
      * Prepares the onboarding by resetting state and setting loading
      * @returns void

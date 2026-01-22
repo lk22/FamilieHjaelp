@@ -44,11 +44,17 @@ export default function Welcome() {
                                             <Link href={route('register')} className="text-white sm:w-full">Registrer dig her</Link>
                                         </div>
                                         <div className="flex gap-4">
-                                            <button
+                                            {/* <button
                                                 onClick={() => setModalOpen(true)}
                                                 className="inline-block rounded-sm border border-white px-5 py-1.5 text-xl leading-normal bg-white text-blue-500 hover:border-white cursor-pointer">
                                                 Kom i gang
-                                            </button>
+                                            </button> */}
+                                            <Link
+                                                href={route('getting-started')}
+                                                className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"
+                                            >
+                                                Kom igang
+                                            </Link>
                                             <Link
                                                 href={route('login')}
                                                 className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"

@@ -91,7 +91,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
           ) : (
             <>
             <input type="hidden" name="step" value={step} />
-              <label htmlFor="name" className="block mt-4 mb-2 font-medium text-gray-700">
+              <label htmlFor="name" className="block mt-4 mb-2 font-semibold text-gray-700 ">
                 Hvad er dit navn ?
               </label>
               <Input
@@ -101,7 +101,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                 onChange={(e) => setName(e.target.value)}
                 required
               />
-              <label htmlFor="gender" className="block mt-4 mb-2 font-medium text-gray-700">
+              <label htmlFor="gender" className="block mt-4 mb-2 font-semibold text-gray-700">
                 Hvad er dit køn ?
               </label>
               <select
@@ -116,7 +116,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                 <option value="male">Mand</option>
                 <option value="other">Andet</option>
               </select>
-              <label htmlFor="age" className="block mt-4 mb-2 font-medium text-gray-700">
+              <label htmlFor="age" className="block mt-4 mb-2 font-semibold text-gray-700">
                 Hvor gammel er du ?
               </label>
               <Input

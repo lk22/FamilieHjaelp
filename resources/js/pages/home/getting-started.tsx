@@ -1,8 +1,10 @@
-import {useState, useCallback} from 'react';
-import {type SharedData } from '@/types';
+import { useState, useCallback } from 'react';
+import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
 import { OnboardingProvider, useOnboarding } from '@/contexts/OnboardingContext';
+
+import { RadioButton } from '@/components/ui/radio';
 
 interface OnboardingSessionProps {
     onboardingSession: {
@@ -63,8 +65,8 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                 </div>
                                 <div className="w-full pl-0 md:pl-0">
                                     <ul className="my-4 list-none flex gap-4 pl-0 flex-col">
-                                        <li>
-                                            <input
+                                        <li className='flex items-center'>
+                                            <RadioButton
                                                 type="radio"
                                                 name="onboarding_scenario"
                                                 id="onboarding-scenario-abortion"
@@ -77,8 +79,8 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                                 Jeg står midt i en abort / har oplevet en abort
                                             </label>
                                         </li>
-                                        <li>
-                                            <input
+                                        <li className='flex items-center'>
+                                            <RadioButton
                                                 type="radio"
                                                 name="onboarding_scenario"
                                                 id="onboarding-scenario-stillbirth"
@@ -91,8 +93,8 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                                 Er blevet forælder til et dødfødt barn
                                             </label>
                                         </li>
-                                        <li>
-                                            <input
+                                        <li className='flex items-center'>
+                                            <RadioButton
                                                 type="radio"
                                                 name="onboarding_scenario"
                                                 id="onboarding-scenario-parents"
@@ -111,15 +113,13 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                             !scenario ? (
                                                 <>
 
-                                                    <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: '' })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300 ms-4">
-                                                        Kom i gang
-                                                    </Link>
+
                                                     <span className="text-gray-500 ms-4">Vælg venligst en situation for at fortsætte</span>
                                                 </>
                                             ) : (
                                                 <>
                                                     <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300 ms-4">
-                                                        Gå videre
+                                                        Kom igang
                                                     </Link>
                                                 </>
                                             )
