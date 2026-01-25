@@ -9,6 +9,7 @@ interface ProgressStepProps {
     stepName: string;
     currentScenario: string;
 }
+
 /**
  * ProgressBar Component
  * @author Leo Knudsen
@@ -18,7 +19,6 @@ interface ProgressStepProps {
 export default function ProgressBar() {
     // Get onboarding state from context - this will automatically update when state changes
     const { onboardingState } = useOnboarding();
-    console.log('Rendering ProgressBar with onboardingState:', onboardingState);
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
     const steps = currentScenario ? currentScenario.steps : [];
 
@@ -74,12 +74,12 @@ const ProgressStep = ({
         <>
             {isCompleted ? (
                 <Link href={route('onboarding.scenario.step', { scenario: currentScenario, step: stepName })} className="relative flex items-center">
-                    <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-900 text-white hover:bg-blue-700' : 'bg-white text-blue-900'}`}>{step}</div>
+                    <div className={`relative top-8 z-10 p-4 h-[60px] transition rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-900 text-white hover:bg-blue-700' : 'bg-white text-blue-900'}`}>{step}</div>
                 </Link>
             ) : (
-                <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center cursor-pointer justify-center border-2 border-blue-900 ${isCompleted ? 'bg-blue-900 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-900'} ${isCompleted ? 'step-completed' : ''}`}>{step}</div>
+                <div className={`relative top-8 z-10 p-4 h-[60px] transition rounded-full w-[60px] flex items-center cursor-pointer justify-center border-2 border-blue-900 ${isCompleted ? 'bg-blue-900 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-900'} ${isCompleted ? 'step-completed' : ''}`}>{step}</div>
             )}
-            <div className={` step-after absolute top-[60px] left-0 w-full h-1 ${isCompleted ? 'bg-blue-900 step-completed' : 'bg-gray-300'} ${lastStep ? 'hidden': ''} `}></div>
+            <div className={` step-after absolute top-[60px] left-0 w-full h-1 ${isCompleted ? 'bg-blue-900 step-completed' : 'bg-blue-700'} ${lastStep ? 'hidden': ''} `}></div>
         </>
     )
 }

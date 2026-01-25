@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
 
 import { useForm, router, usePage } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -10,6 +11,7 @@ type KnowsConfidentialityRightsStepFormProps = {
 }
 
 export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }: KnowsConfidentialityRightsStepFormProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [knowsConfidentialityRights, setKnowsConfidentialityRights] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
   const {onboardingSession} = usePage().props as any;
@@ -35,10 +37,8 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
     setSubmitted(true);
 
     console.log({data});
-    router.get(route('onboarding.confirmation', {
-      scenario: onboardingState.currentScenario,
-    }));
 
+    setIsOpen(true);
   };
 
   return (
@@ -85,6 +85,7 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
           )
         }
       </form>
+      <CompletedModal isOpen={isOpen} closeModal={() => setIsOpen(false)} />
     </>
   )
 }

@@ -1,6 +1,7 @@
 import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
 import { router } from '@inertiajs/react';
 
+
 interface OnboardingSessionProps {
   onboardingSession: {
     token: string | null;
@@ -42,12 +43,12 @@ const ConfirmationContent = () => {
     const step = scenario?.steps.find((step: any) => step.stepName === stepId);
     const question = step?.question;
     const data = step?.data;
+    const hasData = data && Object.keys(data).length > 0;
 
     // if the step is not existing in the state dont render the data
     if ( ! step ) return;
     if( ! data ) return;
 
-    const hasData = data && Object.keys(data).length > 0;
     if ( ! hasData ) return;
 
      return (
@@ -87,7 +88,7 @@ const ConfirmationContent = () => {
     <>
       <div id="confirmation" className="bg-white p-8">
         <div className="container-fluid w-[1400px] mx-auto flex flex-col h-[1200px]">
-          <div className="flex gap-8 items-center justify-center h-full">
+          <div className="flex gap-16 items-center justify-center h-full">
             <div className="w-5/12 flex flex-col justify-center items-start">
               <img
                   src={`/images/logo.svg`}
@@ -112,24 +113,24 @@ const ConfirmationContent = () => {
                 <button onClick={() => handleResetOnboarding()} className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-blue-700">Start forfra</button>
               </div>
             </div>
-            <div className="w-7/12 flex flex-col justify-center items-center overflow-scroll ">
-              <div className="details bg-gray-100 -ml-px -mt-2 p-8 w-full shadow-lg">
-                <div className="bg-white p-4 rounded shadow-md mb-4">
+            <div className="w-7/12 flex flex-col justify-center items-center">
+              <div className="details bg-white -ml-px -mt-2 p-16 w-full shadow-lg">
+                <div className="bg-white p-4">
                   {getStepDetails('one')}
                 </div>
-                <div className="bg-white p-4 rounded shadow-md mb-4">
+                <div className="bg-white p-4">
                   {getStepDetails('two')}
                 </div>
-                <div className="bg-white p-4 rounded shadow-md mb-4">
+                <div className="bg-white p-4">
                   {getStepDetails('three')}
                 </div>
-                <div className="bg-white p-4 rounded shadow-md mb-4">
+                <div className="bg-white p-4">
                   {getStepDetails('four')}
                 </div>
-                <div className="bg-white p-4 rounded shadow-md mb-4">
+                <div className="bg-white p-4">
                   {getStepDetails('five')}
                 </div>
-                <div className="bg-white p-4 rounded shadow-md mb-4">
+                <div className="bg-white p-4">
                   {getStepDetails('six')}
                 </div>
               </div>

@@ -200,6 +200,6 @@
     left: 0%;
     width: 100%;
     height: 4px;
-    background-color: lightblue;
+    background-color: var(--color-blue-900);
     animation: animate-completed 0.5s ease-in-out forwards;
 }

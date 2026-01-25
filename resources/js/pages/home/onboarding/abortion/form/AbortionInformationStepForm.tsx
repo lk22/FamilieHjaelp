@@ -26,7 +26,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
   const [abortionMethod, setAbortionMethod] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario, getOnboardingProperties } = useOnboarding();
+  const { onboardingState, getCurrentScenario } = useOnboarding();
   const currentScenario = getCurrentScenario();
   const currentStep = currentScenario?.steps[1]; // second step
   const currentAbortionWeeksValue = currentStep?.data.abortionWeeks;

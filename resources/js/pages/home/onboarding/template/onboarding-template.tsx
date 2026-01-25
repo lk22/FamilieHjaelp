@@ -117,7 +117,19 @@ export default function OnboardingTemplate({
             <OnboardingHeader />
             <main className="dark:bg-white height-full">
                 <div className="container-fluid flex flex-wrap">
-                    <div className="right xs:w-full sm:w-full md:w-full lg:w-8/12 bg-white flex flex-col items-center justify-center min-h-screen">
+                    <div className="xs:w-full sm:w-full md:w-full lg:w-full animate-appear bg-[#004EA7] pb-48 text-white flex flex-col items-center justify-center">
+                        <div className="logo pt-30 w-full">
+                            <Link href={route('home')} className="flex items-center">
+                                <img
+                                    src="/images/logo.svg"
+                                    alt="Familiehjælp Logo"
+                                    className="mb-6 w-auto h-[100px] mx-auto"
+                                />
+                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate-appear relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="right xs:w-full sm:w-full md:w-full lg:w-full bg-white">
                         <div className="container px-16 py-4 mx-auto text-black">
                             {screenGraphic && (
                                 <div className="illustration-wrapper">
@@ -128,34 +140,20 @@ export default function OnboardingTemplate({
                                     />
                                 </div>
                             )}
-                            <h1 className="text-3xl font-bold mt-8">{title}</h1>
-                            <div className="mt-2 text-xl">
-                                {description}
+                            <div className="flex justify-center">
+                                <div className="bg-white w-full rounded-lg shadow-md p-6 relative -top-36 px-16 py-8">
+                                    <h1 className="text-3xl font-bold mt-8">{title}</h1>
+                                    <div className="mt-2 text-xl">
+                                        {description}
+                                    </div>
+                                    <ProgressBar />
+                                    <InactivityModal isOpen={state?.progress === 'paused'} closeModal={handleResumeSession} />
+                                    {children}
+                                </div>
                             </div>
-                            <ProgressBar />
-                            <InactivityModal isOpen={state?.progress === 'paused'} closeModal={handleResumeSession} />
-                            {children}
                         </div>
                     </div>
-                    <div className="xs:w-full sm:w-full md:w-full lg:w-4/12 animate-appear bg-[#004EA7] text-white flex flex-col items-center justify-center">
-                        <div className="logo pt-30 w-full">
-                            <Link href={route('home')}>
-                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className=" animate-appear relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />
-                                <img
-                                    src="/images/logo.svg"
-                                    alt="Familiehjælp Logo"
-                                    className="mb-6 w-auto h-[100px] mx-auto"
-                                />
-                            </Link>
-                        </div>
-                        <div className="illustration-wrapper pb-30">
-                            <img
-                                src="/images/getting_started_illustration.svg"
-                                alt="Familiehjælp Illustration"
-                                className="mt-8 w-full max-w-[400px] mx-auto"
-                            />
-                        </div>
-                    </div>
+
                 </div>
             </main>
         </>

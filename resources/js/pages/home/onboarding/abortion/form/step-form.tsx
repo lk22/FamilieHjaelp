@@ -49,7 +49,7 @@ const StepFormContent = ({
     }
 
     return (
-        <div className="bg-gray-50 p-8 rounded shadow-md mt-8">
+        <div className="pt-8">
             <StepFormFieldsDisplay currentStep={currentStep} scenario={currentScenario}/>
         </div>
     )
