@@ -181,25 +181,70 @@
     }
 }
 
-/*
-.animate-completed-step.step-after::after {
-    content: '';
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    width: 20px;
-    height: 5px;
-    background-color: var(--color-primary-foreground);
-    animation: animate-completed 2s ease-in-out forwards;
-}*/
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
 
-.step-completed.step-after::after {
+@keyframes complete {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+.loader {
+    border-width: 4px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: var(--bg-blue-700);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+.animate {
+    &.animate-completed {
+        animation: animate-completed 2s ease-in-out forwards;
+    }
+
+    &.animate-appear {
+        animation: appear 1s ease-in-out forwards;
+    }
+
+    &.animate-complete {
+        animation: complete 0.2s ease-in-out forwards;
+    }
+}
+
+.step-progress-line {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: 4px;
+    background-color: var(--color-blue-950);
+    z-index: 1;
+    transition: width 0.5s ease-in-out;
+}
+
+.step-progress-line::after {
     content: '';
     position: absolute;
     top: -5%;
     left: 0%;
     width: 100%;
     height: 4px;
-    background-color: var(--color-blue-900);
+    background-color: var(--color-blue-700);
     animation: animate-completed 0.5s ease-in-out forwards;
 }

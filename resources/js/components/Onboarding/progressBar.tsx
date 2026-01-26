@@ -42,10 +42,23 @@ export default function ProgressBar() {
         });
     }
 
+    const calculateProgressWidth = () => {
+        const totalSteps = steps.length;
+        const completedSteps = steps.filter(step => step.completed).length;
+
+        if (totalSteps === 0) return '0%';
+
+        const progressPercentage = (completedSteps / totalSteps) * 100;
+        return `${progressPercentage}%`;
+    }
+
     return (
         <>
-            <div className="flex items-center">
+            <div className="flex items-center relative">
                 {handleStepsList()}
+
+                {/* make step line here that is calculated correctly to have correct width instead of multiple lines */}
+                <div id="step-progress-line" className='step-progress-line' style={{ width: calculateProgressWidth() }}></div>
             </div>
         </>
     )
@@ -70,16 +83,21 @@ const ProgressStep = ({
     stepName,
     currentScenario
 }: ProgressStepProps) => {
+    const isCompletedStyles = `relative top-8 z-10 p-4 h-[60px] transition rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-700 text-white hover:bg-blue-900' : 'bg-white text-blue-900'}`;
+    const notCompletedStyles = `relative top-8 z-10 p-4 h-[60px] transition rounded-full w-[60px] flex items-center cursor-pointer justify-center border-2 border-blue-700 ${isCompleted ? 'bg-blue-700 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-700'} ${isCompleted ? 'step-completed' : ''}`;
+    const notCompletedStylesDisabled = `relative top-8 z-99 p-4 h-[60px] transition rounded-full w-[60px] flex items-center justify-center border-2 border-gray-300 bg-gray-200 text-gray-500 cursor-not-allowed`;
     return (
         <>
             {isCompleted ? (
                 <Link href={route('onboarding.scenario.step', { scenario: currentScenario, step: stepName })} className="relative flex items-center">
-                    <div className={`relative top-8 z-10 p-4 h-[60px] transition rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-900 text-white hover:bg-blue-700' : 'bg-white text-blue-900'}`}>{step}</div>
+                    <div className={isCompletedStyles}>{step}</div>
                 </Link>
             ) : (
-                <div className={`relative top-8 z-10 p-4 h-[60px] transition rounded-full w-[60px] flex items-center cursor-pointer justify-center border-2 border-blue-900 ${isCompleted ? 'bg-blue-900 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-900'} ${isCompleted ? 'step-completed' : ''}`}>{step}</div>
+                <div className={notCompletedStyles}>{step}</div>
             )}
-            <div className={` step-after absolute top-[60px] left-0 w-full h-1 ${isCompleted ? 'bg-blue-900 step-completed' : 'bg-blue-700'} ${lastStep ? 'hidden': ''} `}></div>
+            {!lastStep && (
+                <div className="flex-1 h-1 bg-gray-300 relative top-1 w-full mx-2"></div>
+            )}
         </>
     )
 }

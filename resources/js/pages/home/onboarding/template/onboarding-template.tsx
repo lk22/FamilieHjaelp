@@ -117,7 +117,7 @@ export default function OnboardingTemplate({
             <OnboardingHeader />
             <main className="dark:bg-white height-full">
                 <div className="container-fluid flex flex-wrap">
-                    <div className="xs:w-full sm:w-full md:w-full lg:w-full animate-appear bg-[#004EA7] pb-48 text-white flex flex-col items-center justify-center">
+                    <div className="xs:w-full sm:w-full md:w-full lg:w-full bg-[#004EA7] pb-36 text-white flex flex-col items-center justify-center">
                         <div className="logo pt-30 w-full">
                             <Link href={route('home')} className="flex items-center">
                                 <img
@@ -125,7 +125,7 @@ export default function OnboardingTemplate({
                                     alt="Familiehjælp Logo"
                                     className="mb-6 w-auto h-[100px] mx-auto"
                                 />
-                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate-appear relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />
+                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />
                             </Link>
                         </div>
                     </div>
@@ -141,7 +141,7 @@ export default function OnboardingTemplate({
                                 </div>
                             )}
                             <div className="flex justify-center">
-                                <div className="bg-white w-full rounded-lg shadow-md p-6 relative -top-36 px-16 py-8">
+                                <div className="bg-white w-full rounded-lg shadow-md p-6 relative -top-36 px-16 py-8 animate-appear">
                                     <h1 className="text-3xl font-bold mt-8">{title}</h1>
                                     <div className="mt-2 text-xl">
                                         {description}

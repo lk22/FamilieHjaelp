@@ -127,10 +127,10 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                             </div>
                         </div>
                     </div>
-                    <div className="xs:w-full xs:hidden sm:hidden md:hidden lg:flex sm:w-full md:w-full lg:w-4/12 animate-appear bg-[#004EA7] text-white flex flex-col items-center justify-center ">
+                    <div className="xs:w-full xs:hidden sm:hidden md:hidden lg:flex sm:w-full md:w-full lg:w-4/12 bg-[#004EA7] text-white flex flex-col items-center justify-center ">
                         <div className="logo pt-30 w-full">
                             <Link href={route('home')}>
-                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate-appear relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />
+                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />
                                 <img
                                     src="/images/logo.svg"
                                     alt="Familiehjælp Logo"

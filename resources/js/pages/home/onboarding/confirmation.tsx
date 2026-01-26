@@ -113,7 +113,7 @@ const ConfirmationContent = () => {
                 <button onClick={() => handleResetOnboarding()} className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-blue-700">Start forfra</button>
               </div>
             </div>
-            <div className="w-7/12 flex flex-col justify-center items-center">
+            <div className="w-7/12 flex flex-col justify-center items-center animate animate-appear">
               <div className="details bg-white -ml-px -mt-2 p-16 w-full shadow-lg">
                 <div className="bg-white p-4">
                   {getStepDetails('one')}

@@ -29,6 +29,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   const [ageOfPartner, setAgeOfPartner] = useState<string>('');
   const [step, setStep] = useState<string>('one');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
 
@@ -56,6 +57,11 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    setLoading(true);
+
+    setTimeout(async () => {
+      await setLoading(true);
+    }, 200)
 
     const submittedData: StepData = {
       name,
@@ -63,8 +69,6 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
       ageOfPartner,
       gender,
     }
-
-    console.log(submittedData)
 
     // Proceed to the next step or perform other actions
     handleStepSubmit({ ...submittedData });
@@ -77,83 +81,84 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
         scenario: onboardingState.currentScenario,
         step: 'two'
       }));
-    }, 3000);
+      setLoading(false);
+    }, 1000);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        {
-          submitted ? (
-          <>
-            <p className="mt-4 text-green-600">Tak, {name}! Du kan nu fortsætte til næste trin.</p>
-          </>
-          ) : (
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
             <>
-            <input type="hidden" name="step" value={step} />
-              <label htmlFor="name" className="block mt-4 mb-2 font-semibold text-gray-700 ">
-                Hvad er dit navn ?
-              </label>
-              <Input
-                id="name"
-                type="text"
-                value={name || currentName}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-              <label htmlFor="gender" className="block mt-4 mb-2 font-semibold text-gray-700">
-                Hvad er dit køn ?
-              </label>
-              <select
-                id="gender"
-                className="mt-2 mb-4 p-2 border border-gray-300 rounded w-full"
-                value={gender || currentGender}
-                onChange={(e) => setGender(e.target.value)}
-                required
-              >
-                <option value="">Vælg køn</option>
-                <option value="female">Kvinde</option>
-                <option value="male">Mand</option>
-                <option value="other">Andet</option>
-              </select>
-              <label htmlFor="age" className="block mt-4 mb-2 font-semibold text-gray-700">
-                Hvor gammel er du ?
-              </label>
-              <Input
-                id="age"
-                type="text"
-                value={age || currentAge}
-                onChange={(e) => setAge(e.target.value)}
-                required
-              />
-              {
-                gender == "male" && (
-                  <>
+            {isLoading ? (
+              <div className="inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+                <div className="loader ease-linear rounded-full border-8 border-t-8 border-blue-700 h-16 w-16"></div>
+              </div>
+            ) : (
+              <>
+                <input type="hidden" name="step" value={step} />
+                  <label htmlFor="name" className="block mt-4 mb-2 font-semibold text-gray-700 ">
+                    Hvad er dit navn ?
+                  </label>
+                  <Input
+                    id="name"
+                    type="text"
+                    value={name || currentName}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="gender" className="block mt-4 mb-2 font-semibold text-gray-700">
+                    Hvad er dit køn ?
+                  </label>
+                  <select
+                    id="gender"
+                    className="mt-2 mb-4 p-2 border border-gray-300 rounded w-full"
+                    value={gender || currentGender}
+                    onChange={(e) => setGender(e.target.value)}
+                    required
+                  >
+                    <option value="">Vælg køn</option>
+                    <option value="female">Kvinde</option>
+                    <option value="male">Mand</option>
+                    <option value="other">Andet</option>
+                  </select>
+                  <label htmlFor="age" className="block mt-4 mb-2 font-semibold text-gray-700">
+                    Hvor gammel er du ?
+                  </label>
+                  <Input
+                    id="age"
+                    type="text"
+                    value={age || currentAge}
+                    onChange={(e) => setAge(e.target.value)}
+                    required
+                  />
+                  {
+                    gender == "male" && (
+                      <>
 
-                  <p className="mt-4 font-bold">Vi skal kende din alder på din partner, da din partner skal i gennem flere ting og processer.</p>
-                    <label htmlFor="age" className="block mt-1 mb-2 font-medium text-gray-700">
-                      Hvor gammel er din partner ?
-                    </label>
-                    <Input
-                      id="age"
-                      type="text"
-                      value={ageOfPartner || currentAgeOfPartner}
-                      onChange={(e) => setAgeOfPartner(e.target.value)}
-                      required
-                    />
-                  </>
-                )
-              }
-              <Button
-                type="submit"
-                className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
-              >
-                Næste
-              </Button>
+                      <p className="mt-4 font-bold">Vi skal kende din alder på din partner, da din partner skal i gennem flere ting og processer.</p>
+                        <label htmlFor="age" className="block mt-1 mb-2 font-medium text-gray-700">
+                          Hvor gammel er din partner ?
+                        </label>
+                        <Input
+                          id="age"
+                          type="text"
+                          value={ageOfPartner || currentAgeOfPartner}
+                          onChange={(e) => setAgeOfPartner(e.target.value)}
+                          required
+                        />
+                      </>
+                    )
+                  }
+                  <Button
+                    type="submit"
+                    className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
+                    disabled={processing}
+                  >
+                    Næste
+                  </Button>
+              </>
+            )}
             </>
-          )
-        }
       </form>
     </>
   )

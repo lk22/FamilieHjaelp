@@ -56,16 +56,6 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                 {
                     id: 2,
                     stepName: 'two',
-                    question: 'hvilken kommune bor du i?',
-                    description: 'Din kommune har betydning for, hvordan du skal navigere i abortprocessen, herunder hvilke sundhedstilbud og støtteordninger der er tilgængelige for dig.',
-                    completed: false,
-                    data: {
-                        municipality: '',
-                    }
-                },
-                {
-                    id: 3,
-                    stepName: 'three',
                     question: 'Hvor langt er du i dit forløb',
                     description: 'Dette er afgørende for hvilke muligheder du har. Før uge 18+0 har du fri abort uden tilladelse. Efter uge 18 skal du søge tilladelse fra det Nationale Abortnævn.',
                     completed: false,
@@ -76,8 +66,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 4,
-                    stepName: 'four',
+                    id: 3,
+                    stepName: 'three',
                     question: 'Har du brug for tolk?',
                     description: 'Du har ret til gratis tolk ved abortforløb i Danmark, så du fuldt ud forstår informationen og forløbet.',
                     completed: false,
@@ -86,8 +76,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 5,
-                    stepName: 'five',
+                    id: 4,
+                    stepName: 'four',
                     question: 'Ønsker du anonym og uvildig støttesamtale?',
                     description: 'Du kan tale fortroligt og anonymt med erfarne rådgivere hos Mødrehjælpen, Sex & Samfund eller Abortlinien. De kan hjælpe dig med at sortere dine tanker uden at påvirke din beslutning.',
                     completed: false,
@@ -96,8 +86,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 6,
-                    stepName: 'six',
+                    id: 5,
+                    stepName: 'five',
                     question: 'Ønsker du information om præventionsvejledning efter aborten?',
                     description: 'Du kan få gratis præventionsvejledning og prævention i forbindelse med aborten, så du er godt beskyttet fremadrettet.',
                     completed: false,
@@ -106,8 +96,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 7,
-                    stepName: 'seven',
+                    id: 6,
+                    stepName: 'six',
                     question: 'Har du brug for information om efterfødselssamtaler/psykologisk støtte efter abort?',
                     description: 'Mange har brug for at tale om deres oplevelse bagefter. Du kan få gratis samtaler gennem sundhedsvæsenet eller frivillige organisationer.',
                     completed: false,
@@ -116,8 +106,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 8,
-                    stepName: 'eight',
+                    id: 7,
+                    stepName: 'seven',
                     question: 'Kender du til din ret til fortrolighed?',
                     description: 'Alt omkring din abort er omfattet af tavshedspligt. Informationen deles ikke med andre, heller ikke dine forældre (hvis du er over 15 år).',
                     completed: false,

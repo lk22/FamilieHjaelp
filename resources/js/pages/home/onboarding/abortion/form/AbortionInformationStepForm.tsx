@@ -25,6 +25,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
   const [hasDoctorsPermit, setHasDoctorsPermit] = useState<boolean | null>(null);
   const [abortionMethod, setAbortionMethod] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState, getCurrentScenario } = useOnboarding();
   const currentScenario = getCurrentScenario();
@@ -47,6 +48,10 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
     event.preventDefault();
     setSubmitted(true);
 
+    setTimeout(() => {
+      setLoading(true)
+    }, 200)
+
     const abortionData: AbortionDataProps = {
       abortionWeeks: abortionWeeks,
       hasDoctorsPermit: hasDoctorsPermit,
@@ -54,20 +59,24 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
     }
 
     handleStepSubmit({...abortionData})
-
-    router.get(route('onboarding.scenario.step', {
-      scenario: onboardingState.currentScenario,
-      step: 'three'
-    }));
+    setTimeout(() => {
+      router.get(route('onboarding.scenario.step', {
+        scenario: onboardingState.currentScenario,
+        step: 'three'
+      }));
+      setLoading(false)
+    }, 1000)
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
-          submitted ? (
+          isLoading ? (
           <>
-            <p className="mt-4 text-green-600">Tak! Du kan nu fortsætte til næste trin.</p>
+            <div className="inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+                <div className="loader ease-linear rounded-full border-8 border-t-8 border-blue-700 h-16 w-16"></div>
+              </div>
           </>
           ) : (
             <>
@@ -87,6 +96,17 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                   <span className="w-5/12 ms-4">Uger</span>
                 </div>
             </div>
+              <div className="step-field mt-2">
+                  <label htmlFor="abortion-method">
+                    Hvilken metode ønsker du at benytte til din abort
+                  </label>
+                  <select id="abortion-method" value={currentAbortionMethodValue || abortionMethod} onChange={(e) => setAbortionMethod(e.target.value)} className="mt-2 mb-4 p-2 border border-gray-300 rounded w-full">
+                    <option value="">Vælg en metode</option>
+                    <option value="medication">Medicinsk abort</option>
+                    <option value="surgical">Kirurgisk abort</option>
+                    <option value="other">Anden metode</option>
+                  </select>
+              </div>
             <div className="step-field my-4">
               <div className="flex flex-col">
                   <label htmlFor="has-doctors-permit">
@@ -119,17 +139,6 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                     Nej manger og udfylde en lægeerklæring
                   </label>
                 </div>
-              </div>
-              <div className="step-field mt-2">
-                  <label htmlFor="abortion-method">
-                    Hvilken metode ønsker du at benytte til din abort
-                  </label>
-                  <select id="abortion-method" value={currentAbortionMethodValue || abortionMethod} onChange={(e) => setAbortionMethod(e.target.value)} className="mt-2 mb-4 p-2 border border-gray-300 rounded w-full">
-                    <option value="">Vælg en metode</option>
-                    <option value="medication">Medicinsk abort</option>
-                    <option value="surgical">Kirurgisk abort</option>
-                    <option value="other">Anden metode</option>
-                  </select>
               </div>
             </div>
               <Button
