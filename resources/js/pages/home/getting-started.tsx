@@ -30,6 +30,11 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
     const currentScenario = getCurrentScenario();
     const currentStep = getCurrentStep();
 
+    console.log({
+        currentScenario,
+        currentStep
+    })
+
     const setOnboardingSessionTokenCookie = (token: string) => {
         document.cookie = `onboarding_session_token=${token}; path=/; max-age=${60 * 60 * 24 * 30}`;
     }
@@ -41,17 +46,32 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
         setOnboardingSessionTokenCookie(onboardingSession.token);
     }, [updateCurrentScenario, updateCurrentStep, onboardingSession.token]);
 
-    const handleShowCurrentState: React.FC<JSX.Element> = () => {
-        console.log('Current Scenario:', currentScenario);
-        console.log('Current Step:', currentStep);
+    const renderGettingStartedActions = (): JSX.Element => {
+        if (!currentScenario && scenario) {
+            return (
+                <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300">
+                    Kom igang
+                </Link>
+            );
+        }
 
-        return (
-            <div className="mb-4 p-4 border border-gray-300 rounded bg-gray-50">
-                <h2 className="text-xl font-semibold mb-2">Nuværende Onboarding Status</h2>
-                <p><strong>Scenario:</strong> {currentScenario ? currentScenario.id : 'Ingen valgt'}</p>
-                <p><strong>Trin:</strong> {currentStep ? currentStep : 'Ingen valgt'}</p>
-            </div>
-        )
+        if (currentScenario && !scenario && currentStep != 'welcome') {
+            return (
+                <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: currentScenario.id })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300">
+                    Kom igang
+                </Link>
+            );
+        }
+
+        if (currentStep != 'welcome') {
+            return (
+                <Link href={route(`onboarding.scenario.step`, { step: currentStep, scenario: currentScenario.id })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300">
+                    Fortsæt
+                </Link>
+            );
+        }
+
+        return <span className="text-gray-500">Vælg venligst en situation for at fortsætte</span>;
     }
 
     return (
@@ -87,66 +107,78 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                 </div>
                                 <div className="w-full pl-0 md:pl-0">
                                     {
-                                        handleShowCurrentState()
+                                        currentStep != 'welcome' ? (
+                                            <>
+                                                <div className="mb-4 p-4 border border-gray-300 rounded bg-gray-50">
+                                                    <h2 className="text-xl font-semibold mb-2">Nuværende Onboarding Status</h2>
+                                                    <p><strong>Scenario:</strong> {currentScenario ? currentScenario.id : 'Ingen valgt'}</p>
+                                                    <p><strong>Trin:</strong> {currentStep ? currentStep : 'Ingen valgt'}</p>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <ul className="my-4 list-none flex gap-4 pl-0 flex-col">
+                                                    <li className='flex items-center'>
+                                                        <RadioButton
+                                                            type="radio"
+                                                            name="onboarding_scenario"
+                                                            id="onboarding-scenario-abortion"
+                                                            className="ml-4"
+                                                            checked={scenario === 'abortion'}
+                                                            onChange={() => handleScenarioChange('abortion')}
+                                                        />
+                                                        <label htmlFor="onboarding-scenario-abortion" className="ml-4 text-xl">
+                                                            <span className="sr-only">Jeg står midt i en abort / har oplevet en abort</span>
+                                                            Jeg står midt i en abort / har oplevet en abort
+                                                        </label>
+                                                    </li>
+                                                    <li className='flex items-center'>
+                                                        <RadioButton
+                                                            type="radio"
+                                                            name="onboarding_scenario"
+                                                            id="onboarding-scenario-stillbirth"
+                                                            className="ml-4"
+                                                            checked={scenario === 'stillbirth'}
+                                                            onChange={() => handleScenarioChange('stillbirth')}
+                                                        />
+                                                        <label htmlFor="onboarding-scenario-stillbirth" className="ml-4 text-xl">
+                                                            <span className="sr-only">Er blevet forælder til et dødfødt barn</span>
+                                                            Er blevet forælder til et dødfødt barn
+                                                        </label>
+                                                    </li>
+                                                    <li className='flex items-center'>
+                                                        <RadioButton
+                                                            type="radio"
+                                                            name="onboarding_scenario"
+                                                            id="onboarding-scenario-parents"
+                                                            className="ml-4"
+                                                            checked={scenario === 'parenting'}
+                                                            onChange={() => handleScenarioChange('parenting')}
+                                                        />
+                                                        <label htmlFor="onboarding-scenario-parents" className="ml-4 text-xl">
+                                                            <span className="sr-only">Er blevet forælder til et rask barn</span>
+                                                            Er blevet forælder til et rask barn
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </>
+                                        )
                                     }
-                                    <ul className="my-4 list-none flex gap-4 pl-0 flex-col">
-                                        <li className='flex items-center'>
-                                            <RadioButton
-                                                type="radio"
-                                                name="onboarding_scenario"
-                                                id="onboarding-scenario-abortion"
-                                                className="ml-4"
-                                                checked={scenario === 'abortion'}
-                                                onChange={() => handleScenarioChange('abortion')}
-                                            />
-                                            <label htmlFor="onboarding-scenario-abortion" className="ml-4 text-xl">
-                                                <span className="sr-only">Jeg står midt i en abort / har oplevet en abort</span>
-                                                Jeg står midt i en abort / har oplevet en abort
-                                            </label>
-                                        </li>
-                                        <li className='flex items-center'>
-                                            <RadioButton
-                                                type="radio"
-                                                name="onboarding_scenario"
-                                                id="onboarding-scenario-stillbirth"
-                                                className="ml-4"
-                                                checked={scenario === 'stillbirth'}
-                                                onChange={() => handleScenarioChange('stillbirth')}
-                                            />
-                                            <label htmlFor="onboarding-scenario-stillbirth" className="ml-4 text-xl">
-                                                <span className="sr-only">Er blevet forælder til et dødfødt barn</span>
-                                                Er blevet forælder til et dødfødt barn
-                                            </label>
-                                        </li>
-                                        <li className='flex items-center'>
-                                            <RadioButton
-                                                type="radio"
-                                                name="onboarding_scenario"
-                                                id="onboarding-scenario-parents"
-                                                className="ml-4"
-                                                checked={scenario === 'parenting'}
-                                                onChange={() => handleScenarioChange('parenting')}
-                                            />
-                                            <label htmlFor="onboarding-scenario-parents" className="ml-4 text-xl">
-                                                <span className="sr-only">Er blevet forælder til et rask barn</span>
-                                                Er blevet forælder til et rask barn
-                                            </label>
-                                        </li>
-                                    </ul>
                                     <p className="text-left text-lg mt-8">
-                                        {
+                                        {renderGettingStartedActions()}
+                                        {/* {
                                             !scenario ? (
                                                 <>
                                                     <span className="text-gray-500 ms-4">Vælg venligst en situation for at fortsætte</span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300 ms-4">
+                                                    <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario})} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300 ms-4">
                                                         Kom igang
                                                     </Link>
                                                 </>
                                             )
-                                        }
+                                        } */}
                                     </p>
                                 </div>
                             </div>
