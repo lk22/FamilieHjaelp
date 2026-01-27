@@ -13,7 +13,7 @@ interface InactivityModalProps {
 
 export default function InactivityModal({ isOpen, closeModal }: InactivityModalProps) {
   return (
-    <Dialog open={isOpen} modal={true} onOpenChange={(open) => !open && closeModal?.()} modal={true}>
+    <Dialog open={isOpen} modal={true} onOpenChange={(open) => !open && closeModal?.()}>
       <DialogContent className='bg-blue-500'>
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold mb-4 text-white">Din session er paused</DialogTitle>

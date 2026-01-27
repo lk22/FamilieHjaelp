@@ -17,7 +17,6 @@ interface ProgressStepProps {
  * Now uses OnboardingContext for real-time state updates across all components.
  */
 export default function ProgressBar() {
-    // Get onboarding state from context - this will automatically update when state changes
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
     const steps = currentScenario ? currentScenario.steps : [];
@@ -48,6 +47,9 @@ export default function ProgressBar() {
 
         if (totalSteps === 0) return '0%';
 
+        // if all steps are completed, return the width to the last step
+        if (completedSteps === totalSteps) return '90%';
+
         const progressPercentage = (completedSteps / totalSteps) * 100;
         return `${progressPercentage}%`;
     }
@@ -56,8 +58,6 @@ export default function ProgressBar() {
         <>
             <div className="flex items-center relative">
                 {handleStepsList()}
-
-                {/* make step line here that is calculated correctly to have correct width instead of multiple lines */}
                 <div id="step-progress-line" className='step-progress-line' style={{ width: calculateProgressWidth() }}></div>
             </div>
         </>

@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 import { OnboardingState } from '@/state/OnboardingState_bak';
+import Confirmation from '../pages/home/onboarding/confirmation';
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -12,6 +13,29 @@ interface IStepProgress {
     in_progress: boolean;
     completed: boolean;
 }
+
+type ConfirmationFormattedValue = string | boolean | undefined;
+
+export function getConfirmationFormattedValue(value: ConfirmationFormattedValue): string {
+    if ( typeof value === 'boolean' && value === false ) {
+        value = 'Nej';
+    }
+
+    if ( typeof value === 'boolean' && value === true ) {
+        value = 'Ja';
+    }
+
+    if ( (typeof value === 'string' && value === '') || (value === undefined || value === '') ) {
+        value = 'Ingen svar givet';
+    }
+
+    if ( typeof value === 'string' && value !== '' ) {
+        value = value;
+    }
+
+    return value;
+}
+
 
 type IStepData = Record<string, unknown>;
 

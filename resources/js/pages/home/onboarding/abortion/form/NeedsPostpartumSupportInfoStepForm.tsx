@@ -12,6 +12,7 @@ type NeedsPostpartumSupportInfoStepFormProps = {
 export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }: NeedsPostpartumSupportInfoStepFormProps) {
   const [needsPostpartumSupportInfo, setNeedsPostpartumSupportInfo] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState } = useOnboarding();
   console.log({onboardingState})
@@ -26,23 +27,32 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
     event.preventDefault();
     setNeedsPostpartumSupportInfo(needsPostpartumSupportInfo);
 
+    setTimeout(() => {
+      setLoading(true)
+    }, 200);
+
     // Proceed to the next step or perform other actions
     handleStepSubmit({ needsPostpartumSupportInfo });
     setSubmitted(true);
 
-    router.get(route('onboarding.scenario.step', {
-      scenario: onboardingState.currentScenario,
-      step: 'seven'
-    }));
+    setTimeout(() => {
+      setLoading(true)
+      router.get(route('onboarding.scenario.step', {
+        scenario: onboardingState.currentScenario,
+        step: 'seven'
+      }));
+    }, 500);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
-          submitted ? (
+          isLoading ? (
           <>
-            <p className="mt-4 text-green-600">Tak! Du kan nu fortsætte til næste trin.</p>
+            <div className="inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+              <div className="loader ease-linear rounded-full border-8 border-t-8 border-blue-700 h-16 w-16"></div>
+            </div>
           </>
           ) : (
             <>

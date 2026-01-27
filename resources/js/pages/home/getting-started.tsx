@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, JSX } from 'react';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
@@ -19,7 +19,16 @@ interface OnboardingSessionProps {
 const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
     const { name } = usePage<SharedData>().props;
     const [ scenario, setScenario ] = useState<string | null>(null);
-    const { updateCurrentScenario, updateCurrentStep, onboardingState} = useOnboarding();
+    const {
+        updateCurrentScenario,
+        updateCurrentStep,
+        onboardingState,
+        getCurrentStep,
+        getCurrentScenario
+    } = useOnboarding();
+
+    const currentScenario = getCurrentScenario();
+    const currentStep = getCurrentStep();
 
     const setOnboardingSessionTokenCookie = (token: string) => {
         document.cookie = `onboarding_session_token=${token}; path=/; max-age=${60 * 60 * 24 * 30}`;
@@ -31,6 +40,19 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
         updateCurrentStep('one');
         setOnboardingSessionTokenCookie(onboardingSession.token);
     }, [updateCurrentScenario, updateCurrentStep, onboardingSession.token]);
+
+    const handleShowCurrentState: React.FC<JSX.Element> = () => {
+        console.log('Current Scenario:', currentScenario);
+        console.log('Current Step:', currentStep);
+
+        return (
+            <div className="mb-4 p-4 border border-gray-300 rounded bg-gray-50">
+                <h2 className="text-xl font-semibold mb-2">Nuværende Onboarding Status</h2>
+                <p><strong>Scenario:</strong> {currentScenario ? currentScenario.id : 'Ingen valgt'}</p>
+                <p><strong>Trin:</strong> {currentStep ? currentStep : 'Ingen valgt'}</p>
+            </div>
+        )
+    }
 
     return (
         <>
@@ -64,6 +86,9 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                     </div>
                                 </div>
                                 <div className="w-full pl-0 md:pl-0">
+                                    {
+                                        handleShowCurrentState()
+                                    }
                                     <ul className="my-4 list-none flex gap-4 pl-0 flex-col">
                                         <li className='flex items-center'>
                                             <RadioButton

@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import { Head } from '@inertiajs/react';
 import OnboardingTemplate from '@/pages/home/onboarding/template/onboarding-template';
-import StepForm from '@/pages/home/onboarding/abortion/form/step-form';
+import StepForm from '@/pages/home/onboarding/stillbirth/form/step-form';
 import { usePage } from '@inertiajs/react';
 import { type SharedData } from '@/types';
 import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';

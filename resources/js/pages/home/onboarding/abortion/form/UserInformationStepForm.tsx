@@ -64,10 +64,10 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
     }, 200)
 
     const submittedData: StepData = {
-      name,
-      age,
-      ageOfPartner,
-      gender,
+      name: name,
+      age: age,
+      ageOfPartner: ageOfPartner,
+      gender: gender,
     }
 
     // Proceed to the next step or perform other actions

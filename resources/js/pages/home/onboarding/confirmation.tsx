@@ -1,6 +1,8 @@
 import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
 import { router } from '@inertiajs/react';
 
+import { getConfirmationFormattedValue } from '@/lib/utils';
+
 
 interface OnboardingSessionProps {
   onboardingSession: {
@@ -41,7 +43,6 @@ const ConfirmationContent = () => {
     const scenario = getCurrentScenario();
 
     const step = scenario?.steps.find((step: any) => step.stepName === stepId);
-    const question = step?.question;
     const data = step?.data;
     const hasData = data && Object.keys(data).length > 0;
 
@@ -55,23 +56,7 @@ const ConfirmationContent = () => {
        <>
         {
           Object.entries(data).map(([key, value]) => {
-            let formattedValue;
-
-            if ( typeof value === 'boolean' && value === false ) {
-              formattedValue = 'Nej';
-            }
-
-            if ( typeof value === 'boolean' && value === true ) {
-              formattedValue = 'Ja';
-            }
-
-            if ( (typeof value === 'string' && value === '') || (formattedValue === undefined || formattedValue === '') ) {
-              formattedValue = 'Ingen svar givet';
-            }
-
-            if ( typeof value === 'string' && value !== '' ) {
-              formattedValue = value;
-            }
+            let formattedValue = getConfirmationFormattedValue(value);
 
             return (
               <div key={key} className="detail-item mt-2 text-xl">
@@ -89,7 +74,7 @@ const ConfirmationContent = () => {
       <div id="confirmation" className="bg-white p-8">
         <div className="container-fluid w-[1400px] mx-auto flex flex-col h-[1200px]">
           <div className="flex gap-16 items-center justify-center h-full">
-            <div className="w-5/12 flex flex-col justify-center items-start">
+            <div className="w-5/12 flex flex-col justify-center items-start animate animate-appear">
               <img
                   src={`/images/logo.svg`}
                   alt="Familiehjælp Illustration"

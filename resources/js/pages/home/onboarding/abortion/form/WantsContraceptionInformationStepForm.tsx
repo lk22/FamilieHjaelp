@@ -14,6 +14,7 @@ type WantsContraptionsInformationProps = {
 export default function WantsContraceptionInformationStepForm({ handleStepSubmit }: WantsContraptionsInformationProps) {
   const [wantsContraceptionInfo, setWantsContraceptionInfo] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState, getCurrentScenario } = useOnboarding();
   console.log({onboardingState})
@@ -31,14 +32,22 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
     event.preventDefault();
     setWantsContraceptionInfo(wantsContraceptionInfo);
 
+    setTimeout(() => {
+      setLoading(true)
+    }, 200);
+
     // Proceed to the next step or perform other actions
     handleStepSubmit({ wantsContraceptionInfo: data.wantsContraceptionInfo });
     setSubmitted(true);
 
-    router.get(route('onboarding.scenario.step', {
-      scenario: onboardingState.currentScenario,
-      step: 'six'
-    }));
+    setTimeout(() => {
+      setLoading(true)
+
+      router.get(route('onboarding.scenario.step', {
+        scenario: onboardingState.currentScenario,
+        step: 'six'
+      }));
+    }, 500);
   };
 
   /**
@@ -65,11 +74,13 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
-          submitted ? (
+          isLoading ? (
           <>
-            <p className="mt-4 text-green-600">Tak! Du kan nu fortsætte til næste trin.</p>
+            <div className="inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+              <div className="loader ease-linear rounded-full border-8 border-t-8 border-blue-700 h-16 w-16"></div>
+            </div>
           </>
           ) : (
             <>

@@ -14,6 +14,7 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [knowsConfidentialityRights, setKnowsConfidentialityRights] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
   const {onboardingSession} = usePage().props as any;
   console.log({onboardingSession})
 
@@ -43,7 +44,7 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
           submitted ? (
           <>

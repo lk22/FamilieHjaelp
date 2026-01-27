@@ -233,7 +233,7 @@
     top: 100%;
     left: 0;
     height: 4px;
-    background-color: var(--color-blue-950);
+    background-color: var(--color-blue-900);
     z-index: 1;
     transition: width 0.5s ease-in-out;
 }
@@ -246,5 +246,38 @@
     width: 100%;
     height: 4px;
     background-color: var(--color-blue-700);
-    animation: animate-completed 0.5s ease-in-out forwards;
+    /* animation: animate-completed 0.5s ease-in-out forwards; */
+}
+
+input[type="radio"]:checked + .radio-mark,
+input[type="checkbox"]:checked + .checkbox-mark {
+    height: 1rem;
+    width: 1rem;
+}
+
+input[type="radio"]:checked + .radio-mark::after {
+    background-color: #2C6DB6;
+}
+
+input[type="checkbox"]:checked + .checkbox-mark::after {
+    background-color: #2C6DB6;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    height: 2.5rem;
+    border: #2c6db6 1px solid;
+}
+
+/* Spinner animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
