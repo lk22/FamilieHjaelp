@@ -1,4 +1,4 @@
-import { useState, useCallback, JSX } from 'react';
+import { useState, useCallback, JSX, useEffect } from 'react';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
@@ -22,7 +22,6 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
     const {
         updateCurrentScenario,
         updateCurrentStep,
-        onboardingState,
         getCurrentStep,
         getCurrentScenario
     } = useOnboarding();
@@ -44,9 +43,12 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
         updateCurrentScenario(selectedScenario);
         updateCurrentStep('one');
         setOnboardingSessionTokenCookie(onboardingSession.token);
+
+        console.log(currentScenario, currentStep);
     }, [updateCurrentScenario, updateCurrentStep, onboardingSession.token]);
 
     const renderGettingStartedActions = (): JSX.Element => {
+        // if current scenario is not set in current state but scenario is selected
         if (!currentScenario && scenario) {
             return (
                 <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300">
@@ -55,23 +57,22 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
             );
         }
 
-        if (currentScenario && !scenario && currentStep != 'welcome') {
+        // if current scenario is set in current state but no scenario is selected
+        if (currentScenario && !scenario) {
+            // make sure the current step is not the welcome step
+            if ( currentStep === 'welcome' ) {
+                return <span className="text-gray-500">Vælg venligst en situation for at fortsætte</span>;
+            }
+
             return (
                 <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: currentScenario.id })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300">
-                    Kom igang
-                </Link>
-            );
-        }
-
-        if (currentStep != 'welcome') {
-            return (
-                <Link href={route(`onboarding.scenario.step`, { step: currentStep, scenario: currentScenario.id })} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300">
                     Fortsæt
                 </Link>
             );
         }
 
-        return <span className="text-gray-500">Vælg venligst en situation for at fortsætte</span>;
+        // render default message
+
     }
 
     return (
@@ -117,68 +118,77 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                             </>
                                         ) : (
                                             <>
-                                                <ul className="my-4 list-none flex gap-4 pl-0 flex-col">
-                                                    <li className='flex items-center'>
-                                                        <RadioButton
-                                                            type="radio"
-                                                            name="onboarding_scenario"
-                                                            id="onboarding-scenario-abortion"
-                                                            className="ml-4"
-                                                            checked={scenario === 'abortion'}
-                                                            onChange={() => handleScenarioChange('abortion')}
-                                                        />
-                                                        <label htmlFor="onboarding-scenario-abortion" className="ml-4 text-xl">
-                                                            <span className="sr-only">Jeg står midt i en abort / har oplevet en abort</span>
-                                                            Jeg står midt i en abort / har oplevet en abort
-                                                        </label>
-                                                    </li>
-                                                    <li className='flex items-center'>
-                                                        <RadioButton
-                                                            type="radio"
-                                                            name="onboarding_scenario"
-                                                            id="onboarding-scenario-stillbirth"
-                                                            className="ml-4"
-                                                            checked={scenario === 'stillbirth'}
-                                                            onChange={() => handleScenarioChange('stillbirth')}
-                                                        />
-                                                        <label htmlFor="onboarding-scenario-stillbirth" className="ml-4 text-xl">
-                                                            <span className="sr-only">Er blevet forælder til et dødfødt barn</span>
-                                                            Er blevet forælder til et dødfødt barn
-                                                        </label>
-                                                    </li>
-                                                    <li className='flex items-center'>
-                                                        <RadioButton
-                                                            type="radio"
-                                                            name="onboarding_scenario"
-                                                            id="onboarding-scenario-parents"
-                                                            className="ml-4"
-                                                            checked={scenario === 'parenting'}
-                                                            onChange={() => handleScenarioChange('parenting')}
-                                                        />
-                                                        <label htmlFor="onboarding-scenario-parents" className="ml-4 text-xl">
-                                                            <span className="sr-only">Er blevet forælder til et rask barn</span>
-                                                            Er blevet forælder til et rask barn
-                                                        </label>
-                                                    </li>
-                                                </ul>
                                             </>
                                         )
                                     }
+                                    <ul className="my-4 list-none flex gap-4 pl-0 flex-col">
+                                        <li className='flex items-center'>
+                                            <RadioButton
+                                                type="radio"
+                                                name="onboarding_scenario"
+                                                id="onboarding-scenario-abortion"
+                                                className="ml-4"
+                                                checked={scenario === 'abortion'}
+                                                onChange={() => handleScenarioChange('abortion')}
+                                            />
+                                            <label htmlFor="onboarding-scenario-abortion" className="ml-4 text-xl">
+                                                <span className="sr-only">Jeg står midt i en abort / har oplevet en abort</span>
+                                                Jeg står midt i en abort / har oplevet en abort
+                                            </label>
+                                        </li>
+                                        <li className='flex items-center'>
+                                            <RadioButton
+                                                type="radio"
+                                                name="onboarding_scenario"
+                                                id="onboarding-scenario-stillbirth"
+                                                className="ml-4"
+                                                checked={scenario === 'stillbirth'}
+                                                onChange={() => handleScenarioChange('stillbirth')}
+                                            />
+                                            <label htmlFor="onboarding-scenario-stillbirth" className="ml-4 text-xl">
+                                                <span className="sr-only">Er blevet forælder til et dødfødt barn</span>
+                                                Er blevet forælder til et dødfødt barn
+                                            </label>
+                                        </li>
+                                        <li className='flex items-center'>
+                                            <RadioButton
+                                                type="radio"
+                                                name="onboarding_scenario"
+                                                id="onboarding-scenario-parents"
+                                                className="ml-4"
+                                                checked={scenario === 'parenting'}
+                                                onChange={() => handleScenarioChange('parenting')}
+                                            />
+                                            <label htmlFor="onboarding-scenario-parents" className="ml-4 text-xl">
+                                                <span className="sr-only">Er blevet forælder til et rask barn</span>
+                                                Er blevet forælder til et rask barn
+                                            </label>
+                                        </li>
+                                    </ul>
                                     <p className="text-left text-lg mt-8">
-                                        {renderGettingStartedActions()}
-                                        {/* {
+                                        {/* {renderGettingStartedActions()} */}
+                                        {
                                             !scenario ? (
                                                 <>
                                                     <span className="text-gray-500 ms-4">Vælg venligst en situation for at fortsætte</span>
                                                 </>
                                             ) : (
                                                 <>
+                                                    {
+                                                        currentScenario && currentStep != 'welcome' ? (
+                                                            <Link href={route(`onboarding.scenario.step`, { step: currentStep, scenario: currentScenario.id})} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300">
+                                                                Fortsæt
+                                                            </Link>
+                                                        ) : (
+                                                            <></>
+                                                        )
+                                                    }
                                                     <Link href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario})} className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300 ms-4">
                                                         Kom igang
                                                     </Link>
                                                 </>
                                             )
-                                        } */}
+                                        }
                                     </p>
                                 </div>
                             </div>
@@ -210,6 +220,7 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
 }
 
 export default function GettingStarted({onboardingSession}: OnboardingSessionProps) {
+    console.log('Onboarding Session:', onboardingSession);
     return (
         <OnboardingProvider initialSession={onboardingSession}>
             <GettingStartedContent onboardingSession={onboardingSession}/>

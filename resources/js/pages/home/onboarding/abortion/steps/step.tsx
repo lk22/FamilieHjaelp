@@ -6,6 +6,8 @@ import { usePage } from '@inertiajs/react';
 import { type SharedData } from '@/types';
 import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
 
+import { logState } from '@/lib/utils';
+
 interface SessionProps extends SharedData {
     currentStep: string;
     scenario: string;

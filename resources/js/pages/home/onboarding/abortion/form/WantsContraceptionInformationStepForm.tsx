@@ -6,6 +6,7 @@ import { useForm } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
+import { logState } from '@/lib/utils'
 
 type WantsContraptionsInformationProps = {
   handleStepSubmit: (data: {wantsContraceptionInfo: boolean}) => void;
@@ -17,16 +18,11 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState, getCurrentScenario } = useOnboarding();
-  console.log({onboardingState})
-
-  const { data, setData, post, processing, errors } = useForm<{
-    wantsContraceptionInfo: boolean;
-  }>({
-    wantsContraceptionInfo: false,
-  });
 
   const currentScenario = getCurrentScenario();
   const currentStep = currentScenario.steps[4]; // Fifth step (index 4)
+
+  logState('WantsContraceptionInformationStepForm', { onboardingState, currentScenario, wantsContraceptionInfo });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -37,7 +33,7 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
     }, 200);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ wantsContraceptionInfo: data.wantsContraceptionInfo });
+    handleStepSubmit({ wantsContraceptionInfo: wantsContraceptionInfo === 'true' });
     setSubmitted(true);
 
     setTimeout(() => {
@@ -89,8 +85,8 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
                 <Checkbox
                   id="wants-contraception-info"
                   className="me-4"
-                  checked={data.wantsContraceptionInfo}
-                  onCheckedChange={(checked) => setData('wantsContraceptionInfo', Boolean(checked))}>
+                  checked={wantsContraceptionInfo === 'true'}
+                  onCheckedChange={(checked) => setWantsContraceptionInfo(checked ? 'true' : 'false')}>
                 </Checkbox>
                 <label htmlFor="wants-contraception-info" className="text-lg">Ja jeg ønsker præventionsvejledning</label>
               </div>
@@ -98,8 +94,8 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
                 <Checkbox
                   id="wants-contraception-info"
                   className="me-4"
-                  checked={!data.wantsContraceptionInfo}
-                  onCheckedChange={(checked) => setData('wantsContraceptionInfo', Boolean(checked))}>
+                  checked={wantsContraceptionInfo === 'false'}
+                  onCheckedChange={(checked) => setWantsContraceptionInfo(checked ? 'false' : 'true')}>
                 </Checkbox>
                 <label htmlFor="wants-contraception-info" className="text-lg">Nej jeg ønsker ikke præventionsvejledning</label>
               </div>
@@ -112,7 +108,7 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
+                disabled={isLoading}
               >
                 Næste
               </Button>

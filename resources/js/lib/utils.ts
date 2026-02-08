@@ -145,3 +145,18 @@ export function useQueryParams<T extends Record<string, unknown> = Record<string
         getQueryParam,
     };
 }
+
+export function logState(
+    label: string,
+    state: unknown
+): void {
+    if (process.env.NODE_ENV === 'production') {
+        console.warn(`Hey silly, State logging is disabled in production.`);
+        return;
+    }
+    // log where the state change is happening
+    console.groupCollapsed(`%c${label}:`, 'color: #4CAF50; font-weight: bold;');
+    console.log("Current state value:", state);
+    console.trace(`State change detected: ${label}`);
+    console.groupEnd();
+}

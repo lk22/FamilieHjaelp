@@ -266,9 +266,10 @@ input[type="checkbox"]:checked + .checkbox-mark::after {
 input[type="text"],
 input[type="email"],
 input[type="password"],
+input[type="number"],
 textarea,
 select {
-    height: 2.5rem;
+    height: 3.5rem;
     border: #2c6db6 1px solid;
 }
 

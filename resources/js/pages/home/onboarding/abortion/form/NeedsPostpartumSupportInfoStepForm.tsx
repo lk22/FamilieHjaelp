@@ -5,6 +5,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useForm, router } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
+import { logState } from '@/lib/utils'
+
 type NeedsPostpartumSupportInfoStepFormProps = {
   handleStepSubmit: (data: {needsPostpartumSupportInfo: string}) => void;
 }
@@ -15,13 +17,7 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState } = useOnboarding();
-  console.log({onboardingState})
-
-  const { data, setData, post, processing, errors } = useForm<{
-    needsPostpartumSupportInfo: string;
-  }>({
-    needsPostpartumSupportInfo: '',
-  });
+  logState('NeedsPostpartumSupportInfoStepForm', { onboardingState, needsPostpartumSupportInfo });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -59,8 +55,8 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
               <div className="check-field flex items-center">
                 <Checkbox
                   id="needs_postpartum_support_info"
-                  value={data.needsPostpartumSupportInfo}
-                  onChange={() => setData('needsPostpartumSupportInfo', 'true')}
+                  checked={needsPostpartumSupportInfo === 'true'}
+                  onChange={() => setNeedsPostpartumSupportInfo('true')}
                   className="mt-2 mb-4"
                 />
                 <label htmlFor="needs_postpartum_support_info" className="text-lg ml-4">
@@ -70,8 +66,8 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
               <div className="check-field flex items-center">
                 <Checkbox
                   id="needs_postpartum_support_info"
-                  value={data.needsPostpartumSupportInfo}
-                  onChange={() => setData('needsPostpartumSupportInfo', 'false')}
+                  value={needsPostpartumSupportInfo}
+                  onChange={() => setNeedsPostpartumSupportInfo('false')}
                   className="mt-2 mb-4"
                 />
                 <label htmlFor="needs_postpartum_support_info" className='text-lg ml-4'>
@@ -82,7 +78,7 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
+                disabled={isLoading}
               >
                 Næste
               </Button>

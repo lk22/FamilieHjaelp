@@ -6,6 +6,8 @@ import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
 import { useForm, router, usePage } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
+import { logState } from '@/lib/utils'
+
 type KnowsConfidentialityRightsStepFormProps = {
   handleStepSubmit: (data: {knowsConfidentialityRights: string}) => void;
 }
@@ -19,15 +21,15 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
   console.log({onboardingSession})
 
   const { onboardingState } = useOnboarding();
-  console.log({onboardingState})
+  logState('KnowsConfidentialityRightsStepForm', { onboardingState, knowsConfidentialityRights });
 
-  const { data, setData, post, processing, errors } = useForm<{
-    knowsConfidentialityRights: string;
-    onboardingSession: any;
-  }>({
-    knowsConfidentialityRights: '',
-    onboardingSession: onboardingSession,
-  });
+  // const { data, setData, post, processing, errors } = useForm<{
+  //   knowsConfidentialityRights: string;
+  //   onboardingSession: any;
+  // }>({
+  //   knowsConfidentialityRights: '',
+  //   onboardingSession: onboardingSession,
+  // });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -36,8 +38,6 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
     // Proceed to the next step or perform other actions
     handleStepSubmit({ knowsConfidentialityRights });
     setSubmitted(true);
-
-    console.log({data});
 
     setIsOpen(true);
   };
@@ -55,30 +55,30 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
               <div className="check-field flex items-center">
                 <Checkbox
                   id="knows_confidentiality_rights"
-                  value={data.knowsConfidentialityRights}
-                  onChange={() => setData('knowsConfidentialityRights', data.knowsConfidentialityRights)}
+                  value={knowsConfidentialityRights}
+                  onChange={() => setKnowsConfidentialityRights(knowsConfidentialityRights)}
                   className="mt-2 mb-4"
                 />
                 <label htmlFor="knows_confidentiality_rights" className='text-lg ml-4'>
-                  Ja, jeg ønsker information om efterfødselsstøtte
+                  Ja, jeg kender mine rettigheder i forhold til fortrolighed
                 </label>
               </div>
               <div className="check-field flex items-center">
                 <Checkbox
                   id="knows_confidentiality_rights"
-                  value={data.knowsConfidentialityRights}
-                  onChange={() => setData('knowsConfidentialityRights', data.knowsConfidentialityRights)}
+                  value={knowsConfidentialityRights}
+                  onChange={() => setKnowsConfidentialityRights(knowsConfidentialityRights)}
                   className="mt-2 mb-4"
                 />
                 <label htmlFor="knows_confidentiality_rights" className='text-lg ml-4'>
-                  Nej, jeg har ikke brug for information om efterfødselsstøtte
+                  Nej, jeg kender ikke mine rettigheder i forhold til fortrolighed
                 </label>
               </div>
 
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
+                disabled={isLoading}
               >
                 Næste
               </Button>

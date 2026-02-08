@@ -7,6 +7,7 @@ import { useForm } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
+import { logState } from '@/lib/utils'
 
 type NeedsInterpeterStepProps = {
   handleStepSubmit: (data: {needsInterpreter: boolean}) => void;
@@ -18,24 +19,19 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState } = useOnboarding();
-  console.log({onboardingState})
 
-  const { data, setData, processing } = useForm<{
-    needsInterpreter: boolean;
-  }>({
-    needsInterpreter: false,
-  });
+  logState('NeedsInterpreterStepForm', { onboardingState, needsInterpreter });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    setneedsInterpreter(data.needsInterpreter);
+    setneedsInterpreter(needsInterpreter);
 
     setTimeout(() => {
       setLoading(true)
     }, 200);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ needsInterpreter: data.needsInterpreter });
+    handleStepSubmit({ needsInterpreter: needsInterpreter });
     setSubmitted(true);
 
     setTimeout(() => {
@@ -63,8 +59,8 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
             <div className="flex items-center">
                 <Checkbox
                   id="needs-translator"
-                  checked={data.needsInterpreter}
-                  onCheckedChange={(checked) => setData('needsInterpreter', Boolean(checked))}
+                  checked={needsInterpreter}
+                  onCheckedChange={(checked) => setneedsInterpreter(Boolean(checked))}
                   className="mt-2 mb-4"
                 >
                   Ja, jeg har brug for en tolk
@@ -76,8 +72,8 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
             <div className="flex items-center">
                 <Checkbox
                   id="needs-translator"
-                  checked={!data.needsInterpreter}
-                  onCheckedChange={(checked) => setData('needsInterpreter', !Boolean(checked))}
+                  checked={!needsInterpreter}
+                  onCheckedChange={(checked) => setneedsInterpreter(!Boolean(checked))}
                   className="mt-2 mb-4"
                 >
                   Nej jeg har ikke brug for en tolk
@@ -89,7 +85,6 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
               >
                 Næste
               </Button>

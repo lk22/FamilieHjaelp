@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useForm } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
+import { logState } from '@/lib/utils'
 
 type StepData = {
   name: string;
@@ -22,11 +22,20 @@ type UserInformationProps = {
   }) => void;
 }
 
+type InformationStepStateProperties = {
+  name: string;
+  age: string;
+  ageOfPartner: string;
+  gender: string;
+}
+
 export default function UserInformationStepForm({ handleStepSubmit }: UserInformationProps) {
-  const [name, setName] = useState<string>('');
-  const [age, setAge] = useState<string>('');
-  const [gender, setGender] = useState<string>('');
-  const [ageOfPartner, setAgeOfPartner] = useState<string>('');
+  const [userInfoState, setUserInfoState] = useState<InformationStepStateProperties>({
+    name: '',
+    age: '',
+    ageOfPartner: '',
+    gender: '',
+  });
   const [step, setStep] = useState<string>('one');
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -35,6 +44,8 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
 
   const currentScenario = getCurrentScenario();
 
+  logState('UserInformationStepForm', { onboardingState, currentScenario, userInfoState });
+
   // TODO: this needs fix
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
@@ -42,18 +53,6 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   const currentAge = currentStep?.data.age || '';
   const currentAgeOfPartner = currentStep?.data.ageOfPartner || '';
   const currentGender = currentStep?.data.gender || '';
-
-  const { data, setData, post, processing, errors } = useForm<{
-    name: string;
-    age: string;
-    ageOfPartner: string;
-    gender: string;
-  }>({
-    name: '',
-    age: '',
-    ageOfPartner: '',
-    gender: ''
-  });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -64,10 +63,10 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
     }, 200)
 
     const submittedData: StepData = {
-      name: name,
-      age: age,
-      ageOfPartner: ageOfPartner,
-      gender: gender,
+      name: userInfoState.name,
+      age: userInfoState.age,
+      ageOfPartner: userInfoState.ageOfPartner,
+      gender: userInfoState.gender,
     }
 
     // Proceed to the next step or perform other actions
@@ -96,14 +95,15 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
             ) : (
               <>
                 <input type="hidden" name="step" value={step} />
-                  <label htmlFor="name" className="block mt-4 mb-2 font-semibold text-gray-700 ">
+                  <label htmlFor="name" className="block mt-4 mb-2 font-semibold text-gray-700">
                     Hvad er dit navn ?
                   </label>
                   <Input
                     id="name"
                     type="text"
-                    value={name || currentName}
-                    onChange={(e) => setName(e.target.value)}
+                    className='mt-2 mb-4 -ml-px h-32'
+                    value={userInfoState.name || currentName}
+                    onChange={(e) => setUserInfoState({...userInfoState, name: e.target.value})}
                     required
                   />
                   <label htmlFor="gender" className="block mt-4 mb-2 font-semibold text-gray-700">
@@ -112,8 +112,8 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                   <select
                     id="gender"
                     className="mt-2 mb-4 p-2 border border-gray-300 rounded w-full"
-                    value={gender || currentGender}
-                    onChange={(e) => setGender(e.target.value)}
+                    value={userInfoState.gender || currentGender}
+                    onChange={(e) => setUserInfoState({...userInfoState, gender: e.target.value})}
                     required
                   >
                     <option value="">Vælg køn</option>
@@ -127,23 +127,23 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                   <Input
                     id="age"
                     type="text"
-                    value={age || currentAge}
-                    onChange={(e) => setAge(e.target.value)}
+                    value={userInfoState.age || currentAge}
+                    onChange={(e) => setUserInfoState({...userInfoState, age: e.target.value})}
                     required
+                    className='mt-2 mb-4 h-16'
                   />
                   {
-                    gender == "male" && (
+                    userInfoState.gender == "male" && (
                       <>
-
-                      <p className="mt-4 font-bold">Vi skal kende din alder på din partner, da din partner skal i gennem flere ting og processer.</p>
+                        <p className="mt-4 font-bold">Vi skal kende din alder på din partner, da din partner skal i gennem flere ting og processer.</p>
                         <label htmlFor="age" className="block mt-1 mb-2 font-medium text-gray-700">
                           Hvor gammel er din partner ?
                         </label>
                         <Input
                           id="age"
                           type="text"
-                          value={ageOfPartner || currentAgeOfPartner}
-                          onChange={(e) => setAgeOfPartner(e.target.value)}
+                          value={userInfoState.ageOfPartner || currentAgeOfPartner}
+                          onChange={(e) => setUserInfoState({...userInfoState, ageOfPartner: e.target.value})}
                           required
                         />
                       </>
@@ -152,7 +152,6 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                   <Button
                     type="submit"
                     className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                    disabled={processing}
                   >
                     Næste
                   </Button>

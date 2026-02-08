@@ -7,6 +7,7 @@ import { useForm } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
+import { logState } from '@/lib/utils'
 
 type WantsSupportConversationStepProps = {
   handleStepSubmit: (data: {wantsSupportConversation: boolean}) => void;
@@ -18,24 +19,19 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState } = useOnboarding();
-  console.log({onboardingState})
 
-  const { data, setData, processing } = useForm<{
-    wantsSupportConversation: boolean;
-  }>({
-    wantsSupportConversation: null,
-  });
+  logState('WantsSupportConversationStepForm', { onboardingState, wantsSupportConversation });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    setWantsSupportConversation(data.wantsSupportConversation);
+    setWantsSupportConversation(wantsSupportConversation);
 
     setTimeout(() => {
       setLoading(true)
     }, 200);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ wantsSupportConversation: data.wantsSupportConversation });
+    handleStepSubmit({ wantsSupportConversation: wantsSupportConversation });
     setSubmitted(true);
 
     setTimeout(() => {
@@ -62,8 +58,8 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
             <div className="flex items-center">
                 <Checkbox
                   id="has_partner"
-                  checked={data.wantsSupportConversation}
-                  onCheckedChange={(checked) => setData('wantsSupportConversation', Boolean(checked))}
+                  checked={wantsSupportConversation}
+                  onCheckedChange={(checked) => setWantsSupportConversation(Boolean(checked))}
                   className="mt-2 mb-4"
                 >
                   Ja jeg ønsker en samtale med en støtteperson
@@ -75,8 +71,8 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
             <div className="flex items-center">
                 <Checkbox
                   id="signed"
-                  checked={!data.wantsSupportConversation}
-                  onCheckedChange={(checked) => setData('wantsSupportConversation', !Boolean(checked))}
+                  checked={!wantsSupportConversation}
+                  onCheckedChange={(checked) => setWantsSupportConversation(!Boolean(checked))}
                   className="mt-2 mb-4"
                 >
                   Nej jeg ønsker ikke en samtale med en støtteperson
@@ -88,7 +84,7 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
+                disabled={isLoading}
               >
                 Næste
               </Button>

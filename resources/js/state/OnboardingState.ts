@@ -63,6 +63,7 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                         abortionWeeks: 0,
                         hasDoctorsPermit: null,
                         abortionMethod: null,
+                        hasBeenConsultedByDoctor: null,
                     }
                 },
                 {
