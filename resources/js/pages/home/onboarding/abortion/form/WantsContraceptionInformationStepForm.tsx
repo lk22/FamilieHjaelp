@@ -59,6 +59,10 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
           <p>
             Da du har angivet, at du ønsker præventionsvejledning, vil du modtage information om forskellige præventionsmetoder, deres effektivitet og hvordan du kan få adgang til dem efter din abort.
           </p>
+          {/*
+            make a liste of contraception guidance counselors
+          */}
+
         </>
       )
     } else {
