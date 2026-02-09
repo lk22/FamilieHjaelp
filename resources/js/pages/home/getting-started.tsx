@@ -170,7 +170,7 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                                         {
                                             !scenario ? (
                                                 <>
-                                                    <span className="text-gray-500 ms-4">Vælg venligst en situation for at fortsætte</span>
+                                                    <span className="text-gray-500 ms-4">Vælg en situation for at fortsætte</span>
                                                 </>
                                             ) : (
                                                 <>
