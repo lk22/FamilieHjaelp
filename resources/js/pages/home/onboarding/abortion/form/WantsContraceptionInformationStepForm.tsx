@@ -2,7 +2,6 @@ import { JSX, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { useForm } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
@@ -55,15 +54,25 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
   const handleWantsContraceptionInfo = (abortionMethod: string): JSX.Element => {
     if (wantsContraceptionInfo) {
       return (
-        <>
-          <p>
-            Da du har angivet, at du ønsker præventionsvejledning, vil du modtage information om forskellige præventionsmetoder, deres effektivitet og hvordan du kan få adgang til dem efter din abort.
-          </p>
-          {/*
-            make a liste of contraception guidance counselors
-          */}
-
-        </>
+        <div>
+          Her er en liste over præventionsmetoder du kan benytte.
+          <div className="mt-4 p-4 border border-gray-300 rounded bg-gray-50">
+            <ul className="list-disc list-inside">
+              <li>P-piller</li>
+              <li>Minispiral</li>
+              <li>Vaginalring</li>
+              <li>P-Sprøjte</li>
+              <li>P-Stav</li>
+              <li>P-Plaster</li>
+              <li>Spiral</li>
+              <li>Hormonspiral</li>
+              <li>Kondom</li>
+              <li>Pessar</li>
+              <li>Sikre perioder</li>
+              <li>Nødprævention (fortrydelsespille)</li>
+            </ul>
+          </div>
+        </div>
       )
     } else {
       return (
@@ -107,9 +116,9 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
               </div>
             </div>
               {wantsContraceptionInfo && (
-                <p className="mt-2 text-gray-700">
+                <>
                   {handleWantsContraceptionInfo(wantsContraceptionInfo)}
-                </p>
+                </>
               )}
               <Button
                 type="submit"
