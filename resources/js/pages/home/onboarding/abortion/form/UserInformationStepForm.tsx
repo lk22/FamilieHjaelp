@@ -121,26 +121,27 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                     <option value="male">Mand</option>
                     <option value="other">Andet</option>
                   </select>
-                  <label htmlFor="age" className="block mt-4 mb-2 font-semibold text-gray-700">
+                  <label htmlFor="yourAge" className="block mt-4 mb-2 font-semibold text-gray-700">
                     Hvor gammel er du ?
                   </label>
                   <Input
-                    id="age"
+                    id="yourAge"
                     type="text"
                     value={userInfoState.age || currentAge}
                     onChange={(e) => setUserInfoState({...userInfoState, age: e.target.value})}
                     required
+                    name='age'
                     className='mt-2 mb-4 h-16'
                   />
                   {
                     userInfoState.gender == "male" && (
                       <>
                         <p className="mt-4 font-bold">Vi skal kende din alder på din partner, da din partner skal i gennem flere ting og processer.</p>
-                        <label htmlFor="age" className="block mt-1 mb-2 font-medium text-gray-700">
+                        <label htmlFor="ageOfPartner" className="block mt-1 mb-2 font-medium text-gray-700">
                           Hvor gammel er din partner ?
                         </label>
                         <Input
-                          id="age"
+                          id="ageOfPartner"
                           type="text"
                           value={userInfoState.ageOfPartner || currentAgeOfPartner}
                           onChange={(e) => setUserInfoState({...userInfoState, ageOfPartner: e.target.value})}

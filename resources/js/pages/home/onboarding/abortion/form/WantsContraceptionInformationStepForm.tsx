@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -20,7 +20,7 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
   const { onboardingState, getCurrentScenario } = useOnboarding();
 
   const currentScenario = getCurrentScenario();
-  const currentStep = currentScenario.steps[4]; // Fifth step (index 4)
+  //const currentStep = currentScenario?.steps[4]; // Fifth step (index 4)
 
   logState('WantsContraceptionInformationStepForm', { onboardingState, currentScenario, wantsContraceptionInfo });
 
@@ -52,11 +52,13 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
    * @param abortionMethod string
    * @returns
    */
-  const handleWantsContraceptionInfo = (abortionMethod: string) => {
+  const handleWantsContraceptionInfo = (abortionMethod: string): JSX.Element => {
     if (wantsContraceptionInfo) {
       return (
         <>
-
+          <p>
+            Da du har angivet, at du ønsker præventionsvejledning, vil du modtage information om forskellige præventionsmetoder, deres effektivitet og hvordan du kan få adgang til dem efter din abort.
+          </p>
         </>
       )
     } else {

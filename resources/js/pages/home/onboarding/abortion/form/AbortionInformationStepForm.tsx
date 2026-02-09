@@ -17,7 +17,7 @@ type AbortionInformationStepProps = {
 }
 
 type AbortionDataProps = {
-  abortionWeeks: string;
+  abortionWeeks: number;
   hasDoctorsPermit: boolean;
   abortionMethod: string;
   hasBeenConsultedByDoctor?: boolean
@@ -25,7 +25,7 @@ type AbortionDataProps = {
 
 export default function AbortionInformationStepForm({ handleStepSubmit }: AbortionInformationStepProps) {
   const [abortionInfoState, setAbortionInfoState] = useState<AbortionDataProps>({
-    abortionWeeks: '',
+    abortionWeeks: 0,
     hasDoctorsPermit: false,
     abortionMethod: '',
     hasBeenConsultedByDoctor: false
@@ -41,15 +41,15 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
   const currentAbortionMethodValue = currentStep?.data.abortionMethod;
   const currentHasBeenConsultedByDoctorValue = currentStep?.data.hasBeenConsultedByDoctor;
 
-  logState('AbortionInformationStepForm', { onboardingState, currentScenario, abortionInfoState });
+  logState('AbortionInformationStepFormProps', { onboardingState, currentScenario, abortionInfoState });
 
   const firstStep = currentScenario?.steps[0];
-  const gender = firstStep.data.gender;
+  const gender = firstStep?.data.gender;
 
   const handleWeekNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value === '' || (Number(value) >= 1 && Number(value) <= 24)) {
-      setAbortionInfoState({ ...abortionInfoState, abortionWeeks: value });
+      setAbortionInfoState({ ...abortionInfoState, abortionWeeks: Number(value) });
     }
   }
 
@@ -111,7 +111,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                   className="w-6/12 mt-0 mb-2 border-gray-300 rounded"
                 />
                 <div className="step-field -mt-6">
-                  <label htmlFor="abortion-method">
+                  <label htmlFor="abortion-method" id="abortion-method-label">
                     Hvilken metode ønsker du at benytte til din abort
                   </label>
                   <select
@@ -128,7 +128,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                 </div>
                 <div className="change-info-note mb-4 w-full">
                   {
-                    abortionInfoState.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22 && (
+                    (abortionInfoState.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22) && (
                       <p className="text-lg text-red-600 font-bold">
                         Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad.
                       </p>
@@ -138,13 +138,13 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
               </div>
             </div>
               <div className="step-field mt-2">
-                <label htmlFor="has-been-consulted-by-doctor">
+                <label htmlFor="has-been-consulted-by-doctor" id="has-been-consulted-by-doctor-label">
                   Har du været til konsultation hos en læge i forbindelse med din abort?
                 </label>
                 <div className="check-item mt-2">
                   <input
                     type="radio"
-                    id="has-been-consulted-by-doctor-yes"
+                    id="has-been-consulted-by-doctor"
                     value="1"
                     checked={abortionInfoState.hasBeenConsultedByDoctor === true || currentHasBeenConsultedByDoctorValue === true}
                     onChange={() => setAbortionInfoState({...abortionInfoState, hasBeenConsultedByDoctor: true})}
@@ -157,7 +157,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                 <div className="check-item mt-2">
                   <input
                     type="radio"
-                    id="has-been-consulted-by-doctor-no"
+                    id="has-been-consulted-by-doctor"
                     value="0"
                     checked={abortionInfoState.hasBeenConsultedByDoctor === false || currentHasBeenConsultedByDoctorValue === false}
                     onChange={() => setAbortionInfoState({...abortionInfoState, hasBeenConsultedByDoctor: false})}

@@ -154,6 +154,10 @@ export function logState(
         console.warn(`Hey silly, State logging is disabled in production.`);
         return;
     }
+
+    if (process.env.NODE_ENV === 'test') {
+        return;
+    }
     // log where the state change is happening
     console.groupCollapsed(`%c${label}:`, 'color: #4CAF50; font-weight: bold;');
     console.log("Current state value:", state);

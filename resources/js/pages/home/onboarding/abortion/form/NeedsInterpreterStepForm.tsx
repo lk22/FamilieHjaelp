@@ -59,27 +59,29 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
             <div className="flex items-center">
                 <Checkbox
                   id="needs-translator"
+                  name='needs-translator'
                   checked={needsInterpreter}
                   onCheckedChange={(checked) => setneedsInterpreter(Boolean(checked))}
                   className="mt-2 mb-4"
                 >
                   Ja, jeg har brug for en tolk
                 </Checkbox>
-                <Label htmlFor="needs" className="ml-2 text-lg">
+                <Label htmlFor="needs-translator" className="ml-2 text-lg">
                   Ja, jeg har brug for en tolk
                 </Label>
             </div>
             <div className="flex items-center">
                 <Checkbox
-                  id="needs-translator"
+                  id="needs-translator-no"
+                  name='needs-translator'
                   checked={!needsInterpreter}
                   onCheckedChange={(checked) => setneedsInterpreter(!Boolean(checked))}
                   className="mt-2 mb-4"
                 >
-                  Nej jeg har ikke brug for en tolk
+                  Nej, jeg har ikke brug for en tolk
                 </Checkbox>
-                <Label htmlFor="needs" className="ml-2 text-lg">
-                  Nej jeg har ikke brug for en tolk
+                <Label htmlFor="needs-translator" className="ml-2 text-lg">
+                  Nej, jeg har ikke brug for en tolk
                 </Label>
             </div>
               <Button

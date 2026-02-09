@@ -65,3 +65,12 @@ Object.defineProperty(window, 'localStorage', {
   },
   writable: true,
 })
+
+// Mock ResizeObserver for Radix UI components in JSDOM
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+vi.stubGlobal('ResizeObserver', ResizeObserverMock);
