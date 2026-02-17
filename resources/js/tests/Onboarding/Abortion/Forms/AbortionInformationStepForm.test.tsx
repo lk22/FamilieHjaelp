@@ -21,8 +21,8 @@ describe('AbortionInformationStepForm', () => {
   test('renders the form with correct input fields and submit button', () => {
       render(
         <OnboardingProvider>
-              <AbortionInformationStepForm handleStepSubmit={() => {}} />
-          </OnboardingProvider>
+            <AbortionInformationStepForm handleStepSubmit={() => {}} />
+        </OnboardingProvider>
       )
 
       const weekNumberLabel = /Hvor mange uger er din partner i graviditeten ?/i;

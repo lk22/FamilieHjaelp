@@ -14,7 +14,7 @@ type KnowsConfidentialityRightsStepFormProps = {
 
 export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }: KnowsConfidentialityRightsStepFormProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [knowsConfidentialityRights, setKnowsConfidentialityRights] = useState<string>('');
+  const [knowsConfidentialityRights, setKnowsConfidentialityRights] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const {onboardingSession} = usePage().props as any;
@@ -36,7 +36,7 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
     setKnowsConfidentialityRights(knowsConfidentialityRights);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ knowsConfidentialityRights });
+    handleStepSubmit({ knowsConfidentialityRights: String(knowsConfidentialityRights) });
     setSubmitted(true);
 
     setIsOpen(true);
@@ -55,8 +55,9 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
               <div className="check-field flex items-center">
                 <Checkbox
                   id="knows_confidentiality_rights"
-                  value={knowsConfidentialityRights}
-                  onChange={() => setKnowsConfidentialityRights(knowsConfidentialityRights)}
+                  name="knows_confidentiality_rights"
+                  checked={knowsConfidentialityRights}
+                  onCheckedChange={(checked) => setKnowsConfidentialityRights(Boolean(checked))}
                   className="mt-2 mb-4"
                 />
                 <label htmlFor="knows_confidentiality_rights" className='text-lg ml-4'>
@@ -66,8 +67,9 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
               <div className="check-field flex items-center">
                 <Checkbox
                   id="knows_confidentiality_rights"
-                  value={knowsConfidentialityRights}
-                  onChange={() => setKnowsConfidentialityRights(knowsConfidentialityRights)}
+                  name="knows_confidentiality_rights"
+                  checked={!knowsConfidentialityRights}
+                  onCheckedChange={(checked) => setKnowsConfidentialityRights(!Boolean(checked))}
                   className="mt-2 mb-4"
                 />
                 <label htmlFor="knows_confidentiality_rights" className='text-lg ml-4'>

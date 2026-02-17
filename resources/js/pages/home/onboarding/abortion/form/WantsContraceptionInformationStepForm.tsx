@@ -52,34 +52,24 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
    * @returns
    */
   const handleWantsContraceptionInfo = (abortionMethod: string): JSX.Element => {
-    if (wantsContraceptionInfo) {
+    console.log('Handling wants contraception info with value:', abortionMethod);
+    if (wantsContraceptionInfo === 'true') {
       return (
-        <div>
-          Her er en liste over præventionsmetoder du kan benytte.
-          <div className="mt-4 p-4 border border-gray-300 rounded bg-gray-50">
-            <ul className="list-disc list-inside">
-              <li>P-piller</li>
-              <li>Minispiral</li>
-              <li>Vaginalring</li>
-              <li>P-Sprøjte</li>
-              <li>P-Stav</li>
-              <li>P-Plaster</li>
-              <li>Spiral</li>
-              <li>Hormonspiral</li>
-              <li>Kondom</li>
-              <li>Pessar</li>
-              <li>Sikre perioder</li>
-              <li>Nødprævention (fortrydelsespille)</li>
-            </ul>
+        <div className='mt-4 p-4 border border-gray-300 rounded bg-gray-50'>
+          <div>
+            Læs om de forskellige præventionsmetoder og find den, der passer bedst til dig:
+            <a
+            href="https://www.sundhed.dk/borger/patienthaandbogen/kvindesygdomme/sygdomme/praevention/praevention-forskellige-praeventionsmetoder/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline">
+              Læs mere
+            </a>
           </div>
         </div>
       )
     } else {
-      return (
-        <>
-
-        </>
-      )
+      return null;
     }
   }
 

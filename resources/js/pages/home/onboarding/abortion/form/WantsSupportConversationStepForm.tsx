@@ -57,27 +57,23 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
             <>
             <div className="flex items-center">
                 <Checkbox
-                  id="has_partner"
+                  id="wantsSupportConversationYes"
                   checked={wantsSupportConversation}
                   onCheckedChange={(checked) => setWantsSupportConversation(Boolean(checked))}
                   className="mt-2 mb-4"
-                >
-                  Ja jeg ønsker en samtale med en støtteperson
-                </Checkbox>
-                <Label htmlFor="wantsSupportConversation" className="ml-2 text-lg">
+                />
+                <Label htmlFor="wantsSupportConversationYes" className="ml-2 text-lg">
                   Ja jeg ønsker en samtale med en støtteperson
                 </Label>
             </div>
             <div className="flex items-center">
                 <Checkbox
-                  id="signed"
+                  id="wantsSupportConversationNo"
                   checked={!wantsSupportConversation}
                   onCheckedChange={(checked) => setWantsSupportConversation(!Boolean(checked))}
                   className="mt-2 mb-4"
-                >
-                  Nej jeg ønsker ikke en samtale med en støtteperson
-                </Checkbox>
-                <Label htmlFor="wantsSupportConversation" className="ml-2 text-lg">
+                />
+                <Label htmlFor="wantsSupportConversationNo" className="ml-2 text-lg">
                   Nej jeg ønsker ikke en samtale med en støtteperson
                 </Label>
             </div>

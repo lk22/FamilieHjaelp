@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { useForm, router } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { logState } from '@/lib/utils'
@@ -12,7 +12,7 @@ type NeedsPostpartumSupportInfoStepFormProps = {
 }
 
 export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }: NeedsPostpartumSupportInfoStepFormProps) {
-  const [needsPostpartumSupportInfo, setNeedsPostpartumSupportInfo] = useState<string>('');
+  const [needsPostpartumSupportInfo, setNeedsPostpartumSupportInfo] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -28,7 +28,7 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
     }, 200);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ needsPostpartumSupportInfo });
+    handleStepSubmit({  needsPostpartumSupportInfo: String(needsPostpartumSupportInfo) });
     setSubmitted(true);
 
     setTimeout(() => {
@@ -55,10 +55,13 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
               <div className="check-field flex items-center">
                 <Checkbox
                   id="needs_postpartum_support_info"
-                  checked={needsPostpartumSupportInfo === 'true'}
-                  onChange={() => setNeedsPostpartumSupportInfo('true')}
+                  name="needs_postpartum_support_info"
+                  checked={needsPostpartumSupportInfo}
+                  onCheckedChange={(checked) => setNeedsPostpartumSupportInfo(Boolean(checked))}
                   className="mt-2 mb-4"
-                />
+                >
+                  Ja, jeg ønsker information om efterfødselsstøtte
+                </Checkbox>
                 <label htmlFor="needs_postpartum_support_info" className="text-lg ml-4">
                   Ja, jeg ønsker information om efterfødselsstøtte
                 </label>
@@ -66,15 +69,15 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
               <div className="check-field flex items-center">
                 <Checkbox
                   id="needs_postpartum_support_info"
-                  value={needsPostpartumSupportInfo}
-                  onChange={() => setNeedsPostpartumSupportInfo('false')}
+                  name="needs_postpartum_support_info"
+                  checked={!needsPostpartumSupportInfo}
+                  onCheckedChange={(checked) => setNeedsPostpartumSupportInfo(!Boolean(checked))}
                   className="mt-2 mb-4"
                 />
                 <label htmlFor="needs_postpartum_support_info" className='text-lg ml-4'>
                   Nej, jeg har ikke brug for information om efterfødselsstøtte
                 </label>
               </div>
-
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
