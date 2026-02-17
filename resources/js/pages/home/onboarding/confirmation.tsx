@@ -21,11 +21,14 @@ const ConfirmationContent = () => {
 
   const handleResetOnboarding = () => {
     resetOnboarding();
-
-    // redirect to the getting started page
     router.visit(route('getting-started'));
   }
 
+  /**
+   * Converts stored values into a more human-readable format for confirmation display.
+   * @param key
+   * @returns
+   */
   const getFormattedKey = (key: string) => {
     // Convert camelCase or snake_case to normal text
     return key
@@ -100,23 +103,26 @@ const ConfirmationContent = () => {
             </div>
             <div className="w-7/12 flex flex-col justify-center items-center animate animate-appear">
               <div className="details bg-white -ml-px -mt-2 p-16 w-full shadow-lg">
-                <div className="bg-white p-4">
+                <div className="bg-white p-4 border-b border-gray-200">
                   {getStepDetails('one')}
                 </div>
-                <div className="bg-white p-4">
+                <div className="bg-white p-4 border-b border-gray-200">
                   {getStepDetails('two')}
                 </div>
-                <div className="bg-white p-4">
+                <div className="bg-white p-4 border-b border-gray-200">
                   {getStepDetails('three')}
                 </div>
-                <div className="bg-white p-4">
+                <div className="bg-white p-4 border-b border-gray-200">
                   {getStepDetails('four')}
                 </div>
-                <div className="bg-white p-4">
+                <div className="bg-white p-4 border-b border-gray-200">
                   {getStepDetails('five')}
                 </div>
-                <div className="bg-white p-4">
+                <div className="bg-white p-4 border-b border-gray-200">
                   {getStepDetails('six')}
+                </div>
+                <div className="bg-white p-4 border-b border-gray-200">
+                  {getStepDetails('seven')}
                 </div>
               </div>
             </div>

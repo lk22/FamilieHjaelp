@@ -19,7 +19,6 @@ export default function CompletedModal({ isOpen, closeModal }: modalProps) {
   const {
     resetOnboarding
   } = useOnboarding();
-
   return (
     <Dialog open={isOpen} modal={true} onOpenChange={closeModal}>
       <DialogContent className="sm:max-w-2xl p-8">
@@ -28,22 +27,15 @@ export default function CompletedModal({ isOpen, closeModal }: modalProps) {
             Du har gennemført onboardingen
           </DialogTitle>
         </DialogHeader>
-        <DialogDescription className="mb-6">
-          <div className="space-y-4">
-            <p className="text-lg text-white">
-              Du har svaret på alle spørgmsål i onboardingen.
-            </p>
-            <p>
-              Hvis du ønsker at starte forfra og ændre dine svar, kan du klikke på knappen nedenfor.
-            </p>
-          </div>
+        <DialogDescription className="mb-6 space-y-4">
+          <span>
+            Tak fordi du tog dig tid til at gennemføre vores onboarding! Vi håber, at det har givet dig en klar forståelse af, hvordan du kan bruge vores platform til at få den støtte og information, du har brug for. Hvis du har spørgsmål eller brug for yderligere hjælp, er du altid velkommen til at kontakte os. Vi er her for at støtte dig på din rejse.
+          </span>
         </DialogDescription>
         <DialogFooter>
-          <button>
             <Link href={route('onboarding.confirmation')} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
               Gå til bekræftelsessiden
             </Link>
-          </button>
           <button
             onClick={() => {
               resetOnboarding();
