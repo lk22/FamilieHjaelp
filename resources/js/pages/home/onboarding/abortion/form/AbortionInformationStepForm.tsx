@@ -136,11 +136,12 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                   </select>
                 </div>
                 <div className="change-info-note mb-4 w-full">
-
                   {
-                    abortionInfoState.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22 && (
+                    (abortionInfoState.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22) && (
                       <>
-                        Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad.
+                        <p>
+                          Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad.
+                        </p>
                       </>
                     )
                   }
