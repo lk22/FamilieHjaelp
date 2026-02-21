@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -83,6 +83,15 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
     }, 1000)
   }
 
+  /**
+   * Returns Week number notice in condition for abortion weeks changed above or equal
+   */
+  const renderWeekNumberNotice = () => {
+    if (abortionInfoState.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22) {
+      return "Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad.";
+    }
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
@@ -127,11 +136,12 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                   </select>
                 </div>
                 <div className="change-info-note mb-4 w-full">
+
                   {
-                    (abortionInfoState.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22) && (
-                      <p className="text-lg text-red-600 font-bold">
+                    abortionInfoState.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22 && (
+                      <>
                         Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad.
-                      </p>
+                      </>
                     )
                   }
                 </div>

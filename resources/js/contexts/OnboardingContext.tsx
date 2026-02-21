@@ -38,7 +38,6 @@ interface OnboardingContextType {
     completeStep: (step: string, currentScenarioId: string, data: Record<string, any>) => void;
     updateCurrentStep: (step: string) => void;
     getOnboardingProperties: (step: string, prop: string) => string;
-
 }
 
 interface OnboardingSessionPayload {
