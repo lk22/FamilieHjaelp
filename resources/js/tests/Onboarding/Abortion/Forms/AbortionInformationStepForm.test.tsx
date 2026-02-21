@@ -33,7 +33,6 @@ describe('AbortionInformationStepForm', () => {
         expect(screen.getByLabelText(/Har du været til konsultation hos en læge i forbindelse med din abort?/i)).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /Næste/i })).toBeInTheDocument();
     });
-
     test('does show notics for changing week number to 22 or higher', async () => {
         const user = userEvent.setup();
 
@@ -50,9 +49,7 @@ describe('AbortionInformationStepForm', () => {
         await waitFor(() => {
             expect(weekNumberNotice).not.toBeInTheDocument()
         });
-
     });
-
     test('does not render notice for changing week number to 21 or below', async () => {
         const user = userEvent.setup();
 
@@ -71,12 +68,6 @@ describe('AbortionInformationStepForm', () => {
         await waitFor(() => {
             expect(weekNumberNotice).not.toBeInTheDocument()
         })
-
-        // expect(
-        //     screen.queryByText(
-        //         /Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på\. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad\./i,
-        //     ),
-        // ).not.toBeInTheDocument();
     });
     test('renders the correct abortion method options in select input', async () => {
         render(
