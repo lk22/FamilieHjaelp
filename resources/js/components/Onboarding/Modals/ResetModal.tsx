@@ -20,10 +20,8 @@ export default function ResetModal({ isOpen, closeModal }: ResetModalProps) {
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold mb-4 text-white">Du er igang med at besvare vores spørgsmål</DialogTitle>
         </DialogHeader>
-        <DialogDescription className="mb-6">
-          <div className="text-lg">Det ser ud til du er igang med at besvare vores spørgsmål.</div>
-          <div className="text-lg mt-4">Vi gemmer din fremgang, så du kan fortsætte senere.</div>
-        </DialogDescription>
+          <DialogDescription className="text-lg">Det ser ud til du er igang med at besvare vores spørgsmål.</DialogDescription>
+          <DialogDescription className="text-lg mt-4">Vi gemmer din fremgang, så du kan fortsætte senere.</DialogDescription>
         <DialogFooter>
           <button
             className="bg-white text-blue-500 px-4 py-2 rounded hover:bg-gray-200"
@@ -33,7 +31,7 @@ export default function ResetModal({ isOpen, closeModal }: ResetModalProps) {
           </button>
           <button
             className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 ms-4"
-            onClick={() => router.visit(route('home'))}
+            onClick={() => router.visit(route('getting-started'))}
           >
             Afslut og gå til forsiden
           </button>

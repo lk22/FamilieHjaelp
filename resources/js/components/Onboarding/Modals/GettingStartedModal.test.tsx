@@ -73,6 +73,9 @@ describe('Getting Started modal', () => {
         });
 
         const {onboardingState} = result.current;
-        const progressValue = onboardingState.progress
+        onboardingState.progress = 'in_progress';
+
+        expect(screen.queryByText("Start forfra"))
+        expect(screen.queryByText("Fortsæt hvor du slap"))
     })
 });
