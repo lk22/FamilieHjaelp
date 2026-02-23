@@ -8,7 +8,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import { logState } from '@/lib/utils'
 
 type NeedsPostpartumSupportInfoStepFormProps = {
-  handleStepSubmit: (data: {needsPostpartumSupportInfo: string}) => void;
+  handleStepSubmit: (data: {needsPostpartumSupportInfo: boolean}) => void;
 }
 
 export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }: NeedsPostpartumSupportInfoStepFormProps) {
@@ -28,7 +28,7 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
     }, 200);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({  needsPostpartumSupportInfo: String(needsPostpartumSupportInfo) });
+    handleStepSubmit({  needsPostpartumSupportInfo: Boolean(needsPostpartumSupportInfo) });
     setSubmitted(true);
 
     setTimeout(() => {

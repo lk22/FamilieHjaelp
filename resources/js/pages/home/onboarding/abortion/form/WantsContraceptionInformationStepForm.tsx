@@ -90,7 +90,7 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
                 <Checkbox
                   id="wants-contraception-info"
                   className="me-4"
-                  checked={wantsContraceptionInfo === 'true'}
+                  checked={wantsContraceptionInfo}
                   onCheckedChange={(checked) => setWantsContraceptionInfo(checked ? 'true' : 'false')}>
                 </Checkbox>
                 <label htmlFor="wants-contraception-info" className="text-lg">Ja jeg ønsker præventionsvejledning</label>
@@ -99,8 +99,8 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
                 <Checkbox
                   id="wants-contraception-info"
                   className="me-4"
-                  checked={wantsContraceptionInfo === 'false'}
-                  onCheckedChange={(checked) => setWantsContraceptionInfo(checked ? 'false' : 'true')}>
+                  checked={!wantsContraceptionInfo}
+                  onCheckedChange={(checked) => setWantsContraceptionInfo(!checked ? 'false' : 'true')}>
                 </Checkbox>
                 <label htmlFor="wants-contraception-info" className="text-lg">Nej jeg ønsker ikke præventionsvejledning</label>
               </div>

@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
 import { router } from '@inertiajs/react';
-
 import { getConfirmationFormattedValue } from '@/lib/utils';
+import ResetModal from '@/components/Onboarding/Modals/ResetModal';
 
 
 interface OnboardingSessionProps {
@@ -16,12 +17,12 @@ interface OnboardingSessionProps {
 
 const ConfirmationContent = () => {
   const { onboardingState, getCurrentScenario, resetOnboarding } = useOnboarding();
+  const [ isReseting, setIsResetting ] = useState<boolean>(false);
 
-  console.log('Onboarding State in Confirmation:', onboardingState);
+  console.log('Onboarding State in Confirmation:', getCurrentScenario());
 
   const handleResetOnboarding = () => {
-    resetOnboarding();
-    router.visit(route('getting-started'));
+    setIsResetting(true);
   }
 
   /**
@@ -43,7 +44,9 @@ const ConfirmationContent = () => {
    * @returns JSX.Element | undefined
    */
   const getStepDetails = (stepId: string) => {
-    const scenario = getCurrentScenario();
+    const scenario = onboardingState.scenarios.find(
+      (scenario) => scenario.id === onboardingState.currentScenario
+    );
 
     const step = scenario?.steps.find((step: any) => step.stepName === stepId);
     const data = step?.data;
@@ -58,7 +61,7 @@ const ConfirmationContent = () => {
      return (
        <>
         {
-          Object.entries(data).map(([key, value]) => {
+          Object.entries(data).map(([key, value]: [string, string | boolean]) => {
             let formattedValue = getConfirmationFormattedValue(value);
 
             return (
@@ -103,32 +106,25 @@ const ConfirmationContent = () => {
             </div>
             <div className="w-7/12 flex flex-col justify-center items-center animate animate-appear">
               <div className="details bg-white -ml-px -mt-2 p-16 w-full shadow-lg">
-                <div className="bg-white p-4 border-b border-gray-200">
-                  {getStepDetails('one')}
-                </div>
-                <div className="bg-white p-4 border-b border-gray-200">
-                  {getStepDetails('two')}
-                </div>
-                <div className="bg-white p-4 border-b border-gray-200">
-                  {getStepDetails('three')}
-                </div>
-                <div className="bg-white p-4 border-b border-gray-200">
-                  {getStepDetails('four')}
-                </div>
-                <div className="bg-white p-4 border-b border-gray-200">
-                  {getStepDetails('five')}
-                </div>
-                <div className="bg-white p-4 border-b border-gray-200">
-                  {getStepDetails('six')}
-                </div>
-                <div className="bg-white p-4 border-b border-gray-200">
-                  {getStepDetails('seven')}
-                </div>
+               {
+                  onboardingState.scenarios.find(
+                    (scenario) => scenario.id === onboardingState.currentScenario
+                  )?.steps.map((step: any) => (
+                    <div key={step.stepName} className="bg-white p-4 border-b border-gray-200">
+                      {getStepDetails(step.stepName)}
+                    </div>
+                  ))
+               }
               </div>
             </div>
           </div>
         </div>
       </div>
+      <ResetModal
+        isOpen={isReseting}
+        closeModal={() => setIsResetting(false)}
+        onConfirm={() => handleResetOnboarding()}
+      />
     </>
   );
 }

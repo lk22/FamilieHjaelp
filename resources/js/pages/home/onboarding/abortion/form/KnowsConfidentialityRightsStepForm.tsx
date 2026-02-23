@@ -9,7 +9,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import { logState } from '@/lib/utils'
 
 type KnowsConfidentialityRightsStepFormProps = {
-  handleStepSubmit: (data: {knowsConfidentialityRights: string}) => void;
+  handleStepSubmit: (data: {knowsConfidentialityRights: boolean}) => void;
 }
 
 export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }: KnowsConfidentialityRightsStepFormProps) {
@@ -36,7 +36,7 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
     setKnowsConfidentialityRights(knowsConfidentialityRights);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ knowsConfidentialityRights: String(knowsConfidentialityRights) });
+    handleStepSubmit({ knowsConfidentialityRights: Boolean(knowsConfidentialityRights) });
     setSubmitted(true);
 
     setIsOpen(true);

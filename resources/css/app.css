@@ -263,6 +263,10 @@ input[type="checkbox"]:checked + .checkbox-mark::after {
     background-color: #2C6DB6;
 }
 
+input[type="text"] {
+    font-size: 1.5rem;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
