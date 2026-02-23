@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
 
-import { useForm, router, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { logState } from '@/lib/utils'
@@ -18,18 +18,9 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const {onboardingSession} = usePage().props as any;
-  console.log({onboardingSession})
 
   const { onboardingState } = useOnboarding();
   logState('KnowsConfidentialityRightsStepForm', { onboardingState, knowsConfidentialityRights });
-
-  // const { data, setData, post, processing, errors } = useForm<{
-  //   knowsConfidentialityRights: string;
-  //   onboardingSession: any;
-  // }>({
-  //   knowsConfidentialityRights: '',
-  //   onboardingSession: onboardingSession,
-  // });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

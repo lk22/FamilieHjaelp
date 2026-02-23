@@ -16,10 +16,10 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario } = useOnboarding();
+  const { onboardingState } = useOnboarding();
 
-  const currentScenario = getCurrentScenario();
-  //const currentStep = currentScenario?.steps[4]; // Fifth step (index 4)
+  const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
+  const currentStep = currentScenario?.steps[4]; // Fifth step (index 4)
 
   logState('WantsContraceptionInformationStepForm', { onboardingState, currentScenario, wantsContraceptionInfo });
 

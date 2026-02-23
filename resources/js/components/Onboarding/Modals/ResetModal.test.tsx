@@ -19,8 +19,8 @@ describe('Reset Modal component', () => {
     const p1 = screen.getByText(/Det ser ud til du er igang med at besvare vores spørgsmål./i)
     const p2 = screen.getByText(/Ønsker du at forlade processen\?/i)
     const continueButton = screen.getByRole('button', {name: 'Fortsæt'})
-    const resetButton = screen.getByRole('button', {name: 'Afslut og gå tilbage'})
-    const hardResetButton = screen.queryByRole('button', {name: 'Afslut og gå til forsiden'})
+    const resetButton = screen.getByRole('button', {name: 'Start forfra'})
+    const hardResetButton = screen.queryByRole('button', {name: 'Gå til forsiden'})
 
     expect(screen.getByRole('dialog')).toBeInTheDocument()
     expect(title).toBeInTheDocument()
@@ -44,7 +44,7 @@ describe('Reset Modal component', () => {
     const {onboardingState} = result.current;
 
     render(modal)
-    const resetButton = screen.getByRole('button', {name: /Afslut og gå tilbage/i})
+    const resetButton = screen.getByRole('button', {name: /Start forfra/i})
     await user.click(resetButton)
 
     act(() => {
@@ -69,7 +69,7 @@ describe('Reset Modal component', () => {
     const {onboardingState} = result.current;
 
     render(modal)
-    const resetButton = screen.getByRole('button', {name: /Afslut og gå til forsiden/i})
+    const resetButton = screen.getByRole('button', {name: /Gå til forsiden/i})
     await user.click(resetButton)
 
     act(() => {

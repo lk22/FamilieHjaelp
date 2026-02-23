@@ -8,6 +8,8 @@ import WantsContraceptionInformationStepForm from "./WantsContraceptionInformati
 import NeedsPostpartumSupportInfoStepForm from "./NeedsPostpartumSupportInfoStepForm";
 import KnowsConfidentialityRightsStepForm from "./KnowsConfidentialityRightsStepForm";
 
+import { checkIfOnboardingCompleted } from "@/lib/utils";
+
 /**
  * StepForm Component
  * Dynamically renders form fields based on the current onboarding step.

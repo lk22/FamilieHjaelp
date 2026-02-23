@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 import { OnboardingState } from '@/state/OnboardingState_bak';
+import { type ScenarioProperties } from '@/state/OnboardingState';
 import Confirmation from '../pages/home/onboarding/confirmation';
 
 export function cn(...inputs: ClassValue[]) {
@@ -146,6 +147,21 @@ export function useQueryParams<T extends Record<string, unknown> = Record<string
     };
 }
 
+/**
+ * Utility function to check if the onboarding process is completed by verifying that all steps have their progress marked as completed.
+ * @param onboardingState The current state of the onboarding process.
+ * @returns {boolean} True if all steps are completed, otherwise false.
+ */
+export function checkIfOnboardingCompleted(scenario: ScenarioProperties): boolean {
+    return scenario.steps.every(step => step.completed);
+}
+
+/**
+ * Utility function for logging development state in a consistent format. This function is a no-op in production and test environments to avoid cluttering logs.
+ * @param label A label to identify the log message.
+ * @param state The state object to be logged.
+ * @returns void
+ */
 export function logState(
     label: string,
     state: unknown

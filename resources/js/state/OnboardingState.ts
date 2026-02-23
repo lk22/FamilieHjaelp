@@ -9,7 +9,7 @@ interface ScenarioStepProperties {
     };
 }
 
-interface ScenarioProperties {
+export interface ScenarioProperties {
     id: string;
     title: string;
     currentStep?: string;

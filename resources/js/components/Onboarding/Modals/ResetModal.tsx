@@ -37,16 +37,16 @@ export default function ResetModal({ isOpen, closeModal, onConfirm }: ResetModal
               router.visit(route('getting-started'));
             }}
           >
-            Afslut og gå tilbage
+            Start forfra
           </button>
           <button
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ms-4"
             onClick={() => {
-              onConfirm?.();
+              ;onConfirm?.()
               router.visit(route('home'));
             }}
           >
-            Afslut og gå til forsiden
+            Gå til forsiden
           </button>
         </DialogFooter>
       </DialogContent>

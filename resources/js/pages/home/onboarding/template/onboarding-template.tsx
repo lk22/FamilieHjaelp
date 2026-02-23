@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import {Link} from '@inertiajs/react';
 import ProgressBar from '@/components/Onboarding/progressBar';
 import OnboardingHeader from '@/components/Onboarding/onboarding-header';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import InactivityModal from '@/components/Onboarding/Modals/InactivityModal';
+import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
+import { checkIfOnboardingCompleted } from '@/lib/utils';
 
 interface OnboardingTemplateInterface {
     children?: React.ReactNode[];
@@ -21,21 +23,21 @@ export default function OnboardingTemplate({
     screenGraphic,
     state,
 }: OnboardingTemplateInterface) {
+    const [processCompleted, setProcessCompleted] = useState<boolean>(false);
     const { onboardingState, pauseOnboarding, updateCurrentScenario, resumeOnboarding } = useOnboarding();
+
+    const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
+
+    useEffect(() => {
+        const isProcessCompleted = checkIfOnboardingCompleted(currentScenario);
+        if (isProcessCompleted) {
+            setProcessCompleted(true);
+        }
+    }, []);
 
     // Store context functions in refs so they don't cause re-renders
     const pauseOnboardingRef = useRef(pauseOnboarding);
     const updateCurrentScenarioRef = useRef(updateCurrentScenario);
-
-    // Update refs when functions change
-    useEffect(() => {
-        pauseOnboardingRef.current = pauseOnboarding;
-    }, [pauseOnboarding]);
-
-    useEffect(() => {
-        updateCurrentScenarioRef.current = updateCurrentScenario;
-    }, [updateCurrentScenario]);
-
     const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
     const heartbeatIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -49,7 +51,7 @@ export default function OnboardingTemplate({
         }
 
         inactivityTimerRef.current = setTimeout(() => {
-            console.log('User inactive for 15 seconds, pausing onboarding session...');
+            console.log('User inactive for 5 minutes, pausing onboarding session...');
             pauseOnboardingRef.current(); // ← Use ref
         }, fiiveMinutes);
     }, []); // Empty deps!
@@ -63,6 +65,16 @@ export default function OnboardingTemplate({
 
         handleInactivity();
     }, [handleInactivity]); // This is now stable
+
+    // Update refs when functions change
+    useEffect(() => {
+        pauseOnboardingRef.current = pauseOnboarding;
+    }, [pauseOnboarding]);
+
+    // updates current scenario in the context when it changes in the template, this is needed for the progress bar to update correctly
+    useEffect(() => {
+        updateCurrentScenarioRef.current = updateCurrentScenario;
+    }, [updateCurrentScenario]);
 
     /**
      * Set up event listeners
@@ -81,6 +93,7 @@ export default function OnboardingTemplate({
                 window.removeEventListener(event, handleResumeSession);
             });
         };
+
     }, [state?.progress, handleResumeSession]);
 
     /**
@@ -148,6 +161,13 @@ export default function OnboardingTemplate({
                                     </div>
                                     <ProgressBar />
                                     <InactivityModal isOpen={state?.progress === 'paused'} closeModal={handleResumeSession} />
+                                    {
+                                        processCompleted && (
+                                            <>
+                                                <CompletedModal isOpen={processCompleted} closeModal={() => setProcessCompleted(false)} />
+                                            </>
+                                        )
+                                    }
                                     {children}
                                 </div>
                             </div>
