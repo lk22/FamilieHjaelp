@@ -20,7 +20,7 @@ describe('Reset Modal component', () => {
     const p2 = screen.getByText(/Ønsker du at forlade processen\?/i)
     const continueButton = screen.getByRole('button', {name: 'Fortsæt'})
     const resetButton = screen.getByRole('button', {name: 'Start forfra'})
-    const hardResetButton = screen.queryByRole('button', {name: 'Gå til forsiden'})
+    const hardResetButton = screen.queryByRole('button', {name: 'Afslut og gå til forsiden'})
 
     expect(screen.getByRole('dialog')).toBeInTheDocument()
     expect(title).toBeInTheDocument()
