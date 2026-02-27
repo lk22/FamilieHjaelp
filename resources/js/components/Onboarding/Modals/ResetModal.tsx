@@ -31,7 +31,7 @@ export default function ResetModal({ isOpen, closeModal, onConfirm }: ResetModal
             Fortsæt
           </button>
           <button
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ms-4"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ms-2"
             onClick={() => {
               onConfirm?.();
               router.visit(route('getting-started'));
@@ -40,7 +40,7 @@ export default function ResetModal({ isOpen, closeModal, onConfirm }: ResetModal
             Start forfra
           </button>
           <button
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ms-4"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ms-2"
             onClick={() => {
               ;onConfirm?.()
               router.visit(route('home'));

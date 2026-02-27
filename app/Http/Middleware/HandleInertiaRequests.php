@@ -60,9 +60,18 @@ class HandleInertiaRequests extends Middleware
         $userId = $request->user()?->id;
         $sessionToken = $request->cookie('onboarding_session_token');
 
-        $session = OnboardingSession::findOrCreateSession($userId, $sessionToken);
+        if ( $sessionToken ) {
+            $session = OnboardingSession::findByToken($sessionToken);
 
-        $request->session()->put('onboarding_session_token', $session->session_token);
+            if ( $session && $userId && !$session->user_id ) {
+                $session->user_id = $userId;
+                $session->save();
+            }
+        }
+
+        // $session = OnboardingSession::findOrCreateSession($userId, $sessionToken);
+
+        $request->session()->put('onboarding_session_token', $session->session_token ?? null);
 
         return [
             'token' => $session->session_token ?? "",

@@ -132,53 +132,36 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                         name: null,
                         age: null,
                         ageOfPartner: null,
-                        gender: null,
-                        hasCprNumber: null,
+                        gender: null
                     }
                 },
                 {
                     id: 2,
                     stepName: 'two',
-                    question: 'Er jeres barn født før eller efter uge 22+0?',
-                    description: 'Dette er vigtigt, da det påvirker jeres rettigheder og de muligheder for støtte, I har. Ved dødfødsel fra uge 22 har I flere juridiske rettigheder og støtteordninger sammenlignet med før uge 22.',
+                    question: 'Er jeres barn født før eller efter uge 22+0?, har i været til konsultation hos en læge i forbindelse med jeres barn og har i fået underskrevet en lægeerklæring?',
+                    description: 'Vi skal bruge denne information til at vise jer den rigtige information og støtte, da jeres rettigheder og muligheder for støtte er forskellige før og efter uge 22.',
                     completed: false,
                     data: {
+                        beforeAfterTwentyTwoWeeks: null,
                         weekNumber: null,
+                        hasDoctorsPermit: null,
+                        hasBeenConsultedByDoctor: null,
                     }
                 },
                 {
                     id: 3,
                     stepName: 'three',
-                    question: 'Er I stadig på hospitalet eller er I hjemme?',
-                    description: 'Dette hjælper os med at vise jer den rigtige information. På hospitalet får I akut støtte, mens hjemme skal I navigere i praktiske opgaver og kontakt til myndigheder.',
-                    completed: false,
-                    data: {
-                        placedLocation: null,
-                    }
-                },
-                {
-                    id: 4,
-                    stepName: 'four',
-                    question: 'Har I fået information om sorgorlov/sygemelding?',
-                    description: 'Som forældre til et dødfødt barn har I ret til sorgorlov. Lønmodtagere får orlov via arbejdsgiver, mens selvstændige skal ansøge i NemRefusion. Vi kan hjælpe jer med at forstå jeres rettigheder og processen.',
-                    completed: false,
-                    data: {
-                        informedAboutBereavementLeave: null,
-                    }
-                },
-                {
-                    id: 5,
-                    stepName: 'five',
                     question: 'Ønsker I at navngive/få kaldenavn til jeres barn?',
                     description: 'Mange forældre finder det vigtigt at give deres barn et navn. Ved dødfødsel fra uge 22 får barnet et administrativt CPR-nummer, og I kan vælge navn. Før uge 22 kan I stadig vælge et kaldenavn.',
                     completed: false,
                     data: {
                         wantsToNameChild: null,
+                        wantsToInformChildName: null,
                     }
                 },
                 {
-                    id: 6,
-                    stepName: 'six',
+                    id: 4,
+                    stepName: 'four',
                     question: 'Har I brug for hjælp til begravelse/bisættelse?',
                     description: 'Ved registreret liv (fra uge 22) har I ret til begravelseshjælp på 10.800 kr. Vi kan guide jer gennem kontakt til bedemand, valg af ceremoni og praktiske ting omkring begravelsen. Før uge 22 er begravelse valgfrit, men muligt.',
                     completed: false,
@@ -187,8 +170,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 7,
-                    stepName: 'seven',
+                    id: 5,
+                    stepName: 'five',
                     question: 'Har I fået nedgravningsattest eller dødsattest?',
                     description: 'Før uge 22 får I en nedgravningsattest (hvis I ønsker begravelse). Fra uge 22 får I en dødsattest. Disse dokumenter er nødvendige for begravelse og administration.',
                     completed: false,
@@ -197,8 +180,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 8,
-                    stepName: 'eight',
+                    id: 6,
+                    stepName: 'six',
                     question: 'Ønsker I information om obduktion?',
                     description: 'En obduktion kan nogle gange give svar på hvorfor jeres barn døde. Det er jeres valg, og vi kan hjælpe jer med at forstå processen og hvad den kan betyde for jer.',
                     completed: false,
@@ -207,8 +190,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 9,
-                    stepName: 'nine',
+                    id: 7,
+                    stepName: 'seven',
                     question: 'Har I andre børn derhjemme, som I skal tale med om sorgen?',
                     description: 'Søskende reagerer forskelligt på tab. Vi kan guide jer til ressourcer om hvordan I taler med jeres børn om deres døde søskende på en alderssvarende måde.',
                     completed: false,
@@ -217,8 +200,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 10,
-                    stepName: 'ten',
+                    id: 8,
+                    stepName: 'eight',
                     question: 'Kender i til jeres støttemuligheder',
                     description: 'Der findes gratis professionel hjælp: Terapeutiske samtaler hos Familier & Sorg, sorggrupper hvor I møder andre i samme situation, og psykologsamtaler gennem sundhedsvæsenet. I er ikke alene.',
                     completed: false,
@@ -227,8 +210,18 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 11,
-                    stepName: 'eleven',
+                    id: 9,
+                    stepName: 'nine',
+                    question: 'Har I fået information om sorgorlov/sygemelding?',
+                    description: 'Som forældre til et dødfødt barn har I ret til sorgorlov. Lønmodtagere får orlov via arbejdsgiver, mens selvstændige skal ansøge i NemRefusion. Vi kan hjælpe jer med at forstå jeres rettigheder og processen.',
+                    completed: false,
+                    data: {
+                        informedAboutBereavementLeave: null,
+                    }
+                },
+                {
+                    id: 10,
+                    stepName: 'ten',
                     question: 'Skal I have hjælp til at ansøge om sorgorlov?',
                     description: 'Hvis I er lønmodtagere, indberetter jeres arbejdsgiver orloven. Hvis I er selvstændige, skal I selv ansøge i NemRefusion senest 8 uger efter første orlovsdag. Vi kan guide jer gennem processen.',
                     completed: false,
@@ -373,6 +366,11 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 }
             ]
+        },
+        {
+            id: 'pregnancy',
+            title: 'Pregnany',
+            steps: []
         }
     ],
 }

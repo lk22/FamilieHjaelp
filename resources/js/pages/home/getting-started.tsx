@@ -6,6 +6,8 @@ import { OnboardingProvider, useOnboarding } from '@/contexts/OnboardingContext'
 
 import { RadioButton } from '@/components/ui/radio';
 
+import { setSessionTokenCookie } from '@/lib/utils';
+
 interface OnboardingSessionProps {
     onboardingSession: {
         token: string | null;
@@ -35,7 +37,10 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
     })
 
     const setOnboardingSessionTokenCookie = (token: string) => {
-        document.cookie = `onboarding_session_token=${token}; path=/; max-age=${60 * 60 * 24 * 30}`;
+        const cookieName = 'onboarding_session_token';
+        // setSessionTokenCookie(token, cookieName, 60 * 60 * 24 * 30); // Expires in 30 days
+        const expires = new Date(Date.now() + 60 * 60 * 24 * 30 * 1000).toUTCString();
+        document.cookie = `${cookieName}=${token}; expires=${expires}; path=/; Secure; SameSite=Lax`;
     }
 
     const handleScenarioChange = useCallback((selectedScenario: string) => {
@@ -72,7 +77,6 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
         }
 
         // render default message
-
     }
 
     return (

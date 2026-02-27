@@ -1,12 +1,10 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {Select} from '@/components/ui/select';
-
-import { useForm } from '@inertiajs/react';
-import { useOnboarding } from '@/contexts/OnboardingContext';
-
+import { Checkbox } from '@/components/ui/checkbox';
 import { router } from '@inertiajs/react';
+import { useOnboarding } from '@/contexts/OnboardingContext';
+import { Label } from '@/components/ui/label';
 
 interface FormStepProps {
     handleStepSubmit: (data: {
@@ -19,21 +17,22 @@ interface WeekNumberDate {
 }
 
 export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) {
+  const [beforeAfterTwentyTwoWeeks, setBeforeAfterTwentyTwoWeeks] = useState<boolean>(false);
   const [weekNumber, setWeekNumber] = useState<string>('');
   const [abortionWeeks, setAbortionWeeks] = useState<string>('');
   const [hasDoctorsPermit, setHasDoctorsPermit] = useState<boolean | null>(null);
   const [abortionMethod, setAbortionMethod] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario, getOnboardingProperties } = useOnboarding();
-  const currentScenario = getCurrentScenario();
+  const { onboardingState} = useOnboarding();
+  const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[1]; // second step
   const currentAbortionWeeksValue = currentStep?.data.abortionWeeks;
-  const currentHasDoctorsPermitValue = currentStep?.data.hasDoctorsPermit;
-  const currentAbortionMethodValue = currentStep?.data.abortionMethod;
 
   const firstStep = currentScenario?.steps[0];
-  const gender = firstStep.data.gender;
+  const gender = firstStep?.data.gender;
+
+  console.log()
 
   /**
    * Handle step submit flow
@@ -53,10 +52,14 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
 
     handleStepSubmit(weekNumberData)
 
-    router.get(route('onboarding.scenario.step', {
-      scenario: onboardingState.currentScenario,
-      step: 'three'
-    }));
+    setTimeout(() => {
+      setSubmitted(false);
+
+      router.get(route('onboarding.scenario.step', {
+        scenario: onboardingState.currentScenario,
+        step: 'three'
+      }));
+    }, 1000);
   }
 
   return (
@@ -83,6 +86,20 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                     className="w-7/12 mt-2 mb-2"
                   />
                   <span className="w-5/12 ms-4">Uger</span>
+                </div>
+                <div className="flex items-center">
+                    <Checkbox
+                      id="needs-translator"
+                      name='needs-translator'
+                      checked={needsInterpreter}
+                      onCheckedChange={(checked) => setneedsInterpreter(Boolean(checked))}
+                      className="mt-2 mb-4"
+                    >
+                      Ja, jeg har brug for en tolk
+                    </Checkbox>
+                    <Label htmlFor="needs-translator" className="ml-2 text-lg">
+                      Ja, jeg har brug for en tolk
+                    </Label>
                 </div>
             </div>
               <Button

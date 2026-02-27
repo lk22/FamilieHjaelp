@@ -148,6 +148,56 @@ export function useQueryParams<T extends Record<string, unknown> = Record<string
 }
 
 /**
+ * Utility function to set a fresh session token cookie with a specified expiration time.
+ * @param token The session token to be stored in the cookie.
+ * @param expiresInSeconds The expiration time of the cookie in seconds.
+ * @param cookieName The name of the cookie to store the session token.
+ */
+export function setSessionTokenCookie(
+    token: string,
+    cookieName: string,
+    expiresInSeconds: number
+) {
+
+    if (checkIfCookieExists(cookieName)) {
+        console.warn(`Cookie with name "${cookieName}" already exists. Session token cookie will not be set.`);
+        return;
+    }
+
+    if (cookieName === '') {
+        console.warn('Cookie name is empty. Session token cookie will not be set.');
+        return;
+    }
+
+    if (typeof token !== 'string' || token.trim() === '') {
+        console.warn('Invalid token provided. Session token cookie will not be set.');
+        return;
+    }
+
+    if (isNaN(expiresInSeconds) || expiresInSeconds <= 0) {
+        console.warn('Invalid expiration time provided. Session token cookie will not be set.');
+        return;
+    }
+
+    const expires = new Date(Date.now() + expiresInSeconds * 1000).toUTCString();
+    document.cookie = `${cookieName}=${token}; expires=${expires}; path=/; Secure; SameSite=Lax`;
+}
+
+function checkIfCookieExists(cookieName: string): boolean {
+    return document.cookie.split(';')
+        .some((cookie) => cookie.trim().startsWith(`${cookieName}=`));
+}
+
+export function deleteSessionTokenCookie(cookieName: string) {
+    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=Lax`;
+}
+
+export function getSessionTokenFromCookie(cookieName: string): string | null {
+    const match = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
+    return match ? match[2] : null;
+}
+
+/**
  * Utility function to check if the onboarding process is completed by verifying that all steps have their progress marked as completed.
  * @param onboardingState The current state of the onboarding process.
  * @returns {boolean} True if all steps are completed, otherwise false.

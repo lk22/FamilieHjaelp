@@ -58,50 +58,19 @@ class OnboardingSession extends Model
      */
     public static function findOrCreateSession(?int $userId = null, ?string $token = null): self
     {
-        // if user is authenticated, find by user_id
-        /**
-         * If user is not authenticated when creating onboarding session
-         * then user_id is null and we should create a session without user_id
-         */
-        if ($userId === null) {
-            return self::firstOrCreate(
-                ['session_token' => $token, 'user_id' => null, 'completed' => false],
-                ['session_token' => self::generateToken()]
-            );
+
+        if ( ! $token ) {
+            return self::create([
+                'session_token' => self::generateToken(),
+                'user_id' => ($userId) ? $userId : null,
+                'completed' => false,
+                'steps_data' => [],
+                'form_data' => [],
+                'current_step' => 'welcome',
+            ]);
         }
 
-        /**
-         * If user is authenticated, find or create new session and attached the user to the session
-         */
-        if ($userId) {
-            return self::firstOrCreate(
-                ['user_id' => $userId, 'completed' => false],
-                ['session_token' => self::generateToken()]
-            );
-        }
-
-        /**
-         * If no user is authenticated, try to find session by token for guest user
-         */
-        if ($token) {
-            $session = self::where('session_token', $token)
-            ->whereNull('user_id')
-            ->where('completed', false)
-            ->first();
-
-            if ($session) {
-                return $session;
-            }
-        }
-
-        // create new session for guest
-        return self::create([
-            'session_token' => self::generateToken(),
-            'completed' => false,
-            'steps_data' => [],
-            'form_data' => [],
-            'current_step' => 'welcome',
-        ]);
+        return self::findByToken($token);
     }
 
     /**

@@ -17,8 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->string('scenario')->nullable();
             $table->string('current_step')->default('welcome');
-            $table->json('steps_data')->nullable();
-            $table->json('form_data')->nullable();
+            $table->json('progress_data')->nullable();
             $table->boolean('completed')->default(false);
             $table->timestamps();
         });

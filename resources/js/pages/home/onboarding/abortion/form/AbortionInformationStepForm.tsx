@@ -34,7 +34,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState, getCurrentScenario } = useOnboarding();
-  const currentScenario = getCurrentScenario();
+  const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[1]; // second step
   const currentAbortionWeeksValue = currentStep?.data.abortionWeeks;
   const currentHasDoctorsPermitValue = currentStep?.data.hasDoctorsPermit;
@@ -66,14 +66,13 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
       setLoading(true)
     }, 200)
 
-    const abortionData: AbortionDataProps = {
-      abortionWeeks: abortionInfoState.abortionWeeks,
+    handleStepSubmit({
+      abortionWeeks: abortionInfoState.abortionWeeks.toString(),
       hasDoctorsPermit: abortionInfoState.hasDoctorsPermit,
       abortionMethod: abortionInfoState.abortionMethod,
       hasBeenConsultedByDoctor: abortionInfoState.hasBeenConsultedByDoctor
-    }
+    });
 
-    handleStepSubmit(abortionData);
     setTimeout(() => {
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,

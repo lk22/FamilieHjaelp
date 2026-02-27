@@ -56,11 +56,18 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
 
     // Update both states simultaneously
     const updateOnboardingState = useCallback((newState: OnboardingState | ((prev: OnboardingState) => OnboardingState)) => {
-        const stateToSet = typeof newState === 'function' ? newState(onboardingState) : newState;
+        if (typeof newState === 'function') {
+            setLocalStorageState(prev => {
+                const computed = newState(prev)
+                setInertiaState(computed);
+                return computed;
+            })
+        } else {
+            setLocalStorageState(newState);
+            setInertiaState(newState);
+        }
 
-        setLocalStorageState(stateToSet);
-        setInertiaState(stateToSet);
-    }, [onboardingState, setLocalStorageState, setInertiaState]);
+    }, [setLocalStorageState, setInertiaState]);
 
     // Helper function to complete a step
     const completeStep = useCallback((stepId: number, stepData?: Partial<StepData>) => {
@@ -159,9 +166,9 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
  */
 export function useOnboarding() {
     const context = useContext(OnboardingContext);
-    if (context === undefined) {
-        throw new Error('useOnboarding must be used within an OnboardingProvider');
-    }
+        if (context === undefined) {
+            throw new Error('useOnboarding must be used within an OnboardingProvider');
+        }
     return context;
 }
 

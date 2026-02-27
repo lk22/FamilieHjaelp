@@ -22,7 +22,6 @@ class OnboardingController extends Controller
     {
         $userId = $request->user()?->id;
         $token = $request->cookie('onboarding_session_token');
-        // dd($token);
 
         $category = $request->query('category', null);
         $step = $request->query('step', 'one');
@@ -78,9 +77,9 @@ class OnboardingController extends Controller
      * @param Request $request
      * @param string $scenario
      * @param string $step
-     * @return Response
+     * @return Response|RedirectResponse
      */
-    public function showStep(Request $request, string $scenario, string $step): Response
+    public function showStep(Request $request, string $scenario, string $step): Response|RedirectResponse
     {
         $allowedScenarios = ['abortion', 'stillbirth', 'parenting'];
 
@@ -99,7 +98,6 @@ class OnboardingController extends Controller
         if (! $session ) {
             return redirect()->route('getting-started')->with('error', 'Onboarding session not found.');
         }
-
         return inertia("home/onboarding/{$scenario}/steps/step", [
             'currentStep' => $step,
             'scenario' => $scenario,
@@ -123,10 +121,12 @@ class OnboardingController extends Controller
     public function showConfirmation(Request $request): Response
     {
         $token = $request->cookie('onboarding_session_token');
+
         if( is_null($token) ) {
-            abort(503, 'Onboarding session token is missing.');
+            abort(404, 'Onboarding session token is missing.');
         }
-        $session = OnboardingSession::findOrCreateSession($request->user()?->id, $request->cookie('onboarding_session_token'));
+
+        $session = OnboardingSession::findByToken($token);
 
         return inertia("home/onboarding/confirmation", [
             'onboardingSession' => [

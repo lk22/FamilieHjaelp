@@ -32,7 +32,7 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
 
   const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
 
-  const currentScenario = getCurrentScenario();
+  const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
 
   // TODO: this needs fix
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
@@ -41,18 +41,6 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
   const currentAge = currentStep?.data.age || '';
   const currentAgeOfPartner = currentStep?.data.ageOfPartner || '';
   const currentGender = currentStep?.data.gender || '';
-
-  const { data, setData, post, processing, errors } = useForm<{
-    name: string;
-    age: string;
-    ageOfPartner: string;
-    gender: string;
-  }>({
-    name: '',
-    age: '',
-    ageOfPartner: '',
-    gender: ''
-  });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -147,7 +135,7 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
+                disabled={!name || !age || !gender || (gender === "male" && !ageOfPartner)}
               >
                 Næste
               </Button>
