@@ -1,14 +1,19 @@
+// Dependencies
 import { useState } from 'react';
+import { router } from '@inertiajs/react';
+import { useOnboarding } from '@/contexts/OnboardingContext';
+
+// Components
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { router } from '@inertiajs/react';
-import { useOnboarding } from '@/contexts/OnboardingContext';
 import { Label } from '@/components/ui/label';
 
 interface FormStepProps {
     handleStepSubmit: (data: {
       weekNumber: string;
+      hasDoctorsPermit: boolean
+      hasBeenConsultedByDoctor: boolean
     }) => void;
 }
 
@@ -17,22 +22,20 @@ interface WeekNumberDate {
 }
 
 export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) {
-  const [beforeAfterTwentyTwoWeeks, setBeforeAfterTwentyTwoWeeks] = useState<boolean>(false);
   const [weekNumber, setWeekNumber] = useState<string>('');
-  const [abortionWeeks, setAbortionWeeks] = useState<string>('');
-  const [hasDoctorsPermit, setHasDoctorsPermit] = useState<boolean | null>(null);
-  const [abortionMethod, setAbortionMethod] = useState<string>('');
+  const [hasDoctorsPermit, setHasDoctorsPermit] = useState<boolean | null>(true);
+  const [hasBeenConsultedByDoctor, setHasBeenConsultedByDoctor] = useState<boolean | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   const { onboardingState} = useOnboarding();
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[1]; // second step
-  const currentAbortionWeeksValue = currentStep?.data.abortionWeeks;
+  const currentWeeksNumberValue = currentStep?.data.weekNumber;
+  const currentHasDoctorsPermitValue = currentStep?.data.hasDoctorsPermit
+  const currentHasBeenConsultedByDoctorValue = currentStep?.data.hasBeenConsultedByDoctor
 
   const firstStep = currentScenario?.steps[0];
   const gender = firstStep?.data.gender;
-
-  console.log()
 
   /**
    * Handle step submit flow
@@ -43,14 +46,11 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
     event.preventDefault();
     setSubmitted(true);
 
-    const weekNumberData = {
-      weekNumber: weekNumber,
-      abortionWeeks: abortionWeeks,
-      hasDoctorsPermit: hasDoctorsPermit,
-      abortionMethod: abortionMethod,
-    }
-
-    handleStepSubmit(weekNumberData)
+    handleStepSubmit({
+      weekNumber,
+      hasDoctorsPermit,
+      hasBeenConsultedByDoctor
+    })
 
     setTimeout(() => {
       setSubmitted(false);
@@ -80,27 +80,81 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                   <Input
                     type="number"
                     id="abortion-weeks"
-                    onChange={(e) => setAbortionWeeks(e.target.value)}
+                    onChange={(e) => setWeekNumber(e.target.value)}
                     required
-                    value={abortionWeeks || currentAbortionWeeksValue}
+                    value={weekNumber || currentWeeksNumberValue}
                     className="w-7/12 mt-2 mb-2"
                   />
                   <span className="w-5/12 ms-4">Uger</span>
                 </div>
+                <Label htmlFor="has-been-consulted-by-doctor" className="font-bold mt-4">
+                  Har du/i været til konsultation med jeres læge?
+                </Label>
                 <div className="flex items-center">
                     <Checkbox
-                      id="needs-translator"
-                      name='needs-translator'
-                      checked={needsInterpreter}
-                      onCheckedChange={(checked) => setneedsInterpreter(Boolean(checked))}
+                      id="has-been-consulted-by-doctor"
+                      name='has-been-consulted-by-doctor'
+                      checked={hasBeenConsultedByDoctor || currentHasBeenConsultedByDoctorValue === true}
+                      onCheckedChange={(checked) => setHasBeenConsultedByDoctor(Boolean(checked))}
                       className="mt-2 mb-4"
                     >
-                      Ja, jeg har brug for en tolk
+                      Ja har været i konsultation med min læge
                     </Checkbox>
-                    <Label htmlFor="needs-translator" className="ml-2 text-lg">
-                      Ja, jeg har brug for en tolk
+                    <Label htmlFor="needs-translator" className="ml-2 text-md">
+                      Ja, jeg har været i konsultation med min læge
                     </Label>
                 </div>
+                <div className="flex items-center">
+                    <Checkbox
+                      id="has-been-consulted-by-doctor"
+                      name='has-been-consulted-by-doctor'
+                      checked={!hasBeenConsultedByDoctor || !currentHasBeenConsultedByDoctorValue === false}
+                      onCheckedChange={(checked) => setHasBeenConsultedByDoctor(!Boolean(checked))}
+                      className="mt-2 mb-4"
+                    >
+                      Nej, har ikke været i konsultation med min læge
+                    </Checkbox>
+                    <Label htmlFor="needs-translator" className="ml-2 text-md">
+                      Nej, har ikke været i konsultation med min læge
+                    </Label>
+                </div>
+                {
+                  hasBeenConsultedByDoctor && (
+                    <>
+                      <Label htmlFor="has-been-consulted-by-doctor" className="font-bold mt-4">
+                        Har i fået underskrevet en lægeerklæring?
+                      </Label>
+                      <div className="flex items-center">
+                        <Checkbox
+                          id="has-doctors-permit"
+                          name='has-doctors-permit'
+                          checked={hasDoctorsPermit || currentHasDoctorsPermitValue === true}
+                          onCheckedChange={(checked) => setHasDoctorsPermit(Boolean(checked))}
+                          className="mt-2 mb-4"
+                        >
+                          Ja har underskrevet lægeerklæring
+                        </Checkbox>
+                        <Label htmlFor="needs-translator" className="ml-2 text-md">
+                          Ja, har underskrevet lægeerklæring
+                        </Label>
+                      </div>
+                      <div className="flex items-center">
+                        <Checkbox
+                          id="has-doctors-permit"
+                          name='has-doctors-permit'
+                          checked={!hasDoctorsPermit || !currentHasDoctorsPermitValue === false}
+                          onCheckedChange={(checked) => setHasDoctorsPermit(!Boolean(checked))}
+                          className="mt-2 mb-4"
+                        >
+                          Nej, har ikke fået underskrevet lægeerklæring
+                        </Checkbox>
+                        <Label htmlFor="needs-translator" className="ml-2 text-md">
+                          Nej, har ikke fået underskrevet lægeerklæring
+                        </Label>
+                      </div>
+                    </>
+                  )
+                }
             </div>
               <Button
                 type="submit" className="bg-blue-700 text-white hover:bg-blue-800 mt-4"

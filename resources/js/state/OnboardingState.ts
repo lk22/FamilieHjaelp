@@ -142,7 +142,6 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     description: 'Vi skal bruge denne information til at vise jer den rigtige information og støtte, da jeres rettigheder og muligheder for støtte er forskellige før og efter uge 22.',
                     completed: false,
                     data: {
-                        beforeAfterTwentyTwoWeeks: null,
                         weekNumber: null,
                         hasDoctorsPermit: null,
                         hasBeenConsultedByDoctor: null,
@@ -151,7 +150,7 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                 {
                     id: 3,
                     stepName: 'three',
-                    question: 'Ønsker I at navngive/få kaldenavn til jeres barn?',
+                    question: 'Ønsker I at navngive / få kaldenavn til jeres barn?',
                     description: 'Mange forældre finder det vigtigt at give deres barn et navn. Ved dødfødsel fra uge 22 får barnet et administrativt CPR-nummer, og I kan vælge navn. Før uge 22 kan I stadig vælge et kaldenavn.',
                     completed: false,
                     data: {

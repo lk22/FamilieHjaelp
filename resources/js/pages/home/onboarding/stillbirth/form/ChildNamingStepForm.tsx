@@ -16,7 +16,7 @@ interface FirstStepFormProps {
   }) => void;
 }
 
-export default function PlacedLocationStepForm({ handleStepSubmit }: FirstStepFormProps) {
+export default function ChildNamigStepForm({ handleStepSubmit }: FirstStepFormProps) {
   const [placedLocation, setPlacedLocation] = useState<string>('');
   const [step, setStep] = useState<string>('one');
   const [submitted, setSubmitted] = useState<boolean>(false);

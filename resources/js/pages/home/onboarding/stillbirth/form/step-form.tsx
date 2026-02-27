@@ -2,7 +2,6 @@ import { useOnboarding } from "@/contexts/OnboardingContext";
 
 import InfoStepForm from "./InfoStepForm";
 import WeekNumberStepForm from "./WeekNumberStepForm";
-import PlacedLocationStepForm from "./PlacedLocationStepForm";
 import InformedAboutBereavementLeaveStepForm from "./InformedAboutBereavementLeaveStepForm";
 import WantsToNameChildStepForm from "./WantsToNameChildStepForm";
 import NeedToPlanFuneralStepForm from "./NeedToPlanFuneralStepForm";
@@ -11,6 +10,7 @@ import WantsInformationAboutAutopsyStepForm from "./WantsInformationAboutAutopsy
 import HasOtherChildrenAtHomeStepForm from "./HasOtherChildrenAtHomeStepForm";
 import KnowsSupportOptionsStepForm from "./KnowsSupportOptionsStepForm";
 import NeedsHelpApplyingForBereavementLeave from './NeedsHelpApplyingForBereavementLeaveStepForm'
+
 /**
  * StepForm Component
  * Dynamically renders form fields based on the current onboarding step.
@@ -82,7 +82,7 @@ const StepFormFieldsDisplay = ({
         case 'two':
             return <WeekNumberStepForm handleStepSubmit={submitStep} />;
         case 'three':
-            return <PlacedLocationStepForm handleStepSubmit={submitStep} />;
+            return <WantsToNameChildStepForm handleStepSubmit={submitStep} />;
         case 'four':
             return <InformedAboutBereavementLeaveStepForm handleStepSubmit={submitStep} />;
         case 'five':
