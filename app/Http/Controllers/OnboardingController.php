@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 
 use App\Models\OnboardingSession;
 
 use App\Http\Requests\CompleteOnboardingRequest;
+use App\Http\Requests\SubmitStepRequest;
 
 class OnboardingController extends Controller
 {
@@ -58,6 +60,36 @@ class OnboardingController extends Controller
                 'formData' => $session->form_data,
                 'completed' => $session->completed,
             ]
+        ]);
+    }
+
+    public function submitStep(SubmitStepRequest $request, string $scenario, string $step): JsonResponse|RedirectResponse
+    {
+        // This method will handle the form submission for each onboarding step.
+        // For now, it will just redirect back to the step view with a success message.
+
+        // In a real implementation, you would validate the request data and update the onboarding session accordingly.
+
+        // Step 1: validation logic (to be implemented)
+        $validated = $request->validated();
+        return response()->json([
+            'message' => 'Validation successful. This is a placeholder response. Implement validation logic in the controller.',
+            'validatedData' => $validated,
+        ]);
+
+        if (! $validated) {
+            return response()->json(['message' => 'Validation failed. Please check your input and try again.'], 422);
+        }
+
+        // step 2: update the onboarding session with the submitted data (to be implemented)
+        // step 3: determine the next step and redirect to it (to be implemented)
+        // return a success message for now to indicate the form was submitted successfully.
+
+        return response()->json([
+            'message' => 'Step submitted successfully. This is a placeholder response. Implement validation and session update logic in the controller.',
+            'scenario' => $scenario,
+            'step' => $step,
+            'submittedData' => $request->all(),
         ]);
     }
 

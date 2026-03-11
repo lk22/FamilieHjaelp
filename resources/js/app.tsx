@@ -20,7 +20,7 @@ createInertiaApp({
         includeCSS: true,
         showSpinner: true,
         delay: 250,
-    },
+    }
 });
 
 // This will set light / dark mode on load...

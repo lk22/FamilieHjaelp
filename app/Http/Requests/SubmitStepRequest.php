@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompleteOnboardingRequest extends FormRequest
+class SubmitStepRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,10 @@ class CompleteOnboardingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'session_token' => ['required', 'string', 'exists:onboarding_sessions,session_token'],
+            "data" => "required|array",
+            "data.*" => "required",
+            "scenario" => "required|string",
+            "step" => "required|string",
         ];
     }
 }

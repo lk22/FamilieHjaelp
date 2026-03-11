@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useForm } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
 
-interface StepData {
+type StepData = {
   name: string;
   age: string;
   ageOfPartner: string;
@@ -27,10 +26,9 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
   const [age, setAge] = useState<string>('');
   const [gender, setGender] = useState<string>('');
   const [ageOfPartner, setAgeOfPartner] = useState<string>('');
-  const [step, setStep] = useState<string>('one');
   const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
+  const { onboardingState } = useOnboarding();
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
 
@@ -70,7 +68,7 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
           submitted ? (
           <>
@@ -78,7 +76,6 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
           </>
           ) : (
             <>
-            <input type="hidden" name="step" value={step} />
               <label htmlFor="name" className="block mt-4 mb-2 font-medium text-gray-700">
                 Hvad er dit navn ?
               </label>

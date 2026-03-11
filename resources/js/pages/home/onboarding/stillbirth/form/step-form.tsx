@@ -1,15 +1,16 @@
-import { useOnboarding } from "@/contexts/OnboardingContext";
+import { useOnboarding } from '@/contexts/OnboardingContext';
+import { type ScenarioProperties } from '@/state/OnboardingState';
 
-import InfoStepForm from "./InfoStepForm";
-import WeekNumberStepForm from "./WeekNumberStepForm";
-import InformedAboutBereavementLeaveStepForm from "./InformedAboutBereavementLeaveStepForm";
-import WantsToNameChildStepForm from "./WantsToNameChildStepForm";
-import NeedToPlanFuneralStepForm from "./NeedToPlanFuneralStepForm";
-import HasReceivedDeathCertificateStepForm from "./HasReceivedDeathCertificateStepForm";
-import WantsInformationAboutAutopsyStepForm from "./WantsInformationAboutAutopsyStepForm";
-import HasOtherChildrenAtHomeStepForm from "./HasOtherChildrenAtHomeStepForm";
-import KnowsSupportOptionsStepForm from "./KnowsSupportOptionsStepForm";
-import NeedsHelpApplyingForBereavementLeave from './NeedsHelpApplyingForBereavementLeaveStepForm'
+import HasOtherChildrenAtHomeStepForm from './HasOtherChildrenAtHomeStepForm';
+import HasReceivedDeathCertificateStepForm from './HasReceivedDeathCertificateStepForm';
+import InformedAboutBereavementLeaveStepForm from './InformedAboutBereavementLeaveStepForm';
+import InfoStepForm from './InfoStepForm';
+import KnowsSupportOptionsStepForm from './KnowsSupportOptionsStepForm';
+import NeedsHelpApplyingForBereavementLeave from './NeedsHelpApplyingForBereavementLeaveStepForm';
+import NeedToPlanFuneralStepForm from './NeedToPlanFuneralStepForm';
+import WantsInformationAboutAutopsyStepForm from './WantsInformationAboutAutopsyStepForm';
+import WantsToNameChildStepForm from './WantsToNameChildStepForm';
+import WeekNumberStepForm from './WeekNumberStepForm';
 
 /**
  * StepForm Component
@@ -17,20 +18,13 @@ import NeedsHelpApplyingForBereavementLeave from './NeedsHelpApplyingForBereavem
  *
  * @param currentStep The current step identifier
  * @param scenario The scenario of the onboarding
- * @param onboardingSession The onboarding session data
  * @returns
  */
-export default function StepForm({
-    currentStep,
-    scenario,
-}: {
-    currentStep: string,
-    scenario: string
-}) {
+export default function StepForm({ currentStep, scenario }: { currentStep: string; scenario: string }) {
     return (
-        <div className="container py-8 mx-auto">
-            <StepFormContent currentStep={currentStep} scenario={scenario}/>
-        </div>
+        <>
+            <StepFormContent currentStep={currentStep} scenario={scenario} />
+        </>
     );
 }
 
@@ -39,42 +33,41 @@ export default function StepForm({
  * @param currentStep The current step identifier
  * @returns
  */
-const StepFormContent = ({
-    currentStep,
-    scenario}: {
-    currentStep: string;
-    scenario: string
-}) => {
-    const {onboardingState} = useOnboarding();
-    const currentScenario = onboardingState.scenarios.find((s: any) => s.id === scenario);
+const StepFormContent = ({ currentStep, scenario }: { currentStep: string; scenario: string }) => {
+    const { onboardingState } = useOnboarding();
+    const currentScenario = onboardingState.scenarios.find((s) => s.id === scenario);
+
+    if (!currentScenario) {
+        return <div>Scenario not found</div>;
+    }
 
     return (
-        <div>
-            <StepFormFieldsDisplay currentStep={currentStep} scenario={currentScenario}/>
+        <div className="pt-8">
+            <StepFormFieldsDisplay currentStep={currentStep} scenario={currentScenario} />
         </div>
-    )
-}
+    );
+};
+
+type ScenarioStepsList = {
+    id: string;
+    stepName: string;
+    completed: boolean;
+};
 
 /**
  * Form Display component that renders form fields based on the current step
  * @param currentStep The current step identifier
  * @returns
  */
-const StepFormFieldsDisplay = ({
-    currentStep,
-    scenario
-}: {
-    currentStep: string;
-    scenario: string;
-}) => {
-    const {updateFormData, updateStep, completeStep} = useOnboarding();
+const StepFormFieldsDisplay = ({ currentStep, scenario }: { currentStep: string; scenario: ScenarioProperties }) => {
+    const { updateFormData, updateStep, completeStep } = useOnboarding();
 
     const submitStep = (data: Record<string, any>) => {
         const currentScenario = scenario?.id;
         updateStep(currentStep, data);
         updateFormData(data);
         completeStep(currentStep, currentScenario, data);
-    }
+    };
 
     switch (currentStep) {
         case 'one':
@@ -84,22 +77,20 @@ const StepFormFieldsDisplay = ({
         case 'three':
             return <WantsToNameChildStepForm handleStepSubmit={submitStep} />;
         case 'four':
-            return <InformedAboutBereavementLeaveStepForm handleStepSubmit={submitStep} />;
-        case 'five':
-            return <WantsToNameChildStepForm handleStepSubmit={submitStep} />;
-        case 'six':
             return <NeedToPlanFuneralStepForm handleStepSubmit={submitStep} />;
-        case 'seven':
+        case 'five':
             return <HasReceivedDeathCertificateStepForm handleStepSubmit={submitStep} />;
-        case 'eight':
+        case 'six':
             return <WantsInformationAboutAutopsyStepForm handleStepSubmit={submitStep} />;
+        case 'seven':
+            return <HasOtherChildrenAtHomeStepForm handleStepSubmit={submitStep} />;
+        case 'eight':
+            return <KnowsSupportOptionsStepForm handleStepSubmit={submitStep} />;
         case 'nine':
-            return <HasOtherChildrenAtHomeStepForm handleStepSubmit={submitStep} />
+            return <InformedAboutBereavementLeaveStepForm handleStepSubmit={submitStep} />;
         case 'ten':
-            return <KnowsSupportOptionsStepForm handleStepSubmit={submitStep} />
-        case 'eleven':
-            return <NeedsHelpApplyingForBereavementLeave handleStepSubmit={submitStep} />
+            return <NeedsHelpApplyingForBereavementLeave handleStepSubmit={submitStep} />;
         default:
             return <div>Unknown Step</div>;
     }
-}
+};

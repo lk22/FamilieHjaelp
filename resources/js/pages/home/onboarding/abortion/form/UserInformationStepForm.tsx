@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useOnboarding } from '@/contexts/OnboardingContext';
-
 import { router } from '@inertiajs/react';
 import { logState } from '@/lib/utils'
 
@@ -40,13 +39,11 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
+  const { onboardingState } = useOnboarding();
 
-  const currentScenario = getCurrentScenario();
+  const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
 
   logState('UserInformationStepForm', { onboardingState, currentScenario, userInfoState });
-
-  // TODO: this needs fix
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
   const currentName = currentStep?.data.name || '';

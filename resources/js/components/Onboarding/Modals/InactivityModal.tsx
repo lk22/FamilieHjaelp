@@ -18,10 +18,10 @@ export default function InactivityModal({ isOpen, closeModal }: InactivityModalP
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold mb-4 text-white">Din session er paused</DialogTitle>
         </DialogHeader>
-        <DialogDescription className="text-lg">
+        <DialogDescription className="text-lg text-white">
           Det ser ud til, at du har været inaktiv i et stykke tid. For at beskytte dine oplysninger har vi paused din onboarding-session.
         </DialogDescription>
-        <DialogDescription className="text-lg mt-4">
+        <DialogDescription className="text-lg mt-4 text-white">
           bevæg musen for at fortsætte din session
         </DialogDescription>
       </DialogContent>

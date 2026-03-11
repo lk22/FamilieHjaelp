@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 
-interface FormStepProps {
+type FormStepProps = {
     handleStepSubmit: (data: {
       weekNumber: string;
       hasDoctorsPermit: boolean
@@ -17,8 +17,10 @@ interface FormStepProps {
     }) => void;
 }
 
-interface WeekNumberDate {
+interface WeekNumberStepFormData {
   weekNumber: string;
+  hasDoctorsPermit: boolean;
+  hasBeenConsultedByDoctor: boolean;
 }
 
 export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) {
@@ -46,11 +48,13 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
     event.preventDefault();
     setSubmitted(true);
 
-    handleStepSubmit({
+    const submittedData: WeekNumberStepFormData = {
       weekNumber,
-      hasDoctorsPermit,
-      hasBeenConsultedByDoctor
-    })
+      hasDoctorsPermit: Boolean(hasDoctorsPermit),
+      hasBeenConsultedByDoctor: Boolean(hasBeenConsultedByDoctor)
+    }
+
+    handleStepSubmit({ ...submittedData });
 
     setTimeout(() => {
       setSubmitted(false);
@@ -64,7 +68,7 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
           submitted ? (
           <>
@@ -87,6 +91,15 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                   />
                   <span className="w-5/12 ms-4">Uger</span>
                 </div>
+                {
+                  weekNumber !== '' && Number(weekNumber) >= 22 && (
+                    <>
+                      <p className="text-sm text-yellow-600 mt-2">
+                        Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad.
+                      </p>
+                    </>
+                  )
+                }
                 <Label htmlFor="has-been-consulted-by-doctor" className="font-bold mt-4">
                   Har du/i været til konsultation med jeres læge?
                 </Label>

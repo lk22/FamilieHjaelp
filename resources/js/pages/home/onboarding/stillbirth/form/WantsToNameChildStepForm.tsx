@@ -1,46 +1,45 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useForm } from '@inertiajs/react';
+import { Label } from "@/components/ui/label";
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
 
-interface StepData {
-  informedAboutBereavementLeave: string;
+type StepData = {
+  wantsToNameChild: boolean;
+  wantsToInformChildName: boolean;
+  childName?: string;
 }
 
-interface FirstStepFormProps {
+interface WantsToNameChildStepFormProps {
   handleStepSubmit: (data: {
-    wantsToNameChild: string;
+    wantsToNameChild: boolean;
+    wantsToInformChildName: boolean;
+    childName?: string;
   }) => void;
 }
 
-export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [wantsToNameChild, setWantsToNameChild] = useState<string>('');
-  const [step, setStep] = useState<string>('one');
+export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNameChildStepFormProps) {
+  const [wantsToNameChild, setWantsToNameChild] = useState<boolean>(true);
+  const [wantsToInformChildName, setWantsToInformChildName] = useState<boolean>(true);
+  const [childName, setChildName] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const { onboardingState } = useOnboarding();
 
-  const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
-
-  const currentScenario = getCurrentScenario();
-
-  // TODO: this needs fix
+  const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
-
-  const currentInformedAboutBereavementLeave = currentStep?.data.informedAboutBereavementLeave || '';
-
-  const { data, setData, post, processing, errors } = useForm<{
-    informedAboutBereavementLeave: string
-  }>({
-    informedAboutBereavementLeave: ''
-  });
+  const currentWantsToNameChild = currentStep?.data.wantsToNameChild
+  const currentWantsToInformChildName = currentStep?.data.wantsToInformChildName
+  const currentChildName = currentStep?.data.childName || '';
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     const submittedData: StepData = {
       wantsToNameChild: wantsToNameChild,
+      wantsToInformChildName: wantsToInformChildName,
+      childName: childName || currentChildName
     }
 
     console.log(submittedData)
@@ -54,14 +53,14 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
 
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
-        step: 'six'
+        step: 'four'
       }));
     }, 1000);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
           submitted ? (
           <>
@@ -69,31 +68,89 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
           </>
           ) : (
             <>
-              <input type="hidden" name="step" value={step} />
+              <div className="flex items-center">
                 <Checkbox
-                  id="wantsToNameChild"
-                  value="yes"
-                  checked={wantsToNameChild === 'yes'}
-                  onChange={(e) => setWantsToNameChild(e.target.value)}
-                  className="mr-2"
-                />
-                <label htmlFor="wantsToNameChild" className="block mt-4 mb-2 font-medium text-gray-700">
+                  id="wants-to-name-child"
+                  name="wants-to-name-child"
+                  checked={wantsToNameChild || currentWantsToNameChild === true}
+                  onCheckedChange={(checked) => setWantsToNameChild(Boolean(checked))}
+                  className="mr-2 mb-4"
+                >
+                  Ja vi ønske og navngive barnet
+                </Checkbox>
+                <Label htmlFor="wants-to-name-child" className="block mb-2 font-medium text-gray-700">
                   Ja vi ønsker og navngive barnet
-                </label>
+                </Label>
+              </div>
+              <div className="flex items-center">
                 <Checkbox
-                  id="wantsToNameChild"
-                  value="no"
-                  checked={wantsToNameChild === 'no'}
-                  onChange={(e) => setWantsToNameChild(e.target.value)}
-                  className="mr-2"
-                />
-                <label htmlFor="wantsToNameChild" className="block mt-4 mb-2 font-medium text-gray-700">
+                  id="wants-to-name-child-no"
+                  name="wants-to-name-child-no"
+                  checked={!wantsToNameChild || currentWantsToNameChild === false}
+                  onCheckedChange={(checked) => setWantsToNameChild(!Boolean(checked))}
+                  className="mr-2 mb-4"
+                >
                   Nej vi ønsker ikke og navngive barnet
-                </label>
+                </Checkbox>
+                <Label htmlFor="wants-to-name-child-no" className="block mb-2 font-medium text-gray-700">
+                  Nej vi ønsker ikke og navngive barnet
+                </Label>
+              </div>
+              {
+                wantsToNameChild && (
+                  <>
+                    <p className="text-sm text-gray-600 my-2">
+                      Bemærk: Hvis du vælger at navngive barnet, vil det være synligt i din profil og i de ressourcer og den støtte, vi tilbyder. Hvis du vælger ikke at navngive barnet, vil det ikke være synligt i din profil, og du vil ikke modtage ressourcer og støtte relateret til barnets navn.
+                    </p>
+                    <div className="flex items-center">
+                      <Checkbox
+                        id="wants-to-inform-child-name"
+                        name="wants-to-inform-child-name"
+                        checked={wantsToInformChildName || currentWantsToInformChildName === true}
+                        onCheckedChange={(checked) => setWantsToInformChildName(Boolean(checked))}
+                        className="mr-2 mb-4"
+                      >
+                        Ja, jeg ønsker at informere om barnets navn
+                      </Checkbox>
+                      <Label htmlFor="wants-to-inform-child-name" className="block mb-2 font-medium text-gray-700">
+                        Ja, jeg ønsker at informere om barnets navn
+                      </Label>
+                    </div>
+                    {
+                      wantsToInformChildName && (
+                        <>
+                          <label htmlFor="child-name" className="block mt-4 mb-2 font-medium text-gray-700">Hvad er barnets navn?</label>
+                          <input
+                            type="text"
+                            id="child-name"
+                            name="child-name"
+                            value={childName || currentChildName}
+                            onChange={(e) => setChildName(e.target.value)}
+                            className="block w-full mt-1 ps-4 mb-4 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                          />
+                        </>
+                      )
+                    }
+                    <div className="flex items-center">
+                      <Checkbox
+                        id="wants-to-inform-child-name-no"
+                        name="wants-to-inform-child-name-no"
+                        checked={!wantsToInformChildName || currentWantsToInformChildName === false}
+                        onCheckedChange={(checked) => setWantsToInformChildName(!Boolean(checked))}
+                        className="mr-2 mb-4"
+                      >
+                        Nej, jeg ønsker ikke at informere om barnets navn
+                      </Checkbox>
+                      <Label htmlFor="wants-to-inform-child-name-no" className="block mt-4 mb-2 font-medium text-gray-700">
+                        Nej, jeg ønsker ikke at informere om barnets navn
+                      </Label>
+                    </div>
+                  </>
+                )
+              }
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
               >
                 Næste
               </Button>

@@ -6,7 +6,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
 
-interface StepData {
+type StepData = {
   placedLocation: string;
 }
 
@@ -84,7 +84,7 @@ export default function ChildNamigStepForm({ handleStepSubmit }: FirstStepFormPr
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
           submitted ? (
           <>

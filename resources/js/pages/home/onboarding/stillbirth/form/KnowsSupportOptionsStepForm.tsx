@@ -6,35 +6,28 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
 
-interface StepData {
-  knowsSupportOptions: string;
+type StepData = {
+  knowsSupportOptions: boolean;
 }
 
-interface FirstStepFormProps {
+interface KnowsSupportOptionsStepFormProps {
   handleStepSubmit: (data: {
-    knowsSupportOptions: string;
+    knowsSupportOptions: boolean;
   }) => void;
 }
 
-export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [knowsSupportOptions, setknowsSupportOptions] = useState<string>('');
-  const [step, setStep] = useState<string>('one');
+export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsSupportOptionsStepFormProps) {
+  const [knowsSupportOptions, setknowsSupportOptions] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
+  const { onboardingState } = useOnboarding();
 
-  const currentScenario = getCurrentScenario();
+  const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
 
   // TODO: this needs fix
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
-  const currentknowsSupportOptions = currentStep?.data.knowsSupportOptions || '';
-
-  const { data, setData, post, processing, errors } = useForm<{
-    knowsSupportOptions: string
-  }>({
-    knowsSupportOptions: ''
-  });
+  const currentknowsSupportOptions: boolean | undefined = currentStep?.data.knowsSupportOptions;
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -42,8 +35,6 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: FirstS
     const submittedData: StepData = {
       knowsSupportOptions: knowsSupportOptions,
     }
-
-    console.log(submittedData)
 
     // Proceed to the next step or perform other actions
     handleStepSubmit({ ...submittedData });
@@ -54,44 +45,50 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: FirstS
 
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
-        step: 'nineth'
+        step: 'nine'
       }));
     }, 1000);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
           submitted ? (
           <>
-            <p className="mt-4 text-green-600">Indsendt</p>
+            <p className="mt-4 text-green-600">Indsendt!</p>
           </>
           ) : (
             <>
-              <input type="hidden" name="step" value={step} />
+            <div className="flex items-center">
               <Checkbox
                 id="knowsSupportOptions"
-                value={knowsSupportOptions}
-                onChange={(e) => setknowsSupportOptions(e.target.value)}
+                checked={knowsSupportOptions || currentknowsSupportOptions === true}
+                onCheckedChange={(checked) => setknowsSupportOptions(Boolean(checked))}
                 className="mr-2"
-              />
+              >
+                Ja Jeg kender mine muligheder for støtte
+              </Checkbox>
               <label htmlFor="knowsSupportOptions" className="block mt-4 mb-2 font-medium text-gray-700">
-                Ja, jeg ønsker information om obduktion
+                Ja Jeg kender mine muligheder for støtte
               </label>
+            </div>
+            <div className="flex items-center">
               <Checkbox
                 id="knowsSupportOptionsNo"
-                value="no"
-                onChange={(e) => setknowsSupportOptions(e.target.value)}
+                checked={!(knowsSupportOptions || currentknowsSupportOptions === false)}
+                onCheckedChange={(checked) => setknowsSupportOptions(!Boolean(checked))}
                 className="mr-2"
-              />
+              >
+                Nej, jeg kender ikke mine muligheder for støtte
+              </Checkbox>
               <label htmlFor="knowsSupportOptionsNo" className="block mt-4 mb-2 font-medium text-gray-700">
-                Nej, jeg ønsker ikke information om obduktion
+                Nej, jeg kender ikke mine muligheder for støtte
               </label>
+            </div>
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
               >
                 Næste
               </Button>

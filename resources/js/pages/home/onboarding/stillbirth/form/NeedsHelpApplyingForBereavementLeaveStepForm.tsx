@@ -1,40 +1,30 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useForm } from '@inertiajs/react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
-import { router } from '@inertiajs/react';
+import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
 
-interface StepData {
-  needsHelpApplyingForBereavementLeave: string;
+type StepData = {
+  needsHelpApplyingForBereavementLeave: boolean;
 }
 
 interface FirstStepFormProps {
   handleStepSubmit: (data: {
-    needsHelpApplyingForBereavementLeave: string;
+    needsHelpApplyingForBereavementLeave: boolean;
   }) => void;
 }
 
 export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [needsHelpApplyingForBereavementLeave, setneedsHelpApplyingForBereavementLeave] = useState<string>('');
-  const [step, setStep] = useState<string>('one');
+  const [needsHelpApplyingForBereavementLeave, setNeedsHelpApplyingForBereavementLeave] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { onboardingState } = useOnboarding();
 
-  const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
-
-  const currentScenario = getCurrentScenario();
-
-  // TODO: this needs fix
+  const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
-  const currentneedsHelpApplyingForBereavementLeave = currentStep?.data.needsHelpApplyingForBereavementLeave || '';
-
-  const { processing } = useForm<{
-    needsHelpApplyingForBereavementLeave: string
-  }>({
-    needsHelpApplyingForBereavementLeave: ''
-  });
+  const currentNeedsHelpApplyingForBereavementLeave = currentStep?.data.needsHelpApplyingForBereavementLeave;
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -43,55 +33,50 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
       needsHelpApplyingForBereavementLeave: needsHelpApplyingForBereavementLeave,
     }
 
-    console.log(submittedData)
-
     // Proceed to the next step or perform other actions
     handleStepSubmit({ ...submittedData });
     setSubmitted(true);
-
-    setTimeout(() => {
-      setSubmitted(false);
-
-      router.get(route('onboarding.scenario.step', {
-        scenario: onboardingState.currentScenario,
-        step: 'nineth'
-      }));
-    }, 1000);
+    setIsOpen(true);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
           submitted ? (
           <>
             <p className="mt-4 text-green-600">Indsendt</p>
+            <CompletedModal isOpen={isOpen} closeModal={() => setIsOpen(false)} />
           </>
           ) : (
             <>
-              <input type="hidden" name="step" value={step} />
-              <Checkbox
-                id="needsHelpApplyingForBereavementLeave"
-                value={needsHelpApplyingForBereavementLeave}
-                onChange={(e) => setneedsHelpApplyingForBereavementLeave(e.target.value)}
-                className="mr-2"
-              />
-              <label htmlFor="needsHelpApplyingForBereavementLeave" className="block mt-4 mb-2 font-medium text-gray-700">
-                Ja, jeg ønsker information om obduktion
-              </label>
-              <Checkbox
-                id="needsHelpApplyingForBereavementLeaveNo"
-                value="no"
-                onChange={(e) => setneedsHelpApplyingForBereavementLeave(e.target.value)}
-                className="mr-2"
-              />
-              <label htmlFor="needsHelpApplyingForBereavementLeaveNo" className="block mt-4 mb-2 font-medium text-gray-700">
-                Nej, jeg ønsker ikke information om obduktion
-              </label>
+              <div className="flex items-center">
+                <Checkbox
+                  id="needsHelpApplyingForBereavementLeave"
+                  checked={needsHelpApplyingForBereavementLeave || currentNeedsHelpApplyingForBereavementLeave === true}
+                  onCheckedChange={(checked) => setNeedsHelpApplyingForBereavementLeave(Boolean(checked))}
+                  className="mr-2"
+                >
+                  Ja, jeg ønsker information om obduktion
+                </Checkbox>
+                <label htmlFor="needsHelpApplyingForBereavementLeave" className="block mt-4 mb-2 font-medium text-gray-700">
+                  Ja, jeg ønsker information om obduktion
+                </label>
+              </div>
+              <div className="flex items-center">
+                <Checkbox
+                  id="needsHelpApplyingForBereavementLeaveNo"
+                  checked={!needsHelpApplyingForBereavementLeave || currentNeedsHelpApplyingForBereavementLeave === false}
+                  onCheckedChange={(checked) => setNeedsHelpApplyingForBereavementLeave(!Boolean(checked))}
+                  className="mr-2"
+                />
+                <label htmlFor="needsHelpApplyingForBereavementLeaveNo" className="block mt-4 mb-2 font-medium text-gray-700">
+                  Nej, jeg ønsker ikke information om obduktion
+                </label>
+              </div>
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
               >
                 Næste
               </Button>

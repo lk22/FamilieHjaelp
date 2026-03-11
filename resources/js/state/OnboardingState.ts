@@ -156,6 +156,7 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     data: {
                         wantsToNameChild: null,
                         wantsToInformChildName: null,
+                        childName: null
                     }
                 },
                 {

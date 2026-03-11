@@ -6,35 +6,25 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 
 import { router } from '@inertiajs/react';
 
-interface StepData {
-  informedAboutBereavementLeave: string;
+type StepData = {
+  informedAboutBereavementLeave: boolean;
 }
 
 interface FirstStepFormProps {
   handleStepSubmit: (data: {
-    informedAboutBereavementLeave: string;
+    informedAboutBereavementLeave: boolean;
   }) => void;
 }
 
 export default function InformedAboutBereavementLeaveStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [informedAboutBereavementLeave, setInformedAboutBereavementLeave] = useState<string>('');
-  const [step, setStep] = useState<string>('one');
+  const [informedAboutBereavementLeave, setInformedAboutBereavementLeave] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
+  const { onboardingState } = useOnboarding();
 
-  const currentScenario = getCurrentScenario();
-
-  // TODO: this needs fix
+  const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
-
   const currentInformedAboutBereavementLeave = currentStep?.data.informedAboutBereavementLeave || '';
-
-  const { data, setData, post, processing, errors } = useForm<{
-    informedAboutBereavementLeave: string
-  }>({
-    informedAboutBereavementLeave: ''
-  });
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -42,8 +32,6 @@ export default function InformedAboutBereavementLeaveStepForm({ handleStepSubmit
     const submittedData: StepData = {
       informedAboutBereavementLeave: informedAboutBereavementLeave,
     }
-
-    console.log(submittedData)
 
     // Proceed to the next step or perform other actions
     handleStepSubmit({ ...submittedData });
@@ -54,14 +42,14 @@ export default function InformedAboutBereavementLeaveStepForm({ handleStepSubmit
 
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
-        step: 'five'
+        step: 'ten'
       }));
     }, 1000);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
         {
           submitted ? (
           <>
@@ -69,31 +57,33 @@ export default function InformedAboutBereavementLeaveStepForm({ handleStepSubmit
           </>
           ) : (
             <>
-              <input type="hidden" name="step" value={step} />
+              <div className="flex items-center">
                 <Checkbox
                   id="informedAboutBereavementLeave"
                   value="yes"
-                  checked={informedAboutBereavementLeave === 'yes'}
-                  onChange={(e) => setInformedAboutBereavementLeave(e.target.value)}
+                  checked={informedAboutBereavementLeave || currentInformedAboutBereavementLeave === true}
+                  onCheckedChange={(checked) => setInformedAboutBereavementLeave(Boolean(checked))}
                   className="mr-2"
                 />
                 <label htmlFor="informedAboutBereavementLeave" className="block mt-4 mb-2 font-medium text-gray-700">
                   Ja jeg er blevet informeret om mine rettigheder til orlov
                 </label>
+              </div>
+              <div className="flex items-center">
                 <Checkbox
                   id="informedAboutBereavementLeave"
                   value="no"
-                  checked={informedAboutBereavementLeave === 'no'}
-                  onChange={(e) => setInformedAboutBereavementLeave(e.target.value)}
+                  checked={!informedAboutBereavementLeave || currentInformedAboutBereavementLeave === false}
+                  onCheckedChange={(checked) => setInformedAboutBereavementLeave(!Boolean(checked))}
                   className="mr-2"
                 />
                 <label htmlFor="informedAboutBereavementLeave" className="block mt-4 mb-2 font-medium text-gray-700">
                   Nej jeg er ikke blevet informeret om mine rettigheder til orlov
                 </label>
+              </div>
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
-                disabled={processing}
               >
                 Næste
               </Button>
