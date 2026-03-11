@@ -1,11 +1,17 @@
+// dependencies
 import { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-
 import { router } from '@inertiajs/react';
+
+// Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
+
+// Utilities
 import { logState } from '@/lib/utils'
+
+// components
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type NeedsPostpartumSupportInfoStepFormProps = {
   handleStepSubmit: (data: {needsPostpartumSupportInfo: boolean}) => void;

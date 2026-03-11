@@ -1,12 +1,17 @@
+// dependencies
 import { useState } from 'react';
+import { useForm } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
+
+// Contexts
+import { useOnboarding } from '@/contexts/OnboardingContext';
+
+// components
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { useForm } from '@inertiajs/react';
-import { useOnboarding } from '@/contexts/OnboardingContext';
-
-import { router } from '@inertiajs/react';
+// utilities
 import { logState } from '@/lib/utils'
 
 type NeedsInterpeterStepProps = {

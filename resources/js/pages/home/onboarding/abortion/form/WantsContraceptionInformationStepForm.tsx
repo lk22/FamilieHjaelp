@@ -1,10 +1,15 @@
+// dependencies
 import { JSX, useState } from 'react';
+import { router } from '@inertiajs/react';
+
+// Contexts
+import { useOnboarding } from '@/contexts/OnboardingContext';
+
+// Components
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { useOnboarding } from '@/contexts/OnboardingContext';
-
-import { router } from '@inertiajs/react';
+// Utilities
 import { logState } from '@/lib/utils'
 
 type WantsContraptionsInformationProps = {

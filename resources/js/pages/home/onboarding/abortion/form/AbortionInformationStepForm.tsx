@@ -1,10 +1,15 @@
+// dependencies
 import { useState, useCallback } from 'react';
+import { router } from '@inertiajs/react';
+
+// Contexts
+import { useOnboarding } from '@/contexts/OnboardingContext';
+
+// components
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-import { useOnboarding } from '@/contexts/OnboardingContext';
-
-import { router } from '@inertiajs/react';
+// Utilities
 import { logState } from '@/lib/utils'
 
 type AbortionInformationStepProps = {

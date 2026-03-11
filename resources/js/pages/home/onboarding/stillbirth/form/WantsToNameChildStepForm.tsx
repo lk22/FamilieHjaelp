@@ -1,10 +1,14 @@
+// Dependencies
 import { useState } from 'react';
+import { router } from '@inertiajs/react';
+
+// Contexts
+import { useOnboarding } from '@/contexts/OnboardingContext';
+
+// Components
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { useOnboarding } from '@/contexts/OnboardingContext';
-
-import { router } from '@inertiajs/react';
 
 type StepData = {
   wantsToNameChild: boolean;

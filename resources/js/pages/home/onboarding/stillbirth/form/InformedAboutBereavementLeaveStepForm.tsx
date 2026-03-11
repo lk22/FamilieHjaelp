@@ -1,10 +1,13 @@
+// dependencies
 import { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useForm } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
+
+// Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
-import { router } from '@inertiajs/react';
+// components
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type StepData = {
   informedAboutBereavementLeave: boolean;

@@ -1,8 +1,15 @@
+// dependencies
 import { useState } from 'react';
+import { router } from '@inertiajs/react';
+
+// Conexts
+import { useOnboarding } from '@/contexts/OnboardingContext';
+
+// componenets
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useOnboarding } from '@/contexts/OnboardingContext';
-import { router } from '@inertiajs/react';
+
+// Utilities
 import { logState } from '@/lib/utils'
 
 type StepData = {

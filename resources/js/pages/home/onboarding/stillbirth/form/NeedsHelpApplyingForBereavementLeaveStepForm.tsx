@@ -1,8 +1,12 @@
+// Dependencies
 import { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+
+// Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
+// components
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
 
 type StepData = {

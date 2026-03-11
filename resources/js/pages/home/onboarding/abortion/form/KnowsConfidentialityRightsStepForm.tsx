@@ -1,11 +1,16 @@
+// dependencies
 import { useState } from 'react';
+import { usePage } from '@inertiajs/react';
+
+// Contexts
+import { useOnboarding } from '@/contexts/OnboardingContext';
+
+// Components
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
 
-import { usePage } from '@inertiajs/react';
-import { useOnboarding } from '@/contexts/OnboardingContext';
-
+// Utilities
 import { logState } from '@/lib/utils'
 
 type KnowsConfidentialityRightsStepFormProps = {

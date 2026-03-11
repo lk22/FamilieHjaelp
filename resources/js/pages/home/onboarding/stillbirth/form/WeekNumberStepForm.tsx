@@ -1,6 +1,8 @@
 // Dependencies
 import { useState } from 'react';
 import { router } from '@inertiajs/react';
+
+// Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 // Components

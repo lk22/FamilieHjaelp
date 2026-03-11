@@ -1,9 +1,13 @@
+// Dependencies
 import { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { router } from '@inertiajs/react';
+
+// Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
-import { router } from '@inertiajs/react';
+// Components
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 type StepData = {
   name: string;
