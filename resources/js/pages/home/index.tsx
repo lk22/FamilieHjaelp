@@ -51,10 +51,10 @@ export default function Welcome() {
                                                     Kom igang
                                                 </Link>
                                                 <Link
-                                                    href={route('getting-started')}
+                                                    href={route('login')}
                                                     className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal hover:border-[#19140035]"
                                                 >
-                                                    Kom igang
+                                                    Log ind
                                                 </Link>
                                             </div>
                                         </>
