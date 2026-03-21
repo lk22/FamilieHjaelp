@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogD
 
 interface GettingStartedModalProps {
     isOpen: boolean;
-    closeModal?: () => void;
+    closeModal: () => void;
 }
 
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -18,8 +18,8 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
      * Prepares the onboarding by resetting state and setting loading
      * @returns void
      */
-    const prepareOnboarding = () => {
-        resetOnboarding(); // resets the onboarding state
+    const prepareOnboarding = async () => {
+        await resetOnboarding(); // resets the onboarding state
         setPreparing(true); // setting preparing loading state
     };
 
@@ -31,13 +31,19 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
             } catch (error) {
                 console.error('Failed to navigate to getting started:', error);
             }
+            router.visit(route('getting-started'), {
+                onError: (error) => {
+                    console.log("Failed to navigate to getting started:", error);
+                    setPreparing(false);
+                }
+            })
         }, 2000);
 
         return () => clearTimeout(timer);
     }, [preparing]);
 
     return (
-        <Dialog open={isOpen} modal={true} onOpenChange={closeModal}>
+        <Dialog open={isOpen} modal={true} onOpenChange={() => !isOpen && closeModal?.()}>
             <DialogContent className="p-8 sm:max-w-6xl">
                 <DialogHeader>
                     <DialogTitle className="mb-4 text-4xl font-semibold text-white">Kom i gang med Familiehjælp</DialogTitle>
@@ -96,12 +102,12 @@ export default function GettingStartedModal({ isOpen, closeModal }: GettingStart
                             <>
                                 <div className="flex justify-end gap-4">
                                     <div className="reset-onboarding" onClick={() => resetOnboarding()}>
-                                        <Link
-                                            href={route('getting-started')}
+                                        <button
+                                            onClick={() => resetOnboarding()}
                                             className="inline-block rounded-sm border border-white bg-white px-5 py-1.5 text-xl leading-normal text-blue-500 hover:border-white"
                                         >
                                             Start forfra
-                                        </Link>
+                                        </button>
                                     </div>
                                     <div className="continue">
                                         <Link

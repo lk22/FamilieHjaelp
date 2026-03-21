@@ -26,7 +26,7 @@ export default function ChildNamigStepForm({ handleStepSubmit }: FirstStepFormPr
 
   const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
 
-  const currentScenario = getCurrentScenario();
+  const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
 
   // TODO: this needs fix
   const currentStep = currentScenario?.steps[0]; // First step (index 0)

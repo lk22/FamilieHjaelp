@@ -63,34 +63,42 @@ class OnboardingController extends Controller
         ]);
     }
 
+    /**
+     * Submitting step from onboarding
+     * @param SubmitStepRequest $request
+     * @param string $scenario
+     * @param string $step
+     * @return JsonResponse
+     */
     public function submitStep(SubmitStepRequest $request, string $scenario, string $step): JsonResponse|RedirectResponse
     {
-        // This method will handle the form submission for each onboarding step.
-        // For now, it will just redirect back to the step view with a success message.
-
-        // In a real implementation, you would validate the request data and update the onboarding session accordingly.
-
         // Step 1: validation logic (to be implemented)
-        $validated = $request->validated();
-        return response()->json([
-            'message' => 'Validation successful. This is a placeholder response. Implement validation logic in the controller.',
-            'validatedData' => $validated,
-        ]);
-
-        if (! $validated) {
+        if (! $request->validated()) {
             return response()->json(['message' => 'Validation failed. Please check your input and try again.'], 422);
         }
 
         // step 2: update the onboarding session with the submitted data (to be implemented)
-        // step 3: determine the next step and redirect to it (to be implemented)
-        // return a success message for now to indicate the form was submitted successfully.
+        $existingSession = OnboardingSession::findByToken($request->cookie('onboarding_session_token'));
 
+        if (! $existingSession) {
+            return response()->json(['message' => 'Onboarding session not found. Please start the onboarding process again.'], 404);
+        }
+
+        $existingSession->update([
+            "scenario" => $scenario,
+            "current_step" => $step,
+            "steps_data" => array_merge($existingSession->steps_data, [
+                $step => $request->input('data')
+            ])
+        ]);
+
+        // return a success message for now to indicate the form was submitted successfully.
         return response()->json([
-            'message' => 'Step submitted successfully. This is a placeholder response. Implement validation and session update logic in the controller.',
+            'message' => 'Step submitted successfully',
             'scenario' => $scenario,
             'step' => $step,
             'submittedData' => $request->all(),
-        ]);
+        ], 200);
     }
 
     /**
@@ -155,7 +163,7 @@ class OnboardingController extends Controller
         $token = $request->cookie('onboarding_session_token');
 
         if( is_null($token) ) {
-            abort(404, 'Onboarding session token is missing.');
+            abort(400, 'Onboarding session token is missing.');
         }
 
         $session = OnboardingSession::findByToken($token);
@@ -183,6 +191,10 @@ class OnboardingController extends Controller
 
         $userId = $request->user()?->id;
         $session = OnboardingSession::findWhen($userId, $validated['session_token']);
+
+        if ( ! $session) {
+            abort(404, 'Onboarding session not found');
+        }
 
         $session->markAsCompleted();
 

@@ -33,10 +33,13 @@ export default function CompletedModal({ isOpen, closeModal }: modalProps) {
         <DialogDescription>
           Hvis du har spørgsmål eller brug for yderligere hjælp, er du altid velkommen til at kontakte os. Vi er her for at støtte dig på din rejse.
         </DialogDescription>
-        <DialogFooter>
-            <Link href={route('onboarding.confirmation')} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-              Gå til bekræftelsessiden
-            </Link>
+        <DialogFooter className="mt-6 flex space-x-4">
+          <Link
+            href={route('onboarding.confirmation')}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition inline-block"
+          >
+            Gå til bekræftelsessiden
+          </Link>
           <button
             onClick={() => {
               resetOnboarding();

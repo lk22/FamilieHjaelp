@@ -1,12 +1,20 @@
+// dependency imports
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import {Link} from '@inertiajs/react';
+
+// Context imports
+import { useOnboarding } from '@/contexts/OnboardingContext';
+import { checkIfOnboardingCompleted } from '@/lib/utils';
+
+// Hook imports
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsTablet } from '@/hooks/use-tablet';
+
+// Component imports
 import ProgressBar from '@/components/Onboarding/progressBar';
 import OnboardingHeader from '@/components/Onboarding/onboarding-header';
-import { useOnboarding } from '@/contexts/OnboardingContext';
-
 import InactivityModal from '@/components/Onboarding/Modals/InactivityModal';
 import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
-import { checkIfOnboardingCompleted } from '@/lib/utils';
 
 interface OnboardingTemplateInterface {
     children?: React.ReactNode[];
@@ -24,6 +32,8 @@ export default function OnboardingTemplate({
     state,
 }: OnboardingTemplateInterface) {
     const [processCompleted, setProcessCompleted] = useState<boolean>(false);
+    const isMobile = useIsMobile();
+    const isTablet = useIsTablet();
     const { onboardingState, pauseOnboarding, updateCurrentScenario, resumeOnboarding } = useOnboarding();
 
     const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
@@ -153,24 +163,56 @@ export default function OnboardingTemplate({
                                     />
                                 </div>
                             )}
-                            <div className="flex justify-center">
-                                <div className="bg-white w-full rounded-lg shadow-md p-6 relative -top-36 px-16 py-8 animate-appear">
-                                    <h1 className="text-3xl font-bold mt-8">{title}</h1>
-                                    <div className="mt-2 text-xl">
-                                        {description}
-                                    </div>
-                                    <ProgressBar />
-                                    <InactivityModal isOpen={state?.progress === 'paused'} closeModal={handleResumeSession} />
-                                    {
-                                        processCompleted && (
-                                            <>
-                                                <CompletedModal isOpen={processCompleted} closeModal={() => setProcessCompleted(false)} />
-                                            </>
-                                        )
-                                    }
-                                    {children}
-                                </div>
-                            </div>
+                            {
+                                isMobile || isTablet ? (
+                                    <>
+                                        <div className="flex justify-center">
+                                            <div className={`bg-white w-full p-6 xs:shadow-none sm:shadow-none xs:px-0 sm:px-0 md:px-0 py-8 animate-appear`}>
+                                                <div className="rotate-90 relative w-12/12 mx-auto">
+                                                    {/* move the progress bar to left side of the form */}
+                                                    <div className="rotated-progress-bar absolute w-full top-1/2 left-0 transform -translate-y-1/2">
+                                                        {/* <ProgressBar /> */}
+                                                    </div>
+                                                </div>
+                                                <h1 className="text-3xl font-bold mt-8">{title}</h1>
+                                                <div className="mt-2 mb-0 text-xl">
+                                                    {description}
+                                                </div>
+                                                <InactivityModal isOpen={state?.progress === 'paused'} closeModal={handleResumeSession} />
+                                                {
+                                                    processCompleted && (
+                                                        <>
+                                                            <CompletedModal isOpen={processCompleted} closeModal={() => setProcessCompleted(false)} />
+                                                        </>
+                                                    )
+                                                }
+                                                {children}
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="flex justify-center">
+                                            <div className={`bg-white w-full rounded-lg shadow-md p-6 relative xl:-top-36 xs:shadow-none sm:shadow-none xs:px-0 sm:px-0 md:px-0 xl:px-16 py-8 animate-appear`}>
+                                                <h1 className="text-3xl font-bold mt-8">{title}</h1>
+                                                <div className="mt-2 mb-0 text-xl">
+                                                    {description}
+                                                </div>
+                                                <ProgressBar />
+                                                <InactivityModal isOpen={state?.progress === 'paused'} closeModal={handleResumeSession} />
+                                                {
+                                                    processCompleted && (
+                                                        <>
+                                                            <CompletedModal isOpen={processCompleted} closeModal={() => setProcessCompleted(false)} />
+                                                        </>
+                                                    )
+                                                }
+                                                {children}
+                                            </div>
+                                        </div>
+                                    </>
+                                )
+                            }
                         </div>
                     </div>
 

@@ -32,7 +32,7 @@ describe('OnboardingContext', () => {
         expect(result.current.onboardingState.currentScenario).toBe('abortion')
     })
 
-    it('should start onboarding proccess', () => {
+    it('should start onboarding process', () => {
         const { result } = renderHook(() => useOnboarding() , {
             wrapper: OnboardingProvider
         });

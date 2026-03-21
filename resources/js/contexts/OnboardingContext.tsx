@@ -31,7 +31,7 @@ interface OnboardingContextType {
     completeOnboarding: () => void;
     updateCurrentScenario: (selectedScenario: string) => void;
     getCurrentStep: () => string;
-    getCurrentScenario: () => void;
+    getCurrentScenario: () => (typeof InitialOnboardingState.scenarios)[number] | undefined;
     pauseOnboarding: () => void;
     resumeOnboarding: () => void;
     startOnboarding: () => void;
@@ -179,6 +179,7 @@ export function OnboardingProvider({
         updateOnboardingState((prevState) => ({
             ...prevState,
             formData: {
+                ...prevState.formData,
                 ...data
             }
         }))

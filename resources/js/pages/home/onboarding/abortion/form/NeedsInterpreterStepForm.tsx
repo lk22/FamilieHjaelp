@@ -1,7 +1,6 @@
 // dependencies
 import { useState } from 'react';
-import { useForm } from '@inertiajs/react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -25,28 +24,42 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
 
   const { onboardingState } = useOnboarding();
 
+  const {post, data, setData, errors, processing, reset} = useForm<{
+    data: {
+      needsInterpreter: boolean;
+    }
+  }>({
+    data: {
+      needsInterpreter: false,
+    }
+  })
+
   logState('NeedsInterpreterStepForm', { onboardingState, needsInterpreter });
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setneedsInterpreter(needsInterpreter);
 
-    setTimeout(() => {
-      setLoading(true)
-    }, 200);
+    await setLoading(true)
 
     // Proceed to the next step or perform other actions
     handleStepSubmit({ needsInterpreter: needsInterpreter });
     setSubmitted(true);
 
-    setTimeout(() => {
-      setLoading(true)
+    try {
+      await post(route('onboarding.scenario.step.submit', {
+        scenario: onboardingState.currentScenario,
+        step: 'three'
+      }), {
+        onFinish: () => setLoading(false)
+      });
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
         step: 'four'
       }));
-    }, 500);
-
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
@@ -61,34 +74,46 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
             </>
           ) : (
             <>
-            <div className="flex items-center">
-                <Checkbox
-                  id="needs-translator"
-                  name='needs-translator'
-                  checked={needsInterpreter}
-                  onCheckedChange={(checked) => setneedsInterpreter(Boolean(checked))}
-                  className="mt-2 mb-4"
-                >
-                  Ja, jeg har brug for en tolk
-                </Checkbox>
-                <Label htmlFor="needs-translator" className="ml-2 text-lg">
-                  Ja, jeg har brug for en tolk
-                </Label>
-            </div>
-            <div className="flex items-center">
-                <Checkbox
-                  id="needs-translator-no"
-                  name='needs-translator'
-                  checked={!needsInterpreter}
-                  onCheckedChange={(checked) => setneedsInterpreter(!Boolean(checked))}
-                  className="mt-2 mb-4"
-                >
-                  Nej, jeg har ikke brug for en tolk
-                </Checkbox>
-                <Label htmlFor="needs-translator" className="ml-2 text-lg">
-                  Nej, jeg har ikke brug for en tolk
-                </Label>
-            </div>
+              <div className="flex items-center">
+                  <Checkbox
+                    id="needs-translator"
+                    name='needs-translator'
+                    checked={needsInterpreter || data.data.needsInterpreter}
+                    onCheckedChange={(checked) => {
+                      setneedsInterpreter(Boolean(checked));
+                      setData('data', {
+                        ...data.data,
+                        needsInterpreter: Boolean(checked)
+                      });
+                    }}
+                    className="mt-2 mb-4"
+                  >
+                    Ja, jeg har brug for en tolk
+                  </Checkbox>
+                  <Label htmlFor="needs-translator" className="ml-2 text-lg">
+                    Ja, jeg har brug for en tolk
+                  </Label>
+              </div>
+              <div className="flex items-center">
+                  <Checkbox
+                    id="needs-translator-no"
+                    name='needs-translator'
+                    checked={!needsInterpreter || !data.data.needsInterpreter}
+                    onCheckedChange={(checked) => {
+                      setneedsInterpreter(!Boolean(checked));
+                      setData('data', {
+                        ...data.data,
+                        needsInterpreter: !Boolean(checked)
+                      });
+                    }}
+                    className="mt-2 mb-4"
+                  >
+                    Nej, jeg har ikke brug for en tolk
+                  </Checkbox>
+                  <Label htmlFor="needs-translator" className="ml-2 text-lg">
+                    Nej, jeg har ikke brug for en tolk
+                  </Label>
+              </div>
               <Button
                 type="submit"
                 className="bg-blue-700 text-white hover:bg-blue-800 mt-4"

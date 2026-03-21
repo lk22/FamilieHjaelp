@@ -21,11 +21,153 @@ class SubmitStepRequest extends FormRequest
      */
     public function rules(): array
     {
+        $scenario = (string) $this->route('scenario');
+        $step = (string) $this->route('step');
+
         return [
-            "data" => "required|array",
-            "data.*" => "required",
-            "scenario" => "required|string",
-            "step" => "required|string",
+            'data' => ['required', 'array'],
+            ...$this->stepRules($scenario, $step)
         ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "data.required" => "The data field is required.",
+            "data.array" => "The data field must be an array.",
+        ];
+    }
+
+    protected function stepRules(string $scenario, string $step): array
+    {
+        return match("{$scenario}") {
+            'abortion' => $this->abortionRules($step),
+            'stillbirth' => $this->stillbirthRules($step),
+            'parenting' => $this->parentingRules($step),
+            default => []
+        };
+    }
+
+    private function abortionRules(string $step): array
+    {
+        return match($step) {
+            "one" => [
+                "data.name" => "required|string",
+                "data.age" => "required|integer",
+                "data.ageOfPartner" => "nullable|integer",
+                "data.gender" => "required|string"
+            ],
+            "two" => [
+                "data.abortionWeeks" => "required|integer",
+                "data.abortionMethod" => "required|string",
+                "data.hasBeenConsultedByDoctor" => "required|boolean",
+                "data.hasDoctorsPermit" => "required|boolean"
+            ],
+            "three" => [
+                "data.needsInterpreter" => "required|boolean",
+            ],
+            "four" => [
+                "data.wantsSupportConversation" => "required|boolean",
+            ],
+            "five" => [
+                "data.knowsConfidentialityRights" => "required|boolean",
+            ],
+            "six" => [
+                "data.needsPostpartumSupportInfo" => "required|boolean",
+            ],
+            "seven" => [
+                "data.wantsToBeContacted" => "required|boolean",
+                "data.contactEmail" => "required_if:data.wantsToBeContacted,true|email",
+            ],
+            default => []
+        };
+    }
+
+    private function stillbirthRules(string $step): array
+    {
+        return match($step) {
+            "one" => [
+                "data.name" => "required|string",
+                "data.age" => "required|integer",
+                "data.ageOfPartner" => "nullable|integer",
+                "data.gender" => "required|string"
+            ],
+            "two" => [
+                "data.weekNumber" => "required|integer",
+                "data.hasDoctorsPermit" => "required|boolean",
+                "data.hasBeenConsultedByDoctor" => "required|boolean",
+            ],
+            "three" => [
+                "data.needsToPlanFuneral" => "required|boolean",
+            ],
+            "four" => [
+                "data.hasReceivedDeathCertificate" => "required|boolean",
+            ],
+            "five" => [
+                "data.hasReceivedDeathCertificate" => "required|boolean",
+            ],
+            "six" => [
+                "data.wantsInformationAboutAutopsy" => "required|boolean",
+            ],
+            "seven" => [
+                "data.hasOtherChildrenAtHome" => "required|boolean",
+            ],
+            "eight" => [
+                "data.knowsSupportOptions" => "required|boolean",
+            ],
+            "nine" => [
+                "data.informedAboutBereavementLeave" => "required|boolean",
+            ],
+            "ten" => [
+                "data.needsHelpApplyingForBereavementLeave" => "required|boolean",
+            ],
+            default => []
+        };
+    }
+
+    private function parentingRules(string $step): array
+    {
+        return match($step) {
+            "one" => [
+                "data.birthDate" => "required|date",
+            ],
+            "two" => [
+                "data.hasReturnedHome" => "required|boolean",
+            ],
+            "three" => [
+                "data.isFirstChild" => "required|boolean",
+            ],
+            "fourth" => [
+                "data.contactedByMidwifeOrHealthVisitor" => "required|boolean",
+            ],
+            "five" => [
+                "data.childTestProcessPlanned" => "required|boolean",
+            ],
+            "six" => [
+                "data.needsInfoOnParentalLeave" => "required|boolean",
+            ],
+            "seven" => [
+                "data.knowsChildBenefitsAndCheckups" => "required|boolean",
+            ],
+            "eight" => [
+                "data.wellbeingChallenges" => "required|boolean",
+            ],
+            "nine" => [
+                "data.needsSupportForPostpartumIssues" => "required|boolean",
+            ],
+            "ten" => [
+                "data.wantsToJoinParentGroups" => "required|boolean",
+            ],
+            "eleven" => [
+                "data.hasPlannedDaycare" => "required|boolean",
+            ],
+            "twelve" => [
+                "data.knowsHealthVisitorSchedule" => "required|boolean",
+            ],
+            "thirteen" => [
+                "data.hasHealthConcerns" => "required|boolean",
+            ],
+            default => []
+        };
     }
 }

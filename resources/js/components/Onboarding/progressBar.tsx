@@ -85,7 +85,6 @@ const ProgressStep = ({
 }: ProgressStepProps) => {
     const isCompletedStyles = `relative top-8 z-10 p-4 h-[60px] transition rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-700 text-white hover:bg-blue-900' : 'bg-white text-blue-900'}`;
     const notCompletedStyles = `relative top-8 z-10 p-4 h-[60px] transition rounded-full w-[60px] flex items-center cursor-pointer justify-center border-2 border-blue-700 ${isCompleted ? 'bg-blue-700 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-700'} ${isCompleted ? 'step-completed' : ''}`;
-    const notCompletedStylesDisabled = `relative top-8 z-99 p-4 h-[60px] transition rounded-full w-[60px] flex items-center justify-center border-2 border-gray-300 bg-gray-200 text-gray-500 cursor-not-allowed`;
     return (
         <>
             {isCompleted ? (

@@ -1,6 +1,6 @@
 // dependencies
 import { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Conexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -14,67 +14,77 @@ import { logState } from '@/lib/utils'
 
 type StepData = {
   name: string;
-  age: string;
-  ageOfPartner: string;
+  age: number;
+  ageOfPartner: number;
   gender: string;
 }
 
 type UserInformationProps = {
   handleStepSubmit: (data: {
     name: string;
-    age: string;
-    ageOfPartner: string;
+    age: number;
+    ageOfPartner: number;
     gender: string
   }) => void;
 }
 
 type InformationStepStateProperties = {
   name: string;
-  age: string;
-  ageOfPartner: string;
+  age: number;
+  ageOfPartner: number;
   gender: string;
 }
 
 export default function UserInformationStepForm({ handleStepSubmit }: UserInformationProps) {
-  const [userInfoState, setUserInfoState] = useState<InformationStepStateProperties>({
+  const [state, setState] = useState<InformationStepStateProperties>({
     name: '',
-    age: '',
-    ageOfPartner: '',
+    age: 0,
+    ageOfPartner: 0,
     gender: '',
   });
   const [step, setStep] = useState<string>('one');
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const {post, data, setData, errors, processing, reset} = useForm<{
+    data: {
+      name: string;
+      age: number;
+      ageOfPartner: number;
+      gender: string;
+    }
+  }>({
+    data: {
+      name: '',
+      age: 0,
+      ageOfPartner: 0,
+      gender: '',
+    }
+  })
 
   const { onboardingState } = useOnboarding();
 
   const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
 
-  logState('UserInformationStepForm', { onboardingState, currentScenario, userInfoState });
+  logState('UserInformationStepForm', { onboardingState, currentScenario, data });
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
   const currentName = currentStep?.data.name || '';
-  const currentAge = currentStep?.data.age || '';
-  const currentAgeOfPartner = currentStep?.data.ageOfPartner || '';
+  const currentAge = currentStep?.data.age || 0;
+  const currentAgeOfPartner = currentStep?.data.ageOfPartner || 0;
   const currentGender = currentStep?.data.gender || '';
-
-  const handleSubmit = (event: React.FormEvent) => {
+console.log({data, currentName, currentAge, currentAgeOfPartner, currentGender})
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setLoading(true);
+    await setLoading(true);
 
-    setTimeout(async () => {
-      await setLoading(true);
-    }, 200)
+    post(route('onboarding.scenario.step.submit', {
+      scenario: onboardingState.currentScenario,
+      step: step
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
-    const submittedData: StepData = {
-      name: userInfoState.name,
-      age: userInfoState.age,
-      ageOfPartner: userInfoState.ageOfPartner,
-      gender: userInfoState.gender,
-    }
-
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({ ...submittedData });
+    handleStepSubmit({ ...data.data });
     setSubmitted(true);
 
     setTimeout(() => {
@@ -106,8 +116,14 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                     id="name"
                     type="text"
                     className='mt-2 mb-4 -ml-px h-32'
-                    value={userInfoState.name || currentName}
-                    onChange={(e) => setUserInfoState({...userInfoState, name: e.target.value})}
+                    value={data.data.name || state.name || currentName}
+                    onChange={(e) => {
+                      setState({ ...state, name: e.target.value });
+                      setData('data', {
+                        ...data.data,
+                        name: e.target.value
+                      })
+                    }}
                     required
                   />
                   <label htmlFor="gender" className="block mt-4 mb-2 font-semibold text-gray-700">
@@ -116,8 +132,14 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                   <select
                     id="gender"
                     className="mt-2 mb-4 p-2 border border-gray-300 rounded w-full"
-                    value={userInfoState.gender || currentGender}
-                    onChange={(e) => setUserInfoState({...userInfoState, gender: e.target.value})}
+                    value={data.data.gender || state.gender || currentGender}
+                    onChange={(e) => {
+                      setState({ ...state, gender: e.target.value });
+                      setData('data', {
+                        ...data.data,
+                        gender: e.target.value
+                      })
+                    }}
                     required
                   >
                     <option value="">Vælg køn</option>
@@ -130,15 +152,21 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                   </label>
                   <Input
                     id="yourAge"
-                    type="text"
-                    value={userInfoState.age || currentAge}
-                    onChange={(e) => setUserInfoState({...userInfoState, age: e.target.value})}
+                    type="number"
+                    value={data.data.age || state.age || currentAge}
+                    onChange={(e) => {
+                      setState({ ...state, age: parseInt(e.target.value) });
+                      setData('data', {
+                        ...data.data,
+                        age: parseInt(e.target.value)
+                      })
+                    }}
                     required
                     name='age'
                     className='mt-2 mb-4 h-16'
                   />
                   {
-                    userInfoState.gender == "male" && (
+                    (data.data.gender == "male" || state.gender == "male") && (
                       <>
                         <p className="mt-4 font-bold">Vi skal kende din alder på din partner, da din partner skal i gennem flere ting og processer.</p>
                         <label htmlFor="ageOfPartner" className="block mt-1 mb-2 font-medium text-gray-700">
@@ -146,9 +174,15 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                         </label>
                         <Input
                           id="ageOfPartner"
-                          type="text"
-                          value={userInfoState.ageOfPartner || currentAgeOfPartner}
-                          onChange={(e) => setUserInfoState({...userInfoState, ageOfPartner: e.target.value})}
+                          type="number"
+                          value={data.data.ageOfPartner || state.ageOfPartner || currentAgeOfPartner}
+                          onChange={(e) => {
+                            setState({ ...state, ageOfPartner: parseInt(e.target.value) });
+                            setData('data', {
+                              ...data.data,
+                              ageOfPartner: parseInt(e.target.value)
+                            })
+                          }}
                           required
                         />
                       </>

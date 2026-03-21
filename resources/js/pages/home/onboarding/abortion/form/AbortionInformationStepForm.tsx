@@ -1,6 +1,6 @@
 // dependencies
 import { useState, useCallback } from 'react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -13,12 +13,7 @@ import { Input } from '@/components/ui/input';
 import { logState } from '@/lib/utils'
 
 type AbortionInformationStepProps = {
-    handleStepSubmit: (data: {
-      abortionWeeks: string;
-      hasDoctorsPermit: boolean;
-      abortionMethod: string;
-      hasBeenConsultedByDoctor?: boolean
-    }) => void;
+    handleStepSubmit: (data: AbortionDataProps) => void;
 }
 
 type AbortionDataProps = {
@@ -35,6 +30,17 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
     abortionMethod: '',
     hasBeenConsultedByDoctor: false
   });
+  const { post, data, setData, errors, processing, reset } = useForm<{
+    data: AbortionDataProps
+  }>({
+    data: {
+      abortionWeeks: 0,
+      hasDoctorsPermit: false,
+      abortionMethod: '',
+      hasBeenConsultedByDoctor: false
+    }
+  });
+  const [step, setStep] = useState<string>('two');
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -46,15 +52,27 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
   const currentAbortionMethodValue = currentStep?.data.abortionMethod;
   const currentHasBeenConsultedByDoctorValue = currentStep?.data.hasBeenConsultedByDoctor;
 
-  logState('AbortionInformationStepFormProps', { onboardingState, currentScenario, abortionInfoState });
+  if (process.env.NODE_ENV === 'development') {
+    console.log('AbortionInformationStepFormProps', { onboardingState, currentScenario, abortionInfoState });
+  }
 
   const firstStep = currentScenario?.steps[0];
   const gender = firstStep?.data.gender;
 
   const handleWeekNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (value === '' || (Number(value) >= 1 && Number(value) <= 24)) {
+    if (value === '') {
+      setAbortionInfoState({ ...abortionInfoState, abortionWeeks: 1 });
+      setData('data', {
+        ...data.data,
+        abortionWeeks: 1
+      })
+    } else if (Number(value) >= 1 && Number(value) <= 24) {
       setAbortionInfoState({ ...abortionInfoState, abortionWeeks: Number(value) });
+      setData('data', {
+        ...data.data,
+        abortionWeeks: Number(value)
+      })
     }
   }
 
@@ -63,28 +81,34 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
    *
    * @param event React.FormEvent
    */
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setSubmitted(true);
 
-    setTimeout(() => {
-      setLoading(true)
-    }, 200)
+    await setLoading(true);
 
-    handleStepSubmit({
-      abortionWeeks: abortionInfoState.abortionWeeks.toString(),
-      hasDoctorsPermit: abortionInfoState.hasDoctorsPermit,
-      abortionMethod: abortionInfoState.abortionMethod,
-      hasBeenConsultedByDoctor: abortionInfoState.hasBeenConsultedByDoctor
-    });
-
-    setTimeout(() => {
+    try {
+      await handleStepSubmit({
+        abortionWeeks: abortionInfoState.abortionWeeks,
+        hasDoctorsPermit: abortionInfoState.hasDoctorsPermit,
+        abortionMethod: abortionInfoState.abortionMethod,
+        hasBeenConsultedByDoctor: abortionInfoState.hasBeenConsultedByDoctor
+      });
+      await post(route('onboarding.scenario.step.submit', {
+        scenario: onboardingState.currentScenario,
+        step: step
+      }), {
+        onFinish: () => setLoading(false)
+      });
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
         step: 'three'
       }));
+    } catch (error) {
+      console.log('Error submitting abortion information step:', error);
+    } finally {
       setLoading(false)
-    }, 1000)
+    }
   }
 
   /**
@@ -129,8 +153,14 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                   </label>
                   <select
                     id="abortion-method"
-                    value={currentAbortionMethodValue || abortionInfoState.abortionMethod}
-                    onChange={(e) => setAbortionInfoState({...abortionInfoState, abortionMethod: e.target.value})}
+                    value={currentAbortionMethodValue || data.data.abortionMethod}
+                    onChange={(e) => {
+                      setAbortionInfoState({...abortionInfoState, abortionMethod: e.target.value});
+                      setData('data', {
+                        ...data.data,
+                        abortionMethod: e.target.value
+                      });
+                    }}
                     className="mt-2 mb-4 p-2 border border-gray-300 rounded w-12/12"
                   >
                     <option value="">Vælg en metode</option>
@@ -141,7 +171,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                 </div>
                 <div className="change-info-note mb-4 w-full">
                   {
-                    (abortionInfoState.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22) && (
+                    (abortionInfoState.abortionWeeks >= 22 || data.data.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22) && (
                       <>
                         <p>
                           Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad.
@@ -162,7 +192,13 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                     id="has-been-consulted-by-doctor"
                     value="1"
                     checked={abortionInfoState.hasBeenConsultedByDoctor === true || currentHasBeenConsultedByDoctorValue === true}
-                    onChange={() => setAbortionInfoState({...abortionInfoState, hasBeenConsultedByDoctor: true})}
+                    onChange={() => {
+                      setAbortionInfoState({...abortionInfoState, hasBeenConsultedByDoctor: true});
+                      setData('data', {
+                        ...data.data,
+                        hasBeenConsultedByDoctor: true
+                      });
+                    }}
                     className="mr-2"
                   />
                   <label htmlFor="has-been-consulted-by-doctor-yes">
@@ -175,7 +211,13 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                     id="has-been-consulted-by-doctor"
                     value="0"
                     checked={abortionInfoState.hasBeenConsultedByDoctor === false || currentHasBeenConsultedByDoctorValue === false}
-                    onChange={() => setAbortionInfoState({...abortionInfoState, hasBeenConsultedByDoctor: false})}
+                    onChange={() => {
+                      setAbortionInfoState({...abortionInfoState, hasBeenConsultedByDoctor: false});
+                      setData('data', {
+                        ...data.data,
+                        hasBeenConsultedByDoctor: false
+                      });
+                    }}
                     className="mr-2"
                     required
                   />
@@ -184,40 +226,65 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                   </label>
                 </div>
               </div>
-            <div className="step-field my-4">
-              <div className="flex flex-col">
-                  <label htmlFor="has-doctors-permit">
-                    Har du fået underskrevet en lægeerklæring
-                  </label>
-                <div className="check-item mt-2">
-                  <input
-                    type="radio"
-                    id="has-doctors-permit"
-                    value="1"
-                    checked={abortionInfoState.hasDoctorsPermit === true || currentHasDoctorsPermitValue === true}
-                    onChange={() => setAbortionInfoState({...abortionInfoState, hasDoctorsPermit: true})}
-                    className="mr-2"
-                  />
-                  <label htmlFor="">
-                    Ja har underskrevet en lægeerklæring
-                  </label>
+              {
+                (abortionInfoState.hasBeenConsultedByDoctor === false || currentHasBeenConsultedByDoctorValue === false) && (
+                  <div className="warning-note mt-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700" role="alert">
+                    <p className="font-bold">Vigtigt:</p>
+                    <p>Da du ikke har været til konsultation hos en læge i forbindelse med din abort, er det vigtigt, at du søger lægehjælp så hurtigt som muligt for at sikre, at du får den nødvendige støtte og rådgivning gennem processen.</p>
+                  </div>
+                )
+              }
+              {
+                (abortionInfoState.hasBeenConsultedByDoctor === true || data.data.hasBeenConsultedByDoctor === true || currentHasBeenConsultedByDoctorValue === true) && (
+                <div className="step-field my-4">
+                  <div className="flex flex-col">
+                      <label htmlFor="has-doctors-permit">
+                        Har du fået underskrevet en lægeerklæring
+                      </label>
+                    <div className="check-item mt-2">
+                      <input
+                        type="radio"
+                        id="has-doctors-permit"
+                        value="1"
+                        checked={abortionInfoState.hasDoctorsPermit === true || data.data.hasDoctorsPermit === true || currentHasDoctorsPermitValue === true}
+                        onChange={() => {
+                          setAbortionInfoState({...abortionInfoState, hasDoctorsPermit: true});
+                          setData('data', {
+                            ...data.data,
+                            hasDoctorsPermit: true
+                          });
+                        }}
+                        className="mr-2"
+                      />
+                      <label htmlFor="has-doctors-permit-yes">
+                        Ja har underskrevet en lægeerklæring
+                      </label>
+                    </div>
+                    <div className="check-item mt-2">
+                      <input
+                        type="radio"
+                        id="has-doctors-permit-no"
+                        value="0"
+                        checked={abortionInfoState.hasDoctorsPermit === false || currentHasDoctorsPermitValue === false}
+                        onChange={() => {
+                          setAbortionInfoState({...abortionInfoState, hasDoctorsPermit: false});
+                          setData('data', {
+                            ...data.data,
+                            hasDoctorsPermit: false
+                          });
+                        }}
+                        className="mr-2"
+                        required
+                      />
+                      <label htmlFor="has-doctors-permit-no">
+                        Nej manger og udfylde en lægeerklæring
+                      </label>
+                    </div>
+                  </div>
                 </div>
-                <div className="check-item mt-2">
-                  <input
-                    type="radio"
-                    id="has-doctors-permit"
-                    value="0"
-                    checked={abortionInfoState.hasDoctorsPermit === false || currentHasDoctorsPermitValue === false}
-                    onChange={() => setAbortionInfoState({...abortionInfoState, hasDoctorsPermit: false})}
-                    className="mr-2"
-                    required
-                  />
-                  <label htmlFor="has-doctors-permit">
-                    Nej manger og udfylde en lægeerklæring
-                  </label>
-                </div>
-              </div>
-            </div>
+                )
+              }
+
               <Button
                 type="submit" className="bg-blue-700 text-white hover:bg-blue-800 mt-4"
               >

@@ -17,7 +17,7 @@ type WantsContraptionsInformationProps = {
 }
 
 export default function WantsContraceptionInformationStepForm({ handleStepSubmit }: WantsContraptionsInformationProps) {
-  const [wantsContraceptionInfo, setWantsContraceptionInfo] = useState<string>('');
+  const [wantsContraceptionInfo, setWantsContraceptionInfo] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -25,6 +25,9 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
 
   const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[4]; // Fifth step (index 4)
+
+  const currentWantsContraceptionInfo = currentStep?.data.wantsContraceptionInfo;
+  const abortionMethod = currentScenario?.steps[1].data.abortionMethod;
 
   logState('WantsContraceptionInformationStepForm', { onboardingState, currentScenario, wantsContraceptionInfo });
 
@@ -37,7 +40,7 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
     }, 200);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ wantsContraceptionInfo: wantsContraceptionInfo === 'true' });
+    handleStepSubmit({ wantsContraceptionInfo: wantsContraceptionInfo });
     setSubmitted(true);
 
     setTimeout(() => {
@@ -58,7 +61,7 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
    */
   const handleWantsContraceptionInfo = (abortionMethod: string): JSX.Element => {
     console.log('Handling wants contraception info with value:', abortionMethod);
-    if (wantsContraceptionInfo === 'true') {
+    if (wantsContraceptionInfo) {
       return (
         <div className='mt-4 p-4 border border-gray-300 rounded bg-gray-50'>
           <div>
@@ -95,8 +98,8 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
                 <Checkbox
                   id="wants-contraception-info"
                   className="me-4"
-                  checked={wantsContraceptionInfo}
-                  onCheckedChange={(checked) => setWantsContraceptionInfo(checked ? 'true' : 'false')}>
+                  checked={wantsContraceptionInfo || currentWantsContraceptionInfo === 'true'}
+                  onCheckedChange={(checked) => setWantsContraceptionInfo(Boolean(checked))}>
                 </Checkbox>
                 <label htmlFor="wants-contraception-info" className="text-lg">Ja jeg ønsker præventionsvejledning</label>
               </div>
@@ -104,15 +107,15 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
                 <Checkbox
                   id="wants-contraception-info"
                   className="me-4"
-                  checked={!wantsContraceptionInfo}
-                  onCheckedChange={(checked) => setWantsContraceptionInfo(!checked ? 'false' : 'true')}>
+                  checked={!wantsContraceptionInfo || currentWantsContraceptionInfo === 'faæse'}
+                  onCheckedChange={(checked) => setWantsContraceptionInfo(!Boolean(checked))}>
                 </Checkbox>
                 <label htmlFor="wants-contraception-info" className="text-lg">Nej jeg ønsker ikke præventionsvejledning</label>
               </div>
             </div>
               {wantsContraceptionInfo && (
                 <>
-                  {handleWantsContraceptionInfo(wantsContraceptionInfo)}
+                  {handleWantsContraceptionInfo(abortionMethod)}
                 </>
               )}
               <Button

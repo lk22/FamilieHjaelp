@@ -3,7 +3,6 @@ import { twMerge } from 'tailwind-merge';
 
 import { OnboardingState } from '@/state/OnboardingState_bak';
 import { type ScenarioProperties } from '@/state/OnboardingState';
-import Confirmation from '../pages/home/onboarding/confirmation';
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -52,7 +51,7 @@ export function useOnboardingActions(
 
     /**
      * Completes a step in the onboarding process.
-     * @param stepId The ID of the step to complete.
+     * Completes a step in the onboarding process and optionally moves to the next step. The ID of the step to complete.
      * @param stepData Additional data to associate with the completed step.
      */
     const updateStepProgress = (
@@ -148,6 +147,17 @@ export function useQueryParams<T extends Record<string, unknown> = Record<string
 }
 
 /**
+ * Utility for setting onboarding cookie with a specific token value and expiration time. This function is designed to be used when initiating the onboarding process to ensure that a session token is stored in the user's browser for tracking and authentication purposes throughout the onboarding flow.
+ * @param token The session token to be stored in the cookie.
+ */
+export function setOnboardingSessionTokenCookie(token: string) {
+    const cookieName = 'onboarding_session_token';
+    // setSessionTokenCookie(token, cookieName, 60 * 60 * 24 * 30); // Expires in 30 days
+    const expires = new Date(Date.now() + 60 * 60 * 24 * 30 * 1000).toUTCString();
+    document.cookie = `${cookieName}=${token}; expires=${expires}; path=/; Secure; SameSite=Lax`;
+}
+
+/**
  * Utility function to set a fresh session token cookie with a specified expiration time.
  * @param token The session token to be stored in the cookie.
  * @param expiresInSeconds The expiration time of the cookie in seconds.
@@ -217,11 +227,6 @@ export function logState(
     state: unknown
 ): void {
     if (process.env.NODE_ENV === 'production') {
-        console.warn(`Hey silly, State logging is disabled in production.`);
-        return;
-    }
-
-    if (process.env.NODE_ENV === 'test') {
         return;
     }
     // log where the state change is happening

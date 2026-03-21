@@ -1,6 +1,6 @@
 // dependencies
 import { useState } from 'react';
-import { usePage } from '@inertiajs/react';
+import { usePage, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -22,12 +22,21 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
   const [knowsConfidentialityRights, setKnowsConfidentialityRights] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const {onboardingSession} = usePage().props as any;
+
+  const {post, data, setData} = useForm<{
+    data: {
+      knowsConfidentialityRights: boolean;
+    }
+  }>({
+    data: {
+      knowsConfidentialityRights: false,
+    }
+  })
 
   const { onboardingState } = useOnboarding();
   logState('KnowsConfidentialityRightsStepForm', { onboardingState, knowsConfidentialityRights });
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setKnowsConfidentialityRights(knowsConfidentialityRights);
 
@@ -35,7 +44,19 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
     handleStepSubmit({ knowsConfidentialityRights: Boolean(knowsConfidentialityRights) });
     setSubmitted(true);
 
-    setIsOpen(true);
+    try {
+      await post(route('onboarding.scenario.step.submit', {
+        scenario: onboardingState.currentScenario,
+        step: 'seven'
+      }), {
+        onFinish: () => {
+          setLoading(false)
+          setIsOpen(true)
+        }
+      });
+    } catch (error) {
+      console.log('Failed to submit step:', error);
+    }
   };
 
   return (
@@ -52,8 +73,14 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
                 <Checkbox
                   id="knows_confidentiality_rights"
                   name="knows_confidentiality_rights"
-                  checked={knowsConfidentialityRights}
-                  onCheckedChange={(checked) => setKnowsConfidentialityRights(Boolean(checked))}
+                  checked={knowsConfidentialityRights || data.data.knowsConfidentialityRights}
+                  onCheckedChange={(checked) => {
+                    setKnowsConfidentialityRights(Boolean(checked));
+                    setData('data', {
+                      ...data.data,
+                      knowsConfidentialityRights: Boolean(checked)
+                    });
+                  }}
                   className="mt-2 mb-4"
                 />
                 <label htmlFor="knows_confidentiality_rights" className='text-lg ml-4'>
@@ -64,8 +91,14 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
                 <Checkbox
                   id="knows_confidentiality_rights"
                   name="knows_confidentiality_rights"
-                  checked={!knowsConfidentialityRights}
-                  onCheckedChange={(checked) => setKnowsConfidentialityRights(!Boolean(checked))}
+                  checked={!knowsConfidentialityRights && !data.data.knowsConfidentialityRights}
+                  onCheckedChange={(checked) => {
+                    setKnowsConfidentialityRights(!Boolean(checked));
+                    setData('data', {
+                      ...data.data,
+                      knowsConfidentialityRights: !Boolean(checked)
+                    });
+                  }}
                   className="mt-2 mb-4"
                 />
                 <label htmlFor="knows_confidentiality_rights" className='text-lg ml-4'>

@@ -207,7 +207,7 @@
     border-width: 4px;
     border-style: solid;
     border-color: transparent;
-    border-top-color: var(--bg-blue-700);
+    border-top-color: var(--bg-blue-700, #1d4ed8);
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -273,7 +273,7 @@ input[type="password"],
 input[type="number"],
 textarea,
 select {
-    height: 3.5rem;
+    min-height: 3.5rem;
     border: #2c6db6 1px solid;
 }
 

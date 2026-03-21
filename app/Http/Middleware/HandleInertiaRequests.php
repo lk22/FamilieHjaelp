@@ -55,8 +55,6 @@ class HandleInertiaRequests extends Middleware
      */
     public function getOnboardingSession(Request $request) : array
     {
-        $request = request();
-
         $userId = $request->user()?->id;
         $sessionToken = $request->cookie('onboarding_session_token');
 

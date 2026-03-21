@@ -1,6 +1,6 @@
 // dependencies
 import { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -22,28 +22,50 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
+
   const { onboardingState } = useOnboarding();
+
+  const {post, data, setData} = useForm<{
+    data: {
+      needsPostpartumSupportInfo: boolean;
+    }
+  }>({
+    data: {
+      needsPostpartumSupportInfo: false,
+    }
+  })
+
+
   logState('NeedsPostpartumSupportInfoStepForm', { onboardingState, needsPostpartumSupportInfo });
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setNeedsPostpartumSupportInfo(needsPostpartumSupportInfo);
 
-    setTimeout(() => {
-      setLoading(true)
-    }, 200);
+    await setLoading(true)
+
+    console.log(data)
 
     // Proceed to the next step or perform other actions
     handleStepSubmit({  needsPostpartumSupportInfo: Boolean(needsPostpartumSupportInfo) });
     setSubmitted(true);
 
-    setTimeout(() => {
-      setLoading(true)
+    try {
+      await post(route('onboarding.scenario.step.submit', {
+        scenario: onboardingState.currentScenario,
+        step: 'six'
+      }), {
+        onFinish: () => setLoading(false)
+      });
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
         step: 'seven'
       }));
-    }, 500);
+    } catch (error) {
+      console.log('Failed to submit step or navigate:', error);
+      setLoading(false);
+    }
+
   };
 
   return (
@@ -62,8 +84,14 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
                 <Checkbox
                   id="needs_postpartum_support_info"
                   name="needs_postpartum_support_info"
-                  checked={needsPostpartumSupportInfo}
-                  onCheckedChange={(checked) => setNeedsPostpartumSupportInfo(Boolean(checked))}
+                  checked={needsPostpartumSupportInfo || data.data.needsPostpartumSupportInfo}
+                  onCheckedChange={(checked) => {
+                    setNeedsPostpartumSupportInfo(Boolean(checked));
+                    setData('data', {
+                      ...data.data,
+                      needsPostpartumSupportInfo: Boolean(checked)
+                    });
+                  }}
                   className="mt-2 mb-4"
                 >
                   Ja, jeg ønsker information om efterfødselsstøtte
@@ -76,8 +104,14 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
                 <Checkbox
                   id="needs_postpartum_support_info"
                   name="needs_postpartum_support_info"
-                  checked={!needsPostpartumSupportInfo}
-                  onCheckedChange={(checked) => setNeedsPostpartumSupportInfo(!Boolean(checked))}
+                  checked={!needsPostpartumSupportInfo && !data.data.needsPostpartumSupportInfo}
+                  onCheckedChange={(checked) => {
+                    setNeedsPostpartumSupportInfo(!Boolean(checked));
+                    setData('data', {
+                      ...data.data,
+                      needsPostpartumSupportInfo: !Boolean(checked)
+                    });
+                  }}
                   className="mt-2 mb-4"
                 />
                 <label htmlFor="needs_postpartum_support_info" className='text-lg ml-4'>

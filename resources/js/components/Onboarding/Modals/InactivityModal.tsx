@@ -16,13 +16,15 @@ export default function InactivityModal({ isOpen, closeModal }: InactivityModalP
     <Dialog open={isOpen} modal={true} onOpenChange={(open) => !open && closeModal?.()}>
       <DialogContent className='bg-blue-500'>
         <DialogHeader>
-          <DialogTitle className="text-2xl font-semibold mb-4 text-white">Din session er paused</DialogTitle>
+          <DialogTitle className="text-2xl font-semibold mb-4 text-white">Sat på pause</DialogTitle>
         </DialogHeader>
         <DialogDescription className="text-lg text-white">
-          Det ser ud til, at du har været inaktiv i et stykke tid. For at beskytte dine oplysninger har vi paused din onboarding-session.
-        </DialogDescription>
-        <DialogDescription className="text-lg mt-4 text-white">
-          bevæg musen for at fortsætte din session
+          <DialogDescription className="mb-6 text-lg text-white" asChild>
+            <div>
+              <p>Det ser ud til, at du har været inaktiv i et stykke tid. For at beskytte dine oplysninger har vi sat din onboarding-session på pause.</p>
+              <p className="mt-4">Bevæg musen for at fortsætte din session.</p>
+            </div>
+          </DialogDescription>
         </DialogDescription>
       </DialogContent>
     </Dialog>

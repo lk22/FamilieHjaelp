@@ -44,7 +44,6 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
 
     // Use the most recent state (localStorage takes precedence for cross-component sync)
     const onboardingState = localStorageState;
-    console.log({ initialState: onboardingState });
 
     // Sync states when either changes
     useEffect(() => {

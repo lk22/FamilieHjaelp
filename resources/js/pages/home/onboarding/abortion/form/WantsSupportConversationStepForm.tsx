@@ -24,19 +24,43 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
 
   const { onboardingState } = useOnboarding();
 
+  const {post, data, setData} = useForm<{
+    data: {
+      wantsSupportConversation: boolean;
+    }
+  }>({
+    data: {
+      wantsSupportConversation: false,
+    }
+  })
+
   logState('WantsSupportConversationStepForm', { onboardingState, wantsSupportConversation });
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setWantsSupportConversation(wantsSupportConversation);
 
-    setTimeout(() => {
-      setLoading(true)
-    }, 200);
+    await setLoading(true)
 
     // Proceed to the next step or perform other actions
     handleStepSubmit({ wantsSupportConversation: wantsSupportConversation });
     setSubmitted(true);
+
+    try {
+      await post(route('onboarding.scenario.step.submit', {
+        scenario: onboardingState.currentScenario,
+        step: 'four'
+      }), {
+        onFinish: () => setLoading(false)
+      });
+      router.get(route('onboarding.scenario.step', {
+        scenario: onboardingState.currentScenario,
+        step: 'five'
+      }));
+    } catch (error) {
+      console.error('Failed to submit step or navigate:', error);
+      setLoading(false);
+    }
 
     setTimeout(() => {
       setLoading(true)
@@ -62,8 +86,14 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
             <div className="flex items-center">
                 <Checkbox
                   id="wantsSupportConversationYes"
-                  checked={wantsSupportConversation}
-                  onCheckedChange={(checked) => setWantsSupportConversation(Boolean(checked))}
+                  checked={wantsSupportConversation || data.data.wantsSupportConversation}
+                  onCheckedChange={(checked) => {
+                    setWantsSupportConversation(Boolean(checked));
+                    setData('data', {
+                      ...data.data,
+                      wantsSupportConversation: Boolean(checked)
+                    });
+                  }}
                   className="mt-2 mb-4"
                 />
                 <Label htmlFor="wantsSupportConversationYes" className="ml-2 text-lg">
@@ -73,8 +103,14 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
             <div className="flex items-center">
                 <Checkbox
                   id="wantsSupportConversationNo"
-                  checked={!wantsSupportConversation}
-                  onCheckedChange={(checked) => setWantsSupportConversation(!Boolean(checked))}
+                  checked={!wantsSupportConversation || !data.data.wantsSupportConversation}
+                  onCheckedChange={(checked) => {
+                    setWantsSupportConversation(!Boolean(checked));
+                    setData('data', {
+                      ...data.data,
+                      wantsSupportConversation: !Boolean(checked)
+                    });
+                  }}
                   className="mt-2 mb-4"
                 />
                 <Label htmlFor="wantsSupportConversationNo" className="ml-2 text-lg">
