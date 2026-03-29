@@ -35,10 +35,9 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
   const { onboardingState } = useOnboarding();
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
-
-  // TODO: this needs fix
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
+  //
   const currentName = currentStep?.data.name || '';
   const currentAge = currentStep?.data.age || '';
   const currentAgeOfPartner = currentStep?.data.ageOfPartner || '';

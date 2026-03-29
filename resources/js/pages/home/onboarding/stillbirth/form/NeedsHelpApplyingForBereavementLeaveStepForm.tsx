@@ -71,7 +71,7 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
                 <Checkbox
                   id="needsHelpApplyingForBereavementLeaveNo"
                   checked={!needsHelpApplyingForBereavementLeave || currentNeedsHelpApplyingForBereavementLeave === false}
-                  onCheckedChange={(checked) => setNeedsHelpApplyingForBereavementLeave(!Boolean(checked))}
+                  onCheckedChange={(checked) => setNeedsHelpApplyingForBereavementLeave(!checked)}
                   className="mr-2"
                 />
                 <label htmlFor="needsHelpApplyingForBereavementLeaveNo" className="block mt-4 mb-2 font-medium text-gray-700">

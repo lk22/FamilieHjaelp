@@ -80,7 +80,7 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsS
               <Checkbox
                 id="knowsSupportOptionsNo"
                 checked={!(knowsSupportOptions || currentknowsSupportOptions === false)}
-                onCheckedChange={(checked) => setknowsSupportOptions(!Boolean(checked))}
+                onCheckedChange={(checked) => setknowsSupportOptions(!checked)}
                 className="mr-2"
               >
                 Nej, jeg kender ikke mine muligheder for støtte

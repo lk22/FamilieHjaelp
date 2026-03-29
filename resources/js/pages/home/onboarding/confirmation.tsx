@@ -15,11 +15,13 @@ interface OnboardingSessionProps {
   }
 }
 
-const ConfirmationContent = () => {
+const ConfirmationContent = ({ onboardingSession }: OnboardingSessionProps) => {
   const { onboardingState, getCurrentScenario, resetOnboarding } = useOnboarding();
   const [ isReseting, setIsResetting ] = useState<boolean>(false);
 
   console.log('Onboarding State in Confirmation:', getCurrentScenario());
+
+  console.log(onboardingState)
 
   const handleResetOnboarding = () => {
     setIsResetting(true);
@@ -62,7 +64,7 @@ const ConfirmationContent = () => {
        <>
         {
           Object.entries(data).map(([key, value]: [string, string | boolean]) => {
-            let formattedValue = getConfirmationFormattedValue(value);
+            const formattedValue = getConfirmationFormattedValue(value);
 
             return (
               <div key={key} className="detail-item mt-2 text-xl">
@@ -73,6 +75,14 @@ const ConfirmationContent = () => {
         }
       </>
     );
+  }
+
+  const handleCompleteOnboarding = () => {
+    router.post(route('onboarding.completed'), {
+      data: {
+          session_token: onboardingSession.token
+      }
+    })
   }
 
   return (
@@ -100,7 +110,7 @@ const ConfirmationContent = () => {
                 Hvis du har spørgsmål eller brug for yderligere assistance, er du velkommen til at kontakte vores supportteam. Tak fordi du valgte Familiehjælp. Vi ser frem til at støtte dig gennem denne tid.
               </p>
               <div className="actions flex gap-4">
-                <button className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-blue-700">Færdiggør</button>
+                <button onClick={() => handleCompleteOnboarding()} className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-blue-700">Færdiggør</button>
                 <button onClick={() => handleResetOnboarding()} className="mt-6 px-4 py-2 bg-blue-900 text-white rounded hover:bg-blue-700">Start forfra</button>
               </div>
             </div>
@@ -130,11 +140,12 @@ const ConfirmationContent = () => {
 }
 
 export default function Confirmation({onboardingSession}: OnboardingSessionProps) {
+  console.log({onboardingSession})
   return (
     <OnboardingProvider
       initialSession={onboardingSession}
     >
-      <ConfirmationContent />
+      <ConfirmationContent onboardingSession={onboardingSession} />
     </OnboardingProvider>
   )
 }

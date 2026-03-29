@@ -22,7 +22,6 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-
   const { onboardingState } = useOnboarding();
 
   const {post, data, setData} = useForm<{
@@ -74,7 +73,7 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
         {
           isLoading ? (
           <>
-            <div className="inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
               <div className="loader ease-linear rounded-full border-8 border-t-8 border-blue-700 h-16 w-16"></div>
             </div>
           </>
@@ -106,10 +105,10 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
                   name="needs_postpartum_support_info"
                   checked={!needsPostpartumSupportInfo && !data.data.needsPostpartumSupportInfo}
                   onCheckedChange={(checked) => {
-                    setNeedsPostpartumSupportInfo(!Boolean(checked));
+                    setNeedsPostpartumSupportInfo(!checked);
                     setData('data', {
                       ...data.data,
-                      needsPostpartumSupportInfo: !Boolean(checked)
+                      needsPostpartumSupportInfo: !checked
                     });
                   }}
                   className="mt-2 mb-4"

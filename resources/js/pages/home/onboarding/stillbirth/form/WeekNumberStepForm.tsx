@@ -124,7 +124,7 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                       id="has-been-consulted-by-doctor"
                       name='has-been-consulted-by-doctor'
                       checked={!hasBeenConsultedByDoctor || !currentHasBeenConsultedByDoctorValue === false}
-                      onCheckedChange={(checked) => setHasBeenConsultedByDoctor(!Boolean(checked))}
+                      onCheckedChange={(checked) => setHasBeenConsultedByDoctor(!checked)}
                       className="mt-2 mb-4"
                     >
                       Nej, har ikke været i konsultation med min læge
@@ -158,7 +158,7 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                           id="has-doctors-permit"
                           name='has-doctors-permit'
                           checked={!hasDoctorsPermit || !currentHasDoctorsPermitValue === false}
-                          onCheckedChange={(checked) => setHasDoctorsPermit(!Boolean(checked))}
+                          onCheckedChange={(checked) => setHasDoctorsPermit(!checked)}
                           className="mt-2 mb-4"
                         >
                           Nej, har ikke fået underskrevet lægeerklæring

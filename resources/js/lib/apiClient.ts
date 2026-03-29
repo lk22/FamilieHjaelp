@@ -7,9 +7,23 @@ interface ApiClientInterface {
 }
 
 // how to implement generic API client
-export class ApiClient implements ApiClientInterface {
+export class APIClient implements ApiClientInterface {
+    headers: Record<string, string>;
+    data: Record<string, unknown>;
+
+    constructor(headers: Record<string, string> = {}, data: Record<string, unknown> = {}) {
+        this.headers = headers;
+        this.data = data;
+    }
+
     async get<T>(url: string): Promise<T> {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                ...this.headers,
+                'Content-Type': 'application/json',
+            },
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -20,6 +34,7 @@ export class ApiClient implements ApiClientInterface {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
+                ...this.headers,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -34,6 +49,7 @@ export class ApiClient implements ApiClientInterface {
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
+                ...this.headers,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -47,6 +63,10 @@ export class ApiClient implements ApiClientInterface {
     async delete<T>(url: string): Promise<T> {
         const response = await fetch(url, {
             method: 'DELETE',
+            headers: {
+                ...this.headers,
+                'Content-Type': 'application/json',
+            }
         });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -59,6 +79,7 @@ export class ApiClient implements ApiClientInterface {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
+                ...this.headers,
             },
             body: JSON.stringify(data),
         });

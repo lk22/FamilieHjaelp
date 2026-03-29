@@ -105,10 +105,10 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
                   id="wantsSupportConversationNo"
                   checked={!wantsSupportConversation || !data.data.wantsSupportConversation}
                   onCheckedChange={(checked) => {
-                    setWantsSupportConversation(!Boolean(checked));
+                    setWantsSupportConversation(!checked);
                     setData('data', {
                       ...data.data,
-                      wantsSupportConversation: !Boolean(checked)
+                      wantsSupportConversation: !checked
                     });
                   }}
                   className="mt-2 mb-4"

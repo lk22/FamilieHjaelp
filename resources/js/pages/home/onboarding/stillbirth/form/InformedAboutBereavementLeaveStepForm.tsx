@@ -77,7 +77,7 @@ export default function InformedAboutBereavementLeaveStepForm({ handleStepSubmit
                   id="informedAboutBereavementLeave"
                   value="no"
                   checked={!informedAboutBereavementLeave || currentInformedAboutBereavementLeave === false}
-                  onCheckedChange={(checked) => setInformedAboutBereavementLeave(!Boolean(checked))}
+                  onCheckedChange={(checked) => setInformedAboutBereavementLeave(!checked)}
                   className="mr-2"
                 />
                 <label htmlFor="informedAboutBereavementLeave" className="block mt-4 mb-2 font-medium text-gray-700">

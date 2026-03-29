@@ -93,10 +93,10 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
                   name="knows_confidentiality_rights"
                   checked={!knowsConfidentialityRights && !data.data.knowsConfidentialityRights}
                   onCheckedChange={(checked) => {
-                    setKnowsConfidentialityRights(!Boolean(checked));
+                    setKnowsConfidentialityRights(!checked);
                     setData('data', {
                       ...data.data,
-                      knowsConfidentialityRights: !Boolean(checked)
+                      knowsConfidentialityRights: !checked
                     });
                   }}
                   className="mt-2 mb-4"

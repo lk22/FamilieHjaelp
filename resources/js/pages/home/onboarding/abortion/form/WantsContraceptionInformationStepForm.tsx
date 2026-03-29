@@ -108,7 +108,7 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
                   id="wants-contraception-info"
                   className="me-4"
                   checked={!wantsContraceptionInfo || currentWantsContraceptionInfo === 'faæse'}
-                  onCheckedChange={(checked) => setWantsContraceptionInfo(!Boolean(checked))}>
+                  onCheckedChange={(checked) => setWantsContraceptionInfo(!checked)}>
                 </Checkbox>
                 <label htmlFor="wants-contraception-info" className="text-lg">Nej jeg ønsker ikke præventionsvejledning</label>
               </div>

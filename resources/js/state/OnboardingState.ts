@@ -348,6 +348,17 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                 {
                     id: 12,
                     stepName: 'twelve',
+                    question: 'Har i planlagt barsel med jeres arbejdsgiver?',
+                    completed: false,
+                    description: 'Det er vigtigt at i har en plan for jeres barsel, så I kan være sammen med jeres barn og støtte hinanden. Tal med jeres arbejdsgivere i god tid, så I kan få den orlov I har ret til.',
+                    data: {
+                        hasPlannedParentalLeaveWithEmployer: null,
+                        hasPlannedParentalLeaveWithEmployerStartDate: null,
+                    }
+                },
+                {
+                    id: 13,
+                    stepName: 'thirteen',
                     question: 'Kender I til Sundhedsplejens besøgsplan i din kommune?',
                     description: 'Sundhedsplejersken kommer på 6 hjemmebesøg det første år (ved 2-3 uger, 2-3 måneder, 4-6 måneder, 8-10 måneder). De følger barnets udvikling, vejleder jer og er jeres faste kontakt.',
                     completed: false,
@@ -356,8 +367,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 13,
-                    stepName: 'thirteen',
+                    id: 14,
+                    stepName: 'fourteen',
                     question: 'Er der særlige bekymringer om barnets eller mors sundhed?',
                     description: 'Bekymringer om barnets vægt, gulsot, amning eller mors fysiske gener (bristninger, blødning, smerter) skal altid tages alvorligt. Vi kan guide jer til hvor I skal søge hjælp.',
                     completed: false,

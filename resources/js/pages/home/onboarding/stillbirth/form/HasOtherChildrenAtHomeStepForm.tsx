@@ -80,7 +80,7 @@ export default function HasOtherChildrenAtHomeStepForm({ handleStepSubmit }: Fir
                   id="hasOtherChildrenAtHomeNo"
                   value="no"
                   checked={!hasOtherChildrenAtHome || currentHasOtherChildrenAtHome === false}
-                  onCheckedChange={(checked) => setHasOtherChildrenAtHome(!Boolean(checked))}
+                  onCheckedChange={(checked) => setHasOtherChildrenAtHome(!checked)}
                   className="mr-2"
                 >
                   Nej jeg/vi har ikke andre børn hjemme eller passet

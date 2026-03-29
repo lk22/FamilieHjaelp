@@ -115,7 +115,7 @@ console.log({data, currentName, currentAge, currentAgeOfPartner, currentGender})
                   <Input
                     id="name"
                     type="text"
-                    className='mt-2 mb-4 -ml-px h-32'
+                    className='mt-2 mb-4'
                     value={data.data.name || state.name || currentName}
                     onChange={(e) => {
                       setState({ ...state, name: e.target.value });

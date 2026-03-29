@@ -82,7 +82,7 @@ export default function WantsInformationAboutAutopsyStepForm({ handleStepSubmit 
                 id="wantsInformationAboutAutopsyNo"
                 value="no"
                 checked={!(wantsInformationAboutAutopsy || currentwantsInformationAboutAutopsy === false)}
-                onCheckedChange={(checked) => setWantsInformationAboutAutopsy(!Boolean(checked))}
+                onCheckedChange={(checked) => setWantsInformationAboutAutopsy(!checked)}
                 className="mr-2"
               >
                 Nej, jeg ønsker ikke information om obduktion

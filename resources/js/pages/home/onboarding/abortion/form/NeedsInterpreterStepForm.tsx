@@ -13,11 +13,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 // utilities
 import { logState } from '@/lib/utils'
 
-type NeedsInterpeterStepProps = {
+type NeedsInterpreterStepProps = {
   handleStepSubmit: (data: {needsInterpreter: boolean}) => void;
 }
 
-export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInterpeterStepProps) {
+export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInterpreterStepProps) {
   const [needsInterpreter, setneedsInterpreter] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -100,17 +100,17 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
                     name='needs-translator'
                     checked={!needsInterpreter || !data.data.needsInterpreter}
                     onCheckedChange={(checked) => {
-                      setneedsInterpreter(!Boolean(checked));
+                      setneedsInterpreter(!checked);
                       setData('data', {
                         ...data.data,
-                        needsInterpreter: !Boolean(checked)
+                        needsInterpreter: !checked
                       });
                     }}
                     className="mt-2 mb-4"
                   >
                     Nej, jeg har ikke brug for en tolk
                   </Checkbox>
-                  <Label htmlFor="needs-translator" className="ml-2 text-lg">
+                  <Label htmlFor="needs-translator-no" className="ml-2 text-lg">
                     Nej, jeg har ikke brug for en tolk
                   </Label>
               </div>

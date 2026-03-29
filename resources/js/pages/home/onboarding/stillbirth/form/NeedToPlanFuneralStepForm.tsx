@@ -81,7 +81,7 @@ export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPl
                   id="need-to-plan-funeral-no"
                   name="need-to-plan-funeral-no"
                   checked={!needToPlanFuneral || currentNeedToPlanFuneral === false}
-                  onCheckedChange={(checked) => setNeedToPlanFuneral(!Boolean(checked))}
+                  onCheckedChange={(checked) => setNeedToPlanFuneral(!checked)}
                   className="mr-2"
                 >
                   Nej, jeg har ikke brug for at planlægge en begravelse

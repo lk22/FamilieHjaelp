@@ -84,7 +84,7 @@ export default function HasReceivedDeathCertificateStepForm({ handleStepSubmit }
                 id="hasReceivedDeathCertificate"
                 value="no"
                 checked={!hasReceivedDeathCertificate || currentHasReceivedDeathCertificate === false}
-                onCheckedChange={(checked) => setHasReceivedDeathCertificate(!Boolean(checked))}
+                onCheckedChange={(checked) => setHasReceivedDeathCertificate(!checked)}
                 className="mr-2"
               >
                 Nej, jeg har ikke modtaget dødsattesten

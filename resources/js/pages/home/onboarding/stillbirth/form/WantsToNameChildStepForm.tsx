@@ -91,7 +91,7 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                   id="wants-to-name-child-no"
                   name="wants-to-name-child-no"
                   checked={!wantsToNameChild || currentWantsToNameChild === false}
-                  onCheckedChange={(checked) => setWantsToNameChild(!Boolean(checked))}
+                  onCheckedChange={(checked) => setWantsToNameChild(!checked)}
                   className="mr-2 mb-4"
                 >
                   Nej vi ønsker ikke og navngive barnet
@@ -140,7 +140,7 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                         id="wants-to-inform-child-name-no"
                         name="wants-to-inform-child-name-no"
                         checked={!wantsToInformChildName || currentWantsToInformChildName === false}
-                        onCheckedChange={(checked) => setWantsToInformChildName(!Boolean(checked))}
+                        onCheckedChange={(checked) => setWantsToInformChildName(!checked)}
                         className="mr-2 mb-4"
                       >
                         Nej, jeg ønsker ikke at informere om barnets navn

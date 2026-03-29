@@ -179,26 +179,33 @@ class OnboardingController extends Controller
         ]);
     }
 
+    public function showCompleted(): Response
+    {
+        return inertia('home/onboarding/onboarding-completed');
+    }
+
     /**
      * complete the onboarding process.
      *
      * @param CompleteOnboardingRequest $request
      * @return RedirectResponse
      */
-    public function complete(CompleteOnboardingRequest $request)
+    public function complete(Request $request)
     {
-        $validated = $request->validated();
+        $validated = $request->validate([
+            'data.session_token' => 'required|string',
+        ]);
 
         $userId = $request->user()?->id;
-        $session = OnboardingSession::findWhen($userId, $validated['session_token']);
+        $session = OnboardingSession::findWhen($userId, $validated['data']['session_token']);
 
-        if ( ! $session) {
-            abort(404, 'Onboarding session not found');
+        if (! $session) {
+            abort(404, 'Onboarding session not found.');
         }
 
         $session->markAsCompleted();
 
-        return redirect()->route('onboarding.complete')->with('success', 'Onboarding completed successfully!');
+        return redirect()->route('onboarding.completed.view')->with('success', 'Onboarding completed successfully!');
     }
 
     /**

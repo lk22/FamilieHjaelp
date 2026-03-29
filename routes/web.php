@@ -25,10 +25,8 @@ Route::get('/getting-started', [OnboardingController::class, 'show'])->middlewar
 Route::get('/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'showStep'])->name('onboarding.scenario.step');
 Route::post('/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'submitStep'])->name('onboarding.scenario.step.submit');
 Route::get('/onboarding/confirmation', [OnboardingController::class, 'showConfirmation'])->name('onboarding.confirmation');
+Route::get('/onboarding/completed', [OnboardingController::class, 'showCompleted'])->name('onboarding.completed.view');
 
-Route::get('/onboarding/completed', function() {
-    return Inertia::render('home/onboarding/CompletedOnboarding');
-})->name('onboarding.completed.view');
 
 Route::post('/onboarding/{scenario}/update-step/{step}', [OnboardingController::class, 'updateStep'])->name('onboarding.scenario.update-step');
 
