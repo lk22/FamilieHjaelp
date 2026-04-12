@@ -19,6 +19,7 @@ export class APIClient implements ApiClientInterface {
     async get<T>(url: string): Promise<T> {
         const response = await fetch(url, {
             method: 'GET',
+            credentials: 'same-origin',
             headers: {
                 ...this.headers,
                 'Content-Type': 'application/json',
@@ -33,6 +34,7 @@ export class APIClient implements ApiClientInterface {
     async post<T>(url: string, data: Record<string, unknown>): Promise<T> {
         const response = await fetch(url, {
             method: 'POST',
+            credentials: 'same-origin',
             headers: {
                 ...this.headers,
                 'Content-Type': 'application/json',
@@ -48,6 +50,7 @@ export class APIClient implements ApiClientInterface {
     async put<T>(url: string, data: Record<string, unknown>): Promise<T> {
         const response = await fetch(url, {
             method: 'PUT',
+            credentials: 'same-origin',
             headers: {
                 ...this.headers,
                 'Content-Type': 'application/json',
@@ -63,6 +66,7 @@ export class APIClient implements ApiClientInterface {
     async delete<T>(url: string): Promise<T> {
         const response = await fetch(url, {
             method: 'DELETE',
+            credentials: 'same-origin',
             headers: {
                 ...this.headers,
                 'Content-Type': 'application/json',
@@ -77,6 +81,7 @@ export class APIClient implements ApiClientInterface {
     async patch<T>(url: string, data: Record<string, unknown>): Promise<T> {
         const response = await fetch(url, {
             method: 'PATCH',
+            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
                 ...this.headers,

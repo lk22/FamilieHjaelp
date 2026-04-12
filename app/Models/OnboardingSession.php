@@ -58,19 +58,20 @@ class OnboardingSession extends Model
      */
     public static function findOrCreateSession(?int $userId = null, ?string $token = null): self
     {
+        $session = self::where('session_token', $token)->first();
 
-        if ( ! $token ) {
-            return self::create([
-                'session_token' => self::generateToken(),
-                'user_id' => ($userId) ? $userId : null,
-                'completed' => false,
-                'steps_data' => [],
-                'form_data' => [],
-                'current_step' => 'welcome',
-            ]);
+        if ($session) {
+            return $session;
         }
 
-        return self::findByToken($token);
+        return self::create([
+            'session_token' => self::generateToken(),
+            'user_id' => $userId ?: null,
+            'completed' => false,
+            'steps_data' => [],
+            'form_data' => [],
+            'current_step' => 'welcome',
+        ]);
     }
 
     /**

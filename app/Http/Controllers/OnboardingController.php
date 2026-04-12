@@ -23,35 +23,19 @@ class OnboardingController extends Controller
     public function show(Request $request): Response|RedirectResponse
     {
         $userId = $request->user()?->id;
-        $token = $request->cookie('onboarding_session_token');
 
-        $category = $request->query('category', null);
-        $step = $request->query('step', 'one');
+        // Read session token first, then fall back to persisted browser cookie.
+        $token = $request->session()->get('onboarding_session_token')
+            ?? $request->cookie('onboarding_session_token');
 
         $session = OnboardingSession::findOrCreateSession($userId, $token);
 
+        // Keep token available immediately server-side in the current request lifecycle.
+        $request->session()->put('onboarding_session_token', $session->session_token);
+
+        // Persist token to browser for subsequent requests.
         cookie()->queue('onboarding_session_token', $session->session_token, 60 * 24 * 30);
 
-        if ( $category && $step === 'one' ) {
-            $category = $request->query('category', $category);
-
-            return redirect()->route('onboarding.step', [
-                'step' => 'one',
-                'category' => $category
-            ]);
-        }
-
-        // Making sure both category and step are set for redirection and step is not 'one
-        if ( $category && $step ) {
-            return redirect()->route('onboarding.step', [
-                'step' => $step,
-                'category' => $category
-            ]);
-        }
-
-        cookie()->queue('onboarding_session_token', $session->session_token, 60 * 24 * 30);
-
-        // render getting started view with onboarding session data
         return inertia('home/getting-started', [
             'onboardingSession' => [
                 'token' => $session->session_token,
@@ -61,6 +45,7 @@ class OnboardingController extends Controller
                 'completed' => $session->completed,
             ]
         ]);
+
     }
 
     /**
@@ -127,17 +112,22 @@ class OnboardingController extends Controller
             abort(404, 'Scenario not found.');
         }
 
-        $token = $request->cookie('onboarding_session_token');
+        $userId = $request->user()?->id;
 
-        if ( ! $token ) {
-            return redirect()->route('getting-started')->with('error', 'Onboarding session token is missing.');
+        $token = $request->session()->get('onboarding_session_token')
+            ?? $request->cookie('onboarding_session_token');
+
+        if (! $token) {
+            return redirect()->route('getting-started')
+                ->with('error', 'Onboarding session token mangler.');
         }
 
         $session = OnboardingSession::findByToken($token);
 
         if (! $session ) {
-            return redirect()->route('getting-started')->with('error', 'Onboarding session not found.');
+            abort(404, 'Onboarding session not found. Please start the onboarding process again.');
         }
+
         return inertia("home/onboarding/{$scenario}/steps/step", [
             'currentStep' => $step,
             'scenario' => $scenario,
@@ -155,7 +145,6 @@ class OnboardingController extends Controller
      * Show the confirmation page after completing onboarding steps.
      *
      * @param Request $request
-     * @param string $scenario
      * @return Response
      */
     public function showConfirmation(Request $request): Response

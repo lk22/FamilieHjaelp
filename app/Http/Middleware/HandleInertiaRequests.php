@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
 
-use App\Models\User;
 use App\Models\OnboardingSession;
 
 class HandleInertiaRequests extends Middleware
@@ -57,6 +56,7 @@ class HandleInertiaRequests extends Middleware
     {
         $userId = $request->user()?->id;
         $sessionToken = $request->cookie('onboarding_session_token');
+        $session = null;
 
         if ( $sessionToken ) {
             $session = OnboardingSession::findByToken($sessionToken);
@@ -67,9 +67,9 @@ class HandleInertiaRequests extends Middleware
             }
         }
 
-        // $session = OnboardingSession::findOrCreateSession($userId, $sessionToken);
-
-        $request->session()->put('onboarding_session_token', $session->session_token ?? null);
+        if ($session?->session_token) {
+            $request->session()->put('onboarding_session_token', $session->session_token);
+        }
 
         return [
             'token' => $session->session_token ?? "",

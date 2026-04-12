@@ -152,8 +152,17 @@ export function useQueryParams<T extends Record<string, unknown> = Record<string
  */
 export function setOnboardingSessionTokenCookie(token: string) {
     const cookieName = 'onboarding_session_token';
-    // setSessionTokenCookie(token, cookieName, 60 * 60 * 24 * 30); // Expires in 30 days
     const expires = new Date(Date.now() + 60 * 60 * 24 * 30 * 1000).toUTCString();
+
+    const checkedCookieName = checkIfCookieExists(cookieName);
+    if (checkedCookieName) {
+        console.warn(`Cookie with name "${cookieName}" already exists. Onboarding session token cookie will not be set.`);
+        // update the existing cookie with the new token value and reset the expiration time        const expires = new Date(Date.now() + 60 * 60 * 24 * 30 * 1000).toUTCString();
+        document.cookie = `${cookieName}=${token}; expires=${expires}; path=/; Secure; SameSite=Lax`;
+        return;
+    }
+
+    // setSessionTokenCookie(token, cookieName, 60 * 60 * 24 * 30); // Expires in 30 days
     document.cookie = `${cookieName}=${token}; expires=${expires}; path=/; Secure; SameSite=Lax`;
 }
 

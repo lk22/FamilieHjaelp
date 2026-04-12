@@ -14,12 +14,12 @@ use App\Http\Controllers\ProfileNoteController;
 Route::get('/', [PageController::class, 'home'])
 ->name('home');
 
-Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started')->middleware(['guest']);
+// Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started')->middleware(['guest']);
 
 /**
  * Onboarding routes
 */
-Route::get('/onboarding', [OnboardingController::class, 'render'])->name('onboarding.step');
+Route::get('/onboarding', [OnboardingController::class, 'show'])->name('onboarding.step');
 
 Route::get('/getting-started', [OnboardingController::class, 'show'])->middleware('guest')->name('getting-started');
 Route::get('/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'showStep'])->name('onboarding.scenario.step');
