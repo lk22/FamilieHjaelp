@@ -140,7 +140,6 @@ const ConfirmationContent = ({ onboardingSession }: OnboardingSessionProps) => {
 }
 
 export default function Confirmation({onboardingSession}: OnboardingSessionProps) {
-  console.log({onboardingSession})
   return (
     <OnboardingProvider
       initialSession={onboardingSession}

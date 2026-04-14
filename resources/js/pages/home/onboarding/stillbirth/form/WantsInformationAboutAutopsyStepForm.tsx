@@ -1,6 +1,6 @@
 // dependencies
 import { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -22,8 +22,15 @@ interface FirstStepFormProps {
 export default function WantsInformationAboutAutopsyStepForm({ handleStepSubmit }: FirstStepFormProps) {
   const [wantsInformationAboutAutopsy, setWantsInformationAboutAutopsy] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
+
+  const { post, data, setData } = useForm<{
+    wantsInformationAboutAutopsy: boolean;
+  }>({
+    wantsInformationAboutAutopsy: false,
+  });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
@@ -31,18 +38,18 @@ export default function WantsInformationAboutAutopsyStepForm({ handleStepSubmit 
   // current existing state value for wantsInformationAboutAutopsy from onboarding state, if it exists
   const currentwantsInformationAboutAutopsy = currentStep?.data.wantsInformationAboutAutopsy;
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    await setSubmitted(true);
+    await setLoading(true);
+    await handleStepSubmit({ wantsInformationAboutAutopsy: wantsInformationAboutAutopsy });
 
-    const submittedData: StepData = {
-      wantsInformationAboutAutopsy: wantsInformationAboutAutopsy,
-    }
-
-    console.log(submittedData)
-
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({ ...submittedData });
-    setSubmitted(true);
+    post(route('onboarding.scenario.step.complete', {
+      scenario: onboardingState.currentScenario,
+      step: 'six'
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
     setTimeout(() => {
       setSubmitted(false);
@@ -51,6 +58,7 @@ export default function WantsInformationAboutAutopsyStepForm({ handleStepSubmit 
         scenario: onboardingState.currentScenario,
         step: 'seven'
       }));
+      setLoading(false)
     }, 1000);
   };
 
@@ -68,7 +76,10 @@ export default function WantsInformationAboutAutopsyStepForm({ handleStepSubmit 
               <Checkbox
                 id="wantsInformationAboutAutopsy"
                 checked={wantsInformationAboutAutopsy || currentwantsInformationAboutAutopsy === true}
-                onCheckedChange={(checked) => setWantsInformationAboutAutopsy(Boolean(checked))}
+                onCheckedChange={(checked) => {
+                  setWantsInformationAboutAutopsy(Boolean(checked));
+                  setData('wantsInformationAboutAutopsy', Boolean(checked));
+                }}
                 className="mr-2"
               >
                 Ja, jeg ønsker information om obduktion
@@ -82,7 +93,10 @@ export default function WantsInformationAboutAutopsyStepForm({ handleStepSubmit 
                 id="wantsInformationAboutAutopsyNo"
                 value="no"
                 checked={!(wantsInformationAboutAutopsy || currentwantsInformationAboutAutopsy === false)}
-                onCheckedChange={(checked) => setWantsInformationAboutAutopsy(!checked)}
+                onCheckedChange={(checked) => {
+                  setWantsInformationAboutAutopsy(!checked);
+                  setData('wantsInformationAboutAutopsy', !checked);
+                }}
                 className="mr-2"
               >
                 Nej, jeg ønsker ikke information om obduktion

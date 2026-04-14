@@ -3,9 +3,6 @@ import { useState, useCallback, JSX, useEffect } from 'react';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
-// Utilities
-import { setOnboardingSessionTokenCookie } from '@/lib/utils';
-
 // Context
 import { OnboardingProvider, useOnboarding } from '@/contexts/OnboardingContext';
 
@@ -35,9 +32,6 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
         setScenario(selectedScenario);
         updateCurrentScenario(selectedScenario);
         updateCurrentStep('one');
-        // if (onboardingSession.token) {
-        //     setOnboardingSessionTokenCookie(onboardingSession.token);
-        // }
 
         console.log(currentScenario, currentStep);
     }, [updateCurrentScenario, updateCurrentStep, onboardingSession.token]);

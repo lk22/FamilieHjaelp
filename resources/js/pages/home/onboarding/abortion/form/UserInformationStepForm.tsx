@@ -76,26 +76,28 @@ console.log({data, currentName, currentAge, currentAgeOfPartner, currentGender})
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     await setLoading(true);
+    await setSubmitted(true);
+    await handleStepSubmit({ ...data.data });
 
-    post(route('onboarding.scenario.step.submit', {
-      scenario: onboardingState.currentScenario,
-      step: step
-    }), {
-      onFinish: () => setLoading(false)
-    });
-
-    handleStepSubmit({ ...data.data });
-    setSubmitted(true);
-
-    setTimeout(() => {
-      setSubmitted(false);
-
-      router.get(route('onboarding.scenario.step', {
+    try {
+      await post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
-        step: 'two'
-      }));
-      setLoading(false);
-    }, 1000);
+        step: step
+      }), {
+        onFinish: () => setLoading(false)
+      });
+
+      setTimeout(() => {
+        setSubmitted(false);
+
+        router.get(route('onboarding.scenario.step', {
+          scenario: onboardingState.currentScenario,
+          step: 'two'
+        }));
+      }, 1000);
+    } catch(error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (

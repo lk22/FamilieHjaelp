@@ -22,32 +22,41 @@ interface FirstStepFormProps {
 export default function HasOtherChildrenAtHomeStepForm({ handleStepSubmit }: FirstStepFormProps) {
   const [hasOtherChildrenAtHome, setHasOtherChildrenAtHome] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { onboardingState} = useOnboarding();
+
+  const { post, data, setData } = useForm<{
+    hasOtherChildrenAtHome: boolean;
+  }>({
+    hasOtherChildrenAtHome: false,
+  });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
   const currentHasOtherChildrenAtHome = currentStep?.data.hasOtherChildrenAtHome;
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    await setSubmitted(true);
+    await setLoading(true)
+    await handleStepSubmit({ hasOtherChildrenAtHome: hasOtherChildrenAtHome });
 
-    const submittedData: StepData = {
-      hasOtherChildrenAtHome: hasOtherChildrenAtHome,
-    }
-
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({ ...submittedData });
-    setSubmitted(true);
+    post(route('onboarding.scenario.step.complete', {
+      scenario: onboardingState.currentScenario,
+      step: 'seven'
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
     setTimeout(() => {
       setSubmitted(false);
-
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
         step: 'eight'
       }));
+      setLoading(false)
     }, 1000);
   };
 
@@ -65,8 +74,11 @@ export default function HasOtherChildrenAtHomeStepForm({ handleStepSubmit }: Fir
                 <Checkbox
                   id="hasOtherChildrenAtHomeYes"
                   value="yes"
-                  checked={hasOtherChildrenAtHome ||currentHasOtherChildrenAtHome === true}
-                  onCheckedChange={(checked) => setHasOtherChildrenAtHome(Boolean(checked))}
+                  checked={hasOtherChildrenAtHome || currentHasOtherChildrenAtHome === true}
+                  onCheckedChange={(checked) => {
+                    setHasOtherChildrenAtHome(Boolean(checked));
+                    setData('hasOtherChildrenAtHome', Boolean(checked));
+                  }}
                   className="mr-2"
                 >
                   Ja jeg/vi har andre børn hjemme eller passet
@@ -80,7 +92,10 @@ export default function HasOtherChildrenAtHomeStepForm({ handleStepSubmit }: Fir
                   id="hasOtherChildrenAtHomeNo"
                   value="no"
                   checked={!hasOtherChildrenAtHome || currentHasOtherChildrenAtHome === false}
-                  onCheckedChange={(checked) => setHasOtherChildrenAtHome(!checked)}
+                  onCheckedChange={(checked) => {
+                    setHasOtherChildrenAtHome(!checked);
+                    setData('hasOtherChildrenAtHome', !checked);
+                  }}
                   className="mr-2"
                 >
                   Nej jeg/vi har ikke andre børn hjemme eller passet

@@ -83,40 +83,45 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
    */
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setSubmitted(true);
-
     await setLoading(true);
+    await setSubmitted(true);
+    await handleStepSubmit({
+      abortionWeeks: abortionInfoState.abortionWeeks,
+      hasDoctorsPermit: abortionInfoState.hasDoctorsPermit,
+      abortionMethod: abortionInfoState.abortionMethod,
+      hasBeenConsultedByDoctor: abortionInfoState.hasBeenConsultedByDoctor
+    });
 
-    try {
-      await handleStepSubmit({
-        abortionWeeks: abortionInfoState.abortionWeeks,
-        hasDoctorsPermit: abortionInfoState.hasDoctorsPermit,
-        abortionMethod: abortionInfoState.abortionMethod,
-        hasBeenConsultedByDoctor: abortionInfoState.hasBeenConsultedByDoctor
-      });
-      await post(route('onboarding.scenario.step.submit', {
-        scenario: onboardingState.currentScenario,
-        step: step
-      }), {
-        onFinish: () => setLoading(false)
-      });
+    await post(route('onboarding.scenario.step.submit', {
+      scenario: onboardingState.currentScenario,
+      step: step
+    }), {
+      onFinish: () => setLoading(false)
+    });
+
+    setTimeout(() => {
+      setSubmitted(false);
+
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
         step: 'three'
       }));
-    } catch (error) {
-      console.log('Error submitting abortion information step:', error);
-    } finally {
-      setLoading(false)
-    }
+      setLoading(false);
+    }, 1000);
   }
 
   /**
    * Returns Week number notice in condition for abortion weeks changed above or equal
    */
   const renderWeekNumberNotice = () => {
-    if (abortionInfoState.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22) {
-      return "Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad.";
+    if (abortionInfoState.abortionWeeks >= 22 || data.data.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22) {
+      return (
+        <>
+          <p>
+            Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad.
+          </p>
+        </>
+      );
     }
   }
 
@@ -171,13 +176,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                 </div>
                 <div className="change-info-note mb-4 w-full">
                   {
-                    (abortionInfoState.abortionWeeks >= 22 || data.data.abortionWeeks >= 22 || currentAbortionWeeksValue >= 22) && (
-                      <>
-                        <p>
-                          Bemærk: Da du er i uge 22 eller derover, er der nogle yderligere krav og overvejelser, du skal være opmærksom på. Det anbefales, at du søger rådgivning hos en læge for at få mere information om dine muligheder og de nødvendige skridt fremad.
-                        </p>
-                      </>
-                    )
+                    renderWeekNumberNotice()
                   }
                 </div>
               </div>

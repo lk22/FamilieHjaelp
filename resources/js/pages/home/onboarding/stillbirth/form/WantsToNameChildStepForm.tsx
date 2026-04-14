@@ -1,6 +1,6 @@
 // Dependencies
 import { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -29,7 +29,18 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
   const [wantsToInformChildName, setWantsToInformChildName] = useState<boolean>(true);
   const [childName, setChildName] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
   const { onboardingState } = useOnboarding();
+
+  const { post, data, setData } = useForm<{
+    wantsToNameChild: boolean;
+    wantsToInformChildName: boolean;
+    childName?: string;
+  }>({
+    wantsToNameChild: true,
+    wantsToInformChildName: true,
+    childName: ''
+  });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
@@ -37,8 +48,10 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
   const currentWantsToInformChildName = currentStep?.data.wantsToInformChildName
   const currentChildName = currentStep?.data.childName || '';
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    await setSubmitted(true);
+    await setLoading(true);
 
     const submittedData: StepData = {
       wantsToNameChild: wantsToNameChild,
@@ -46,11 +59,15 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
       childName: childName || currentChildName
     }
 
-    console.log(submittedData)
-
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ ...submittedData });
-    setSubmitted(true);
+    await handleStepSubmit({ ...submittedData });
+
+    post(route('onboarding.scenario.step.submit', {
+      scenario: onboardingState.currentScenario,
+      step: 'three'
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
     setTimeout(() => {
       setSubmitted(false);
@@ -59,6 +76,7 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
         scenario: onboardingState.currentScenario,
         step: 'four'
       }));
+      setLoading(false);
     }, 1000);
   };
 
@@ -77,7 +95,10 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                   id="wants-to-name-child"
                   name="wants-to-name-child"
                   checked={wantsToNameChild || currentWantsToNameChild === true}
-                  onCheckedChange={(checked) => setWantsToNameChild(Boolean(checked))}
+                  onCheckedChange={(checked) => {
+                    setWantsToNameChild(Boolean(checked));
+                    setData('wantsToNameChild', Boolean(checked));
+                  }}
                   className="mr-2 mb-4"
                 >
                   Ja vi ønske og navngive barnet
@@ -91,7 +112,10 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                   id="wants-to-name-child-no"
                   name="wants-to-name-child-no"
                   checked={!wantsToNameChild || currentWantsToNameChild === false}
-                  onCheckedChange={(checked) => setWantsToNameChild(!checked)}
+                  onCheckedChange={(checked) => {
+                    setWantsToNameChild(!checked);
+                    setData('wantsToNameChild', !checked);
+                  }}
                   className="mr-2 mb-4"
                 >
                   Nej vi ønsker ikke og navngive barnet
@@ -111,7 +135,10 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                         id="wants-to-inform-child-name"
                         name="wants-to-inform-child-name"
                         checked={wantsToInformChildName || currentWantsToInformChildName === true}
-                        onCheckedChange={(checked) => setWantsToInformChildName(Boolean(checked))}
+                        onCheckedChange={(checked) => {
+                          setWantsToInformChildName(Boolean(checked));
+                          setData('wantsToInformChildName', Boolean(checked));
+                        }}
                         className="mr-2 mb-4"
                       >
                         Ja, jeg ønsker at informere om barnets navn
@@ -129,7 +156,10 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                             id="child-name"
                             name="child-name"
                             value={childName || currentChildName}
-                            onChange={(e) => setChildName(e.target.value)}
+                            onChange={(e) => {
+                              setChildName(e.target.value);
+                              setData('childName', e.target.value);
+                            }}
                             className="block w-full mt-1 ps-4 mb-4 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           />
                         </>
@@ -140,7 +170,10 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                         id="wants-to-inform-child-name-no"
                         name="wants-to-inform-child-name-no"
                         checked={!wantsToInformChildName || currentWantsToInformChildName === false}
-                        onCheckedChange={(checked) => setWantsToInformChildName(!checked)}
+                        onCheckedChange={(checked) => {
+                          setWantsToInformChildName(!checked);
+                          setData('wantsToInformChildName', !checked);
+                        }}
                         className="mr-2 mb-4"
                       >
                         Nej, jeg ønsker ikke at informere om barnets navn

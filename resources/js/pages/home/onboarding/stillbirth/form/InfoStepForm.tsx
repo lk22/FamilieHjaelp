@@ -1,6 +1,6 @@
 // Dependencies
 import { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -26,11 +26,21 @@ interface FirstStepFormProps {
 }
 
 export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
+  const [step, setStep] = useState<string>('one');
   const [name, setName] = useState<string>('');
   const [age, setAge] = useState<string>('');
   const [gender, setGender] = useState<string>('');
   const [ageOfPartner, setAgeOfPartner] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
+
+  const { post, data, setData } = useForm<StepData>({
+    name: '',
+    age: '',
+    ageOfPartner: '',
+    gender: '',
+  });
+
 
   const { onboardingState } = useOnboarding();
 
@@ -43,21 +53,24 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
   const currentAgeOfPartner = currentStep?.data.ageOfPartner || '';
   const currentGender = currentStep?.data.gender || '';
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    await setSubmitted(true);
+    await setLoading(true);
 
-    const submittedData: StepData = {
-      name,
-      age,
-      ageOfPartner,
-      gender,
-    }
+    await handleStepSubmit({
+      name: name,
+      age: age,
+      ageOfPartner: ageOfPartner,
+      gender: gender
+    });
 
-    console.log(submittedData)
-
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({ ...submittedData });
-    setSubmitted(true);
+    post(route('onboarding.scenario.step.submit', {
+      scenario: onboardingState.currentScenario,
+      step: step
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
     setTimeout(() => {
       setSubmitted(false);
@@ -66,6 +79,7 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
         scenario: onboardingState.currentScenario,
         step: 'two'
       }));
+      setLoading(false)
     }, 1000);
   };
 
@@ -86,7 +100,10 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
                 id="name"
                 type="text"
                 value={name || currentName}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setData('name', e.target.value);
+                }}
                 required
               />
               <label htmlFor="gender" className="block mt-4 mb-2 font-medium text-gray-700">
@@ -96,7 +113,10 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
                 id="gender"
                 className="mt-2 mb-4 p-2 border border-gray-300 rounded w-full"
                 value={gender || currentGender}
-                onChange={(e) => setGender(e.target.value)}
+                onChange={(e) => {
+                  setGender(e.target.value);
+                  setData('gender', e.target.value);
+                }}
                 required
               >
                 <option value="">Vælg køn</option>
@@ -111,7 +131,10 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
                 id="age"
                 type="text"
                 value={age || currentAge}
-                onChange={(e) => setAge(e.target.value)}
+                onChange={(e) => {
+                  setAge(e.target.value);
+                  setData('age', e.target.value);
+                }}
                 required
               />
               {
@@ -126,7 +149,10 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
                       id="age"
                       type="text"
                       value={ageOfPartner || currentAgeOfPartner}
-                      onChange={(e) => setAgeOfPartner(e.target.value)}
+                      onChange={(e) => {
+                        setAgeOfPartner(e.target.value);
+                        setData('ageOfPartner', e.target.value);
+                      }}
                       required
                     />
                   </>

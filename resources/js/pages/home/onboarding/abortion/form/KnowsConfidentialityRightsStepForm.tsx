@@ -1,6 +1,6 @@
 // dependencies
 import { useState } from 'react';
-import { usePage, useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -8,7 +8,6 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 // Components
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
 
 // Utilities
 import { logState } from '@/lib/utils'
@@ -18,7 +17,7 @@ type KnowsConfidentialityRightsStepFormProps = {
 }
 
 export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }: KnowsConfidentialityRightsStepFormProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [step, setStep] = useState<string>('five');
   const [knowsConfidentialityRights, setKnowsConfidentialityRights] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -38,25 +37,25 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setKnowsConfidentialityRights(knowsConfidentialityRights);
+    await setLoading(true);
+    await setSubmitted(true)
+    await handleStepSubmit({ knowsConfidentialityRights: Boolean(knowsConfidentialityRights) });
 
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({ knowsConfidentialityRights: Boolean(knowsConfidentialityRights) });
-    setSubmitted(true);
+    await post(route('onboarding.scenario.step.submit', {
+      scenario: onboardingState.currentScenario,
+      step: step
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
-    try {
-      await post(route('onboarding.scenario.step.submit', {
+    setTimeout(() => {
+      setSubmitted(false);
+      setLoading(false);
+      router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
-        step: 'seven'
-      }), {
-        onFinish: () => {
-          setLoading(false)
-          setIsOpen(true)
-        }
-      });
-    } catch (error) {
-      console.log('Failed to submit step:', error);
-    }
+        step: 'six'
+      }));
+    }, 1000);
   };
 
   return (
@@ -117,7 +116,6 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
           )
         }
       </form>
-      <CompletedModal isOpen={isOpen} closeModal={() => setIsOpen(false)} />
     </>
   )
 }

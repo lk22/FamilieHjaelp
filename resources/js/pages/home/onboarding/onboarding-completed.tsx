@@ -46,7 +46,6 @@ const OnboardingCompletedContent = () => {
     }, []);
 
     const postOnboardingData = useCallback(async () => {
-
         const steps: LoadingProgressSteps[] = [
             {
                 name: 'Checking authentication status',

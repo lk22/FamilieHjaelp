@@ -1,6 +1,6 @@
 // Dependencies
 import { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -30,8 +30,20 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
   const [hasDoctorsPermit, setHasDoctorsPermit] = useState<boolean | null>(true);
   const [hasBeenConsultedByDoctor, setHasBeenConsultedByDoctor] = useState<boolean | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState} = useOnboarding();
+
+  const { post, data, setData } = useForm<{
+    weekNumber: string,
+    hasDoctorsPermit: boolean,
+    hasBeenConsultedByDoctor: boolean
+  }>({
+    weekNumber: '',
+    hasDoctorsPermit: false,
+    hasBeenConsultedByDoctor: false
+  });
+
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[1]; // second step
   const currentWeeksNumberValue = currentStep?.data.weekNumber;
@@ -46,9 +58,9 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
    *
    * @param event React.FormEvent
    */
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setSubmitted(true);
+    await setSubmitted(true);
 
     const submittedData: WeekNumberStepFormData = {
       weekNumber,
@@ -56,15 +68,22 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
       hasBeenConsultedByDoctor: Boolean(hasBeenConsultedByDoctor)
     }
 
-    handleStepSubmit({ ...submittedData });
+    await handleStepSubmit({ ...submittedData });
+
+    post(route('onboarding.scenario.step.submit', {
+      scenario: onboardingState.currentScenario,
+      step: 'two'
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
     setTimeout(() => {
       setSubmitted(false);
-
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
         step: 'three'
       }));
+      setLoading(false);
     }, 1000);
   }
 
@@ -86,7 +105,10 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                   <Input
                     type="number"
                     id="abortion-weeks"
-                    onChange={(e) => setWeekNumber(e.target.value)}
+                    onChange={(e) => {
+                      setWeekNumber(e.target.value);
+                      setData('weekNumber', e.target.value);
+                    }}
                     required
                     value={weekNumber || currentWeeksNumberValue}
                     className="w-7/12 mt-2 mb-2"
@@ -110,7 +132,10 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                       id="has-been-consulted-by-doctor"
                       name='has-been-consulted-by-doctor'
                       checked={hasBeenConsultedByDoctor || currentHasBeenConsultedByDoctorValue === true}
-                      onCheckedChange={(checked) => setHasBeenConsultedByDoctor(Boolean(checked))}
+                      onCheckedChange={(checked) => {
+                        setHasBeenConsultedByDoctor(Boolean(checked));
+                        setData('hasBeenConsultedByDoctor', Boolean(checked));
+                      }}
                       className="mt-2 mb-4"
                     >
                       Ja har været i konsultation med min læge
@@ -124,7 +149,10 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                       id="has-been-consulted-by-doctor"
                       name='has-been-consulted-by-doctor'
                       checked={!hasBeenConsultedByDoctor || !currentHasBeenConsultedByDoctorValue === false}
-                      onCheckedChange={(checked) => setHasBeenConsultedByDoctor(!checked)}
+                      onCheckedChange={(checked) => {
+                        setHasBeenConsultedByDoctor(!checked);
+                        setData('hasBeenConsultedByDoctor', !checked);
+                      }}
                       className="mt-2 mb-4"
                     >
                       Nej, har ikke været i konsultation med min læge
@@ -144,7 +172,10 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                           id="has-doctors-permit"
                           name='has-doctors-permit'
                           checked={hasDoctorsPermit || currentHasDoctorsPermitValue === true}
-                          onCheckedChange={(checked) => setHasDoctorsPermit(Boolean(checked))}
+                          onCheckedChange={(checked) => {
+                            setHasDoctorsPermit(Boolean(checked));
+                            setData('hasDoctorsPermit', Boolean(checked));
+                          }}
                           className="mt-2 mb-4"
                         >
                           Ja har underskrevet lægeerklæring
@@ -158,7 +189,10 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                           id="has-doctors-permit"
                           name='has-doctors-permit'
                           checked={!hasDoctorsPermit || !currentHasDoctorsPermitValue === false}
-                          onCheckedChange={(checked) => setHasDoctorsPermit(!checked)}
+                          onCheckedChange={(checked) => {
+                            setHasDoctorsPermit(!checked);
+                            setData('hasDoctorsPermit', !checked);
+                          }}
                           className="mt-2 mb-4"
                         >
                           Nej, har ikke fået underskrevet lægeerklæring

@@ -77,13 +77,13 @@ class OnboardingController extends Controller
             ])
         ]);
 
-        // return a success message for now to indicate the form was submitted successfully.
-        return response()->json([
-            'message' => 'Step submitted successfully',
-            'scenario' => $scenario,
-            'step' => $step,
-            'submittedData' => $request->all(),
-        ], 200);
+        if ( $step === 'complete' ) {
+            $existingSession->markAsCompleted();
+        }
+
+        // return a redirect response to the next step or a success message (to be implemented)
+        return redirect()->route('onboarding.scenario.step', ['scenario' => $scenario, 'step' => $step])
+            ->with('success', 'Step submitted successfully');
     }
 
     /**

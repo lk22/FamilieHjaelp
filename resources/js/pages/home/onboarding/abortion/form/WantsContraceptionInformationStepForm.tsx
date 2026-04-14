@@ -1,6 +1,6 @@
 // dependencies
 import { JSX, useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -12,11 +12,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 // Utilities
 import { logState } from '@/lib/utils'
 
-type WantsContraptionsInformationProps = {
+type WantsContraceptionInformationProps = {
   handleStepSubmit: (data: {wantsContraceptionInfo: boolean}) => void;
 }
 
-export default function WantsContraceptionInformationStepForm({ handleStepSubmit }: WantsContraptionsInformationProps) {
+export default function WantsContraceptionInformationStepForm({ handleStepSubmit }: WantsContraceptionInformationProps) {
+  const [step, setStep] = useState<string>('six');
   const [wantsContraceptionInfo, setWantsContraceptionInfo] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -29,28 +30,35 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
   const currentWantsContraceptionInfo = currentStep?.data.wantsContraceptionInfo;
   const abortionMethod = currentScenario?.steps[1].data.abortionMethod;
 
+  const { post, data, setData, errors, processing, reset } = useForm<{
+    wantsContraceptionInfo: boolean;
+  }>({
+    wantsContraceptionInfo: false,
+  });
+
   logState('WantsContraceptionInformationStepForm', { onboardingState, currentScenario, wantsContraceptionInfo });
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setWantsContraceptionInfo(wantsContraceptionInfo);
+    await setLoading(true);
+    await setSubmitted(true);
+    await handleStepSubmit({ wantsContraceptionInfo: wantsContraceptionInfo });
+
+    await post(route('onboarding.scenario.step.submit', {
+      scenario: onboardingState.currentScenario,
+      step: step
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
     setTimeout(() => {
-      setLoading(true)
-    }, 200);
-
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({ wantsContraceptionInfo: wantsContraceptionInfo });
-    setSubmitted(true);
-
-    setTimeout(() => {
-      setLoading(true)
-
+      setSubmitted(false);
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
-        step: 'six'
+        step: 'seven'
       }));
-    }, 500);
+      setLoading(false);
+    }, 1000);
   };
 
   /**
@@ -107,7 +115,7 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
                 <Checkbox
                   id="wants-contraception-info"
                   className="me-4"
-                  checked={!wantsContraceptionInfo || currentWantsContraceptionInfo === 'faæse'}
+                  checked={!wantsContraceptionInfo || currentWantsContraceptionInfo === 'false'}
                   onCheckedChange={(checked) => setWantsContraceptionInfo(!checked)}>
                 </Checkbox>
                 <label htmlFor="wants-contraception-info" className="text-lg">Nej jeg ønsker ikke præventionsvejledning</label>

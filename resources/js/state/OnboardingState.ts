@@ -89,6 +89,16 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                 {
                     id: 5,
                     stepName: 'five',
+                    question: 'Kender du til din ret til fortrolighed?',
+                    description: 'Alt omkring din abort er omfattet af tavshedspligt. Informationen deles ikke med andre, heller ikke dine forældre (hvis du er over 15 år).',
+                    completed: false,
+                    data: {
+                        knowsConfidentialityRights: null,
+                    }
+                },
+                {
+                    id: 6,
+                    stepName: 'six',
                     question: 'Ønsker du information om præventionsvejledning efter aborten?',
                     description: 'Du kan få gratis præventionsvejledning og prævention i forbindelse med aborten, så du er godt beskyttet fremadrettet.',
                     completed: false,
@@ -97,8 +107,8 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 6,
-                    stepName: 'six',
+                    id: 7,
+                    stepName: 'seven',
                     question: 'Har du brug for information om efterfødselssamtaler/psykologisk støtte efter abort?',
                     description: 'Mange har brug for at tale om deres oplevelse bagefter. Du kan få gratis samtaler gennem sundhedsvæsenet eller frivillige organisationer.',
                     completed: false,
@@ -107,13 +117,15 @@ export const InitialOnboardingState: InitialOnboardingStateInterface = {
                     }
                 },
                 {
-                    id: 7,
-                    stepName: 'seven',
-                    question: 'Kender du til din ret til fortrolighed?',
-                    description: 'Alt omkring din abort er omfattet af tavshedspligt. Informationen deles ikke med andre, heller ikke dine forældre (hvis du er over 15 år).',
+                    id: 8,
+                    stepName: 'eight',
+                    question: 'Ønsker du at blive kontaktet af en rådgiver for yderligere støtte?',
+                    description: 'Hvis du ønsker det, kan en rådgiver kontakte dig for at tilbyde yderligere støtte og information. Det er helt frivilligt, og du kan altid sige nej.',
                     completed: false,
                     data: {
-                        knowsConfidentialityRights: null,
+                        wantsToBeContacted: null,
+                        contactEmail: null,
+                        phoneNumber: null,
                     }
                 }
             ]

@@ -18,6 +18,7 @@ type NeedsPostpartumSupportInfoStepFormProps = {
 }
 
 export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }: NeedsPostpartumSupportInfoStepFormProps) {
+  const [step, setStep] = useState<string>('seven');
   const [needsPostpartumSupportInfo, setNeedsPostpartumSupportInfo] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -39,32 +40,25 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setNeedsPostpartumSupportInfo(needsPostpartumSupportInfo);
+    await setLoading(true);
+    await setSubmitted(true);
+    await handleStepSubmit({ needsPostpartumSupportInfo: Boolean(needsPostpartumSupportInfo) });
 
-    await setLoading(true)
+    await post(route('onboarding.scenario.step.submit', {
+      scenario: onboardingState.currentScenario,
+      step: step
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
-    console.log(data)
-
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({  needsPostpartumSupportInfo: Boolean(needsPostpartumSupportInfo) });
-    setSubmitted(true);
-
-    try {
-      await post(route('onboarding.scenario.step.submit', {
-        scenario: onboardingState.currentScenario,
-        step: 'six'
-      }), {
-        onFinish: () => setLoading(false)
-      });
+    setTimeout(() => {
+      setSubmitted(false)
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
-        step: 'seven'
+        step: 'eight'
       }));
-    } catch (error) {
-      console.log('Failed to submit step or navigate:', error);
-      setLoading(false);
-    }
-
+      setLoading(false)
+    }, 1000);
   };
 
   return (

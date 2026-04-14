@@ -7,8 +7,7 @@ import WantsSupportConversationStepForm from "./WantsSupportConversationStepForm
 import WantsContraceptionInformationStepForm from "./WantsContraceptionInformationStepForm";
 import NeedsPostpartumSupportInfoStepForm from "./NeedsPostpartumSupportInfoStepForm";
 import KnowsConfidentialityRightsStepForm from "./KnowsConfidentialityRightsStepForm";
-
-import { checkIfOnboardingCompleted } from "@/lib/utils";
+import WantsToBeContactedStepForm from "./WantsToBeContactedStepForm";
 
 /**
  * StepForm Component
@@ -100,11 +99,13 @@ const StepFormFieldsDisplay = ({
         case 'four':
             return <WantsSupportConversationStepForm handleStepSubmit={submitStep} />;
         case 'five':
-            return <WantsContraceptionInformationStepForm handleStepSubmit={submitStep} />;
-        case 'six':
-            return <NeedsPostpartumSupportInfoStepForm handleStepSubmit={submitStep} />;
-        case 'seven':
             return <KnowsConfidentialityRightsStepForm handleStepSubmit={submitStep} />;
+        case 'six':
+            return <WantsContraceptionInformationStepForm handleStepSubmit={submitStep} />;
+        case 'seven':
+            return <NeedsPostpartumSupportInfoStepForm handleStepSubmit={submitStep} />;
+        case 'eight':
+            return <WantsToBeContactedStepForm handleStepSubmit={submitStep} />;
         default:
             return <div>Unknown Step</div>;
     }

@@ -1,6 +1,6 @@
 // dependencies
 import { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -22,8 +22,15 @@ interface KnowsSupportOptionsStepFormProps {
 export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsSupportOptionsStepFormProps) {
   const [knowsSupportOptions, setknowsSupportOptions] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { onboardingState } = useOnboarding();
+
+  const { post, data, setData } = useForm<{
+    knowsSupportOptions: boolean;
+  }>({
+    knowsSupportOptions: false,
+  });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
 
@@ -32,24 +39,19 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsS
 
   const currentknowsSupportOptions: boolean | undefined = currentStep?.data.knowsSupportOptions;
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    const submittedData: StepData = {
-      knowsSupportOptions: knowsSupportOptions,
-    }
-
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({ ...submittedData });
-    setSubmitted(true);
+    await setSubmitted(true);
+    await setLoading(true);
+    await handleStepSubmit({ knowsSupportOptions: knowsSupportOptions });
 
     setTimeout(() => {
       setSubmitted(false);
-
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
         step: 'nine'
       }));
+      setLoading(false);
     }, 1000);
   };
 
@@ -67,7 +69,10 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsS
               <Checkbox
                 id="knowsSupportOptions"
                 checked={knowsSupportOptions || currentknowsSupportOptions === true}
-                onCheckedChange={(checked) => setknowsSupportOptions(Boolean(checked))}
+                onCheckedChange={(checked) => {
+                  setknowsSupportOptions(Boolean(checked));
+                  setData('knowsSupportOptions', Boolean(checked));
+                }}
                 className="mr-2"
               >
                 Ja Jeg kender mine muligheder for støtte
@@ -80,7 +85,10 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsS
               <Checkbox
                 id="knowsSupportOptionsNo"
                 checked={!(knowsSupportOptions || currentknowsSupportOptions === false)}
-                onCheckedChange={(checked) => setknowsSupportOptions(!checked)}
+                onCheckedChange={(checked) => {
+                  setknowsSupportOptions(!checked);
+                  setData('knowsSupportOptions', !checked);
+                }}
                 className="mr-2"
               >
                 Nej, jeg kender ikke mine muligheder for støtte

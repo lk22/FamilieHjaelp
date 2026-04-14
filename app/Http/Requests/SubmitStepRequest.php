@@ -73,11 +73,15 @@ class SubmitStepRequest extends FormRequest
                 "data.knowsConfidentialityRights" => "required|boolean",
             ],
             "six" => [
-                "data.needsPostpartumSupportInfo" => "required|boolean",
+                "data.wantsContraceptionInfo" => "required|boolean",
             ],
             "seven" => [
+                "data.needsPostpartumSupportInfo" => "required|boolean",
+            ],
+            "eight" => [
                 "data.wantsToBeContacted" => "required|boolean",
                 "data.contactEmail" => "required_if:data.wantsToBeContacted,true|email",
+                "data.phoneNumber" => "required_if:data.wantsToBeContacted,true|string",
             ],
             default => []
         };

@@ -18,6 +18,7 @@ type NeedsInterpreterStepProps = {
 }
 
 export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInterpreterStepProps) {
+  const [step, setStep] = useState<string>('three');
   const [needsInterpreter, setneedsInterpreter] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -38,28 +39,25 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setneedsInterpreter(needsInterpreter);
+    await setLoading(true);
+    await setSubmitted(true);
+    await handleStepSubmit({ needsInterpreter: needsInterpreter });
 
-    await setLoading(true)
+    await post(route('onboarding.scenario.step.submit', {
+      scenario: onboardingState.currentScenario,
+      step: step
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({ needsInterpreter: needsInterpreter });
-    setSubmitted(true);
-
-    try {
-      await post(route('onboarding.scenario.step.submit', {
-        scenario: onboardingState.currentScenario,
-        step: 'three'
-      }), {
-        onFinish: () => setLoading(false)
-      });
+    setTimeout(() => {
+      setSubmitted(false);
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
         step: 'four'
       }));
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
+      setLoading(false);
+    }, 1000);
   };
 
   return (

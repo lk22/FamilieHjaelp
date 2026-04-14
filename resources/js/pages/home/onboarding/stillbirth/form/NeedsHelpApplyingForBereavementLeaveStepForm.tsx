@@ -1,5 +1,6 @@
 // Dependencies
 import { useState } from 'react';
+import { useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -23,6 +24,13 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
   const [needsHelpApplyingForBereavementLeave, setNeedsHelpApplyingForBereavementLeave] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const { post, data, setData } = useForm<{
+    needsHelpApplyingForBereavementLeave: boolean;
+  }>({
+    needsHelpApplyingForBereavementLeave: false,
+  });
+
   const { onboardingState } = useOnboarding();
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
@@ -30,16 +38,18 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
 
   const currentNeedsHelpApplyingForBereavementLeave = currentStep?.data.needsHelpApplyingForBereavementLeave;
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    const submittedData: StepData = {
-      needsHelpApplyingForBereavementLeave: needsHelpApplyingForBereavementLeave,
-    }
+    await setSubmitted(true);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ ...submittedData });
-    setSubmitted(true);
+    await handleStepSubmit({ needsHelpApplyingForBereavementLeave: needsHelpApplyingForBereavementLeave });
+
+    post(route('onboarding.scenario.step.complete', {
+      scenario: onboardingState.currentScenario,
+      step: 'ten'
+    }));
+
     setIsOpen(true);
   };
 
@@ -58,7 +68,10 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
                 <Checkbox
                   id="needsHelpApplyingForBereavementLeave"
                   checked={needsHelpApplyingForBereavementLeave || currentNeedsHelpApplyingForBereavementLeave === true}
-                  onCheckedChange={(checked) => setNeedsHelpApplyingForBereavementLeave(Boolean(checked))}
+                  onCheckedChange={(checked) => {
+                    setNeedsHelpApplyingForBereavementLeave(Boolean(checked));
+                    setData('needsHelpApplyingForBereavementLeave', Boolean(checked));
+                  }}
                   className="mr-2"
                 >
                   Ja, jeg ønsker information om obduktion
@@ -71,7 +84,10 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
                 <Checkbox
                   id="needsHelpApplyingForBereavementLeaveNo"
                   checked={!needsHelpApplyingForBereavementLeave || currentNeedsHelpApplyingForBereavementLeave === false}
-                  onCheckedChange={(checked) => setNeedsHelpApplyingForBereavementLeave(!checked)}
+                  onCheckedChange={(checked) => {
+                    setNeedsHelpApplyingForBereavementLeave(!checked);
+                    setData('needsHelpApplyingForBereavementLeave', !checked);
+                  }}
                   className="mr-2"
                 />
                 <label htmlFor="needsHelpApplyingForBereavementLeaveNo" className="block mt-4 mb-2 font-medium text-gray-700">

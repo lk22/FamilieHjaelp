@@ -116,7 +116,8 @@ class OnboardingSession extends Model
      */
     public function markAsCompleted(): void
     {
-        $this->completed = true;
+        $this->current_step = "completed";
+        $this->compeleted = true;
         $this->completed_at = now();
         $this->save();
     }

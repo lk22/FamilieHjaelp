@@ -1,6 +1,6 @@
 // dependencies
 import { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -22,26 +22,27 @@ interface NeedToPlanFuneralStepFormProps {
 export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPlanFuneralStepFormProps) {
   const [needToPlanFuneral, setNeedToPlanFuneral] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-
+  const [isLoading, setLoading] = useState<boolean>(false);
   const { onboardingState } = useOnboarding();
+
+  const { post, data, setData } = useForm<{
+    needToPlanFuneral: boolean;
+  }>({
+    needToPlanFuneral: false,
+  });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
   const currentNeedToPlanFuneral: boolean = currentStep?.data.needToPlanFuneral;
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    const submittedData: StepData = {
-      needToPlanFuneral: needToPlanFuneral,
-    }
-
-    console.log(submittedData)
+    await setSubmitted(true);
+    await setLoading(true);
 
     // Proceed to the next step or perform other actions
-    handleStepSubmit({ ...submittedData });
-    setSubmitted(true);
+    await handleStepSubmit({ needToPlanFuneral: needToPlanFuneral });
 
     setTimeout(() => {
       setSubmitted(false);
@@ -50,6 +51,7 @@ export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPl
         scenario: onboardingState.currentScenario,
         step: 'five'
       }));
+      setLoading(false);
     }, 1000);
   };
 
@@ -67,7 +69,10 @@ export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPl
                 <Checkbox
                   id="need-to-plan-funeral-yes"
                   checked={needToPlanFuneral || currentNeedToPlanFuneral === true}
-                  onCheckedChange={(checked) => setNeedToPlanFuneral(Boolean(checked))}
+                  onCheckedChange={(checked) => {
+                    setNeedToPlanFuneral(Boolean(checked));
+                    setData('needToPlanFuneral', Boolean(checked));
+                  }}
                   className="mr-2 mb-4"
                 >
                   Ja, jeg har brug for at planlægge en begravelse
@@ -81,7 +86,10 @@ export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPl
                   id="need-to-plan-funeral-no"
                   name="need-to-plan-funeral-no"
                   checked={!needToPlanFuneral || currentNeedToPlanFuneral === false}
-                  onCheckedChange={(checked) => setNeedToPlanFuneral(!checked)}
+                  onCheckedChange={(checked) => {
+                    setNeedToPlanFuneral(!checked);
+                    setData('needToPlanFuneral', !checked);
+                  }}
                   className="mr-2"
                 >
                   Nej, jeg har ikke brug for at planlægge en begravelse

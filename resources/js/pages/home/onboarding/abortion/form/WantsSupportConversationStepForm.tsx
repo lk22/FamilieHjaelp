@@ -18,10 +18,11 @@ type WantsSupportConversationStepProps = {
 }
 
 export default function WantsSupportConversationStepForm({ handleStepSubmit }: WantsSupportConversationStepProps) {
+  const [step, setStep] = useState<string>('four');
   const [wantsSupportConversation, setWantsSupportConversation] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
-
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { onboardingState } = useOnboarding();
 
   const {post, data, setData} = useForm<{
@@ -38,37 +39,26 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setWantsSupportConversation(wantsSupportConversation);
+    await setLoading(true);
+    await setSubmitted(true);
+    await handleStepSubmit({ wantsSupportConversation: wantsSupportConversation });
 
-    await setLoading(true)
-
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({ wantsSupportConversation: wantsSupportConversation });
-    setSubmitted(true);
-
-    try {
-      await post(route('onboarding.scenario.step.submit', {
-        scenario: onboardingState.currentScenario,
-        step: 'four'
-      }), {
-        onFinish: () => setLoading(false)
-      });
-      router.get(route('onboarding.scenario.step', {
-        scenario: onboardingState.currentScenario,
-        step: 'five'
-      }));
-    } catch (error) {
-      console.error('Failed to submit step or navigate:', error);
-      setLoading(false);
-    }
+    post(route('onboarding.scenario.step.submit', {
+      scenario: onboardingState.currentScenario,
+      step: step
+    }), {
+      onFinish: () => setLoading(false)
+    });
 
     setTimeout(() => {
-      setLoading(true)
+      setSubmitted(false);
       router.get(route('onboarding.scenario.step', {
         scenario: onboardingState.currentScenario,
         step: 'five'
       }));
-    }, 500);
+      setLoading(false);
+    }, 1000);
+
   };
 
   return (
