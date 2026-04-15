@@ -20,9 +20,10 @@ interface KnowsSupportOptionsStepFormProps {
 }
 
 export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsSupportOptionsStepFormProps) {
+  const [step, setStep] = useState<string>('nine');
   const [knowsSupportOptions, setknowsSupportOptions] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { onboardingState } = useOnboarding();
 
@@ -39,20 +40,40 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsS
 
   const currentknowsSupportOptions: boolean | undefined = currentStep?.data.knowsSupportOptions;
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await setSubmitted(true);
-    await setLoading(true);
-    await handleStepSubmit({ knowsSupportOptions: knowsSupportOptions });
+    setSubmitted(true);
+    setIsLoading(true);
+    const nextStep = 'ten';
 
-    setTimeout(() => {
-      setSubmitted(false);
-      router.get(route('onboarding.scenario.step', {
-        scenario: onboardingState.currentScenario,
-        step: 'nine'
-      }));
-      setLoading(false);
-    }, 1000);
+    try {
+        handleStepSubmit({ knowsSupportOptions: knowsSupportOptions });
+
+        post(route('onboarding.scenario.step.submit', {
+            scenario: onboardingState.currentScenario,
+            step: step,
+            nextStep: nextStep
+        }), {
+            onFinish: () => setIsLoading(false),
+            onError: () => {
+                setIsLoading(false);
+                setSubmitted(false);
+                console.log('Error submitting form:', data);
+            },
+            onSuccess: () => {
+                setIsLoading(false);
+                setSubmitted(false);
+                router.get(route('onboarding.scenario.step', {
+                    scenario: onboardingState.currentScenario,
+                    step: nextStep
+                }));
+            }
+        });
+    } catch (error) {
+        console.error('Error submitting step:', error);
+        setIsLoading(false);
+        setSubmitted(false);
+    }
   };
 
   return (

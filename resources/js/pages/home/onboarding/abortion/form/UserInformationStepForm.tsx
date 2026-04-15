@@ -36,13 +36,13 @@ type InformationStepStateProperties = {
 }
 
 export default function UserInformationStepForm({ handleStepSubmit }: UserInformationProps) {
+  const [step, setStep] = useState<string>('one');
   const [state, setState] = useState<InformationStepStateProperties>({
     name: '',
     age: 0,
     ageOfPartner: 0,
     gender: '',
   });
-  const [step, setStep] = useState<string>('one');
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const {post, data, setData, errors, processing, reset} = useForm<{
@@ -72,31 +72,41 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   const currentAge = currentStep?.data.age || 0;
   const currentAgeOfPartner = currentStep?.data.ageOfPartner || 0;
   const currentGender = currentStep?.data.gender || '';
-console.log({data, currentName, currentAge, currentAgeOfPartner, currentGender})
-  const handleSubmit = async (event: React.FormEvent) => {
+
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await setLoading(true);
-    await setSubmitted(true);
-    await handleStepSubmit({ ...data.data });
+    setLoading(true);
+    setSubmitted(true);
+    const nextStep = 'two';
 
     try {
-      await post(route('onboarding.scenario.step.submit', {
+      handleStepSubmit({ ...data.data });
+
+      post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
-        step: step
+        step: step,
+        nextStep: nextStep
       }), {
-        onFinish: () => setLoading(false)
+        onFinish: () => setLoading(false),
+        onError: () => {
+          setLoading(false);
+          console.log('Error submitting form:', errors);
+          setSubmitted(false);
+        },
+        onSuccess: () => {
+          setSubmitted(false);
+          setLoading(false);
+          router.get(route('onboarding.scenario.step', {
+            scenario: onboardingState.currentScenario,
+            step: nextStep
+          }));
+        }
       });
-
-      setTimeout(() => {
-        setSubmitted(false);
-
-        router.get(route('onboarding.scenario.step', {
-          scenario: onboardingState.currentScenario,
-          step: 'two'
-        }));
-      }, 1000);
-    } catch(error) {
+    } catch (error) {
       console.error('Error submitting form:', error);
+      setLoading(false);
+      setSubmitted(false);
+      return;
     }
   };
 

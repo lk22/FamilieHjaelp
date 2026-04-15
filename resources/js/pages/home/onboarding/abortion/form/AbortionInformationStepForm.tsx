@@ -40,7 +40,6 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
       hasBeenConsultedByDoctor: false
     }
   });
-  const [step, setStep] = useState<string>('two');
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -81,33 +80,46 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
    *
    * @param event React.FormEvent
    */
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await setLoading(true);
-    await setSubmitted(true);
-    await handleStepSubmit({
-      abortionWeeks: abortionInfoState.abortionWeeks,
-      hasDoctorsPermit: abortionInfoState.hasDoctorsPermit,
-      abortionMethod: abortionInfoState.abortionMethod,
-      hasBeenConsultedByDoctor: abortionInfoState.hasBeenConsultedByDoctor
-    });
+    setLoading(true);
+    setSubmitted(true);
+    const nextStep = 'three';
 
-    await post(route('onboarding.scenario.step.submit', {
-      scenario: onboardingState.currentScenario,
-      step: step
-    }), {
-      onFinish: () => setLoading(false)
-    });
+    try {
+      handleStepSubmit({
+        abortionWeeks: abortionInfoState.abortionWeeks,
+        hasDoctorsPermit: abortionInfoState.hasDoctorsPermit,
+        abortionMethod: abortionInfoState.abortionMethod,
+        hasBeenConsultedByDoctor: abortionInfoState.hasBeenConsultedByDoctor
+      });
 
-    setTimeout(() => {
-      setSubmitted(false);
-
-      router.get(route('onboarding.scenario.step', {
+      post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
-        step: 'three'
-      }));
+        step: 'two',
+        nextStep: nextStep
+      }), {
+        onFinish: () => setLoading(false),
+        onError: () => {
+          setLoading(false);
+          console.log('Error submitting form:', errors);
+          setSubmitted(false);
+        },
+        onSuccess: () => {
+          setSubmitted(false);
+          setLoading(false);
+          router.get(route('onboarding.scenario.step', {
+            scenario: onboardingState.currentScenario,
+            step: nextStep
+          }));
+        }
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
       setLoading(false);
-    }, 1000);
+      setSubmitted(false);
+      return;
+    }
   }
 
   /**

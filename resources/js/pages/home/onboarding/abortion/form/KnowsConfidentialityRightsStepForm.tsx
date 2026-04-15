@@ -18,6 +18,7 @@ type KnowsConfidentialityRightsStepFormProps = {
 
 export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }: KnowsConfidentialityRightsStepFormProps) {
   const [step, setStep] = useState<string>('five');
+  const [nextStep, setNextStep] = useState<string>('');
   const [knowsConfidentialityRights, setKnowsConfidentialityRights] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -35,27 +36,40 @@ export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }:
   const { onboardingState } = useOnboarding();
   logState('KnowsConfidentialityRightsStepForm', { onboardingState, knowsConfidentialityRights });
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await setLoading(true);
-    await setSubmitted(true)
-    await handleStepSubmit({ knowsConfidentialityRights: Boolean(knowsConfidentialityRights) });
+    setLoading(true);
+    setSubmitted(true)
+    const nextStep = 'six';
 
-    await post(route('onboarding.scenario.step.submit', {
-      scenario: onboardingState.currentScenario,
-      step: step
-    }), {
-      onFinish: () => setLoading(false)
-    });
+    try {
+      handleStepSubmit({ knowsConfidentialityRights: Boolean(knowsConfidentialityRights) });
 
-    setTimeout(() => {
-      setSubmitted(false);
-      setLoading(false);
-      router.get(route('onboarding.scenario.step', {
+      post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
-        step: 'six'
-      }));
-    }, 1000);
+        step: step,
+        nextStep: nextStep
+      }), {
+        onFinish: () => setLoading(false),
+        onError: () => {
+          setLoading(false);
+          setSubmitted(false);
+          console.log('Error submitting form:', data);
+        },
+        onSuccess: () => {
+          setLoading(false);
+          setSubmitted(false);
+          router.get(route('onboarding.scenario.step', {
+            scenario: onboardingState.currentScenario,
+            step: nextStep
+          }));
+        }
+      });
+    } catch (error) {
+      console.error('Error submitting step:', error);
+      setLoading(false);
+      setSubmitted(false);
+    }
   };
 
   return (

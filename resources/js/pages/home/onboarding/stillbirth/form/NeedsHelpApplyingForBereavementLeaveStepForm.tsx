@@ -1,6 +1,6 @@
 // Dependencies
 import { useState } from 'react';
-import { useForm } from '@inertiajs/react';
+import { useForm, router } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -21,8 +21,10 @@ interface FirstStepFormProps {
 }
 
 export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleStepSubmit }: FirstStepFormProps) {
+  const [step, setStep] = useState<string>('ten');
   const [needsHelpApplyingForBereavementLeave, setNeedsHelpApplyingForBereavementLeave] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { post, data, setData } = useForm<{
@@ -40,17 +42,38 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    await setSubmitted(true);
+    setSubmitted(true);
+    setIsLoading(true);
+    const nextStep = 'eleven';
 
-    // Proceed to the next step or perform other actions
-    await handleStepSubmit({ needsHelpApplyingForBereavementLeave: needsHelpApplyingForBereavementLeave });
+    try {
+        handleStepSubmit({ needsHelpApplyingForBereavementLeave: needsHelpApplyingForBereavementLeave });
 
-    post(route('onboarding.scenario.step.complete', {
-      scenario: onboardingState.currentScenario,
-      step: 'ten'
-    }));
-
-    setIsOpen(true);
+        post(route('onboarding.scenario.step.submit', {
+            scenario: onboardingState.currentScenario,
+            step: step,
+            nextStep: nextStep
+        }), {
+            onFinish: () => setIsLoading(false),
+            onError: () => {
+                setIsLoading(false);
+                setSubmitted(false);
+                console.log('Error submitting form:', data);
+            },
+            onSuccess: () => {
+                setIsLoading(false);
+                setSubmitted(false);
+                router.get(route('onboarding.scenario.step', {
+                    scenario: onboardingState.currentScenario,
+                    step: nextStep
+                }));
+            }
+        });
+    } catch (error) {
+        console.error('Error submitting step:', error);
+        setIsLoading(false);
+        setSubmitted(false);
+    }
   };
 
   return (

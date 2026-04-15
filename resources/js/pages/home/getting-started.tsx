@@ -14,6 +14,7 @@ interface OnboardingSessionProps {
     onboardingSession: {
         token: string | null;
         currentStep: string | null;
+        nextStep: string | null;
         stepsData: Record<string, any>;
         formData: Record<string, any>;
         completed: boolean;
@@ -27,6 +28,11 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
 
     const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
     const currentStep = getCurrentStep();
+
+    const currentSessionData = onboardingSession.stepsData;
+
+    console.log("Current step:", currentStep);
+    console.log("Current Session State:", onboardingSession.stepsData);
 
     const handleScenarioChange = useCallback((selectedScenario: string) => {
         setScenario(selectedScenario);
@@ -76,6 +82,18 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
                             <div className="category-picker flex flex-wrap">
                                 <GettingStartedDescription />
                                 <div className="w-full pl-0 md:pl-0">
+                                    {/* {
+                                        currentSessionData && (
+                                            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
+                                                <p className="font-bold">Du har en igangværende session</p>
+                                                <button>
+                                                    <Link href={route(`onboarding.scenario.step`, { step: onboardingSession.nextStep, scenario: currentScenario?.id })} className="text-yellow-700 underline">
+                                                        Fortsæt hvor du slap
+                                                    </Link>
+                                                </button>
+                                            </div>
+                                        )
+                                    } */}
                                     <ScenarioItemList handleScenarioChange={handleScenarioChange} />
                                     <p className="text-left text-lg mt-8">
                                         {/* {renderGettingStartedActions()} */}
@@ -114,7 +132,6 @@ const GettingStartedContent = ({onboardingSession}: OnboardingSessionProps) => {
 }
 
 export default function GettingStarted({onboardingSession}: OnboardingSessionProps) {
-    console.log('Onboarding Session:', onboardingSession);
     return (
         <OnboardingProvider initialSession={onboardingSession}>
             <GettingStartedContent onboardingSession={onboardingSession}/>

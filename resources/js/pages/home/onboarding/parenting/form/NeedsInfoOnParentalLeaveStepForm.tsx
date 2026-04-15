@@ -10,6 +10,8 @@ interface NeedsInfoOnParentalLeaveStepFormProps {
 }
 
 export default function NeedsInfoOnParentalLeaveStepForm({ handleStepSubmit }: NeedsInfoOnParentalLeaveStepFormProps) {
+    const [step, setStep] = useState<string>('six');
+    const [submitted, setSubmitted] = useState<boolean>(false);
     const [needsInfoOnParentalLeave, setNeedsInfoOnParentalLeave] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -18,7 +20,7 @@ export default function NeedsInfoOnParentalLeaveStepForm({ handleStepSubmit }: N
     const currentStep = currentScenario?.steps[5];
     const currentNeedsInfo = currentStep?.data.needsInfoOnParentalLeave;
 
-    const { post, setData } = useForm<{ data: { needsInfoOnParentalLeave: boolean } }>({
+    const { post, setData, data } = useForm<{ data: { needsInfoOnParentalLeave: boolean } }>({
         data: { needsInfoOnParentalLeave: currentNeedsInfo ?? false },
     });
 
@@ -26,6 +28,37 @@ export default function NeedsInfoOnParentalLeaveStepForm({ handleStepSubmit }: N
         event.preventDefault();
         const submittedData = { needsInfoOnParentalLeave: needsInfoOnParentalLeave ?? currentNeedsInfo ?? false };
         setIsLoading(true);
+        setSubmitted(true);
+        const nextStep = 'seven';
+
+        try {
+            handleStepSubmit({ needsInfoOnParentalLeave: needsInfoOnParentalLeave ?? currentNeedsInfo ?? false });
+
+            post(route('onboarding.scenario.step.submit', {
+                scenario: onboardingState.currentScenario,
+                step: step,
+                nextStep: nextStep
+            }), {
+                onFinish: () => setIsLoading(false),
+                onError: () => {
+                    setIsLoading(false);
+                    setSubmitted(false);
+                    console.log('Error submitting form:', data);
+                },
+                onSuccess: () => {
+                    setIsLoading(false);
+                    setSubmitted(false);
+                    router.get(route('onboarding.scenario.step', {
+                        scenario: onboardingState.currentScenario,
+                        step: nextStep
+                    }));
+                }
+            });
+        } catch (error) {
+            console.error('Error submitting step:', error);
+            setIsLoading(false);
+            setSubmitted(false);
+        }
 
         try {
             await post(

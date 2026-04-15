@@ -142,13 +142,13 @@ export default function OnboardingTemplate({
                 <div className="container-fluid flex flex-wrap">
                     <div className="xs:w-full sm:w-full md:w-full lg:w-full bg-[#004EA7] pb-36 text-white flex flex-col items-center justify-center">
                         <div className="logo pt-30 w-full">
-                            <Link href={route('home')} className="flex items-center">
+                            <Link href={route('home')} className='flex justify-center items-center gap-4'>
                                 <img
                                     src="/images/logo.svg"
                                     alt="Familiehjælp Logo"
-                                    className="mb-6 w-auto h-[100px] mx-auto"
+                                    className="mb-6 w-auto h-[100px]"
                                 />
-                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="relative bottom-4 mb-6 w-auto h-[50px] mx-auto" />
+                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="relative bottom-4 w-auto h-[50px]" />
                             </Link>
                         </div>
                     </div>

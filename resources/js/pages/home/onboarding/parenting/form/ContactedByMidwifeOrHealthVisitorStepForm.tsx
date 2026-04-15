@@ -12,41 +12,52 @@ interface ContactedByMidwifeOrHealthVisitorStepFormProps {
 export default function ContactedByMidwifeOrHealthVisitorStepForm({ handleStepSubmit }: ContactedByMidwifeOrHealthVisitorStepFormProps) {
     const [contactedByMidwifeOrHealthVisitor, setContactedByMidwifeOrHealthVisitor] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [step, setStep] = useState<string>('four');
+    const [nextStep, setNextStep] = useState<string>('');
 
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
     const currentStep = currentScenario?.steps[3];
     const currentContacted = currentStep?.data.contactedByMidwifeOrHealthVisitor;
 
-    const { post, setData } = useForm<{ data: { contactedByMidwifeOrHealthVisitor: boolean } }>({
+    const { post, setData, data } = useForm<{ data: { contactedByMidwifeOrHealthVisitor: boolean } }>({
         data: { contactedByMidwifeOrHealthVisitor: currentContacted ?? false },
     });
 
-    const handleSubmit = async (event: React.FormEvent) => {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        const submittedData = { contactedByMidwifeOrHealthVisitor: contactedByMidwifeOrHealthVisitor ?? currentContacted ?? false };
         setIsLoading(true);
+        setSubmitted(true);
+        const nextStep = 'five';
 
         try {
-            await post(
-                route('onboarding.scenario.step.submit', {
-                    scenario: onboardingState.currentScenario,
-                    step: 'four',
-                }),
-                { onFinish: () => setIsLoading(false) },
-            );
+            handleStepSubmit({ contactedByMidwifeOrHealthVisitor: contactedByMidwifeOrHealthVisitor ?? currentContacted ?? false });
 
-            handleStepSubmit(submittedData);
-
-            router.get(
-                route('onboarding.scenario.step', {
-                    scenario: onboardingState.currentScenario,
-                    step: 'five',
-                }),
-            );
+            post(route('onboarding.scenario.step.submit', {
+                scenario: onboardingState.currentScenario,
+                step: step,
+                nextStep: nextStep
+            }), {
+                onFinish: () => setIsLoading(false),
+                onError: () => {
+                    setIsLoading(false);
+                    setSubmitted(false);
+                    console.log('Error submitting form:', data);
+                },
+                onSuccess: () => {
+                    setIsLoading(false);
+                    setSubmitted(false);
+                    router.get(route('onboarding.scenario.step', {
+                        scenario: onboardingState.currentScenario,
+                        step: nextStep
+                    }));
+                }
+            });
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('Error submitting step:', error);
             setIsLoading(false);
+            setSubmitted(false);
         }
     };
 

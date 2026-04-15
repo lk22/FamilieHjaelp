@@ -10,6 +10,8 @@ interface WantsToJoinParentGroupsStepFormProps {
 }
 
 export default function WantsToJoinParentGroupsStepForm({ handleStepSubmit }: WantsToJoinParentGroupsStepFormProps) {
+    const [step, setStep] = useState<string>('ten');
+    const [submitted, setSubmitted] = useState<boolean>(false);
     const [wantsToJoin, setWantsToJoin] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -18,35 +20,43 @@ export default function WantsToJoinParentGroupsStepForm({ handleStepSubmit }: Wa
     const currentStep = currentScenario?.steps[9];
     const currentWantsToJoin = currentStep?.data.wantsToJoinParentGroups;
 
-    const { post, setData } = useForm<{ data: { wantsToJoinParentGroups: boolean } }>({
+    const { post, setData, data } = useForm<{ data: { wantsToJoinParentGroups: boolean } }>({
         data: { wantsToJoinParentGroups: currentWantsToJoin ?? false },
     });
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const submittedData = { wantsToJoinParentGroups: wantsToJoin ?? currentWantsToJoin ?? false };
         setIsLoading(true);
+        setSubmitted(true);
+        const nextStep = 'eleven';
 
         try {
-            await post(
-                route('onboarding.scenario.step.submit', {
-                    scenario: onboardingState.currentScenario,
-                    step: 'ten',
-                }),
-                { onFinish: () => setIsLoading(false) },
-            );
+            handleStepSubmit({ wantsToJoinParentGroups: wantsToJoin ?? currentWantsToJoin ?? false });
 
-            handleStepSubmit(submittedData);
-
-            router.get(
-                route('onboarding.scenario.step', {
-                    scenario: onboardingState.currentScenario,
-                    step: 'eleven',
-                }),
-            );
+            post(route('onboarding.scenario.step.submit', {
+                scenario: onboardingState.currentScenario,
+                step: step,
+                nextStep: nextStep
+            }), {
+                onFinish: () => setIsLoading(false),
+                onError: () => {
+                    setIsLoading(false);
+                    setSubmitted(false);
+                    console.log('Error submitting form:', data);
+                },
+                onSuccess: () => {
+                    setIsLoading(false);
+                    setSubmitted(false);
+                    router.get(route('onboarding.scenario.step', {
+                        scenario: onboardingState.currentScenario,
+                        step: nextStep
+                    }));
+                }
+            });
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('Error submitting step:', error);
             setIsLoading(false);
+            setSubmitted(false);
         }
     };
 

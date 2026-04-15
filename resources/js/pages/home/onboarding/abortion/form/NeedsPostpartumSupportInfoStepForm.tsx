@@ -38,27 +38,39 @@ export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }:
 
   logState('NeedsPostpartumSupportInfoStepForm', { onboardingState, needsPostpartumSupportInfo });
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await setLoading(true);
-    await setSubmitted(true);
-    await handleStepSubmit({ needsPostpartumSupportInfo: Boolean(needsPostpartumSupportInfo) });
+    setLoading(true);
+    setSubmitted(true);
+    const nextStep = 'eight';
+    try {
+      handleStepSubmit({ needsPostpartumSupportInfo: Boolean(needsPostpartumSupportInfo) });
 
-    await post(route('onboarding.scenario.step.submit', {
-      scenario: onboardingState.currentScenario,
-      step: step
-    }), {
-      onFinish: () => setLoading(false)
-    });
-
-    setTimeout(() => {
-      setSubmitted(false)
-      router.get(route('onboarding.scenario.step', {
+      post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
-        step: 'eight'
-      }));
-      setLoading(false)
-    }, 1000);
+        step: step,
+        nextStep: nextStep
+      }), {
+        onFinish: () => setLoading(false),
+        onError: () => {
+          setLoading(false);
+          setSubmitted(false);
+          console.log('Error submitting form:', data);
+        },
+        onSuccess: () => {
+          setLoading(false);
+          setSubmitted(false);
+          router.get(route('onboarding.scenario.step', {
+            scenario: onboardingState.currentScenario,
+            step: nextStep
+          }));
+        }
+      });
+    } catch (error) {
+      console.error('Error submitting step:', error);
+      setLoading(false);
+      setSubmitted(false);
+    }
   };
 
   return (

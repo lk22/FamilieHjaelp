@@ -11,9 +11,11 @@ interface HasPlannedParentalLeaveWithEmployerStepFormProps {
 }
 
 export default function HasPlannedParentalLeaveWithEmployerStepForm({ handleStepSubmit }: HasPlannedParentalLeaveWithEmployerStepFormProps) {
+    const [step, setStep] = useState<string>('twelve');
     const [hasPlanned, setHasPlanned] = useState<boolean | null>(null);
     const [startDate, setStartDate] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
@@ -21,7 +23,7 @@ export default function HasPlannedParentalLeaveWithEmployerStepForm({ handleStep
     const currentHasPlanned = currentStep?.data.hasPlannedParentalLeaveWithEmployer;
     const currentStartDate = currentStep?.data.hasPlannedParentalLeaveWithEmployerStartDate;
 
-    const { post, setData } = useForm<{
+    const { post, setData, data } = useForm<{
         data: {
             hasPlannedParentalLeaveWithEmployer: boolean;
             hasPlannedParentalLeaveWithEmployerStartDate?: string;
@@ -35,32 +37,40 @@ export default function HasPlannedParentalLeaveWithEmployerStepForm({ handleStep
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const submittedData = {
-            hasPlannedParentalLeaveWithEmployer: hasPlanned ?? currentHasPlanned ?? false,
-            hasPlannedParentalLeaveWithEmployerStartDate: startDate || currentStartDate || undefined,
-        };
         setIsLoading(true);
+        setSubmitted(true);
+        const nextStep = 'thirteen';
 
         try {
-            await post(
-                route('onboarding.scenario.step.submit', {
-                    scenario: onboardingState.currentScenario,
-                    step: 'twelve',
-                }),
-                { onFinish: () => setIsLoading(false) },
-            );
+            handleStepSubmit({
+                hasPlannedParentalLeaveWithEmployer: hasPlanned ?? currentHasPlanned ?? false,
+                hasPlannedParentalLeaveWithEmployerStartDate: startDate || currentStartDate || undefined,
+            });
 
-            handleStepSubmit(submittedData);
-
-            router.get(
-                route('onboarding.scenario.step', {
-                    scenario: onboardingState.currentScenario,
-                    step: 'thirteen',
-                }),
-            );
+            post(route('onboarding.scenario.step.submit', {
+                scenario: onboardingState.currentScenario,
+                step: step,
+                nextStep: nextStep
+            }), {
+                onFinish: () => setIsLoading(false),
+                onError: () => {
+                    setIsLoading(false);
+                    setSubmitted(false);
+                    console.log('Error submitting form:', data);
+                },
+                onSuccess: () => {
+                    setIsLoading(false);
+                    setSubmitted(false);
+                    router.get(route('onboarding.scenario.step', {
+                        scenario: onboardingState.currentScenario,
+                        step: nextStep
+                    }));
+                }
+            });
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('Error submitting step:', error);
             setIsLoading(false);
+            setSubmitted(false);
         }
     };
 

@@ -37,28 +37,40 @@ export default function WantsSupportConversationStepForm({ handleStepSubmit }: W
 
   logState('WantsSupportConversationStepForm', { onboardingState, wantsSupportConversation });
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await setLoading(true);
-    await setSubmitted(true);
-    await handleStepSubmit({ wantsSupportConversation: wantsSupportConversation });
+    setLoading(true);
+    setSubmitted(true);
+    const nextStep = 'five';
 
-    post(route('onboarding.scenario.step.submit', {
-      scenario: onboardingState.currentScenario,
-      step: step
-    }), {
-      onFinish: () => setLoading(false)
-    });
+    try {
+      handleStepSubmit({ wantsSupportConversation: wantsSupportConversation });
 
-    setTimeout(() => {
-      setSubmitted(false);
-      router.get(route('onboarding.scenario.step', {
+      post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
-        step: 'five'
-      }));
+        step: step,
+        nextStep: nextStep
+      }), {
+        onFinish: () => setLoading(false),
+        onError: () => {
+          setLoading(false);
+          setSubmitted(false);
+          console.log('Error submitting form:', data);
+        },
+        onSuccess: () => {
+          setLoading(false);
+          setSubmitted(false);
+          router.get(route('onboarding.scenario.step', {
+            scenario: onboardingState.currentScenario,
+            step: nextStep
+          }));
+        }
+      });
+    } catch (error) {
+      console.error('Error submitting step:', error);
       setLoading(false);
-    }, 1000);
-
+      setSubmitted(false);
+    }
   };
 
   return (

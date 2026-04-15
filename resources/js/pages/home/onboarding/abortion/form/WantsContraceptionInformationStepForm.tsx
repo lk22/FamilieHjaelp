@@ -18,6 +18,7 @@ type WantsContraceptionInformationProps = {
 
 export default function WantsContraceptionInformationStepForm({ handleStepSubmit }: WantsContraceptionInformationProps) {
   const [step, setStep] = useState<string>('six');
+  const [nextStep, setNextStep] = useState<string>('');
   const [wantsContraceptionInfo, setWantsContraceptionInfo] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -38,27 +39,40 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
 
   logState('WantsContraceptionInformationStepForm', { onboardingState, currentScenario, wantsContraceptionInfo });
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await setLoading(true);
-    await setSubmitted(true);
-    await handleStepSubmit({ wantsContraceptionInfo: wantsContraceptionInfo });
+    setLoading(true);
+    setSubmitted(true);
+    const nextStep = 'seven';
 
-    await post(route('onboarding.scenario.step.submit', {
-      scenario: onboardingState.currentScenario,
-      step: step
-    }), {
-      onFinish: () => setLoading(false)
-    });
+    try {
+      handleStepSubmit({ wantsContraceptionInfo: Boolean(wantsContraceptionInfo) });
 
-    setTimeout(() => {
-      setSubmitted(false);
-      router.get(route('onboarding.scenario.step', {
+      post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
-        step: 'seven'
-      }));
+        step: step,
+        nextStep: nextStep
+      }), {
+        onFinish: () => setLoading(false),
+        onError: () => {
+          setLoading(false);
+          setSubmitted(false);
+          console.log('Error submitting form:', data);
+        },
+        onSuccess: () => {
+          setLoading(false);
+          setSubmitted(false);
+          router.get(route('onboarding.scenario.step', {
+            scenario: onboardingState.currentScenario,
+            step: nextStep
+          }));
+        }
+      });
+    } catch (error) {
+      console.error('Error submitting step:', error);
       setLoading(false);
-    }, 1000);
+      setSubmitted(false);
+    }
   };
 
   /**

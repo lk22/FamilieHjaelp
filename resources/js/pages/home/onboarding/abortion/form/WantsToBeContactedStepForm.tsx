@@ -42,22 +42,34 @@ export default function WantsToBeContactedStepForm({ handleStepSubmit }: WantsTo
 
   logState('WantsToBeContactedStepForm', { onboardingState, wantsToBeContacted, contactEmail, phoneNumber });
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await setLoading(true);
-    await setSubmitted(true);
-    await handleStepSubmit({ wantsToBeContacted, contactEmail, phoneNumber });
+    setLoading(true);
+    setSubmitted(true);
 
-    post(route('onboarding.scenario.step.submit', {
-      scenario: onboardingState.currentScenario,
-      step: 'eight'
-    }), {
-      onFinish: () => setLoading(false)
-    });
+    try {
+      handleStepSubmit({ wantsToBeContacted, contactEmail, phoneNumber });
+      post(route('onboarding.scenario.step.submit', {
+        scenario: onboardingState.currentScenario,
+        step: 'eight'
+      }), {
+        onFinish: () => setLoading(false),
+        onError: () => {
+          setLoading(false);
+          setSubmitted(false);
+          console.log('Error submitting form:', data);
+        },
+        onSuccess: () => {
+          setLoading(false);
+          setIsOpen(true);
+        }
+      });
+    } catch (error) {
+      console.error('Error submitting step:', error);
+      setLoading(false);
+      setSubmitted(false);
+    }
 
-    setTimeout(() => {
-      setIsOpen(true)
-    }, 1000);
   };
 
   return (

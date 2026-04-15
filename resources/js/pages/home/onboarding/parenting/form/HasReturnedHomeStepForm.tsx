@@ -11,42 +11,53 @@ interface HasReturnedHomeStepFormProps {
 
 export default function HasReturnedHomeStepForm({ handleStepSubmit }: HasReturnedHomeStepFormProps) {
     const [hasReturnedHome, setHasReturnedHome] = useState<boolean | null>(null);
+    const [step, setStep] = useState<string>('two');
+    const [nextStep, setNextStep] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
     const currentStep = currentScenario?.steps[1];
     const currentHasReturnedHome = currentStep?.data.hasReturnedHome;
 
-    const { post, setData } = useForm<{ data: { hasReturnedHome: boolean } }>({
+    const { post, setData, data } = useForm<{ data: { hasReturnedHome: boolean } }>({
         data: { hasReturnedHome: currentHasReturnedHome ?? false },
     });
 
-    const handleSubmit = async (event: React.FormEvent) => {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        const submittedData = { hasReturnedHome: hasReturnedHome ?? currentHasReturnedHome ?? false };
         setIsLoading(true);
+        setSubmitted(true);
+        const nextStep = 'three'
 
         try {
-            await post(
-                route('onboarding.scenario.step.submit', {
-                    scenario: onboardingState.currentScenario,
-                    step: 'two',
-                }),
-                { onFinish: () => setIsLoading(false) },
-            );
+            handleStepSubmit({ hasReturnedHome: hasReturnedHome ?? currentHasReturnedHome ?? false });
 
-            handleStepSubmit(submittedData);
-
-            router.get(
-                route('onboarding.scenario.step', {
-                    scenario: onboardingState.currentScenario,
-                    step: 'three',
-                }),
-            );
+            post(route('onboarding.scenario.step.submit', {
+                scenario: onboardingState.currentScenario,
+                step: step,
+                nextStep: nextStep
+            }), {
+                onFinish: () => setIsLoading(false),
+                onError: () => {
+                    setIsLoading(false);
+                    setSubmitted(false);
+                    console.log('Error submitting form:', data);
+                },
+                onSuccess: () => {
+                    setIsLoading(false);
+                    setSubmitted(false);
+                    router.get(route('onboarding.scenario.step', {
+                        scenario: onboardingState.currentScenario,
+                        step: nextStep
+                    }));
+                }
+            });
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('Error submitting step:', error);
             setIsLoading(false);
+            setSubmitted(false);
         }
     };
 

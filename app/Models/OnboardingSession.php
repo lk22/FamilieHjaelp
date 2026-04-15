@@ -20,6 +20,7 @@ class OnboardingSession extends Model
         'steps_data',
         'form_data',
         'completed',
+        'next_step',
     ];
 
     protected $casts = [
@@ -27,6 +28,7 @@ class OnboardingSession extends Model
         'form_data' => 'array',
         'completed' => 'boolean',
         'completed_at' => 'datetime',
+        'next_step' => 'string',
     ];
 
     /**
@@ -71,6 +73,7 @@ class OnboardingSession extends Model
             'steps_data' => [],
             'form_data' => [],
             'current_step' => 'welcome',
+            'next_step' => null,
         ]);
     }
 
@@ -117,8 +120,9 @@ class OnboardingSession extends Model
     public function markAsCompleted(): void
     {
         $this->current_step = "completed";
-        $this->compeleted = true;
+        $this->completed = true;
         $this->completed_at = now();
+        $this->next_step = null;
         $this->save();
     }
 }

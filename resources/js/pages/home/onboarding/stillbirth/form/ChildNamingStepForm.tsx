@@ -20,9 +20,10 @@ interface FirstStepFormProps {
 }
 
 export default function ChildNamigStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [placedLocation, setPlacedLocation] = useState<string>('');
   const [step, setStep] = useState<string>('one');
+  const [placedLocation, setPlacedLocation] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
 
@@ -47,25 +48,38 @@ export default function ChildNamigStepForm({ handleStepSubmit }: FirstStepFormPr
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-
-    const submittedData: StepData = {
-      placedLocation: placedLocation,
-    }
-
-    console.log(submittedData)
-
-    // Proceed to the next step or perform other actions
-    handleStepSubmit({ ...submittedData });
     setSubmitted(true);
+    setIsLoading(true);
+    const nextStep = 'two';
 
-    setTimeout(() => {
-      setSubmitted(false);
+    try {
+        handleStepSubmit({ placedLocation: placedLocation });
 
-      router.get(route('onboarding.scenario.step', {
-        scenario: onboardingState.currentScenario,
-        step: 'four'
-      }));
-    }, 1000);
+        post(route('onboarding.scenario.step.submit', {
+            scenario: onboardingState.currentScenario,
+            step: step,
+            nextStep: nextStep
+        }), {
+            onFinish: () => setIsLoading(false),
+            onError: () => {
+                setIsLoading(false);
+                setSubmitted(false);
+                console.log('Error submitting form:', data);
+            },
+            onSuccess: () => {
+                setIsLoading(false);
+                setSubmitted(false);
+                router.get(route('onboarding.scenario.step', {
+                    scenario: onboardingState.currentScenario,
+                    step: nextStep
+                }));
+            }
+        });
+    } catch (error) {
+        console.error('Error submitting step:', error);
+        setIsLoading(false);
+        setSubmitted(false);
+    }
   };
 
   /**

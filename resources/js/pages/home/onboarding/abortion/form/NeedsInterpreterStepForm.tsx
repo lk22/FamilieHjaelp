@@ -19,6 +19,7 @@ type NeedsInterpreterStepProps = {
 
 export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInterpreterStepProps) {
   const [step, setStep] = useState<string>('three');
+  const [nextStep, setNextStep] = useState<string>('');
   const [needsInterpreter, setneedsInterpreter] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -37,27 +38,40 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
 
   logState('NeedsInterpreterStepForm', { onboardingState, needsInterpreter });
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await setLoading(true);
-    await setSubmitted(true);
-    await handleStepSubmit({ needsInterpreter: needsInterpreter });
+    setLoading(true);
+    setSubmitted(true);
+    const nextStep = 'four';
 
-    await post(route('onboarding.scenario.step.submit', {
-      scenario: onboardingState.currentScenario,
-      step: step
-    }), {
-      onFinish: () => setLoading(false)
-    });
+    try {
+      handleStepSubmit({ needsInterpreter: needsInterpreter });
 
-    setTimeout(() => {
-      setSubmitted(false);
-      router.get(route('onboarding.scenario.step', {
+      post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
-        step: 'four'
-      }));
+        step: 'three',
+        nextStep: nextStep
+      }), {
+        onFinish: () => setLoading(false),
+        onError: () => {
+          setLoading(false);
+          setSubmitted(false);
+          console.log('Error submitting form:', errors);
+        },
+        onSuccess: () => {
+          setSubmitted(false);
+          setLoading(false);
+          router.get(route('onboarding.scenario.step', {
+            scenario: onboardingState.currentScenario,
+            step: nextStep
+          }));
+        }
+      });
+    } catch (error) {
+      console.error('Error submitting step:', error);
       setLoading(false);
-    }, 1000);
+      setSubmitted(false);
+    }
   };
 
   return (

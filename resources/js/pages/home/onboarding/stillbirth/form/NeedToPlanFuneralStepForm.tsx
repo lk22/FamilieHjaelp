@@ -20,9 +20,11 @@ interface NeedToPlanFuneralStepFormProps {
 }
 
 export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPlanFuneralStepFormProps) {
+  const [step, setStep] = useState<string>('four');
+  const [nextStep, setNextStep] = useState<string>('');
   const [needToPlanFuneral, setNeedToPlanFuneral] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { onboardingState } = useOnboarding();
 
   const { post, data, setData } = useForm<{
@@ -38,21 +40,38 @@ export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPl
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    await setSubmitted(true);
-    await setLoading(true);
+    setSubmitted(true);
+    setIsLoading(true);
+    const nextStep = 'five';
 
-    // Proceed to the next step or perform other actions
-    await handleStepSubmit({ needToPlanFuneral: needToPlanFuneral });
+    try {
+        handleStepSubmit({ needToPlanFuneral: needToPlanFuneral });
 
-    setTimeout(() => {
-      setSubmitted(false);
-
-      router.get(route('onboarding.scenario.step', {
-        scenario: onboardingState.currentScenario,
-        step: 'five'
-      }));
-      setLoading(false);
-    }, 1000);
+        post(route('onboarding.scenario.step.submit', {
+            scenario: onboardingState.currentScenario,
+            step: step,
+            nextStep: nextStep
+        }), {
+            onFinish: () => setIsLoading(false),
+            onError: () => {
+                setIsLoading(false);
+                setSubmitted(false);
+                console.log('Error submitting form:', data);
+            },
+            onSuccess: () => {
+                setIsLoading(false);
+                setSubmitted(false);
+                router.get(route('onboarding.scenario.step', {
+                    scenario: onboardingState.currentScenario,
+                    step: nextStep
+                }));
+            }
+        });
+    } catch (error) {
+        console.error('Error submitting step:', error);
+        setIsLoading(false);
+        setSubmitted(false);
+    }
   };
 
   return (

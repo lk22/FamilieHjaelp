@@ -40,6 +40,7 @@ class OnboardingController extends Controller
             'onboardingSession' => [
                 'token' => $session->session_token,
                 'currentStep' => $session->current_step,
+                'nextStep' => $session->next_step,
                 'stepsData' => $session->steps_data,
                 'formData' => $session->form_data,
                 'completed' => $session->completed,
@@ -57,6 +58,7 @@ class OnboardingController extends Controller
      */
     public function submitStep(SubmitStepRequest $request, string $scenario, string $step): JsonResponse|RedirectResponse
     {
+        $nextStep = $request->input('nextStep');
         // Step 1: validation logic (to be implemented)
         if (! $request->validated()) {
             return response()->json(['message' => 'Validation failed. Please check your input and try again.'], 422);
@@ -74,7 +76,8 @@ class OnboardingController extends Controller
             "current_step" => $step,
             "steps_data" => array_merge($existingSession->steps_data, [
                 $step => $request->input('data')
-            ])
+            ]),
+            "next_step" => $nextStep,
         ]);
 
         if ( $step === 'complete' ) {
