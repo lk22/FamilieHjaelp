@@ -34,13 +34,17 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
   const { onboardingState } = useOnboarding();
 
   const { post, data, setData } = useForm<{
-    wantsToNameChild: boolean;
-    wantsToInformChildName: boolean;
-    childName?: string;
+    data: {
+      wantsToNameChild: boolean;
+      wantsToInformChildName: boolean;
+      childName?: string;
+    }
   }>({
-    wantsToNameChild: true,
-    wantsToInformChildName: true,
-    childName: ''
+    data: {
+      wantsToNameChild: true,
+      wantsToInformChildName: true,
+      childName: ''
+    }
   });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
@@ -106,7 +110,7 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                   checked={wantsToNameChild || currentWantsToNameChild === true}
                   onCheckedChange={(checked) => {
                     setWantsToNameChild(Boolean(checked));
-                    setData('wantsToNameChild', Boolean(checked));
+                    setData('data', { ...data.data, wantsToNameChild: Boolean(checked) });
                   }}
                   className="mr-2 mb-4"
                 >
@@ -123,7 +127,7 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                   checked={!wantsToNameChild || currentWantsToNameChild === false}
                   onCheckedChange={(checked) => {
                     setWantsToNameChild(!checked);
-                    setData('wantsToNameChild', !checked);
+                    setData('data', { ...data.data, wantsToNameChild: !checked });
                   }}
                   className="mr-2 mb-4"
                 >
@@ -146,7 +150,7 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                         checked={wantsToInformChildName || currentWantsToInformChildName === true}
                         onCheckedChange={(checked) => {
                           setWantsToInformChildName(Boolean(checked));
-                          setData('wantsToInformChildName', Boolean(checked));
+                          setData('data', { ...data.data, wantsToInformChildName: Boolean(checked) });
                         }}
                         className="mr-2 mb-4"
                       >
@@ -167,7 +171,7 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                             value={childName || currentChildName}
                             onChange={(e) => {
                               setChildName(e.target.value);
-                              setData('childName', e.target.value);
+                              setData('data', { ...data.data, childName: e.target.value });
                             }}
                             className="block w-full mt-1 ps-4 mb-4 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           />
@@ -181,7 +185,7 @@ export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNa
                         checked={!wantsToInformChildName || currentWantsToInformChildName === false}
                         onCheckedChange={(checked) => {
                           setWantsToInformChildName(!checked);
-                          setData('wantsToInformChildName', !checked);
+                          setData('data', { ...data.data, wantsToInformChildName: !checked });
                         }}
                         className="mr-2 mb-4"
                       >

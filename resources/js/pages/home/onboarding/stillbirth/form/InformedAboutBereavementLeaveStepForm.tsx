@@ -27,9 +27,13 @@ export default function InformedAboutBereavementLeaveStepForm({ handleStepSubmit
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { post, data, setData } = useForm<{
-    informedAboutBereavementLeave: boolean;
+    data: {
+      informedAboutBereavementLeave: boolean;
+    }
   }>({
-    informedAboutBereavementLeave: false,
+    data: {
+      informedAboutBereavementLeave: false,
+    }
   });
 
   const { onboardingState } = useOnboarding();
@@ -91,7 +95,7 @@ export default function InformedAboutBereavementLeaveStepForm({ handleStepSubmit
                   checked={informedAboutBereavementLeave || currentInformedAboutBereavementLeave === true}
                   onCheckedChange={(checked) => {
                     setInformedAboutBereavementLeave(Boolean(checked));
-                    setData('informedAboutBereavementLeave', Boolean(checked));
+                    setData('data', { informedAboutBereavementLeave: Boolean(checked) });
                   }}
                   className="mr-2"
                 />
@@ -106,7 +110,7 @@ export default function InformedAboutBereavementLeaveStepForm({ handleStepSubmit
                   checked={!informedAboutBereavementLeave || currentInformedAboutBereavementLeave === false}
                   onCheckedChange={(checked) => {
                     setInformedAboutBereavementLeave(!checked);
-                    setData('informedAboutBereavementLeave', !checked);
+                    setData('data', { informedAboutBereavementLeave: !checked });
                   }}
                   className="mr-2"
                 />

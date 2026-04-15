@@ -29,9 +29,11 @@ export default function WantsInformationAboutAutopsyStepForm({ handleStepSubmit 
   const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
 
   const { post, data, setData } = useForm<{
-    wantsInformationAboutAutopsy: boolean;
+    data: {
+      wantsInformationAboutAutopsy: boolean;
+    }
   }>({
-    wantsInformationAboutAutopsy: false,
+    data: { wantsInformationAboutAutopsy: false },
   });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
@@ -92,7 +94,7 @@ export default function WantsInformationAboutAutopsyStepForm({ handleStepSubmit 
                 checked={wantsInformationAboutAutopsy || currentwantsInformationAboutAutopsy === true}
                 onCheckedChange={(checked) => {
                   setWantsInformationAboutAutopsy(Boolean(checked));
-                  setData('wantsInformationAboutAutopsy', Boolean(checked));
+                  setData('data', { ...data.data, wantsInformationAboutAutopsy: Boolean(checked) });
                 }}
                 className="mr-2"
               >
@@ -109,7 +111,7 @@ export default function WantsInformationAboutAutopsyStepForm({ handleStepSubmit 
                 checked={!(wantsInformationAboutAutopsy || currentwantsInformationAboutAutopsy === false)}
                 onCheckedChange={(checked) => {
                   setWantsInformationAboutAutopsy(!checked);
-                  setData('wantsInformationAboutAutopsy', !checked);
+                  setData('data', { ...data.data, wantsInformationAboutAutopsy: !checked });
                 }}
                 className="mr-2"
               >

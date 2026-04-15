@@ -28,9 +28,13 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsS
   const { onboardingState } = useOnboarding();
 
   const { post, data, setData } = useForm<{
-    knowsSupportOptions: boolean;
+    data: {
+      knowsSupportOptions: boolean;
+    };
   }>({
-    knowsSupportOptions: false,
+    data: {
+      knowsSupportOptions: false,
+    },
   });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
@@ -92,7 +96,7 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsS
                 checked={knowsSupportOptions || currentknowsSupportOptions === true}
                 onCheckedChange={(checked) => {
                   setknowsSupportOptions(Boolean(checked));
-                  setData('knowsSupportOptions', Boolean(checked));
+                  setData('data', { ...data.data, knowsSupportOptions: Boolean(checked) });
                 }}
                 className="mr-2"
               >
@@ -108,7 +112,7 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsS
                 checked={!(knowsSupportOptions || currentknowsSupportOptions === false)}
                 onCheckedChange={(checked) => {
                   setknowsSupportOptions(!checked);
-                  setData('knowsSupportOptions', !checked);
+                  setData('data', { ...data.data, knowsSupportOptions: !checked });
                 }}
                 className="mr-2"
               >

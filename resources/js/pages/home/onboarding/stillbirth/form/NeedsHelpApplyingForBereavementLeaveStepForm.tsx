@@ -28,9 +28,9 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { post, data, setData } = useForm<{
-    needsHelpApplyingForBereavementLeave: boolean;
+    data: { needsHelpApplyingForBereavementLeave: boolean; }
   }>({
-    needsHelpApplyingForBereavementLeave: false,
+    data: { needsHelpApplyingForBereavementLeave: false },
   });
 
   const { onboardingState } = useOnboarding();
@@ -93,7 +93,7 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
                   checked={needsHelpApplyingForBereavementLeave || currentNeedsHelpApplyingForBereavementLeave === true}
                   onCheckedChange={(checked) => {
                     setNeedsHelpApplyingForBereavementLeave(Boolean(checked));
-                    setData('needsHelpApplyingForBereavementLeave', Boolean(checked));
+                    setData('data', { ...data.data, needsHelpApplyingForBereavementLeave: Boolean(checked) });
                   }}
                   className="mr-2"
                 >
@@ -109,7 +109,7 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
                   checked={!needsHelpApplyingForBereavementLeave || currentNeedsHelpApplyingForBereavementLeave === false}
                   onCheckedChange={(checked) => {
                     setNeedsHelpApplyingForBereavementLeave(!checked);
-                    setData('needsHelpApplyingForBereavementLeave', !checked);
+                    setData('data', { ...data.data, needsHelpApplyingForBereavementLeave: !checked });
                   }}
                   className="mr-2"
                 />

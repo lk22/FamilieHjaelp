@@ -29,9 +29,13 @@ export default function HasOtherChildrenAtHomeStepForm({ handleStepSubmit }: Fir
   const { onboardingState} = useOnboarding();
 
   const { post, data, setData } = useForm<{
-    hasOtherChildrenAtHome: boolean;
+    data: {
+      hasOtherChildrenAtHome: boolean;
+    }
   }>({
-    hasOtherChildrenAtHome: false,
+    data: {
+      hasOtherChildrenAtHome: false,
+    }
   });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
@@ -92,7 +96,7 @@ export default function HasOtherChildrenAtHomeStepForm({ handleStepSubmit }: Fir
                   checked={hasOtherChildrenAtHome || currentHasOtherChildrenAtHome === true}
                   onCheckedChange={(checked) => {
                     setHasOtherChildrenAtHome(Boolean(checked));
-                    setData('hasOtherChildrenAtHome', Boolean(checked));
+                    setData('data', { hasOtherChildrenAtHome: Boolean(checked) });
                   }}
                   className="mr-2"
                 >
@@ -109,7 +113,7 @@ export default function HasOtherChildrenAtHomeStepForm({ handleStepSubmit }: Fir
                   checked={!hasOtherChildrenAtHome || currentHasOtherChildrenAtHome === false}
                   onCheckedChange={(checked) => {
                     setHasOtherChildrenAtHome(!checked);
-                    setData('hasOtherChildrenAtHome', !checked);
+                    setData('data', { hasOtherChildrenAtHome: !checked });
                   }}
                   className="mr-2"
                 >

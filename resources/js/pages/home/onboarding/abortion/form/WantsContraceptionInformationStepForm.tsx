@@ -18,7 +18,6 @@ type WantsContraceptionInformationProps = {
 
 export default function WantsContraceptionInformationStepForm({ handleStepSubmit }: WantsContraceptionInformationProps) {
   const [step, setStep] = useState<string>('six');
-  const [nextStep, setNextStep] = useState<string>('');
   const [wantsContraceptionInfo, setWantsContraceptionInfo] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -31,10 +30,14 @@ export default function WantsContraceptionInformationStepForm({ handleStepSubmit
   const currentWantsContraceptionInfo = currentStep?.data.wantsContraceptionInfo;
   const abortionMethod = currentScenario?.steps[1].data.abortionMethod;
 
-  const { post, data, setData, errors, processing, reset } = useForm<{
-    wantsContraceptionInfo: boolean;
+  const { post, data } = useForm<{
+    data: {
+      wantsContraceptionInfo: boolean;
+    }
   }>({
-    wantsContraceptionInfo: false,
+    data: {
+      wantsContraceptionInfo: false,
+    }
   });
 
   logState('WantsContraceptionInformationStepForm', { onboardingState, currentScenario, wantsContraceptionInfo });

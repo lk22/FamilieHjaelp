@@ -28,9 +28,9 @@ export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPl
   const { onboardingState } = useOnboarding();
 
   const { post, data, setData } = useForm<{
-    needToPlanFuneral: boolean;
+    data: { needToPlanFuneral: boolean; };
   }>({
-    needToPlanFuneral: false,
+    data: { needToPlanFuneral: false },
   });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
@@ -90,7 +90,7 @@ export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPl
                   checked={needToPlanFuneral || currentNeedToPlanFuneral === true}
                   onCheckedChange={(checked) => {
                     setNeedToPlanFuneral(Boolean(checked));
-                    setData('needToPlanFuneral', Boolean(checked));
+                    setData('data', { ...data.data, needToPlanFuneral: Boolean(checked) });
                   }}
                   className="mr-2 mb-4"
                 >
@@ -107,7 +107,7 @@ export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPl
                   checked={!needToPlanFuneral || currentNeedToPlanFuneral === false}
                   onCheckedChange={(checked) => {
                     setNeedToPlanFuneral(!checked);
-                    setData('needToPlanFuneral', !checked);
+                    setData('data', { ...data.data, needToPlanFuneral: !checked });
                   }}
                   className="mr-2"
                 >

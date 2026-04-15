@@ -10,10 +10,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 type StepData = {
-  name: string;
-  age: string;
-  ageOfPartner: string;
-  gender: string;
+  data: {
+    name: string;
+    age: string;
+    ageOfPartner: string;
+    gender: string;
+  }
 }
 
 interface FirstStepFormProps {
@@ -35,19 +37,19 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { post, data, setData } = useForm<StepData>({
-    name: '',
-    age: '',
-    ageOfPartner: '',
-    gender: '',
+    data: {
+      name: '',
+      age: '',
+      ageOfPartner: '',
+      gender: '',
+    }
   });
-
 
   const { onboardingState } = useOnboarding();
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
-  //
   const currentName = currentStep?.data.name || '';
   const currentAge = currentStep?.data.age || '';
   const currentAgeOfPartner = currentStep?.data.ageOfPartner || '';
@@ -113,7 +115,7 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
                 value={name || currentName}
                 onChange={(e) => {
                   setName(e.target.value);
-                  setData('name', e.target.value);
+                  setData('data', { ...data.data, name: e.target.value });
                 }}
                 required
               />
@@ -126,7 +128,7 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
                 value={gender || currentGender}
                 onChange={(e) => {
                   setGender(e.target.value);
-                  setData('gender', e.target.value);
+                  setData('data', { ...data.data, gender: e.target.value });
                 }}
                 required
               >
@@ -144,7 +146,7 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
                 value={age || currentAge}
                 onChange={(e) => {
                   setAge(e.target.value);
-                  setData('age', e.target.value);
+                  setData('data', { ...data.data, age: e.target.value });
                 }}
                 required
               />
@@ -162,7 +164,7 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
                       value={ageOfPartner || currentAgeOfPartner}
                       onChange={(e) => {
                         setAgeOfPartner(e.target.value);
-                        setData('ageOfPartner', e.target.value);
+                        setData('data', { ...data.data, ageOfPartner: e.target.value });
                       }}
                       required
                     />

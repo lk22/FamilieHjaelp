@@ -34,16 +34,14 @@ export default function ChildNamigStepForm({ handleStepSubmit }: FirstStepFormPr
 
   const currentPlacedLocation = currentStep?.data.placedLocation || '';
 
-  const { data, setData, post, processing, errors } = useForm<{
-    name: string;
-    age: string;
-    ageOfPartner: string;
-    gender: string;
+  const { data, setData, post, processing } = useForm<{
+    data: {
+      placedLocation: string;
+    }
   }>({
-    name: '',
-    age: '',
-    ageOfPartner: '',
-    gender: ''
+    data: {
+      placedLocation: '',
+    }
   });
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -105,19 +103,22 @@ export default function ChildNamigStepForm({ handleStepSubmit }: FirstStepFormPr
         {
           submitted ? (
           <>
-            <p className="mt-4 text-green-600">Tak, {name}! Du kan nu fortsætte til næste trin.</p>
+            <p className="mt-4 text-green-600">Tak, {data.data.name}! Du kan nu fortsætte til næste trin.</p>
           </>
           ) : (
             <>
             <input type="hidden" name="step" value={step} />
               <label htmlFor="name" className="block mt-4 mb-2 font-medium text-gray-700">
-                Hvad er dit navn ?
+                Hvor befinder du dig lige nu?
               </label>
               <Checkbox
                 id="placed-location-home"
                 value="not_at_hospital"
                 checked={placedLocation === 'not_at_hospital'}
-                onChange={(e) => setPlacedLocation(e.target.value)}
+                onChange={(e) => {
+                  setPlacedLocation(e.target.value);
+                  setData('data', { placedLocation: e.target.value });
+                }}
                 className="mr-2"
               />
               <label htmlFor="placed-location-home" className="mr-4">Er ikke på hospitalet</label>
@@ -125,7 +126,10 @@ export default function ChildNamigStepForm({ handleStepSubmit }: FirstStepFormPr
                 id="placed-location-home"
                 value="at_hospital"
                 checked={placedLocation === 'at_hospital'}
-                onChange={(e) => setPlacedLocation(e.target.value)}
+                onChange={(e) => {
+                  setPlacedLocation(e.target.value);
+                  setData('data', { placedLocation: e.target.value });
+                }}
                 className="mr-2"
               />
               <label htmlFor="placed-location-hospital" className="mr-4">Er på hospitalet</label>

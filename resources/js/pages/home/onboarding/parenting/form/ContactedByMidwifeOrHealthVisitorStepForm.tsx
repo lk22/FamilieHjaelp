@@ -21,7 +21,9 @@ export default function ContactedByMidwifeOrHealthVisitorStepForm({ handleStepSu
     const currentStep = currentScenario?.steps[3];
     const currentContacted = currentStep?.data.contactedByMidwifeOrHealthVisitor;
 
-    const { post, setData, data } = useForm<{ data: { contactedByMidwifeOrHealthVisitor: boolean } }>({
+    const { post, setData, data } = useForm<{
+        data: { contactedByMidwifeOrHealthVisitor: boolean } }>
+    ({
         data: { contactedByMidwifeOrHealthVisitor: currentContacted ?? false },
     });
 

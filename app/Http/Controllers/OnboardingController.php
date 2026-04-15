@@ -85,7 +85,7 @@ class OnboardingController extends Controller
         }
 
         // return a redirect response to the next step or a success message (to be implemented)
-        return redirect()->route('onboarding.scenario.step', ['scenario' => $scenario, 'step' => $step])
+        return redirect()->route('onboarding.scenario.step', ['scenario' => $scenario, 'step' => $nextStep])
             ->with('success', 'Step submitted successfully');
     }
 

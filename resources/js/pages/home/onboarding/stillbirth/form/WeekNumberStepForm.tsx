@@ -36,13 +36,17 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
   const { onboardingState} = useOnboarding();
 
   const { post, data, setData } = useForm<{
-    weekNumber: string,
-    hasDoctorsPermit: boolean,
-    hasBeenConsultedByDoctor: boolean
+    data: {
+      weekNumber: string,
+      hasDoctorsPermit: boolean,
+      hasBeenConsultedByDoctor: boolean
+    }
   }>({
-    weekNumber: '',
-    hasDoctorsPermit: false,
-    hasBeenConsultedByDoctor: false
+    data: {
+      weekNumber: '',
+      hasDoctorsPermit: false,
+      hasBeenConsultedByDoctor: false
+    }
   });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
@@ -115,7 +119,7 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                     id="abortion-weeks"
                     onChange={(e) => {
                       setWeekNumber(e.target.value);
-                      setData('weekNumber', e.target.value);
+                      setData('data', { ...data.data, weekNumber: e.target.value });
                     }}
                     required
                     value={weekNumber || currentWeeksNumberValue}
@@ -142,7 +146,7 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                       checked={hasBeenConsultedByDoctor || currentHasBeenConsultedByDoctorValue === true}
                       onCheckedChange={(checked) => {
                         setHasBeenConsultedByDoctor(Boolean(checked));
-                        setData('hasBeenConsultedByDoctor', Boolean(checked));
+                        setData('data', { ...data.data, hasBeenConsultedByDoctor: Boolean(checked) });
                       }}
                       className="mt-2 mb-4"
                     >
@@ -159,7 +163,7 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                       checked={!hasBeenConsultedByDoctor || !currentHasBeenConsultedByDoctorValue === false}
                       onCheckedChange={(checked) => {
                         setHasBeenConsultedByDoctor(!checked);
-                        setData('hasBeenConsultedByDoctor', !checked);
+                        setData('data', { ...data.data, hasBeenConsultedByDoctor: !checked });
                       }}
                       className="mt-2 mb-4"
                     >
@@ -182,7 +186,7 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                           checked={hasDoctorsPermit || currentHasDoctorsPermitValue === true}
                           onCheckedChange={(checked) => {
                             setHasDoctorsPermit(Boolean(checked));
-                            setData('hasDoctorsPermit', Boolean(checked));
+                            setData('data', { ...data.data, hasDoctorsPermit: Boolean(checked) });
                           }}
                           className="mt-2 mb-4"
                         >
@@ -199,7 +203,7 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                           checked={!hasDoctorsPermit || !currentHasDoctorsPermitValue === false}
                           onCheckedChange={(checked) => {
                             setHasDoctorsPermit(!checked);
-                            setData('hasDoctorsPermit', !checked);
+                            setData('data', { ...data.data, hasDoctorsPermit: !checked });
                           }}
                           className="mt-2 mb-4"
                         >

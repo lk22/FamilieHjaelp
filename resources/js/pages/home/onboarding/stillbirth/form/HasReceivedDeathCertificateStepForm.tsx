@@ -26,9 +26,13 @@ export default function HasReceivedDeathCertificateStepForm({ handleStepSubmit }
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { post, data, setData } = useForm<{
-    hasReceivedDeathCertificate: boolean;
+    data: {
+      hasReceivedDeathCertificate: boolean;
+    }
   }>({
-    hasReceivedDeathCertificate: false,
+    data: {
+      hasReceivedDeathCertificate: false,
+    }
   });
 
   const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
@@ -91,7 +95,7 @@ export default function HasReceivedDeathCertificateStepForm({ handleStepSubmit }
                 checked={hasReceivedDeathCertificate || currentHasReceivedDeathCertificate === true}
                 onCheckedChange={(checked) => {
                   setHasReceivedDeathCertificate(Boolean(checked));
-                  setData('hasReceivedDeathCertificate', Boolean(checked));
+                  setData('data', { hasReceivedDeathCertificate: Boolean(checked) });
                 }}
                 className="mr-2"
               >
@@ -108,7 +112,7 @@ export default function HasReceivedDeathCertificateStepForm({ handleStepSubmit }
                 checked={!hasReceivedDeathCertificate || currentHasReceivedDeathCertificate === false}
                 onCheckedChange={(checked) => {
                   setHasReceivedDeathCertificate(!checked);
-                  setData('hasReceivedDeathCertificate', !checked);
+                  setData('data', { hasReceivedDeathCertificate: !checked });
                 }}
                 className="mr-2"
               >
