@@ -13,8 +13,14 @@ import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
 // utilities
 import { logState } from '@/lib/utils'
 
+type StepProps = {
+  wantsToBeContacted: boolean;
+  contactEmail?: string;
+  phoneNumber?: string;
+}
+
 type WantsToBeContactedStepProps = {
-  handleStepSubmit: (data: {wantsToBeContacted: boolean, contactEmail?: string, phoneNumber?: string}) => void;
+  handleStepSubmit: (data: StepProps) => void;
 }
 
 export default function WantsToBeContactedStepForm({ handleStepSubmit }: WantsToBeContactedStepProps) {
@@ -24,9 +30,9 @@ export default function WantsToBeContactedStepForm({ handleStepSubmit }: WantsTo
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { onboardingState } = useOnboarding();
+  const {onboardingState} = useOnboarding();
 
-  const {post, data, setData} = useForm<{
+  const {post,data,setData} = useForm<{
     data: {
       wantsToBeContacted: boolean;
       contactEmail?: string;
@@ -47,11 +53,14 @@ export default function WantsToBeContactedStepForm({ handleStepSubmit }: WantsTo
     setLoading(true);
     setSubmitted(true);
 
+    console.log(data);
+
     try {
       handleStepSubmit({ wantsToBeContacted, contactEmail, phoneNumber });
       post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
-        step: 'eight'
+        step: 'eight',
+        nextStep: 'eight'
       }), {
         onFinish: () => setLoading(false),
         onError: () => {
@@ -69,7 +78,6 @@ export default function WantsToBeContactedStepForm({ handleStepSubmit }: WantsTo
       setLoading(false);
       setSubmitted(false);
     }
-
   };
 
   return (
@@ -85,7 +93,14 @@ export default function WantsToBeContactedStepForm({ handleStepSubmit }: WantsTo
                   <Checkbox
                     id="wantsToBeContacted"
                     checked={wantsToBeContacted}
-                    onCheckedChange={(checked) => setWantsToBeContacted(Boolean(checked))}
+                    onCheckedChange={(checked) => {
+                      const isChecked = checked === true;
+                      setWantsToBeContacted(isChecked);
+                      setData('data', {
+                        ...data.data,
+                        wantsToBeContacted: isChecked
+                      })
+                    }}
                     className="mt-1"
                   />
                   <div className="min-h-6 flex-1">
@@ -106,7 +121,13 @@ export default function WantsToBeContactedStepForm({ handleStepSubmit }: WantsTo
                         type="email"
                         id="contactEmail"
                         value={contactEmail}
-                        onChange={(e) => setContactEmail(e.target.value)}
+                        onChange={(e) => {
+                          setData('data', {
+                            ...data.data,
+                            contactEmail: e.target.value
+                          })
+                          setContactEmail(e.target.value)
+                        }}
                         className="mt-1 pl-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                         required
                       />
@@ -117,7 +138,13 @@ export default function WantsToBeContactedStepForm({ handleStepSubmit }: WantsTo
                         type="text"
                         id="phoneNumber"
                         value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        onChange={(e) => {
+                          setData('data', {
+                            ...data.data,
+                            phoneNumber: e.target.value
+                          })
+                          setPhoneNumber(e.target.value)
+                        }}
                         className="mt-1 pl-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                       />
                     </div>

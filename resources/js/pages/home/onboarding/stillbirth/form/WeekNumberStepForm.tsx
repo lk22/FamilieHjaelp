@@ -19,12 +19,6 @@ type FormStepProps = {
     }) => void;
 }
 
-interface WeekNumberStepFormData {
-  weekNumber: string;
-  hasDoctorsPermit: boolean;
-  hasBeenConsultedByDoctor: boolean;
-}
-
 export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) {
   const [step, setStep] = useState<string>('two');
   const [weekNumber, setWeekNumber] = useState<string>('');

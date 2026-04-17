@@ -30,7 +30,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
     abortionMethod: '',
     hasBeenConsultedByDoctor: false
   });
-  const { post, data, setData, errors, processing, reset } = useForm<{
+  const { post, data, setData, errors, processing, reset, hasErrors } = useForm<{
     data: AbortionDataProps
   }>({
     data: {
@@ -75,6 +75,8 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
     }
   }
 
+  console.log(errors);
+
   /**
    * Handle step submit flow
    *
@@ -87,12 +89,6 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
     const nextStep = 'three';
 
     try {
-      handleStepSubmit({
-        abortionWeeks: abortionInfoState.abortionWeeks,
-        hasDoctorsPermit: abortionInfoState.hasDoctorsPermit,
-        abortionMethod: abortionInfoState.abortionMethod,
-        hasBeenConsultedByDoctor: abortionInfoState.hasBeenConsultedByDoctor
-      });
 
       post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
@@ -108,6 +104,12 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
         onSuccess: () => {
           setSubmitted(false);
           setLoading(false);
+          handleStepSubmit({
+            abortionWeeks: abortionInfoState.abortionWeeks,
+            hasDoctorsPermit: abortionInfoState.hasDoctorsPermit,
+            abortionMethod: abortionInfoState.abortionMethod,
+            hasBeenConsultedByDoctor: abortionInfoState.hasBeenConsultedByDoctor
+          });
           router.get(route('onboarding.scenario.step', {
             scenario: onboardingState.currentScenario,
             step: nextStep
@@ -140,6 +142,16 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
   return (
     <>
       <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
+        {hasErrors && (
+          <div className="mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700" role="alert">
+            <p className="font-bold">Der opstod fejl:</p>
+            <ul className="mt-2 list-disc list-inside">
+              {Object.entries(errors).map(([field, messages]) => (
+                <li key={field}>{messages}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         {
           isLoading ? (
           <>
@@ -158,11 +170,11 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                   type="number"
                   id="abortion-weeks"
                   onChange={handleWeekNumberChange}
-                  required
+                  className="w-6/12 mt-0 mb-2 border-gray-300 rounded h-12"
                   value={abortionInfoState.abortionWeeks || currentAbortionWeeksValue || 1}
                   min={1}
                   max={24}
-                  className="w-6/12 mt-0 mb-2 border-gray-300 rounded"
+                  required
                 />
                 <div className="step-field -mt-6">
                   <label htmlFor="abortion-method" id="abortion-method-label">
@@ -230,7 +242,6 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                       });
                     }}
                     className="mr-2"
-                    required
                   />
                   <label htmlFor="has-been-consulted-by-doctor-no">
                     Nej, jeg har ikke været til konsultation hos en læge i forbindelse med min abort
@@ -285,7 +296,6 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                           });
                         }}
                         className="mr-2"
-                        required
                       />
                       <label htmlFor="has-doctors-permit-no">
                         Nej manger og udfylde en lægeerklæring

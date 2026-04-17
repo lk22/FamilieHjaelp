@@ -9,10 +9,6 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
-type StepData = {
-  knowsSupportOptions: boolean;
-}
-
 interface KnowsSupportOptionsStepFormProps {
   handleStepSubmit: (data: {
     knowsSupportOptions: boolean;
@@ -38,8 +34,6 @@ export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsS
   });
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
-
-  // TODO: this needs fix
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
   const currentknowsSupportOptions: boolean | undefined = currentStep?.data.knowsSupportOptions;

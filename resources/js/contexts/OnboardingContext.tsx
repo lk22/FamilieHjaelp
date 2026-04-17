@@ -119,7 +119,6 @@ export function OnboardingProvider({
                     ...scenario,
                     steps: scenario.steps.map((s) => {
                         if (s.stepName !== step) return s;
-
                         return {
                             ...s,
                             data: data,

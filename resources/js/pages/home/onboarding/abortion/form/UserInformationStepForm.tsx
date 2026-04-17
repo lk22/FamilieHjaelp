@@ -73,6 +73,8 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   const currentAgeOfPartner = currentStep?.data.ageOfPartner || 0;
   const currentGender = currentStep?.data.gender || '';
 
+  console.log(errors)
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
@@ -124,7 +126,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                   <label htmlFor="name" className="block mt-4 mb-2 font-semibold text-gray-700">
                     Hvad er dit navn ?
                   </label>
-                  <Input
+                  <input
                     id="name"
                     type="text"
                     className='mt-2 mb-4'
@@ -165,6 +167,8 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                   <Input
                     id="yourAge"
                     type="number"
+                    className='mt-2 mb-4 h-16'
+                    name='age'
                     value={data.data.age || state.age || currentAge}
                     onChange={(e) => {
                       setState({ ...state, age: parseInt(e.target.value) });
@@ -174,8 +178,6 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                       })
                     }}
                     required
-                    name='age'
-                    className='mt-2 mb-4 h-16'
                   />
                   {
                     (data.data.gender == "male" || state.gender == "male") && (

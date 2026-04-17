@@ -9,10 +9,6 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
-type StepData = {
-  placedLocation: string;
-}
-
 interface FirstStepFormProps {
   handleStepSubmit: (data: {
     placedLocation: string;

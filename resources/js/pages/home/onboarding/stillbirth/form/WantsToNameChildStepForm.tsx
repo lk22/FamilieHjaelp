@@ -10,12 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
-type StepData = {
-  wantsToNameChild: boolean;
-  wantsToInformChildName: boolean;
-  childName?: string;
-}
-
 interface WantsToNameChildStepFormProps {
   handleStepSubmit: (data: {
     wantsToNameChild: boolean;

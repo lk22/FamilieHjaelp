@@ -9,10 +9,6 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
-type StepData ={
-  needToPlanFuneral: boolean;
-}
-
 interface NeedToPlanFuneralStepFormProps {
   handleStepSubmit: (data: {
     needToPlanFuneral: boolean;

@@ -35,7 +35,7 @@ export default function HasPlannedParentalLeaveWithEmployerStepForm({ handleStep
         },
     });
 
-    const handleSubmit = async (event: React.FormEvent) => {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         setIsLoading(true);
         setSubmitted(true);

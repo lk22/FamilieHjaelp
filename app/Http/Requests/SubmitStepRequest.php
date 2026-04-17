@@ -33,8 +33,11 @@ class SubmitStepRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "data.required" => "The data field is required.",
-            "data.array" => "The data field must be an array.",
+            "data.*" => "Please provide valid input for all fields.",
+            "data.*.required" => "The :attribute field is required.",
+            "data.*.string" => "The :attribute field must be a string.",
+            "data.*.required_if" => "The :attribute field is required when :other is :value.",
+            "data.*.email" => "The :attribute field must be a valid email address"
         ];
     }
 
@@ -81,7 +84,6 @@ class SubmitStepRequest extends FormRequest
             "eight" => [
                 "data.wantsToBeContacted" => "required|boolean",
                 "data.contactEmail" => "required_if:data.wantsToBeContacted,true|email",
-                "data.phoneNumber" => "required_if:data.wantsToBeContacted,true|string",
             ],
             default => []
         };

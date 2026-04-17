@@ -1,3 +1,5 @@
+import { useCallback, useState } from "react";
+
 type ScenarioSelectorItem = {
   name: string;
   scenario: string;
@@ -11,17 +13,22 @@ export default function ScenarioItem({
   scenario,
   description,
   icon,
-  handleScenarioChange
+  handleScenarioChange,
 }: ScenarioSelectorItem) {
   return (
-    <div className="border rounded-lg p-4 cursor-pointer hover:bg-blue-100" onClick={() => handleScenarioChange && handleScenarioChange(scenario)}>
-      <div className="flex items-center gap-4 mb-2">
+    <button
+      className="cursor-pointer border rounded-lg px-4 py-2 cursor-pointer hover:bg-blue-100 active:bg-blue-300 focus:bg-blue-300 focus:text-black w-full"
+      onClick={() => {
+        handleScenarioChange && handleScenarioChange(scenario);
+      }
+    }>
+      <div className="flex flex-col items-start justify-center gap-4 mb-2">
         <div className="text-2xl">
           {icon}
         </div>
         <h3 className="text-lg font-semibold">{name}</h3>
+        <p className="text-gray-60">{description}</p>
       </div>
-      <p className="text-gray-60 ml-4">{description}</p>
-    </div>
+    </button>
   );
 }

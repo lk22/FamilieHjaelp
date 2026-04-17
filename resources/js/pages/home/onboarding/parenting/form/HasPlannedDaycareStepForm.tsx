@@ -24,7 +24,7 @@ export default function HasPlannedDaycareStepForm({ handleStepSubmit }: HasPlann
         data: { hasPlannedDaycare: currentHasPlanned ?? false },
     });
 
-    const handleSubmit = async (event: React.FormEvent) => {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         setIsLoading(true);
         setSubmitted(true);
