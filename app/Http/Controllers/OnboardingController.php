@@ -46,7 +46,6 @@ class OnboardingController extends Controller
                 'completed' => $session->completed,
             ]
         ]);
-
     }
 
     /**

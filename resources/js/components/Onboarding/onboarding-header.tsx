@@ -41,7 +41,11 @@ export default function OnboardingHeader() {
             </header>
             {
                 isResetModalOpen && (
-                    <ResetModal isOpen={isResetModalOpen} closeModal={() => setIsResetModalOpen(false)} />
+                    <ResetModal
+                        isOpen={isResetModalOpen}
+                        closeModal={() => setIsResetModalOpen(false)}
+                        handleStateReset={handleStateReset}
+                    />
                 )
             }
         </>

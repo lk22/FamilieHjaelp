@@ -12,9 +12,10 @@ interface ResetModalProps {
     isOpen: boolean;
     closeModal?: () => void;
     onConfirm?: () => void;
+    handleStateReset?: (e: React.MouseEvent) => void;
 }
 
-export default function ResetModal({ isOpen, closeModal, onConfirm }: ResetModalProps) {
+export default function ResetModal({ isOpen, closeModal, onConfirm, handleStateReset }: ResetModalProps) {
   return (
     <Dialog open={isOpen} modal={true} onOpenChange={(open) => !open && closeModal?.()}>
       <DialogContent className='bg-blue-500'>
@@ -35,6 +36,7 @@ export default function ResetModal({ isOpen, closeModal, onConfirm }: ResetModal
             onClick={() => {
               onConfirm?.();
               router.visit(route('getting-started'));
+              handleStateReset?.(new MouseEvent('click') as unknown as React.MouseEvent);
             }}
           >
             Start forfra

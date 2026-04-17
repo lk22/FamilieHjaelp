@@ -91,37 +91,8 @@ const GettingStartedContent = ({ onboardingSession }: OnboardingSessionProps) =>
                             <div className="category-picker flex flex-wrap">
                                 <GettingStartedDescription />
                                 <div className="w-full pl-0 md:pl-0">
-                                    {currentSessionData.currentStep !== 'welcome' ? (
-                                        <div className="mb-6 border-l-4 border-blue-500 bg-blue-100 p-4 text-blue-700" role="alert">
-                                            <h3 className="text-xl font-bold">Du har en igangværende session</h3>
-                                            {onboardingSession.nextStep ? (
-                                                <button className='mt-8 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900'>
-                                                    <Link
-                                                        href={route(`onboarding.scenario.step`, {
-                                                            step: onboardingSession.nextStep,
-                                                            scenario: currentScenario?.id,
-                                                        })}
-                                                    >
-                                                        Fortsæt hvor du slap
-                                                    </Link>
-                                                </button>
-                                            ) : (
-                                                <>
-                                                    <h3 className="mt-2 text-xl">
-                                                        Du har en igangværende session, men der er ingen næste step at fortsætte til. Du kan starte
-                                                        forfra ved at vælge en situation nedenfor.
-                                                    </h3>
-                                                    <button
-                                                        className="mt-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900"
-                                                        onClick={() => handleReset()}
-                                                    >
-                                                        <span className="-ml-px cursor-pointer text-xl font-bold">Start forfra</span>
-                                                    </button>
-                                                </>
-                                            )}
-                                        </div>
-                                    ) : (
-                                        <>
+                                    {/* {currentSessionData.currentStep === "welcome" && (
+                                        <> */}
                                             <ScenarioItemList handleScenarioChange={handleScenarioChange} />
                                             {!scenario ? (
                                                 <>
@@ -156,7 +127,37 @@ const GettingStartedContent = ({ onboardingSession }: OnboardingSessionProps) =>
                                                     </button>
                                                 </>
                                             )}
-                                        </>
+                                        {/* </>
+                                    )} */}
+                                    {currentSessionData.nextStep && (
+                                        <div className="mb-6 border-l-4 border-blue-500 bg-blue-100 p-4 text-blue-700" role="alert">
+                                            <h3 className="text-xl font-bold">Du har en igangværende session</h3>
+                                            {onboardingSession.nextStep ? (
+                                                <button className='mt-8 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900'>
+                                                    <Link
+                                                        href={route(`onboarding.scenario.step`, {
+                                                            step: onboardingSession.nextStep,
+                                                            scenario: currentScenario?.id,
+                                                        })}
+                                                    >
+                                                        Fortsæt hvor du slap
+                                                    </Link>
+                                                </button>
+                                            ) : (
+                                                <>
+                                                    <h3 className="mt-2 text-xl">
+                                                        Du har en igangværende session, men der er ingen næste step at fortsætte til. Du kan starte
+                                                        forfra ved at vælge en situation nedenfor.
+                                                    </h3>
+                                                    <button
+                                                        className="mt-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900"
+                                                        onClick={() => handleReset()}
+                                                    >
+                                                        <span className="-ml-px cursor-pointer text-xl font-bold">Start forfra</span>
+                                                    </button>
+                                                </>
+                                            )}
+                                        </div>
                                     )}
                                     <p className="mt-8 text-left text-lg">{/* {renderGettingStartedActions()} */}</p>
                                 </div>

@@ -5,6 +5,8 @@ import { Head, Link, usePage } from '@inertiajs/react';
 import GettingStartedModal from '@/components/Onboarding/Modals/GettingStartedModal';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 
+import {Button} from "@/components/ui/button";
+
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
     const [ modalOpen, setModalOpen ] = useState<boolean>(false);
@@ -41,31 +43,34 @@ export default function Welcome() {
                                     {!auth.user ? (
                                         <>
                                             <div className="w-full flex gap-4 justify-start mb-4 sm:items-start sm:justify-start">
-                                                <Link href={route('register')} className="text-white sm:w-full">Registrer dig her</Link>
+                                                <Link href={route('register')} className="text-white sm:w-full font-bold">Registrer dig her</Link>
                                             </div>
                                             <div className="flex gap-4">
-                                                <Link
-                                                    href={route('getting-started')}
-                                                    className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"
-                                                >
-                                                    Kom igang
-                                                </Link>
-                                                <Link
-                                                    href={route('login')}
-                                                    className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal hover:border-[#19140035]"
-                                                >
-                                                    Log ind
-                                                </Link>
+                                                <Button asChild className='bg-blue-500 hover:bg-blue-600 text-white'>
+                                                    <Link
+                                                        href={route('getting-started')}
+                                                        className=""
+                                                    >
+                                                        Kom igang
+                                                    </Link>
+                                                </Button>
+                                                <Button asChild className='bg-blue-500 hover:bg-blue-600 text-white'>
+                                                    <Link href={route('login')}>
+                                                        Log ind
+                                                    </Link>
+                                                </Button>
                                             </div>
                                         </>
                                     ) : (
                                         <>
-                                        <Link
-                                            href={route('login')}
-                                            className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]"
-                                        >
-                                            Log ind
-                                        </Link>
+                                            <Button className="inline-block rounded-sm border border-white bg-white text-blue-500 px-5 py-1.5 text-xl leading-normal text-whitehover:border-[#19140035]">
+                                                <Link
+                                                    href={route('login')}
+                                                    className=""
+                                                >
+                                                    Log ind
+                                                </Link>
+                                            </Button>
                                         </>
                                     )}
                                 </div>
