@@ -5,7 +5,6 @@ import { router, useForm } from '@inertiajs/react';
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
-
 // Utilities
 import { logState } from '@/lib/utils'
 

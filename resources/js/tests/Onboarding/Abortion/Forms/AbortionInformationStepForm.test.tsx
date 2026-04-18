@@ -15,10 +15,8 @@ describe('AbortionInformationStepForm', () => {
         // expect the correct week number field to be rendered
         const weekNumberLabel = /Hvor mange uger er din partner i graviditeten/i;
         expect(screen.getByLabelText(weekNumberLabel)).toBeInTheDocument();
-
-        expect(screen.getByLabelText(/Har du fået underskrevet en lægeerklæring/i)).toBeInTheDocument();
     });
-    test('renders the form with correct input fields and submit button', () => {
+    test("renders the form with correct input fields without doctor's permit and submit button", () => {
         render(
             <OnboardingProvider>
                 <AbortionInformationStepForm handleStepSubmit={() => {}} />
@@ -26,11 +24,13 @@ describe('AbortionInformationStepForm', () => {
         );
 
         const weekNumberLabel = /Hvor mange uger er din partner i graviditeten ?/i;
+        const hasBeenConsultedByDoctorField = screen.getByLabelText(/Ja, jeg har været til konsultation hos en læge i forbindelse med min abort/i);
+        const hasNotBeenConsultedByDoctorField = screen.getByLabelText(/Nej, jeg har ikke været til konsultation hos en læge i forbindelse med min abort/i);
 
         expect(screen.getByLabelText(weekNumberLabel)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Har du fået underskrevet en lægeerklæring ?/i)).toBeInTheDocument();
         expect(screen.getByLabelText(/Hvilken metode ønsker du at benytte til din abort ?/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Har du været til konsultation hos en læge i forbindelse med din abort?/i)).toBeInTheDocument();
+        expect(hasBeenConsultedByDoctorField).toBeInTheDocument();
+        expect(hasNotBeenConsultedByDoctorField).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /Næste/i })).toBeInTheDocument();
     });
     test('does show notics for changing week number to 22 or higher', async () => {
@@ -82,5 +82,20 @@ describe('AbortionInformationStepForm', () => {
         expect(screen.getByRole('option', { name: /Medicinsk abort/i })).toBeInTheDocument();
         expect(screen.getByRole('option', { name: /Kirurgisk abort/i })).toBeInTheDocument();
         expect(screen.getByRole('option', { name: /Anden metode/i })).toBeInTheDocument();
+    });
+    test("renders the doctor's permit question when the user has been consulted by a doctor", async ()=> {
+        const user = userEvent.setup();
+
+        render(
+            <OnboardingProvider>
+                <AbortionInformationStepForm handleStepSubmit={() => {}} />
+            </OnboardingProvider>
+        )
+
+        const consultedByDoctorField = screen.getByLabelText(/Ja, jeg har været til konsultation hos en læge i forbindelse med min abort/i);
+
+        await user.click(consultedByDoctorField);
+
+        expect(screen.getByLabelText(/Har du fået underskrevet en lægeerklæring ?/i)).toBeInTheDocument();
     });
 });

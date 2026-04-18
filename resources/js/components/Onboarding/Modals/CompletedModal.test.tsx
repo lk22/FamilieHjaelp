@@ -25,8 +25,8 @@ describe('CompletedModal Component', () => {
 
     render(modal);
 
-    expect(screen.getByRole('heading', { name: /Du har gennemført onboardingen/i })).toBeInTheDocument();
-    expect(screen.getByText(/Tak fordi du tog dig tid til at gennemføre vores onboarding! Vi håber, at det har givet dig en klar forståelse af, hvordan du kan bruge vores platform til at få den støtte og information, du har brug for. Hvis du har spørgsmål eller brug for yderligere hjælp, er du altid velkommen til at kontakte os. Vi er her for at støtte dig på din rejse./i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Du har udfyldt spørgeskemaet/i })).toBeInTheDocument();
+    expect(screen.getByText(/Tak fordi du tog dig tid til at gennemføre vores onboarding! Vi håber, at det har givet dig en klar forståelse af, hvordan du kan bruge vores platform til at få den støtte og information, du har brug for./i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Gå til bekræftelsessiden/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Start forfra/i })).toBeInTheDocument();
   })

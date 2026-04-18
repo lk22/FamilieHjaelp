@@ -1,8 +1,48 @@
-import {test, describe, expect} from 'vitest';
+import {vi, test, describe, expect} from 'vitest';
 import { render, screen, } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import UserInformationStepForm from '@/pages/home/onboarding/abortion/form/UserInformationStepForm';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import {configure} from '@testing-library/react';
+
+vi.mock('@radix-ui/react-select', async () => {
+    const actual = await vi.importActual('@radix-ui/react-select');
+    return {
+        ...actual,
+        Root: ({ onValueChange, children, defaultValue}: {
+            onValueChange: (value: string) => void;
+            children: React.ReactNode,
+            defaultValue?: string;
+        }) => (
+            <select
+                defaultValue={defaultValue}
+                onChange={(e) => onValueChange(e.target.value)}
+                data-testid="select-root"
+            >
+                {children}
+            </select>
+        ),
+        Trigger: () => null,
+        Value: () => null,
+        Content: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+        Item: ({ value, children }: { value: string; children: React.ReactNode}) => (
+            <option value={value} data-testid={`select-item-${value}`}>
+                {children}
+            </option>
+        ),
+        ItemText: ({ children }: any) => <>{children}</>,
+        ItemIndicator: () => null,  // ← tilføj denne
+        Group: ({ children }: any) => <>{children}</>,
+        Label: ({ children }: any) => <>{children}</>,
+        ScrollUpButton: () => null,
+        ScrollDownButton: () => null,
+        Viewport: ({ children }: any) => <>{children}</>,
+        Portal: ({ children }: any) => <>{children}</>,
+    }
+});
+
+configure({ testIdAttribute: 'data-testid' });
+
 
 type MockedUserInformationStepFormProps = {
   name: string;
@@ -26,10 +66,14 @@ describe('UserInformationStepForm', () => {
             </OnboardingProvider>
         );
 
-        // check for name input
-        expect(screen.getByLabelText(/Navn/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Køn/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Hvor gammel er du ?/i)).toBeInTheDocument();
+        const nameLabel = screen.getByLabelText(/Navn/i);
+        // const genderLabel = screen.getByLabelText(/Hvad er dit køn ?/i);
+        const genderField = screen.getByTestId('select-root');
+        const ageLabel = screen.getByLabelText(/Hvor gammel er du ?/i);
+
+        expect(nameLabel).toBeInTheDocument();
+        expect(genderField).toBeInTheDocument();
+        expect(ageLabel).toBeInTheDocument();
 
         // check for correct input fields based on default rendering
         expect(screen.queryByLabelText(/Hvor gammel er din partner ?/i)).not.toBeInTheDocument();
@@ -47,7 +91,10 @@ describe('UserInformationStepForm', () => {
             </OnboardingProvider>
         );
 
-        const genderSelect = screen.getByLabelText(/Hvad er dit Køn ?/i);
+        const genderSelect = screen.getByTestId('select-root');
+        const maleOption = screen.getByRole('option', { name: /Mand/i });
+
+        await user.click(genderSelect);
         await user.selectOptions(genderSelect, 'male');
 
         expect(screen.getByLabelText(/Hvor gammel er du ?/i)).toBeInTheDocument();
@@ -65,11 +112,23 @@ describe('UserInformationStepForm', () => {
 
         expect(screen.getByLabelText(/Hvor gammel er du ?/i)).toBeInTheDocument();
 
-        const genderSelect = screen.getByLabelText(/Hvad er dit Køn ?/i);
-        await user.selectOptions(genderSelect, 'male');
+        const comboboxGenderSelect = screen.getByTestId('select-root');
+        const maleOptionField = screen.getByTestId('select-item-male');
+        const femaleOptionField = screen.getByTestId('select-item-female');
+        const otherOptionField = screen.getByTestId('select-item-other');
+
+        expect(comboboxGenderSelect).toBeInTheDocument();
+
+        await user.click(comboboxGenderSelect);
+
+        expect(maleOptionField).toBeInTheDocument();
+        expect(femaleOptionField).toBeInTheDocument();
+        expect(otherOptionField).toBeInTheDocument();
+
+        await user.selectOptions(comboboxGenderSelect, 'male');
         expect(screen.getByLabelText(/Hvor gammel er din partner ?/i)).toBeInTheDocument();
 
-        await user.selectOptions(genderSelect, 'female');
+        await user.selectOptions(comboboxGenderSelect, 'female');
         expect(screen.queryByLabelText(/Hvor gammel er din partner ?/i)).not.toBeInTheDocument();
     })
 })

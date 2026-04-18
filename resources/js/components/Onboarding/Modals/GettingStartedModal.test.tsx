@@ -10,7 +10,7 @@ describe('Getting Started modal', () => {
     test('should render modal certain paragraphs for onboarding is not prepared', () => {
         const modal = (
             <OnboardingProvider>
-                <GettingStartedModal isOpen={true} />
+                <GettingStartedModal isOpen={true} closeModal={() => {}} />
             </OnboardingProvider>
         );
 
@@ -32,7 +32,7 @@ describe('Getting Started modal', () => {
 
         const modal = (
             <OnboardingProvider>
-                <GettingStartedModal isOpen={true} />
+                <GettingStartedModal isOpen={true} closeModal={() => {}} />
             </OnboardingProvider>
         );
 
@@ -51,7 +51,7 @@ describe('Getting Started modal', () => {
         const user = userEvent.setup();
         render(
             <OnboardingProvider>
-                <GettingStartedModal isOpen={true} />
+                <GettingStartedModal isOpen={true} closeModal={() => {}} />
             </OnboardingProvider>,
         );
 

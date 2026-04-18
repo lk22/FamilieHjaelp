@@ -44,8 +44,8 @@ describe('Inactivity Modal component', () => {
 
     render(modal)
 
-    const title = screen.getByText(/Din session er paused/i);
-    expect(screen.getByText(/Det ser ud til, at du har været inaktiv i et stykke tid. For at beskytte dine oplysninger har vi paused din onboarding-session./i))
+    const title = screen.getByText(/Sat på pause/i);
+    expect(screen.getByText(/Det ser ud til, at du har været inaktiv i et stykke tid. For at beskytte dine oplysninger har vi sat din onboarding-session på pause./i))
     expect(screen.getByText(/bevæg musen for at fortsætte din session/i))
 
     expect(title).toBeInTheDocument()

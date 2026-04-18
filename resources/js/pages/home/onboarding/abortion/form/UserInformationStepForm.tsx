@@ -8,11 +8,11 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 // componenets
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select } from "radix-ui";
+// import { Select } from "radix-ui";
 
 // Utilities
 import { logState } from '@/lib/utils'
-import { SelectItem } from '@/components/ui/select';
+import {Select, SelectItem, SelectValue, SelectContent, SelectTrigger } from '@/components/ui/select';
 
 type StepData = {
   data: {
@@ -110,6 +110,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   };
 
   console.log(data.data)
+  console.log(state.gender)
 
   return (
     <>
@@ -139,20 +140,26 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                     }}
                     required
                   />
-                  <label htmlFor="gender" className="block mt-4 mb-2 font-semibold text-gray-700">
+                  <label
+                    htmlFor="gender"
+                    className="block mt-4 mb-2 font-semibold text-gray-700"
+                  >
                     Hvad er dit køn ?
                   </label>
 
-                  <Select.Root defaultValue='female' onValueChange={(value) => {
+                  <Select onValueChange={(value) => {
                     setState({...state, gender: value})
                     setData('data', {
                       ...data.data, gender: value
                     })
                   }}>
-                    <Select.Trigger className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded">
-                      <Select.Value placeholder={`${'Kvinde'}`} />
-                    </Select.Trigger>
-                    <Select.Content className="bg-white border border-gray-300 rounded mt-1 w-full">
+                    <SelectTrigger
+                       className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded"
+                      id="gender"
+                    >
+                      <SelectValue placeholder={`${'Kvinde'}`} />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white border border-gray-300 rounded mt-1 w-full">
                       <SelectItem value="female" className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full">
                         Kvinde
                       </SelectItem>
@@ -162,8 +169,8 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                       <SelectItem value="other" className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                         Andet
                       </SelectItem>
-                    </Select.Content>
-                  </Select.Root>
+                    </SelectContent>
+                  </Select>
 
                   <label htmlFor="yourAge" className="block mt-4 mb-2 font-semibold text-gray-700">
                     Hvor gammel er du ?

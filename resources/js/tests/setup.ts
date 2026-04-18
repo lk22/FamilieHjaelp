@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom'
 import { vi } from 'vitest'
 import React from 'react'
+import { useForm } from '@inertiajs/react';
 
 // Mock Inertia.js
 vi.mock('@inertiajs/react', () => ({
@@ -26,6 +27,22 @@ vi.mock('@inertiajs/react', () => ({
       },
     },
   }),
+  useForm: <T,>(initialData: T) => {
+    const [data, setData] = React.useState<T>(initialData);
+    const [errors, setErrors] = React.useState<Record<string, string>>({});
+    const [processing, setProcessing] = React.useState<boolean>(false);
+
+    return {
+      data,
+      setData,
+      errors,
+      processing,
+      post: vi.fn(),
+      put: vi.fn(),
+      delete: vi.fn(),
+      reset: vi.fn(),
+    };
+  },
   useRemember: <T,>(initialValue: T) => {
     const [state, setState] = React.useState<T>(initialValue)
     return [state, setState] as const

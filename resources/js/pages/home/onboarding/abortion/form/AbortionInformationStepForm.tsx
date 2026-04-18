@@ -211,8 +211,9 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                 </label>
                 <div className="check-item mt-2">
                   <input
+                    aria-describedby="has-been-consulted-by-doctor-label"
                     type="radio"
-                    id="has-been-consulted-by-doctor"
+                    id="has-been-consulted-by-doctor-yes"
                     value="1"
                     checked={abortionInfoState.hasBeenConsultedByDoctor === true || currentHasBeenConsultedByDoctorValue === true}
                     onChange={() => {
@@ -230,8 +231,9 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                 </div>
                 <div className="check-item mt-2">
                   <input
+                    aria-describedby="has-been-consulted-by-doctor-label"
                     type="radio"
-                    id="has-been-consulted-by-doctor"
+                    id="has-been-consulted-by-doctor-no"
                     value="0"
                     checked={abortionInfoState.hasBeenConsultedByDoctor === false || currentHasBeenConsultedByDoctorValue === false}
                     onChange={() => {
@@ -260,9 +262,9 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
                 (abortionInfoState.hasBeenConsultedByDoctor === true || data.data.hasBeenConsultedByDoctor === true || currentHasBeenConsultedByDoctorValue === true) && (
                 <div className="step-field my-4">
                   <div className="flex flex-col">
-                      <label htmlFor="has-doctors-permit">
-                        Har du fået underskrevet en lægeerklæring
-                      </label>
+                    <label htmlFor="has-doctors-permit" id="has-doctors-permit-label">
+                      Har du fået underskrevet en lægeerklæring ?
+                    </label>
                     <div className="check-item mt-2">
                       <input
                         type="radio"
