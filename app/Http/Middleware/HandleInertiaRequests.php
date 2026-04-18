@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
 
-use App\Models\User;
+use App\Models\OnboardingSession;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -32,7 +32,7 @@ class HandleInertiaRequests extends Middleware
 
     /**
      * Share a random background image from the public/images/background directory.
-     * 
+     *
      * @return string|null
      */
     public function shareRandomBackgroundImage(): string|null
@@ -45,6 +45,41 @@ class HandleInertiaRequests extends Middleware
         });
 
         return $files ? asset('/images/background/' . $files[array_rand($files)]) : null;
+    }
+
+    /**
+     * Getting onboarding session
+     *
+     * @return array
+     */
+    public function getOnboardingSession(Request $request) : array
+    {
+        $userId = $request->user()?->id;
+        $sessionToken = $request->cookie('onboarding_session_token');
+        $session = null;
+
+        if ( $sessionToken ) {
+            $session = OnboardingSession::findByToken($sessionToken);
+
+            if ( $session && $userId && !$session->user_id ) {
+                $session->user_id = $userId;
+                $session->save();
+            }
+        }
+
+        if ($session?->session_token) {
+            $request->session()->put('onboarding_session_token', $session->session_token);
+        }
+
+        return [
+            'token' => $session->session_token ?? "",
+            'currentStep' => $session->current_step ?? "",
+            'nextStep' => $session->next_step ?? "",
+            'currentScenario' => $session->scenario ?? "",
+            'stepsData' => $session->steps_data ?? [],
+            'formData' => $session->form_data ?? [],
+            'completed' => $session->completed ?? false,
+        ];
     }
 
     /**
@@ -68,8 +103,6 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'isOnboarded' => $request->user() ? $request->user()->isOnboarded() : false
             ],
-            'onboarding' => session('onboarding_data') ?? null,
-            'completedSteps' => session('onboarding_data.completed_steps', []),
             'ziggy' => fn (): array => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
@@ -82,6 +115,9 @@ class HandleInertiaRequests extends Middleware
                 'warning' => $request->session()->get('warning'),
                 'info' => $request->session()->get('info'),
             ],
+            'onboarding' => session('onboarding_data'),
+            'completedSteps' => session('onboarding_data.completed_steps', []),
+            'onboardingSession' => $this->getOnboardingSession($request),
         ];
     }
 }

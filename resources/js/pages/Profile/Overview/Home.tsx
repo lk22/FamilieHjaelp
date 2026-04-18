@@ -14,7 +14,7 @@ import { HandleSwiperSlidesPerView } from '@/lib/SwiperSlidesPerViewUtil';
 // hooks
 import { useIsMobile } from '@/hooks/use-mobile';
 
-// Layout 
+// Layout
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 
 // Components
@@ -79,22 +79,22 @@ const ProfileOverviewHomeContent = ({ todos, pages }: ProfileOverviewHomeProps) 
                         </p>
                         <Link href="#" className="bg-blue-900 px-4 py-2 rounded-sm text-white hover:underline transition-colors duration-300 ease-in-out hover:bg-blue-800">
                             Se mere
-                        </Link> 
+                        </Link>
                     </div>
                 </section>
                 <section className="w-full">
                     <div className={`relative mx-16 bottom-16 flex justify-center items-center`}>
-                        <Swiper spaceBetween={25} 
-                            slidesPerView={HandleSwiperSlidesPerView()} 
+                        <Swiper spaceBetween={25}
+                            slidesPerView={HandleSwiperSlidesPerView()}
                             className="mySwiper after:content-[''] after:block after:clear-both after:right-0 after:bg-white after:absolute"
                         >
                             <SwiperSlide key={0}>
                                 <div className="bg-blue-600 rounded shadow-md text-white p-6 transition-colors duration-300 ease-in-out hover:bg-[#1A4D8D]">
                                     <h2 className="text-2xl font-bold mb-2">Dansk center for familier og sorg</h2>
                                     <p className="mb-4 text-sm">Vi tilbyder støtte og rådgivning til familier i sorg.</p>
-                                    <a 
-                                        href="https://familierogsorg.dk/" 
-                                        target="_blank" 
+                                    <a
+                                        href="https://familierogsorg.dk/"
+                                        target="_blank"
                                         className={`inline-block py-2 text-white`}
                                         rel="noopener noreferrer"
                                     >
@@ -106,9 +106,9 @@ const ProfileOverviewHomeContent = ({ todos, pages }: ProfileOverviewHomeProps) 
                                 <div className="bg-[#2C6DB6] rounded shadow-md text-white p-6 transition-colors duration-300 ease-in-out hover:bg-[#1A4D8D]">
                                     <h2 className="text-2xl font-bold mb-2">Sorggrupper</h2>
                                     <p className="mb-4 text-sm">Sorggrupper for forældre, der har mistet et barn.</p>
-                                    <a 
-                                        href="https://www.sorgvejviser.dk/sorgtilbud/sorggrupper-for-foraeldre-der-har-mistet-et-barn/" 
-                                        target="_blank" 
+                                    <a
+                                        href="https://www.sorgvejviser.dk/sorgtilbud/sorggrupper-for-foraeldre-der-har-mistet-et-barn/"
+                                        target="_blank"
                                         className={`inline-block py-2 text-white`}
                                         rel="noopener noreferrer"
                                     >

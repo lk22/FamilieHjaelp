@@ -1,30 +1,64 @@
-import {useEffect} from 'react';
-import {type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+// Dependencies
+import { type SharedData } from '@/types';
+import { Head, Link, usePage, router } from '@inertiajs/react';
+import { useCallback, useState } from 'react';
+import {Button} from "@/components/ui/button";
 
-import { OnboardingProvider } from '@/contexts/OnboardingContext';
-import { useOnboarding } from '@/contexts/OnboardingContext';
-import { OnboardingState } from '@/state/OnboardingState';
+// Context
+import { OnboardingProvider, useOnboarding } from '@/contexts/OnboardingContext';
 
-// TODO: i want to implement unique onboarding process steps for a given user instead of the deafult global state but have a global state for a authenticated user profile
+// Components
+import GettingStartedDescription from '@/components/Onboarding/GettingStartedDescription';
+import ScenarioItemList from '@/components/Onboarding/ScenarioItemList';
 
-const GettingStartedContent = () => {
-    const { auth, name } = usePage<SharedData>().props;
-    const { onboardingState } = useOnboarding();
+import { type PayloadProps } from '@/types';
 
-    console.log('GettingStartedContent rendered with auth:', auth);
-    const { completedSteps, nextStep } = onboardingState;
-    const nextProceededStep = nextStep 
-        ? nextStep 
-        : completedSteps.length > 0 
-            ? completedSteps[completedSteps.length - 1] + 1 
-            : 1;
+interface OnboardingSessionProps {
+    onboardingSession: {
+        token: string | null;
+        currentStep: string | null;
+        nextStep: string | null;
+        stepsData: PayloadProps;
+        formData: PayloadProps;
+        completed: boolean;
+    };
+}
+
+const GettingStartedContent = ({ onboardingSession }: OnboardingSessionProps) => {
+    const { name } = usePage<SharedData>().props;
+    const [scenario, setScenario] = useState<string | null>(null);
+    const { onboardingState, updateCurrentScenario, updateCurrentStep, getCurrentStep, resetOnboarding } = useOnboarding();
+
+    const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
+    const currentStep = getCurrentStep();
+
+    const currentSessionData = onboardingSession.stepsData;
+
+    console.log('Current step:', currentStep);
+    console.log('Current Session State:', onboardingSession.stepsData);
+
+    const handleReset = useCallback(() => {
+        console.log('Resetting onboarding session');
+        resetOnboarding();
+        setScenario(null);
+        router.visit(route('onboarding.reset'));
+    }, [resetOnboarding])
+
+    const handleScenarioChange = useCallback((selectedScenario: string) => {
+        setScenario(selectedScenario);
+        updateCurrentScenario(selectedScenario);
+        updateCurrentStep('one');
+
+        console.log(currentScenario, currentStep);
+    }, [currentScenario, currentStep, updateCurrentScenario, updateCurrentStep]);
+
+    console.log(onboardingSession);
 
     return (
         <>
             <Head title={`Kom i gang | ${name}`} />
             <header>
-                <nav className="fixed top-0 left-0 z-50 w-full bg-transparent bg-[#0a0a0a]">
+                <nav className="fixed top-0 left-0 z-50 w-full bg-transparent">
                     <div className="container mx-auto flex h-16 items-center justify-between px-4">
                         <Link href={route('home')} className="flex items-center text-white">
                             Gå tilbage
@@ -32,231 +66,115 @@ const GettingStartedContent = () => {
                     </div>
                 </nav>
             </header>
-            <main className="bg-[#0a0a0a] text-white h-screen">
-                <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white bg-[#0a0a0a]">
-                    <div className="container max-w-[960px] flex-col py-8 items-center justify-center text-center">
-                        <div className="logo">
-                            <Link href={route('home')}>
-                                <img src="/images/FamilieHjælp_text_logo.svg" alt="Familiehjælp Logo" className="animate animate-fade-up animate-ease-linear  relative bottom-4 animate-in mb-6 w-auto h-[50px] mx-auto" />
-                                <img
-                                    src="/images/logo.svg"
-                                    alt="Familiehjælp Logo"
-                                    className="mb-6 w-auto h-[100px] mx-auto"
-                                />
-                            </Link>
-                        </div>
-                        <div className="illustration-wrapper">
-                            <img
-                                src="/images/getting_started_illustration.svg"
-                                alt="Familiehjælp Illustration"
-                                className="mt-8 w-full max-w-[400px] mx-auto"
-                            />
+            <main>
+                <div className="container-fluid flex flex-wrap">
+                    <div className="xs:w-full xs:hidden bg-[#004EA7] py-8 text-white sm:hidden sm:w-full md:hidden md:w-full lg:flex lg:w-full">
+                        <div className="xs:max-w-full xs:w-full mx-auto px-8 sm:w-full sm:max-w-full md:w-full md:max-w-full lg:w-full lg:max-w-[1680px] xl:w-full xl:max-w-[1680px]">
+                            <div className="logo flex justify-between">
+                                <Link href={route('home')} className="flex items-center justify-between gap-4 text-white">
+                                    <img src="/images/logo.svg" alt="Familiehjælp Logo" className="mx-auto mb-14 h-[80px] w-auto" />
+                                    <img
+                                        src="/images/FamilieHjælp_text_logo.svg"
+                                        alt="Familiehjælp Logo"
+                                        className="relative bottom-4 mx-auto mb-6 h-[50px] w-auto"
+                                    />
+                                </Link>
+                                <div className="illustration-wrapper flex pb-30">
+                                    <img
+                                        src="/images/getting_started_illustration.svg"
+                                        alt="Familiehjælp Illustration"
+                                        className="mx-auto mt-8 w-full max-w-[300px]"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="container-fluid bg-white max-w-full w-full h-screen">
-                    <div className="container max-w-[960px] px-4 py-8 mx-auto text-black">
-                        {
-                            nextProceededStep < 0 ? (
-                                <GettingStartedDescriptionContent />
-                            ) : (
-                                <CompletedStepContent step={nextProceededStep} />
-                            )
-                        }
+                    <div className="xs:w-full xs:top:0 relative z-0 mx-auto flex flex-col bg-white p-8 sm:top-0 sm:w-full md:top-0 md:w-full lg:-top-28 lg:w-full xl:-top-28 xl:w-[1580px] xl:rounded-lg xl:shadow-lg">
+                        <div className="container mx-auto max-w-full text-black">
+                            <div className="category-picker flex flex-wrap">
+                                <GettingStartedDescription />
+                                <div className="w-full pl-0 md:pl-0">
+                                    {/* {currentSessionData.currentStep === "welcome" && (
+                                        <> */}
+                                            <ScenarioItemList handleScenarioChange={handleScenarioChange} />
+                                            {!scenario ? (
+                                                <>
+                                                    <p className="mt-4">
+                                                        <span className="ms-4 text-gray-500">Vælg en situation for at fortsætte</span>
+                                                    </p>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    {currentScenario && currentStep != 'welcome' ? (
+                                                        <Button className="mt-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900">
+                                                            <Link
+                                                                href={route(`onboarding.scenario.step`, {
+                                                                    step: currentStep,
+                                                                    scenario: currentScenario.id,
+                                                                })}
+                                                            >
+                                                                Fortsæt
+                                                            </Link>
+                                                        </Button>
+                                                    ) : (
+                                                        <></>
+                                                    )}
+                                                    <Button className="mt-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900 ml-4">
+                                                        <Link
+                                                            href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario })}
+                                                        >
+                                                            Kom igang
+                                                        </Link>
+                                                    </Button>
+                                                </>
+                                            )}
+                                        {/* </>
+                                    )} */}
+                                    {currentSessionData.nextStep && (
+                                        <div className="mb-6 border-l-4 border-blue-500 bg-blue-100 p-4 text-blue-700" role="alert">
+                                            <h3 className="text-xl font-bold">Du har en igangværende session</h3>
+                                            {onboardingSession.nextStep ? (
+                                                <Button className='mt-8 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900'>
+                                                    <Link
+                                                        href={route(`onboarding.scenario.step`, {
+                                                            step: onboardingSession.nextStep,
+                                                            scenario: currentScenario?.id,
+                                                        })}
+                                                    >
+                                                        Fortsæt hvor du slap
+                                                    </Link>
+                                                </Button>
+                                            ) : (
+                                                <>
+                                                    <h3 className="mt-2 text-xl">
+                                                        Du har en igangværende session, men der er ingen næste step at fortsætte til. Du kan starte
+                                                        forfra ved at vælge en situation nedenfor.
+                                                    </h3>
+                                                    <Button
+                                                        className="mt-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900"
+                                                        onClick={() => handleReset()}
+                                                    >
+                                                        <span className="-ml-px cursor-pointer text-xl font-bold">Start forfra</span>
+                                                    </Button>
+                                                </>
+                                            )}
+                                        </div>
+                                    )}
+                                    <p className="mt-8 text-left text-lg">{/* {renderGettingStartedActions()} */}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
         </>
     );
-}
+};
 
-const GettingStartedDescriptionContent = () => {
-    const { auth, name } = usePage<SharedData>().props;
-    const { onboardingState, resetOnboarding } = useOnboarding();
-
-    const completedSteps = onboardingState.completedSteps;
-    const currentStep = completedSteps.lastIndexOf(completedSteps[completedSteps.length - 1]) + 1 || 1;
-    console.log('Current Step:', currentStep);
-
-    let nextStep = currentStep;
-
-    if ( currentStep > 1 ) {
-        nextStep = currentStep + 1;
-    }
-
-    console.log('Current Step:', currentStep);
-    const stepName = onboardingState.steps.find(s => s.id === nextStep)?.name;
-
-    // check if a global state is initiated for the authenticated user
-    // get the users global state
-
-    useEffect(() => {
-        if (auth?.user?.id && !onboardingState) {
-            resetOnboarding();
-        }
-    }, [onboardingState, resetOnboarding, auth?.user?.id]);
-
+export default function GettingStarted({ onboardingSession }: OnboardingSessionProps) {
     return (
-        <>
-        <p className="mt-6 text-lg font-normal">
-            Nogle oplevelser ændrer livet fra det ene øjeblik til det andet. At miste et barn — uanset hvor langt man er i graviditeten — er en sorg, der kan være svær at sætte ord på. Det er en tid fyldt med følelser, spørgsmål og beslutninger, som man aldrig havde forestillet sig at skulle tage.
-        </p>
-        <p className="mt-6 text-lg font-normal">
-            Uanset hvor du står lige nu, er du ikke alene. {name} er skabt for dig, der står midt i eller efter et tab. Her er der plads til både sorg, tvivl, vrede,
-        </p>
-        <p className="mt-6 text-lg font-normal">
-            kærlighed og savn — og ingen følelser er forkerte.
-        </p>
-        <p className="mt-6 text-lg font-normal">
-            FamilieHjælp giver dig nødvendig information og dine muligheder og rettigheder i din situation.
-        </p>
-        <p className="mt-6 text-lg font-normal">
-            Du finder råd og støtte til at navigere i den svære tid både praktisk og følelsesmæssigt.
-        </p>
-        <p className="mt-6 text-lg font-normal">
-            Du behøver ikke gå vejen alene. Her er der plads til dig, lige som du er, med det du bærer på.
-        </p>
-        <p className="mt-6 text-lg font-bold">
-            Velkommen
-        </p>
-        <nav className="flex mt-8 items-center justify-start gap-4">
-            {auth.user && auth.isOnboarded ? (
-                <Link
-                    href={route('profile.home')}
-                    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-white hover:border-white dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                >
-                    Gå til profil
-                </Link>
-            ) : (
-                <>
-                    <Link 
-                        href={route('onboarding.step', {_query: {step: stepName}})} 
-                        className="inline-block rounded-sm border border-[#004EA7] bg-[#004EA7] px-5 py-1.5 text-xl leading-normal text-white hover:border-white"
-                    >
-                        Start
-                    </Link>
-                </>
-            )}
-        </nav>
-    </>
-    )
-}
-
-const CompletedStepContent = ({ step }: { step: number }) => {
-    const { onboardingState } = useOnboarding();
-    const { auth } = usePage<SharedData>().props;
-
-    const currentStepData = onboardingState.steps.find(s => s.id === step);
-    const situationState = onboardingState.steps.find(s => s.id === 2);
-    console.log(situationState);
-    console.log('Current Step Data:', currentStepData);
-
-    return (
-        <div className="container mx-auto py-8">
-            <h2 className="text-3xl font-bold mb-4">Du er kommet til trin {step}</h2>
-            {
-                currentStepData?.id === 6 ? (
-                    <>
-                        <p className="text-lg mb-4">
-                            Du har gennemført alle trin i onboarding-processen. Du kan nu begynde at udforske de forskellige ressourcer og muligheder, der er tilgængelige for dig.
-                        </p>
-                        <Link
-                            href={`${
-                                auth?.user?.id ? route('profile.home') : route('onboarding.complete')
-                            }`}
-                            className="inline-block mr-4 bg-blue-900 text-white px-4 py-2 rounded-sm hover:bg-blue-800 transition-colors duration-300"
-                        >
-                            Færdiggør onboarding
-                        </Link>
-                    </>
-                ) : (
-                    <>
-                       <StepProcessDescription step={step} state={onboardingState} />
-                        <GettingStartedDescriptionContent />
-                    </>
-                    
-                )}
-        </div>
-    );
-}
-
-// TODO set a type for state parameter
-function StepProcessDescription({step, state}: {step: number, state?: OnboardingState}) {
-    console.log({state})
-    switch (step) {
-        case 1:
-            return (
-                <>
-                    <p className="font-bold">Du er i startfasen til modtagelse af hjælp og vejledning</p>
-                </>
-            );
-        case 2:
-            return (
-                <>
-                    <p>Vi mangler at kende din situation bedre for at kunne give en mere præcis vejledning.</p>
-                </>
-            );
-        case 3:
-            return (
-                <>
-                    <p>Vi har registreret, at du har mistet en nærstående. Dette kan påvirke din situation.</p>
-                </>
-            );
-        default:
-            return (
-                <>
-                    <p>Du er nu på et ukendt trin.</p>
-                </>
-            );
-    }
-}
-
-// TODO set a type for state parameter
-// function stepProcessDescriptionContent({step, state}: {step: number, state?: any}) {
-    
-//     const situationState = state?.steps.find((s: { id: number; }) => s.id === 2);
-//     console.log({situationState})
-
-
-//     switch (step) {
-//         case 1:
-//         case 2:
-//             return (
-//                 <>
-//                     <p className="text-lg mb-4">
-//                         Forældrehjælp er platformen til dig der søger hjælp og vejledning efter din nuværende situation. Vi forstår, at det kan være overvældende at navigere gennem de mange følelser og beslutninger, der kan medfølge.
-//                     </p>
-//                     <p className="text-lg mb-4">
-//                         Gennem denne proces vil vi guide dig gennem forskellige trin, der er designet til at adressere dine specifikke behov og bekymringer. Hvert trin er vigtigt, da det hjælper med at forstå din situation bedre og giver dig mulighed for at udtrykke dine følelser og tanker.
-//                     </p>
-//                     <p className="text-lg mb-4">
-//                         Vi opfordrer dig til at tage dig tid til at reflektere over hvert trin og være åben omkring dine følelser. Husk, at du ikke er alene i denne rejse, og vi er her for at støtte dig hvert skridt på vejen.
-//                     </p>
-//                 </>
-//             );
-//         case 3:
-//             if (situationState?.data)
-//             return (
-//                 <>
-//                 </>
-//             );
-//             break;
-//         case 4:
-//         case 5:
-//         case 6:
-//         default:
-//             return (
-//                 <>
-//                     <p>Du er nu på et ukendt trin.</p>
-//                 </>
-//             );
-//     }
-// }
-
-export default function GettingStarted() {
-    return (
-        <OnboardingProvider>
-            <GettingStartedContent />
+        <OnboardingProvider initialSession={onboardingSession}>
+            <GettingStartedContent onboardingSession={onboardingSession} />
         </OnboardingProvider>
     );
 }

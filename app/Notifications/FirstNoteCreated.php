@@ -41,7 +41,7 @@ class FirstNoteCreated extends Notification implements ShouldQueue
     {
 
         return (new MailMessage)
-            ->subject('Dit første notal er oprettet!')
+            ->subject('Dit første notat er oprettet!')
             ->greeting('Hej ' . $notifiable->name . '!')
             ->line('Tillykke med at have oprettet dit første notat på din profil.')
             ->line('Vi håber, at du finder denne funktion nyttig til at holde styr på vigtige oplysninger.')

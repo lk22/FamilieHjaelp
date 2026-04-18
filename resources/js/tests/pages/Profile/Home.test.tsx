@@ -1,7 +1,7 @@
-import {JSX} from 'react';
+import { JSX } from 'react';
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
-import {test, describe, expect} from 'vitest';
+import { test, describe, expect } from 'vitest';
 
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout'
 

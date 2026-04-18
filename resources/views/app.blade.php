@@ -26,8 +26,34 @@
             }
 
             html.dark {
-                background-color: oklch(0.145 0 0);
+                background-color: #ffffff;
             }
+/*
+            @function --suitable-font-size() {
+                --size : 50px;
+                result: var(--size);
+            }
+
+            @function --add-a-b-c(--b, --c) {
+                --c: 300;
+                result: calc(var(--a) + var(--b) + var(--c));
+                /* uses the --a from the call site's custom property,
+                    the --b from the function parameter,
+                    and the --c from the local variable */
+            /*}
+            /*div {
+                font-size: --suitable-font-size();
+                position: relative;
+                --a: 1;
+                --b: 2;
+                --c: 3;
+                z-index: --add-a-b-c(20, 30) !important; /* 321 */
+            /* } */
+
+           /* h1 {
+                --text-color-label: 'priamry'
+                color: --define-text-color(--text-color-label);
+            } */
         </style>
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>

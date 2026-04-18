@@ -1,9 +1,12 @@
 import {useEffect, useState, useCallback} from 'react'
 import { Head, Link, usePage} from '@inertiajs/react';
-
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import {useOnboarding} from '@/contexts/OnboardingContext';
 import { type SharedData } from '@/types';
+
+import { postCreateTodos } from '@/lib/Onboarding/postCreateTodosUtil';
+import { postCreatePages } from '@/lib/Onboarding/postCreatePagesUtil';
+import { postCmpleteOnboardingProcess } from '@/lib/Onboarding/postCompleteOnboardingUtil';
 
 interface CompletedMessageProps {
     name: string;
@@ -22,22 +25,27 @@ interface LoadingProgressSteps {
 
 const OnboardingCompletedContent = () => {
     const { auth } = usePage<SharedData>().props;
-    const { onboardingState, getCurrentStepData } = useOnboarding();
-    const name = getCurrentStepData(1)?.stepOne?.name || 'Familiehjælp';
+    const { onboardingState } = useOnboarding();
+
+    const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
+    console.log('Current Scenario:', currentScenario);
+    const currentName = currentScenario?.steps[0]?.data?.name || 'Familiehjælp';
+
+    const name = currentName || 'Familiehjælp';
 
     console.log('Onboarding State:', onboardingState);
     const [ response, setResponse ] = useState<LoadingProgressResponse>({
         message: '',
         status: ''
     });
-    
+
     const [ loading, setLoading ] = useState(true);
     const [loadingPercentage, setLoadingPercentage] = useState(0);
     const updateLoadingPercentage = useCallback((percentage: number) => {
         setLoadingPercentage(percentage);
     }, []);
-    const postOnboardingData = useCallback(async () => {
 
+    const postOnboardingData = useCallback(async () => {
         const steps: LoadingProgressSteps[] = [
             {
                 name: 'Checking authentication status',
@@ -67,17 +75,7 @@ const OnboardingCompletedContent = () => {
                     setResponse({ message: 'Generating todos overview', status: 'Generating todos overview' });
                     console.log('Generating todos overview...');
                     try {
-                        const response = await fetch(route('onboarding.process.complete.todos'), {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-                                'X-Requested-With': 'XMLHttpRequest',
-                            },
-                            body: JSON.stringify(onboardingState),
-                            credentials: 'same-origin'
-                        });
-
+                        const response = await postCreateTodos({state: onboardingState});
                         const data = await response.json();
                         console.log('Overview generated:', data);
                         setResponse({ message: data.message || 'Overview generated successfully', status: "Generating overview in progress" });
@@ -95,17 +93,7 @@ const OnboardingCompletedContent = () => {
                     setResponse({ message: 'Generating pages overview', status: 'Generating pages overview' });
                     console.log('Generating pages overview...');
                     try {
-                        const response = await fetch(route('onboarding.process.complete.pages'), {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-                                'X-Requested-With': 'XMLHttpRequest',
-                            },
-                            body: JSON.stringify(onboardingState),
-                            credentials: 'same-origin',
-                        });
-
+                        const response = await postCreatePages({state: onboardingState});
                         const data = await response.json();
                         console.log('pages generated:', data);
                         setResponse({ message: data.message || 'pages generated successfully', status: "Generating overview in progress" });
@@ -122,19 +110,8 @@ const OnboardingCompletedContent = () => {
                 action: async () => {
                     setResponse({ message: 'Completing onboarding process', status: 'Completing onboarding process' });
                     try {
-                        const response = await fetch(route('onboarding.process.complete'), {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-                                'X-Requested-With': 'XMLHttpRequest',
-                            },
-                            body: JSON.stringify(onboardingState),
-                            credentials: 'same-origin',
-                        });
-
+                        const response = await postCmpleteOnboardingProcess({state: onboardingState});
                         const data = await response.json();
-
                         setResponse({ message: data.message || 'Onboarding completed successfully', status: "Completing onboarding process" });
                     } catch (error) {
                         setResponse({ message: 'Error completing onboarding process', status: 'An error occurred while completing onboarding process' });
@@ -167,7 +144,7 @@ const OnboardingCompletedContent = () => {
             setLoading(false);
             return;
         }
- 
+
         try {
             for (const step of steps) {
                 setLoadingPercentage(step.percentage);
@@ -179,7 +156,7 @@ const OnboardingCompletedContent = () => {
 
                 // await a short delay before proceeding to the next step
                 await new Promise(resolve => setTimeout(resolve, 2000));
-            } 
+            }
         } catch (error) {
             console.error('Error during onboarding process:', error);
             setResponse({ message: 'An error occurred during the onboarding process', status: 'Error' });
@@ -201,10 +178,10 @@ const OnboardingCompletedContent = () => {
                 <div className="container-fluid py-8 max-w-full flex w-full flex-col items-center justify-center bg-[#004EA7] text-white h-screen px-8">
                     <div className="container max-w-[960px] flex-col py-8 items-center justify-center text-center">
                         <div className="logo">
-                            <img 
-                                src="/images/FamilieHjælp_text_logo.svg" 
-                                alt="Familiehjælp Logo" 
-                                className="animate animate-fade-up animate-ease-linear relative bottom-4 animate-in mb-6 w-auto h-[50px] mx-auto" 
+                            <img
+                                src="/images/FamilieHjælp_text_logo.svg"
+                                alt="Familiehjælp Logo"
+                                className="animate animate-fade-up animate-ease-linear relative bottom-4 animate-in mb-6 w-auto h-[50px] mx-auto"
                             />
                             <img
                                 src="/images/logo.svg"
@@ -249,6 +226,11 @@ const OnboardingCompletedContent = () => {
     )
 }
 
+/**
+ *
+ * @param name
+ * @returns
+ */
 const CompletedMessage = ({name}: CompletedMessageProps) => {
     const { auth } = usePage<SharedData>().props;
     const isAuthenticated = auth?.user !== undefined && auth?.user !== null;
@@ -264,7 +246,7 @@ const CompletedMessage = ({name}: CompletedMessageProps) => {
                         </p>
                         <Link href={route('register', {'_query': {
                             'onboarding_completed': true,
-                            'redirect_to': 'onboarding.complete' 
+                            'redirect_to': 'onboarding.complete'
                         }})} className="mt-4 inline-block text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md text-lg">
                             Opret bruger
                         </Link>
@@ -294,6 +276,11 @@ const CompletedMessage = ({name}: CompletedMessageProps) => {
     );
 }
 
+/**
+ * Progress bar loader component to show the progress of the completion of the onboarding process, which consists of several steps that are executed sequentially. The component receives a percentage prop that indicates the current progress and updates the width of the progress bar accordingly.
+ * @param percentage - the current progress percentage to be displayed on the progress bar
+ * @returns
+ */
 const LoadingProgressBar = ({ percentage }: { percentage: number }) => {
     const progressStyle = {
         width: `${percentage}%`,

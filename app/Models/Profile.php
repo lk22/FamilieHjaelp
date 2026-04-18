@@ -13,8 +13,8 @@ class Profile extends Model
 {
     /**
      * Assign the table fields to be mass assignable
-     * 
-     * @var Array<string>
+     *
+     * @var array<string>
      */
     protected $fillable = [
         'user_id',
@@ -27,8 +27,8 @@ class Profile extends Model
 
     /**
      * Assign the custom castable rules for each column
-     * 
-     * @var Array<string, string>
+     *
+     * @var array<string, string>
      */
     protected $casts = [
         'onboarding_data' => 'array',
@@ -40,7 +40,7 @@ class Profile extends Model
 
     /**
      * Get the associated user
-     * 
+     *
      * @return BelongsTo<User>
      */
     public function user(): BelongsTo
@@ -50,7 +50,7 @@ class Profile extends Model
 
     /**
      * Get the notes for the profile
-     * 
+     *
      * @return HasMany<Note>
      */
     public function notes(): HasMany
@@ -60,7 +60,7 @@ class Profile extends Model
 
     /**
      * Get the profile notifications
-     * 
+     *
      * @return HasMany<ProfileNotification>
      */
     public function notifications(): HasMany
@@ -70,7 +70,7 @@ class Profile extends Model
 
     /**
      * Get the specific onboarding step
-     * 
+     *
      * @param $step int
      * @return ?array<string, mixed>
      */
@@ -81,7 +81,7 @@ class Profile extends Model
 
     /**
      * Set onboarding step
-     * 
+     *
      * @param $step int
      * @param $data array
      * @return void

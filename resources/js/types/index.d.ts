@@ -44,7 +44,7 @@ export interface User {
 }
 
 /**
- * interface for Todo items 
+ * interface for Todo items
  */
 export interface TodoItem {
     id: number;
@@ -53,3 +53,5 @@ export interface TodoItem {
     completed: boolean;
     due_date?: string;
 }
+
+export type PayloadProps = Record<string, unknown>;

@@ -22,7 +22,7 @@ class CompleteOnboardingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'steps' => 'required|array',
+            'session_token' => ['required', 'string', 'exists:onboarding_sessions,session_token'],
         ];
     }
 }

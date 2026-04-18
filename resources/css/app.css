@@ -2,8 +2,10 @@
 
 @plugin 'tailwindcss-animate';
 
-@source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -164,5 +166,133 @@
     button {
         font-size: 1rem;
         line-height: 1.5;
+    }
+}
+
+/*
+* Animation keyframes
+*/
+@keyframes animate-completed {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes complete {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+.loader {
+    border-width: 4px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: var(--bg-blue-700, #1d4ed8);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+.animate {
+    &.animate-completed {
+        animation: animate-completed 2s ease-in-out forwards;
+    }
+
+    &.animate-appear {
+        animation: appear 1s ease-in-out forwards;
+    }
+
+    &.animate-complete {
+        animation: complete 0.2s ease-in-out forwards;
+    }
+}
+
+.step-progress-line {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: 4px;
+    background-color: var(--color-blue-900);
+    z-index: 1;
+    transition: width 0.5s ease-in-out;
+}
+
+.step-progress-line::after {
+    content: '';
+    position: absolute;
+    top: -5%;
+    left: 0%;
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-blue-700);
+    /* animation: animate-completed 0.5s ease-in-out forwards; */
+}
+
+input {
+    &[type="radio"]:checked + .radio-mark::after,
+    &[type="checkbox"]:checked + .checkbox-mark::after {
+        height: 1rem;
+        width: 1rem;
+    }
+}
+input[type="radio"]:checked + .radio-mark,
+input[type="checkbox"]:checked + .checkbox-mark {
+    height: 1rem;
+    width: 1rem;
+}
+
+input[type="radio"]:checked + .radio-mark::after {
+    background-color: #2C6DB6;
+}
+
+input[type="checkbox"]:checked + .checkbox-mark::after {
+    background-color: #2C6DB6;
+}
+
+input[type="text"] {
+    font-size: 1rem;
+    width: 100%;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    min-height: 3rem;
+    border: #2c6db6 1px solid;
+}
+
+/* Spinner animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }

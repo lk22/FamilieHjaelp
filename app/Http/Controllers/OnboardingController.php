@@ -3,114 +3,174 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
+
+use App\Models\OnboardingSession;
+
+use App\Http\Requests\CompleteOnboardingRequest;
+use App\Http\Requests\SubmitStepRequest;
 
 class OnboardingController extends Controller
 {
     /**
-     * Render the onboarding step view based on the step query parameter.
+     * Render getting started view and handle onboarding session.
      *
+     * @param Request $request
      * @return Response
      */
-    public function render(): Response
+    public function show(Request $request): Response|RedirectResponse
     {
-        // dd(session()->get('onboarding_data.data.steps.0'));
-        $step = request()->query('step', 'situation');
-        $stepData = [];
+        $userId = $request->user()?->id;
 
-        // if the onboarding data is not set in the session, initialize it
-        foreach ( collect([1,2,3,4,5,6]) as $key => $value ) {
-            $initialState[$value] = [
-                'step' => $this->formatStepNumberToString($value),
-                'data' => [],
-                'is_completed' => false,
-                'stepNumber' => $value
-            ];
-        }
+        // Read session token first, then fall back to persisted browser cookie.
+        $token = $request->session()->get('onboarding_session_token')
+            ?? $request->cookie('onboarding_session_token');
 
-        if ( ! session()->has('onboarding_data') ) {
-            session()->put('onboarding_data.data.steps', [
-                ...$initialState
-            ]);
-        }
-        
-        $stepData = session()->get('onboarding_data.data.steps', []);
-        $completedSteps = session()->get('onboarding_data.completed_steps', []);
+        $session = OnboardingSession::findOrCreateSession($userId, $token);
 
-        $view = 'home/onboarding/onboarding-step-' . $step;
-        return inertia($view, [
-            'currentStep' => $step,
-            'totalStepsCount' => count([0,1,2,3,4,5,6]),
-            'totalSteps' => [0,1,2,3,4,5,6],
-            'completedSteps' => $completedSteps,
-            'stepData' => $stepData,
+        // Keep token available immediately server-side in the current request lifecycle.
+        $request->session()->put('onboarding_session_token', $session->session_token);
+
+        // Persist token to browser for subsequent requests.
+        cookie()->queue('onboarding_session_token', $session->session_token, 60 * 24 * 30);
+
+        return inertia('home/getting-started', [
+            'onboardingSession' => [
+                'token' => $session->session_token,
+                'currentStep' => $session->current_step,
+                'nextStep' => $session->next_step,
+                'stepsData' => $session->steps_data,
+                'formData' => $session->form_data,
+                'completed' => $session->completed,
+            ]
         ]);
     }
-    
+
     /**
-     * Handle the submission of an onboarding step.
-     * TODO: refactor this method to handle the step submission logic more cleanly.
-     * 
+     * Submitting step from onboarding
+     * @param SubmitStepRequest $request
+     * @param string $scenario
+     * @param string $step
+     * @return JsonResponse
+     */
+    public function submitStep(SubmitStepRequest $request, string $scenario, string $step): JsonResponse|RedirectResponse
+    {
+        $nextStep = $request->input('nextStep');
+        // Step 1: validation logic (to be implemented)
+        if (! $request->validated()) {
+            return response()->json(['message' => 'Validation failed. Please check your input and try again.'], 422);
+        }
+
+        // step 2: update the onboarding session with the submitted data (to be implemented)
+        $existingSession = OnboardingSession::findByToken($request->cookie('onboarding_session_token'));
+
+        if (! $existingSession) {
+            return response()->json(['message' => 'Onboarding session not found. Please start the onboarding process again.'], 404);
+        }
+
+        $existingSession->update([
+            "scenario" => $scenario,
+            "current_step" => $step,
+            "steps_data" => array_merge($existingSession->steps_data, [
+                $step => $request->input('data')
+            ]),
+            "next_step" => $nextStep,
+        ]);
+
+        if ( $step === 'complete' ) {
+            $existingSession->markAsCompleted();
+        }
+
+        // return a redirect response to the next step or a success message (to be implemented)
+        return redirect()->route('onboarding.scenario.step', ['scenario' => $scenario, 'step' => $nextStep])
+            ->with('success', 'Step submitted successfully');
+    }
+
+    /**
+     * Update the current onboarding step data.
+     *
      * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateStep(Request $request, string $scenario, string $step) {
+        return response()->json(['error' => 'Not implemented'], 501);
+    }
+
+    /**
+     * Show a specific onboarding step.
+     *
+     * @param Request $request
+     * @param string $scenario
+     * @param string $step
      * @return Response|RedirectResponse
      */
-    public function submitStep(Request $request)
+    public function showStep(Request $request, string $scenario, string $step): Response|RedirectResponse
     {
-        // Get step from query parameter or request input
-        $currentStep = $request->query('step') ?? $request->input('step');
+        $allowedScenarios = ['abortion', 'stillbirth', 'parenting'];
 
-        $completedSteps = session()->get('onboarding_data.completed_steps', []);
-
-        if (!$currentStep) {
-            throw new \InvalidArgumentException('Step parameter is required.');
-        }
-    
-        // validate the current step
-        if ($currentStep == "last") {
-            return redirect()->route('onboarding.complete');
-        }
-        
-        $numberToStep = $this->formatStepNumberToString($currentStep);
-        
-        $nextStep = $currentStep + 1;
-        $formattedCurrentStep = $this->formatStepNumberToString($currentStep);
-        $formattedNextStep = $this->formatStepNumberToString($nextStep);
-
-        if ( ! session()->has('onboarding_data.completed_steps') ) {
-            session()->put('onboarding_data.completed_steps', []);
+        if (! in_array($scenario, $allowedScenarios)) {
+            abort(404, 'Scenario not found.');
         }
 
-        // get current step state from session
-        $currentStepData = session()->get('onboarding_data.data.steps.' . $currentStep, []);
+        $userId = $request->user()?->id;
 
-        // check if the current step data is already completed
-        // update the current step data with the request data
-        $currentStepData = [
-            'step' => $formattedCurrentStep,
-            'data' => $request->except('step'),
-            'is_completed' => true,
-            'stepNumber' => (int) $currentStep
-        ];
+        $token = $request->session()->get('onboarding_session_token')
+            ?? $request->cookie('onboarding_session_token');
 
-        // update the session with the current step data
-        session()->put('onboarding_data.data.steps.' . $currentStep - 1, $currentStepData);
+        if (! $token) {
+            return redirect()->route('getting-started')
+                ->with('error', 'Onboarding session token mangler.');
+        }
 
-        session()->put('onboarding_data.completed_steps', [
-            ...session()->get('onboarding_data.completed_steps', []),
-            $currentStep
+        $session = OnboardingSession::findByToken($token);
+
+        if (! $session ) {
+            abort(404, 'Onboarding session not found. Please start the onboarding process again.');
+        }
+
+        return inertia("home/onboarding/{$scenario}/steps/step", [
+            'currentStep' => $step,
+            'scenario' => $scenario,
+            'onboardingSession' => [
+                'token' => $session->session_token,
+                'currentStep' => $session->current_step,
+                'stepsData' => $session->steps_data,
+                'formData' => $session->form_data,
+                'completed' => $session->completed,
+            ],
         ]);
-
-        // Redirect to the next step using query parameter
-        // return redirect()->route('onboarding.step', ['step' => $formattedNextStep])->with('success', 'Onboarding step completed successfully!');
     }
 
     /**
-     * Render the onboarding completed view.
+     * Show the confirmation page after completing onboarding steps.
+     *
+     * @param Request $request
      * @return Response
      */
-    public function completed(): Response
+    public function showConfirmation(Request $request): Response
+    {
+        $token = $request->cookie('onboarding_session_token');
+
+        if( is_null($token) ) {
+            abort(400, 'Onboarding session token is missing.');
+        }
+
+        $session = OnboardingSession::findByToken($token);
+
+        return inertia("home/onboarding/confirmation", [
+            'onboardingSession' => [
+                'token' => $session->session_token,
+                'currentStep' => $session->current_step,
+                'stepsData' => $session->steps_data,
+                'formData' => $session->form_data,
+                'completed' => $session->completed,
+            ],
+        ]);
+    }
+
+    public function showCompleted(): Response
     {
         return inertia('home/onboarding/onboarding-completed');
     }
@@ -118,16 +178,25 @@ class OnboardingController extends Controller
     /**
      * complete the onboarding process.
      *
-     * @param Request $request
+     * @param CompleteOnboardingRequest $request
      * @return RedirectResponse
      */
-    public function complete(Request $request): RedirectResponse
+    public function complete(Request $request)
     {
-        $data = session()->get('onboarding_data.data.steps');
-        // Here you can handle the completion logic, e.g., saving to the database or processing the data
+        $validated = $request->validate([
+            'data.session_token' => 'required|string',
+        ]);
 
-        session()->forget('onboarding_data'); // Clear onboarding data after completion
-        return redirect()->route('home')->with('success', 'Onboarding completed successfully!');
+        $userId = $request->user()?->id;
+        $session = OnboardingSession::findWhen($userId, $validated['data']['session_token']);
+
+        if (! $session) {
+            abort(404, 'Onboarding session not found.');
+        }
+
+        $session->markAsCompleted();
+
+        return redirect()->route('onboarding.completed.view')->with('success', 'Onboarding completed successfully!');
     }
 
     /**
@@ -137,21 +206,17 @@ class OnboardingController extends Controller
      */
     public function reset(): RedirectResponse
     {
-        // Clear the onboarding data from the session
-        session()->forget('onboarding_data');
-        // Redirect to the first step of the onboarding process
-        return redirect()->route('onboarding.step', ['step' => 'one'])->with('success', 'Onboarding has been reset successfully!');
-    }
+        $userId = request()->user()?->id;
+        $sessionToken = request()->cookie('onboarding_session_token');
 
-    /**
-     * Format the step number to a string representation.
-     *
-     * @param int $step
-     * @return string
-     */
-    private function formatStepNumberToString(int $step): string
-    {
-        $steps = ['one', 'two', 'three', 'four', 'five', 'six'];
-        return $steps[$step - 1] ?? 'one';
+        $session = OnboardingSession::findWhen($userId, $sessionToken);
+
+        if ($session) {
+            $session->delete();
+        }
+
+        cookie()->queue(cookie()->forget('onboarding_session_token'));
+
+        return redirect()->route('getting-started')->with('success', 'Onboarding has been reset successfully!');
     }
 }
