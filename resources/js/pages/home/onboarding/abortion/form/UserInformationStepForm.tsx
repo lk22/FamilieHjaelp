@@ -15,10 +15,12 @@ import { logState } from '@/lib/utils'
 import { SelectItem } from '@/components/ui/select';
 
 type StepData = {
-  name: string;
-  age: number;
-  ageOfPartner: number;
-  gender: string;
+  data: {
+    name: string;
+    age: number;
+    ageOfPartner: number;
+    gender: string;
+  }
 }
 
 type UserInformationProps = {
@@ -47,14 +49,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   });
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const {post, data, setData, errors, processing, reset} = useForm<{
-    data: {
-      name: string;
-      age: number;
-      ageOfPartner: number;
-      gender: string;
-    }
-  }>({
+  const {post, data, setData, errors, processing, reset} = useForm<StepData>({
     data: {
       name: '',
       age: 0,
@@ -155,7 +150,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                     })
                   }}>
                     <Select.Trigger className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded">
-                      <Select.Value placeholder="Vælg køn" />
+                      <Select.Value placeholder={`${currentGender ?? 'Vælg køn'}`} />
                     </Select.Trigger>
                     <Select.Content className="bg-white border border-gray-300 rounded mt-1 w-full">
                       <SelectItem value="female" className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full">
@@ -169,7 +164,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                       </SelectItem>
                     </Select.Content>
                   </Select.Root>
-b
+
                   <label htmlFor="yourAge" className="block mt-4 mb-2 font-semibold text-gray-700">
                     Hvor gammel er du ?
                   </label>

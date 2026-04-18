@@ -132,7 +132,7 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
                 })
               }}>
                 <Select.Trigger className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded">
-                  <Select.Value placeholder="Vælg køn" />
+                  <Select.Value placeholder={`${currentGender ?? 'Vælg køn'}`} />
                 </Select.Trigger>
                 <Select.Content className="bg-white border border-gray-300 rounded mt-1 w-full">
                   <SelectItem value="female" className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full">
