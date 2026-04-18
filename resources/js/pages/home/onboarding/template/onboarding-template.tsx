@@ -16,12 +16,14 @@ import OnboardingHeader from '@/components/Onboarding/onboarding-header';
 import InactivityModal from '@/components/Onboarding/Modals/InactivityModal';
 import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
 
+type OnboardingState = ReturnType<typeof useOnboarding>['onboardingState'];
+
 interface OnboardingTemplateInterface {
     children?: React.ReactNode[];
     title?: string;
     description?: string | React.ReactNode;
     screenGraphic?: string | null;
-    state?: any;
+    state?: OnboardingState;
 }
 
 export default function OnboardingTemplate({

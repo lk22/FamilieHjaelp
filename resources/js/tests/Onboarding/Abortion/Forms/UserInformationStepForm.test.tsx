@@ -30,14 +30,14 @@ vi.mock('@radix-ui/react-select', async () => {
                 {children}
             </option>
         ),
-        ItemText: ({ children }: any) => <>{children}</>,
+        ItemText: ({ children }: { children: React.ReactNode }) => <>{children}</>,
         ItemIndicator: () => null,  // ← tilføj denne
-        Group: ({ children }: any) => <>{children}</>,
-        Label: ({ children }: any) => <>{children}</>,
+        Group: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+        Label: ({ children }: { children: React.ReactNode }) => <>{children}</>,
         ScrollUpButton: () => null,
         ScrollDownButton: () => null,
-        Viewport: ({ children }: any) => <>{children}</>,
-        Portal: ({ children }: any) => <>{children}</>,
+        Viewport: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+        Portal: ({ children }: { children: React.ReactNode }) => <>{children}</>,
     }
 });
 

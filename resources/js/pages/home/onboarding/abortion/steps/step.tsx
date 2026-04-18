@@ -12,8 +12,8 @@ interface SessionProps extends SharedData {
     onboardingSession: {
         token: string | null;
         currentStep: string | null;
-        stepsData: Record<string, any>;
-        formData: Record<string, any>;
+        stepsData: Record<string, unknown>;
+        formData: Record<string, unknown>;
         completed: boolean;
     }
 }
