@@ -147,7 +147,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                   <label htmlFor="gender" className="block mt-4 mb-2 font-semibold text-gray-700">
                     Hvad er dit køn ?
                   </label>
-                  {/* TODO make Radix UI Select field work with gender value and state handlers */}
+
                   <Select.Root onValueChange={(value) => {
                     setState({...state, gender: value})
                     setData('data', {
