@@ -19,7 +19,7 @@ return new class extends Migration
         DB::table('onboarding_sessions')
                 ->where('completed', true)
                 ->whereNull('completed_at')
-                ->update(['completed_at' => DB::raw('COALESCE(updated_at, NOW())')]);
+                ->update(['completed_at' => DB::raw('COALESCE(updated_at, CURRENT_TIMESTAMP)')]);
     }
 
     /**
