@@ -8,9 +8,11 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 // componenets
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select } from "radix-ui";
 
 // Utilities
 import { logState } from '@/lib/utils'
+import { SelectItem } from '@/components/ui/select';
 
 type StepData = {
   name: string;
@@ -112,6 +114,8 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
     }
   };
 
+  console.log(data.data)
+
   return (
     <>
       <form onSubmit={handleSubmit} className={submitted ? "" : "animate animate-appear"}>
@@ -126,7 +130,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                   <label htmlFor="name" className="block mt-4 mb-2 font-semibold text-gray-700">
                     Hvad er dit navn ?
                   </label>
-                  <input
+                  <Input
                     id="name"
                     type="text"
                     className='mt-2 mb-4'
@@ -143,24 +147,29 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                   <label htmlFor="gender" className="block mt-4 mb-2 font-semibold text-gray-700">
                     Hvad er dit køn ?
                   </label>
-                  <select
-                    id="gender"
-                    className="mt-2 mb-4 p-2 border border-gray-300 rounded w-full"
-                    value={data.data.gender || state.gender || currentGender}
-                    onChange={(e) => {
-                      setState({ ...state, gender: e.target.value });
-                      setData('data', {
-                        ...data.data,
-                        gender: e.target.value
-                      })
-                    }}
-                    required
-                  >
-                    <option value="">Vælg køn</option>
-                    <option value="female">Kvinde</option>
-                    <option value="male">Mand</option>
-                    <option value="other">Andet</option>
-                  </select>
+                  {/* TODO make Radix UI Select field work with gender value and state handlers */}
+                  <Select.Root onValueChange={(value) => {
+                    setState({...state, gender: value})
+                    setData('data', {
+                      ...data.data, gender: value
+                    })
+                  }}>
+                    <Select.Trigger className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded">
+                      <Select.Value placeholder="Vælg køn" />
+                    </Select.Trigger>
+                    <Select.Content className="bg-white border border-gray-300 rounded mt-1 w-full">
+                      <SelectItem value="female" className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full">
+                        Kvinde
+                      </SelectItem>
+                      <SelectItem value="male" className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        Mand
+                      </SelectItem>
+                      <SelectItem value="other" className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        Andet
+                      </SelectItem>
+                    </Select.Content>
+                  </Select.Root>
+b
                   <label htmlFor="yourAge" className="block mt-4 mb-2 font-semibold text-gray-700">
                     Hvor gammel er du ?
                   </label>

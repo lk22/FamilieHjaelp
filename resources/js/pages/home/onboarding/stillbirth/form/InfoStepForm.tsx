@@ -8,6 +8,8 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 // Components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select } from "radix-ui";
+import { SelectItem } from '@/components/ui/select';
 
 type StepData = {
   data: {
@@ -122,21 +124,29 @@ export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
               <label htmlFor="gender" className="block mt-4 mb-2 font-medium text-gray-700">
                 Hvad er dit køn ?
               </label>
-              <select
-                id="gender"
-                className="mt-2 mb-4 p-2 border border-gray-300 rounded w-full"
-                value={gender || currentGender}
-                onChange={(e) => {
-                  setGender(e.target.value);
-                  setData('data', { ...data.data, gender: e.target.value });
-                }}
-                required
-              >
-                <option value="">Vælg køn</option>
-                <option value="female">Kvinde</option>
-                <option value="male">Mand</option>
-                <option value="other">Andet</option>
-              </select>
+
+              <Select.Root onValueChange={(value) => {
+                setGender(value);
+                setData('data', {
+                  ...data.data, gender: value
+                })
+              }}>
+                <Select.Trigger className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded">
+                  <Select.Value placeholder="Vælg køn" />
+                </Select.Trigger>
+                <Select.Content className="bg-white border border-gray-300 rounded mt-1 w-full">
+                  <SelectItem value="female" className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full">
+                    Kvinde
+                  </SelectItem>
+                  <SelectItem value="male" className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    Mand
+                  </SelectItem>
+                  <SelectItem value="other" className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    Andet
+                  </SelectItem>
+                </Select.Content>
+              </Select.Root>
+
               <label htmlFor="age" className="block mt-4 mb-2 font-medium text-gray-700">
                 Hvor gammel er du ?
               </label>

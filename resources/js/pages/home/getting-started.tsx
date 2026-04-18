@@ -2,6 +2,7 @@
 import { type SharedData } from '@/types';
 import { Head, Link, usePage, router } from '@inertiajs/react';
 import { useCallback, useState } from 'react';
+import {Button} from "@/components/ui/button";
 
 // Context
 import { OnboardingProvider, useOnboarding } from '@/contexts/OnboardingContext';
@@ -103,28 +104,26 @@ const GettingStartedContent = ({ onboardingSession }: OnboardingSessionProps) =>
                                             ) : (
                                                 <>
                                                     {currentScenario && currentStep != 'welcome' ? (
-                                                        <button className="mt-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900">
+                                                        <Button className="mt-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900">
                                                             <Link
                                                                 href={route(`onboarding.scenario.step`, {
                                                                     step: currentStep,
                                                                     scenario: currentScenario.id,
                                                                 })}
-                                                                className="rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900 mt-4"
                                                             >
                                                                 Fortsæt
                                                             </Link>
-                                                        </button>
+                                                        </Button>
                                                     ) : (
                                                         <></>
                                                     )}
-                                                    <button className="mt-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900 ml-4">
+                                                    <Button className="mt-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900 ml-4">
                                                         <Link
                                                             href={route(`onboarding.scenario.step`, { step: 'one', scenario: scenario })}
-                                                            className="ms-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900 mt-4"
                                                         >
                                                             Kom igang
                                                         </Link>
-                                                    </button>
+                                                    </Button>
                                                 </>
                                             )}
                                         {/* </>
@@ -133,7 +132,7 @@ const GettingStartedContent = ({ onboardingSession }: OnboardingSessionProps) =>
                                         <div className="mb-6 border-l-4 border-blue-500 bg-blue-100 p-4 text-blue-700" role="alert">
                                             <h3 className="text-xl font-bold">Du har en igangværende session</h3>
                                             {onboardingSession.nextStep ? (
-                                                <button className='mt-8 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900'>
+                                                <Button className='mt-8 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900'>
                                                     <Link
                                                         href={route(`onboarding.scenario.step`, {
                                                             step: onboardingSession.nextStep,
@@ -142,19 +141,19 @@ const GettingStartedContent = ({ onboardingSession }: OnboardingSessionProps) =>
                                                     >
                                                         Fortsæt hvor du slap
                                                     </Link>
-                                                </button>
+                                                </Button>
                                             ) : (
                                                 <>
                                                     <h3 className="mt-2 text-xl">
                                                         Du har en igangværende session, men der er ingen næste step at fortsætte til. Du kan starte
                                                         forfra ved at vælge en situation nedenfor.
                                                     </h3>
-                                                    <button
+                                                    <Button
                                                         className="mt-4 rounded-md bg-blue-800 px-6 py-3 text-white transition duration-300 hover:bg-blue-900"
                                                         onClick={() => handleReset()}
                                                     >
                                                         <span className="-ml-px cursor-pointer text-xl font-bold">Start forfra</span>
-                                                    </button>
+                                                    </Button>
                                                 </>
                                             )}
                                         </div>
