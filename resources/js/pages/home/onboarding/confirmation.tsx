@@ -16,7 +16,7 @@ interface OnboardingSessionProps {
 }
 
 const ConfirmationContent = ({ onboardingSession }: OnboardingSessionProps) => {
-  const { onboardingState, getCurrentScenario, resetOnboarding } = useOnboarding();
+  const { onboardingState, getCurrentScenario } = useOnboarding();
   const [ isReseting, setIsResetting ] = useState<boolean>(false);
 
   console.log('Onboarding State in Confirmation:', getCurrentScenario());

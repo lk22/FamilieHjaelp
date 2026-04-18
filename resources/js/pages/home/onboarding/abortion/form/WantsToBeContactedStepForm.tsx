@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { router, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 
 // Contexts
 import { useOnboarding } from '@/contexts/OnboardingContext';

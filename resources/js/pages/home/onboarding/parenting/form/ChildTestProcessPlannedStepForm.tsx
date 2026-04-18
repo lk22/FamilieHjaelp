@@ -9,19 +9,24 @@ interface ChildTestProcessPlannedStepFormProps {
     handleStepSubmit: (data: { childTestProcessPlanned: boolean }) => void;
 }
 
+type ChildTestProcessPlannedProps = {
+    data: {
+        childTestProcessPlanned: boolean;
+    }
+}
+
 export default function ChildTestProcessPlannedStepForm({ handleStepSubmit }: ChildTestProcessPlannedStepFormProps) {
     const [childTestProcessPlanned, setChildTestProcessPlanned] = useState<boolean | null>(null);
-    const [step, setStep] = useState<string>('five');
-    const [nextStep, setNextStep] = useState<string>('');
+    const [step] = useState<string>('five');
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [, setSubmitted] = useState<boolean>(false);
 
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
     const currentStep = currentScenario?.steps[4];
     const currentPlanned = currentStep?.data.childTestProcessPlanned;
 
-    const { post, setData, data } = useForm<{ data: { childTestProcessPlanned: boolean } }>({
+    const { post, setData, data } = useForm<ChildTestProcessPlannedProps>({
         data: { childTestProcessPlanned: currentPlanned ?? false },
     });
 

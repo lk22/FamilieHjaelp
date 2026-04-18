@@ -8,18 +8,24 @@ interface BirthDateStepFormProps {
     handleStepSubmit: (data: { birthDate: string }) => void;
 }
 
+type BirthDateProps = {
+    data: {
+        birthDate: string;
+    }
+}
+
 export default function BirthDateStepForm({ handleStepSubmit }: BirthDateStepFormProps) {
-    const [step, setStep] = useState<string>('one');
+    const [step] = useState<string>('one');
     const [birthDate, setBirthDate] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [, setSubmitted] = useState<boolean>(false);
 
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
     const currentStep = currentScenario?.steps[0];
     const currentBirthDate = currentStep?.data.birthDate || '';
 
-    const { post, data, setData } = useForm<{ data: { birthDate: string } }>({
+    const { post, data, setData } = useForm<BirthDateProps>({
         data: { birthDate: currentBirthDate },
     });
 

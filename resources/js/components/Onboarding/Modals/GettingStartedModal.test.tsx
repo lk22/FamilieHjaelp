@@ -3,7 +3,7 @@ import { OnboardingProvider, useOnboarding } from '@/contexts/OnboardingContext'
 import { router } from '@inertiajs/react';
 import { render, screen, renderHook } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, test, vi, beforeEach } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 
 describe('Getting Started modal', () => {
 

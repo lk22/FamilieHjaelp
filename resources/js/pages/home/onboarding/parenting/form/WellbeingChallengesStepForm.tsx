@@ -18,8 +18,8 @@ const WELLBEING_OPTIONS = [
 ];
 
 export default function WellbeingChallengesStepForm({ handleStepSubmit }: WellbeingChallengesStepFormProps) {
-    const [step, setStep] = useState<string>('eight');
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [step] = useState<string>('eight');
+    const [, setSubmitted] = useState<boolean>(false);
     const [wellbeingChallenges, setWellbeingChallenges] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useCallback} from 'react';
 import { Head } from '@inertiajs/react';
 import OnboardingTemplate from '@/pages/home/onboarding/template/onboarding-template';
 import StepForm from '@/pages/home/onboarding/stillbirth/form/step-form';
@@ -12,8 +12,8 @@ interface SessionProps extends SharedData {
     onboardingSession: {
         token: string | null;
         currentStep: string | null;
-        stepsData: Record<string, any>;
-        formData: Record<string, any>;
+        stepsData: Record<string, unknown>;
+        formData: Record<string, unknown>;
         completed: boolean;
     }
 }
@@ -61,16 +61,16 @@ const OnboardingStepContent = ({
     const scenarioData = onboardingState.scenarios.find((s) => s.id === scenario);
     const stepData = scenarioData?.steps.find((s) => s.stepName === currentStep);
 
-    const handleInitialize = () => {
+    const handleInitialize = useCallback(() => {
         if (onboardingState.currentScenario !== scenario) {
             console.log(`Initializing scenario: ${scenario}`);
             updateCurrentScenario(scenario);
         }
-    };
+    }, [onboardingState.currentScenario, scenario, updateCurrentScenario]);
 
     useEffect(() => {
         handleInitialize();
-    }, []);
+    }, [handleInitialize]);
 
     return (
         <OnboardingTemplate

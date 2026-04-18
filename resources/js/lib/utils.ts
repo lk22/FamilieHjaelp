@@ -29,10 +29,6 @@ export function getConfirmationFormattedValue(value: ConfirmationFormattedValue)
         value = 'Ingen svar givet';
     }
 
-    if ( typeof value === 'string' && value !== '' ) {
-        value = value;
-    }
-
     return value;
 }
 

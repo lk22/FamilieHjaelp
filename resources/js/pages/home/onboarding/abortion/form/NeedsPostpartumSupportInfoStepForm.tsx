@@ -16,19 +16,21 @@ type NeedsPostpartumSupportInfoStepFormProps = {
   handleStepSubmit: (data: {needsPostpartumSupportInfo: boolean}) => void;
 }
 
+type NeedsPostpartumSupportInfoProps = {
+  data: {
+    needsPostpartumSupportInfo: boolean;
+  }
+}
+
 export default function NeedsPostpartumSupportInfoStepForm({ handleStepSubmit }: NeedsPostpartumSupportInfoStepFormProps) {
-  const [step, setStep] = useState<string>('seven');
+  const [step] = useState<string>('seven');
   const [needsPostpartumSupportInfo, setNeedsPostpartumSupportInfo] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState } = useOnboarding();
 
-  const {post, data, setData} = useForm<{
-    data: {
-      needsPostpartumSupportInfo: boolean;
-    }
-  }>({
+  const {post, data, setData} = useForm<NeedsPostpartumSupportInfoProps>({
     data: {
       needsPostpartumSupportInfo: false,
     }

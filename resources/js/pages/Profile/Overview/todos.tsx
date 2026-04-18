@@ -1,6 +1,3 @@
-import {usePage} from '@inertiajs/react';
-import {type SharedData} from '@/types';
-
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 
 import TodoItem from '@/components/TodoItem';
@@ -33,13 +30,13 @@ export default function Todos({ todos }: TodosProps) {
                         {todos.length > 0 ? (
                             <>
                                 {todos.map((todo) => (
-                                    <TodoItem 
+                                    <TodoItem
                                         key={todo.id}
                                         id={todo.id}
-                                        title={todo.title} 
-                                        description={todo.description} 
-                                        isCompleted={todo.is_completed} 
-                                        due_date={todo.dueDate} 
+                                        title={todo.title}
+                                        description={todo.description}
+                                        isCompleted={todo.is_completed}
+                                        due_date={todo.dueDate}
                                     />
                                 ))}
                             </>

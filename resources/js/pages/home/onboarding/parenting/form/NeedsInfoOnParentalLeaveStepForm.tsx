@@ -10,8 +10,8 @@ interface NeedsInfoOnParentalLeaveStepFormProps {
 }
 
 export default function NeedsInfoOnParentalLeaveStepForm({ handleStepSubmit }: NeedsInfoOnParentalLeaveStepFormProps) {
-    const [step, setStep] = useState<string>('six');
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [step] = useState<string>('six');
+    const [, setSubmitted] = useState<boolean>(false);
     const [needsInfoOnParentalLeave, setNeedsInfoOnParentalLeave] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

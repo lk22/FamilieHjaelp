@@ -17,19 +17,20 @@ type WantsSupportConversationStepProps = {
   handleStepSubmit: (data: {wantsSupportConversation: boolean}) => void;
 }
 
+type WantsSupperConversationProps = {
+  data: {
+    wantsSupportConversation: boolean;
+  }
+}
+
 export default function WantsSupportConversationStepForm({ handleStepSubmit }: WantsSupportConversationStepProps) {
-  const [step, setStep] = useState<string>('four');
+  const [step] = useState<string>('four');
   const [wantsSupportConversation, setWantsSupportConversation] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { onboardingState } = useOnboarding();
 
-  const {post, data, setData} = useForm<{
-    data: {
-      wantsSupportConversation: boolean;
-    }
-  }>({
+  const {post, data, setData} = useForm<WantsSupperConversationProps>({
     data: {
       wantsSupportConversation: false,
     }

@@ -48,12 +48,6 @@ const StepFormContent = ({ currentStep, scenario }: { currentStep: string; scena
     );
 };
 
-type ScenarioStepsList = {
-    id: string;
-    stepName: string;
-    completed: boolean;
-};
-
 /**
  * Form Display component that renders form fields based on the current step
  * @param currentStep The current step identifier

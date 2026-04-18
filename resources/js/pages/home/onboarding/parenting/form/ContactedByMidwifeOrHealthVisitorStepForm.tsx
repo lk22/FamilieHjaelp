@@ -9,21 +9,24 @@ interface ContactedByMidwifeOrHealthVisitorStepFormProps {
     handleStepSubmit: (data: { contactedByMidwifeOrHealthVisitor: boolean }) => void;
 }
 
+type ContactedByMidwifeOrHealthVisitorProps = {
+    data: {
+        contactedByMidwifeOrHealthVisitor: boolean;
+    }
+}
+
 export default function ContactedByMidwifeOrHealthVisitorStepForm({ handleStepSubmit }: ContactedByMidwifeOrHealthVisitorStepFormProps) {
     const [contactedByMidwifeOrHealthVisitor, setContactedByMidwifeOrHealthVisitor] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [submitted, setSubmitted] = useState<boolean>(false);
-    const [step, setStep] = useState<string>('four');
-    const [nextStep, setNextStep] = useState<string>('');
+    const [, setSubmitted] = useState<boolean>(false);
+    const [step] = useState<string>('four');
 
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
     const currentStep = currentScenario?.steps[3];
     const currentContacted = currentStep?.data.contactedByMidwifeOrHealthVisitor;
 
-    const { post, setData, data } = useForm<{
-        data: { contactedByMidwifeOrHealthVisitor: boolean } }>
-    ({
+    const { post, setData, data } = useForm<ContactedByMidwifeOrHealthVisitorProps>({
         data: { contactedByMidwifeOrHealthVisitor: currentContacted ?? false },
     });
 

@@ -1,8 +1,6 @@
 import InactivityModal from '@/components/Onboarding/Modals/InactivityModal';
 import { OnboardingProvider, useOnboarding } from '@/contexts/OnboardingContext';
-import { router } from '@inertiajs/react';
 import { render, screen, renderHook, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { describe, expect, test } from 'vitest';
 
 describe('Inactivity Modal component', () => {

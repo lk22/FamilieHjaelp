@@ -1,6 +1,5 @@
 import { test, describe, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { OnboardingProvider } from '@/contexts/OnboardingContext'
 import WantsSupportConversationStepForm from '@/pages/home/onboarding/abortion/form/WantsSupportConversationStepForm'
 

@@ -12,9 +12,8 @@ interface IsFirstChildStepFormProps {
 export default function IsFirstChildStepForm({ handleStepSubmit }: IsFirstChildStepFormProps) {
     const [isFirstChild, setIsFirstChild] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [submitted, setSubmitted] = useState<boolean>(false);
-    const [step, setStep] = useState<string>('three');
-    const [nextStep, setNextStep] = useState<string>('');
+    const [, setSubmitted] = useState<boolean>(false);
+    const [step] = useState<string>('three');
 
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);

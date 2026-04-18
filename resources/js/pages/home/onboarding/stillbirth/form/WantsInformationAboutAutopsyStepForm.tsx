@@ -16,13 +16,12 @@ interface FirstStepFormProps {
 }
 
 export default function WantsInformationAboutAutopsyStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [step, setStep] = useState<string>('six');
-  const [nextStep, setNextStep] = useState<string>('');
+  const [step] = useState<string>('six');
   const [wantsInformationAboutAutopsy, setWantsInformationAboutAutopsy] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
+  const { onboardingState } = useOnboarding();
 
   const { post, data, setData } = useForm<{
     data: {

@@ -16,18 +16,19 @@ type KnowsConfidentialityRightsStepFormProps = {
   handleStepSubmit: (data: {knowsConfidentialityRights: boolean}) => void;
 }
 
+type KnowsConfidentialityRightsProps = {
+  data: {
+    knowsConfidentialityRights: boolean;
+  }
+}
+
 export default function KnowsConfidentialityRightsStepForm({ handleStepSubmit }: KnowsConfidentialityRightsStepFormProps) {
-  const [step, setStep] = useState<string>('five');
-  const [nextStep, setNextStep] = useState<string>('');
+  const [step] = useState<string>('five');
   const [knowsConfidentialityRights, setKnowsConfidentialityRights] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const {post, data, setData} = useForm<{
-    data: {
-      knowsConfidentialityRights: boolean;
-    }
-  }>({
+  const {post, data, setData} = useForm<KnowsConfidentialityRightsProps>({
     data: {
       knowsConfidentialityRights: false,
     }

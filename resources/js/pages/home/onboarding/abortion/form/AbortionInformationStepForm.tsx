@@ -1,5 +1,5 @@
 // dependencies
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { router, useForm } from '@inertiajs/react';
 
 // Contexts
@@ -8,9 +8,6 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 // components
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-
-// Utilities
-import { logState } from '@/lib/utils'
 
 type AbortionInformationStepProps = {
     handleStepSubmit: (data: AbortionDataProps) => void;
@@ -30,7 +27,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
     abortionMethod: '',
     hasBeenConsultedByDoctor: false
   });
-  const { post, data, setData, errors, processing, reset, hasErrors } = useForm<{
+  const { post, data, setData, errors, hasErrors } = useForm<{
     data: AbortionDataProps
   }>({
     data: {
@@ -43,7 +40,7 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario } = useOnboarding();
+  const { onboardingState } = useOnboarding();
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[1]; // second step
   const currentAbortionWeeksValue = currentStep?.data.abortionWeeks;
@@ -74,8 +71,6 @@ export default function AbortionInformationStepForm({ handleStepSubmit }: Aborti
       })
     }
   }
-
-  console.log(errors);
 
   /**
    * Handle step submit flow

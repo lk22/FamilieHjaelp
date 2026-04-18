@@ -45,7 +45,7 @@ export default function OnboardingTemplate({
         if (isProcessCompleted) {
             setProcessCompleted(true);
         }
-    }, []);
+    }, [currentScenario]);
 
     // Store context functions in refs so they don't cause re-renders
     const pauseOnboardingRef = useRef(pauseOnboarding);
@@ -76,7 +76,7 @@ export default function OnboardingTemplate({
         }
 
         handleInactivity();
-    }, [handleInactivity]); // This is now stable
+    }, [handleInactivity, resumeOnboarding]); // This is now stable
 
     // Update refs when functions change
     useEffect(() => {

@@ -30,13 +30,13 @@ interface FirstStepFormProps {
 }
 
 export default function InfoStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [step, setStep] = useState<string>('one');
+  const [step] = useState<string>('one');
   const [name, setName] = useState<string>('');
   const [age, setAge] = useState<string>('');
   const [gender, setGender] = useState<string>('');
   const [ageOfPartner, setAgeOfPartner] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
 
   const { post, data, setData } = useForm<StepData>({
     data: {

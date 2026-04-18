@@ -11,11 +11,11 @@ interface HasHealthConcernsStepFormProps {
 }
 
 export default function HasHealthConcernsStepForm({ handleStepSubmit }: HasHealthConcernsStepFormProps) {
-    const [step, setStep] = useState<string>('thirteen');
+    const [step] = useState<string>('thirteen');
     const [hasHealthConcerns, setHasHealthConcerns] = useState<boolean | null>(null);
     const [description, setDescription] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [, setSubmitted] = useState<boolean>(false);
 
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);

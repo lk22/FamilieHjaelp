@@ -5,7 +5,7 @@ interface ScenarioStepProperties {
     description: string;
     completed: boolean;
     data: {
-        [key: string]: any;
+        [key: string]: unknown;
     };
 }
 

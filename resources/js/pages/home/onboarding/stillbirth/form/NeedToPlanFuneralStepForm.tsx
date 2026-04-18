@@ -16,11 +16,10 @@ interface NeedToPlanFuneralStepFormProps {
 }
 
 export default function NeedToPlanFuneralStepForm({ handleStepSubmit }: NeedToPlanFuneralStepFormProps) {
-  const [step, setStep] = useState<string>('four');
-  const [nextStep, setNextStep] = useState<string>('');
+  const [step] = useState<string>('four');
   const [needToPlanFuneral, setNeedToPlanFuneral] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
   const { onboardingState } = useOnboarding();
 
   const { post, data, setData } = useForm<{

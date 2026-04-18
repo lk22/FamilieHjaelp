@@ -10,7 +10,9 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
 type StepData = {
-  informedAboutBereavementLeave: boolean;
+  data: {
+    informedAboutBereavementLeave: boolean;
+  }
 }
 
 interface FirstStepFormProps {
@@ -20,17 +22,12 @@ interface FirstStepFormProps {
 }
 
 export default function InformedAboutBereavementLeaveStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [step, setStep] = useState<string>('nine');
-  const [nextStep, setNextStep] = useState<string>('');
+  const [step] = useState<string>('nine');
   const [informedAboutBereavementLeave, setInformedAboutBereavementLeave] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
 
-  const { post, data, setData } = useForm<{
-    data: {
-      informedAboutBereavementLeave: boolean;
-    }
-  }>({
+  const { post, data, setData } = useForm<StepData>({
     data: {
       informedAboutBereavementLeave: false,
     }

@@ -43,14 +43,6 @@ vi.mock('@radix-ui/react-select', async () => {
 
 configure({ testIdAttribute: 'data-testid' });
 
-
-type MockedUserInformationStepFormProps = {
-  name: string;
-  age: string;
-  ageOfPartner: string;
-  gender: string;
-}
-
 describe('UserInformationStepForm', () => {
     test('renders the form with correct input fields and submit button', () => {
         render(

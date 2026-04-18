@@ -15,20 +15,21 @@ interface FirstStepFormProps {
   }) => void;
 }
 
+type HasOtherChildrenAtHomeStepData = {
+  data: {
+    hasOtherChildrenAtHome: boolean;
+  }
+}
+
 export default function HasOtherChildrenAtHomeStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [step, setStep] = useState<string>('seven');
-  const [nextStep, setNextStep] = useState<string>('');
+  const [step] = useState<string>('seven');
   const [hasOtherChildrenAtHome, setHasOtherChildrenAtHome] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
 
   const { onboardingState} = useOnboarding();
 
-  const { post, data, setData } = useForm<{
-    data: {
-      hasOtherChildrenAtHome: boolean;
-    }
-  }>({
+  const { post, data, setData } = useForm<HasOtherChildrenAtHomeStepData>({
     data: {
       hasOtherChildrenAtHome: false,
     }

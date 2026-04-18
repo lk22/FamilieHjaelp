@@ -17,7 +17,7 @@ type WantsContraceptionInformationProps = {
 }
 
 export default function WantsContraceptionInformationStepForm({ handleStepSubmit }: WantsContraceptionInformationProps) {
-  const [step, setStep] = useState<string>('six');
+  const [step] = useState<string>('six');
   const [wantsContraceptionInfo, setWantsContraceptionInfo] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);

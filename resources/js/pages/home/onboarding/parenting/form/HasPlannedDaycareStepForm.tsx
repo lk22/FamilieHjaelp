@@ -9,10 +9,16 @@ interface HasPlannedDaycareStepFormProps {
     handleStepSubmit: (data: { hasPlannedDaycare: boolean }) => void;
 }
 
+type HasPlannedDaycareProps = {
+    data: {
+        hasPlannedDaycare: boolean;
+    }
+}
+
 export default function HasPlannedDaycareStepForm({ handleStepSubmit }: HasPlannedDaycareStepFormProps) {
-    const [step, setStep] = useState<string>('eleven');
+    const [step] = useState<string>('eleven');
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [, setSubmitted] = useState<boolean>(false);
     const [hasPlannedDaycare, setHasPlannedDaycare] = useState<boolean | null>(null);
 
     const { onboardingState } = useOnboarding();
@@ -20,7 +26,7 @@ export default function HasPlannedDaycareStepForm({ handleStepSubmit }: HasPlann
     const currentStep = currentScenario?.steps[10];
     const currentHasPlanned = currentStep?.data.hasPlannedDaycare;
 
-    const { post, data, setData } = useForm<{ data: { hasPlannedDaycare: boolean } }>({
+    const { post, data, setData } = useForm<HasPlannedDaycareProps>({
         data: { hasPlannedDaycare: currentHasPlanned ?? false },
     });
 

@@ -16,10 +16,10 @@ interface KnowsSupportOptionsStepFormProps {
 }
 
 export default function KnowsSupportOptionsStepForm({ handleStepSubmit }: KnowsSupportOptionsStepFormProps) {
-  const [step, setStep] = useState<string>('nine');
+  const [step] = useState<string>('nine');
   const [knowsSupportOptions, setknowsSupportOptions] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
 
   const { onboardingState } = useOnboarding();
 

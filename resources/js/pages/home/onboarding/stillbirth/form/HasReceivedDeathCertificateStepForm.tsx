@@ -15,23 +15,25 @@ type HasReceivedDeathCertificateStepProps = {
   }) => void;
 }
 
+type HasReceivedDeathCertificateStepData = {
+  data: {
+    hasReceivedDeathCertificate: boolean;
+  }
+};
+
 export default function HasReceivedDeathCertificateStepForm({ handleStepSubmit }: HasReceivedDeathCertificateStepProps) {
-  const [step, setStep] = useState<string>('five');
+  const [step] = useState<string>('five');
   const [hasReceivedDeathCertificate, setHasReceivedDeathCertificate] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
 
-  const { post, data, setData } = useForm<{
-    data: {
-      hasReceivedDeathCertificate: boolean;
-    }
-  }>({
+  const { post, data, setData } = useForm<HasReceivedDeathCertificateStepData>({
     data: {
       hasReceivedDeathCertificate: false,
     }
   });
 
-  const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
+  const { onboardingState } = useOnboarding();
 
   const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
   const currentStep = currentScenario?.steps[0]; // First step (index 0)

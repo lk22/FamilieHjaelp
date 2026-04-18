@@ -11,10 +11,9 @@ interface HasReturnedHomeStepFormProps {
 
 export default function HasReturnedHomeStepForm({ handleStepSubmit }: HasReturnedHomeStepFormProps) {
     const [hasReturnedHome, setHasReturnedHome] = useState<boolean | null>(null);
-    const [step, setStep] = useState<string>('two');
-    const [nextStep, setNextStep] = useState<string>('');
+    const [step] = useState<string>('two');
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [, setSubmitted] = useState<boolean>(false);
 
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);

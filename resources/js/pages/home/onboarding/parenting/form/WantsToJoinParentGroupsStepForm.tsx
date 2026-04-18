@@ -10,8 +10,8 @@ interface WantsToJoinParentGroupsStepFormProps {
 }
 
 export default function WantsToJoinParentGroupsStepForm({ handleStepSubmit }: WantsToJoinParentGroupsStepFormProps) {
-    const [step, setStep] = useState<string>('ten');
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [step] = useState<string>('ten');
+    const [, setSubmitted] = useState<boolean>(false);
     const [wantsToJoin, setWantsToJoin] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

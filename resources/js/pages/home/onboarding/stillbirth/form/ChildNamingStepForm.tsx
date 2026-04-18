@@ -15,26 +15,26 @@ interface FirstStepFormProps {
   }) => void;
 }
 
+type StepData = {
+  data: {
+    placedLocation: string;
+  }
+}
+
 export default function ChildNamigStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [step, setStep] = useState<string>('one');
+  const [step] = useState<string>('one');
   const [placedLocation, setPlacedLocation] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
 
-  const { onboardingState, getCurrentScenario, completeStep } = useOnboarding();
+  const { onboardingState } = useOnboarding();
 
   const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
-
-  // TODO: this needs fix
   const currentStep = currentScenario?.steps[0]; // First step (index 0)
 
   const currentPlacedLocation = currentStep?.data.placedLocation || '';
 
-  const { data, setData, post, processing } = useForm<{
-    data: {
-      placedLocation: string;
-    }
-  }>({
+  const { data, setData, post, processing } = useForm<StepData>({
     data: {
       placedLocation: '',
     }

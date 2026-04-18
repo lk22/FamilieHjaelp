@@ -10,8 +10,8 @@ interface NeedsSupportForPostpartumIssuesStepFormProps {
 }
 
 export default function NeedsSupportForPostpartumIssuesStepForm({ handleStepSubmit }: NeedsSupportForPostpartumIssuesStepFormProps) {
-    const [step, setStep] = useState<string>('nine');
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [step] = useState<string>('nine');
+    const [, setSubmitted] = useState<boolean>(false);
     const [needsSupport, setNeedsSupport] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

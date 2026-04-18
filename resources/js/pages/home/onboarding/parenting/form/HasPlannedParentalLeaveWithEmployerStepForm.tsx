@@ -11,11 +11,11 @@ interface HasPlannedParentalLeaveWithEmployerStepFormProps {
 }
 
 export default function HasPlannedParentalLeaveWithEmployerStepForm({ handleStepSubmit }: HasPlannedParentalLeaveWithEmployerStepFormProps) {
-    const [step, setStep] = useState<string>('twelve');
+    const [step] = useState<string>('twelve');
     const [hasPlanned, setHasPlanned] = useState<boolean | null>(null);
     const [startDate, setStartDate] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [, setSubmitted] = useState<boolean>(false);
 
     const { onboardingState } = useOnboarding();
     const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);

@@ -17,20 +17,21 @@ type NeedsInterpreterStepProps = {
   handleStepSubmit: (data: {needsInterpreter: boolean}) => void;
 }
 
+type NeedsInterpreterProps = {
+  data: {
+    needsInterpreter: boolean;
+  }
+}
+
 export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInterpreterStepProps) {
-  const [step, setStep] = useState<string>('three');
-  const [nextStep, setNextStep] = useState<string>('');
+  const [step] = useState<string>('three');
   const [needsInterpreter, setneedsInterpreter] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const { onboardingState } = useOnboarding();
 
-  const {post, data, setData, errors, processing, reset} = useForm<{
-    data: {
-      needsInterpreter: boolean;
-    }
-  }>({
+  const {post, data, setData, errors} = useForm<NeedsInterpreterProps>({
     data: {
       needsInterpreter: false,
     }
@@ -49,7 +50,7 @@ export default function NeedsInterpreterStepForm({ handleStepSubmit }: NeedsInte
 
       post(route('onboarding.scenario.step.submit', {
         scenario: onboardingState.currentScenario,
-        step: 'three',
+        step: step,
         nextStep: nextStep
       }), {
         onFinish: () => setLoading(false),

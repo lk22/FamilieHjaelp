@@ -11,25 +11,27 @@ import { Checkbox } from "@/components/ui/checkbox";
 import CompletedModal from '@/components/Onboarding/Modals/CompletedModal';
 
 type StepData = {
+  data: {
+    needsHelpApplyingForBereavementLeave: boolean;
+  }
+}
+
+type SubmittedStepData = {
   needsHelpApplyingForBereavementLeave: boolean;
 }
 
 interface FirstStepFormProps {
-  handleStepSubmit: (data: {
-    needsHelpApplyingForBereavementLeave: boolean;
-  }) => void;
+  handleStepSubmit: (data: SubmittedStepData) => void;
 }
 
 export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleStepSubmit }: FirstStepFormProps) {
-  const [step, setStep] = useState<string>('ten');
+  const [step] = useState<string>('ten');
   const [needsHelpApplyingForBereavementLeave, setNeedsHelpApplyingForBereavementLeave] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const { post, data, setData } = useForm<{
-    data: { needsHelpApplyingForBereavementLeave: boolean; }
-  }>({
+  const { post, data, setData } = useForm<StepData>({
     data: { needsHelpApplyingForBereavementLeave: false },
   });
 
@@ -97,10 +99,10 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
                   }}
                   className="mr-2"
                 >
-                  Ja, jeg ønsker information om obduktion
+                  Ja, jeg ønsker hjælp til at ansøge om sorgorlov
                 </Checkbox>
                 <label htmlFor="needsHelpApplyingForBereavementLeave" className="block mt-4 mb-2 font-medium text-gray-700">
-                  Ja, jeg ønsker information om obduktion
+                  Ja, jeg ønsker hjælp til at ansøge om sorgorlov
                 </label>
               </div>
               <div className="flex items-center">
@@ -114,7 +116,7 @@ export default function NeedsHelpApplyingForBereavementLeaveStepForm({ handleSte
                   className="mr-2"
                 />
                 <label htmlFor="needsHelpApplyingForBereavementLeaveNo" className="block mt-4 mb-2 font-medium text-gray-700">
-                  Nej, jeg ønsker ikke information om obduktion
+                  Nej, jeg ønsker ikke hjælp til at ansøge om sorgorlov
                 </label>
               </div>
               <Button

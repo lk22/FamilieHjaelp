@@ -8,11 +8,10 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 // componenets
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// import { Select } from "radix-ui";
+import {Select, SelectItem, SelectValue, SelectContent, SelectTrigger } from '@/components/ui/select';
 
 // Utilities
 import { logState } from '@/lib/utils'
-import {Select, SelectItem, SelectValue, SelectContent, SelectTrigger } from '@/components/ui/select';
 
 type StepData = {
   data: {
@@ -40,7 +39,7 @@ type InformationStepStateProperties = {
 }
 
 export default function UserInformationStepForm({ handleStepSubmit }: UserInformationProps) {
-  const [step, setStep] = useState<string>('one');
+  const [step] = useState<string>('one');
   const [state, setState] = useState<InformationStepStateProperties>({
     name: '',
     age: 0,
@@ -49,7 +48,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   });
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const {post, data, setData, errors, processing, reset} = useForm<StepData>({
+  const {post, data, setData, errors} = useForm<StepData>({
     data: {
       name: '',
       age: 0,
@@ -63,12 +62,11 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
 
   logState('UserInformationStepForm', { onboardingState, currentScenario, data });
-  const currentStep = currentScenario?.steps[0]; // First step (index 0)
+  const currentStep = currentScenario?.steps[0];
 
   const currentName = currentStep?.data.name || '';
   const currentAge = currentStep?.data.age || 0;
   const currentAgeOfPartner = currentStep?.data.ageOfPartner || 0;
-  const currentGender = currentStep?.data.gender || '';
 
   console.log(errors)
 

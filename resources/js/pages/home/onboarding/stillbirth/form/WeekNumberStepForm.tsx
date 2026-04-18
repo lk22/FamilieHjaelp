@@ -20,12 +20,12 @@ type FormStepProps = {
 }
 
 export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) {
-  const [step, setStep] = useState<string>('two');
+  const [step] = useState<string>('two');
   const [weekNumber, setWeekNumber] = useState<string>('');
   const [hasDoctorsPermit, setHasDoctorsPermit] = useState<boolean | null>(true);
   const [hasBeenConsultedByDoctor, setHasBeenConsultedByDoctor] = useState<boolean | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
 
   const { onboardingState} = useOnboarding();
 
@@ -194,7 +194,7 @@ export default function WeekNumberStepForm({ handleStepSubmit }: FormStepProps) 
                         <Checkbox
                           id="has-doctors-permit"
                           name='has-doctors-permit'
-                          checked={!hasDoctorsPermit || !currentHasDoctorsPermitValue === false}
+                          checked={!hasDoctorsPermit || !currentHasDoctorsPermitValue === false}
                           onCheckedChange={(checked) => {
                             setHasDoctorsPermit(!checked);
                             setData('data', { ...data.data, hasDoctorsPermit: !checked });

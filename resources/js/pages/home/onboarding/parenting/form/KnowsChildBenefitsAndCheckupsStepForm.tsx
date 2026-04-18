@@ -10,8 +10,8 @@ interface KnowsChildBenefitsAndCheckupsStepFormProps {
 }
 
 export default function KnowsChildBenefitsAndCheckupsStepForm({ handleStepSubmit }: KnowsChildBenefitsAndCheckupsStepFormProps) {
-    const [step, setStep] = useState<string>('seven');
-    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [step] = useState<string>('seven');
+    const [, setSubmitted] = useState<boolean>(false);
     const [knowsChildBenefitsAndCheckups, setKnowsChildBenefitsAndCheckups] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

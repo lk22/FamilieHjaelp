@@ -19,12 +19,12 @@ interface WantsToNameChildStepFormProps {
 }
 
 export default function WantsToNameChildStepForm({ handleStepSubmit }: WantsToNameChildStepFormProps) {
-  const [step, setStep] = useState<string>('one');
+  const [step] = useState<string>('one');
   const [wantsToNameChild, setWantsToNameChild] = useState<boolean>(true);
   const [wantsToInformChildName, setWantsToInformChildName] = useState<boolean>(true);
   const [childName, setChildName] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setIsLoading] = useState<boolean>(false);
   const { onboardingState } = useOnboarding();
 
   const { post, data, setData } = useForm<{
