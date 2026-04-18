@@ -5,6 +5,7 @@ import StepForm from '@/pages/home/onboarding/stillbirth/form/step-form';
 import { usePage } from '@inertiajs/react';
 import { type SharedData } from '@/types';
 import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext';
+import { type PayloadProps } from '@/types';
 
 interface SessionProps extends SharedData {
     currentStep: string;
@@ -12,8 +13,8 @@ interface SessionProps extends SharedData {
     onboardingSession: {
         token: string | null;
         currentStep: string | null;
-        stepsData: Record<string, unknown>;
-        formData: Record<string, unknown>;
+        stepsData: PayloadProps;
+        formData: PayloadProps;
         completed: boolean;
     }
 }

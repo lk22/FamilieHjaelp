@@ -11,13 +11,15 @@ import { OnboardingProvider, useOnboarding } from '@/contexts/OnboardingContext'
 import GettingStartedDescription from '@/components/Onboarding/GettingStartedDescription';
 import ScenarioItemList from '@/components/Onboarding/ScenarioItemList';
 
+import { type PayloadProps } from '@/types';
+
 interface OnboardingSessionProps {
     onboardingSession: {
         token: string | null;
         currentStep: string | null;
         nextStep: string | null;
-        stepsData: Record<string, any>;
-        formData: Record<string, any>;
+        stepsData: PayloadProps;
+        formData: PayloadProps;
         completed: boolean;
     };
 }
@@ -48,7 +50,7 @@ const GettingStartedContent = ({ onboardingSession }: OnboardingSessionProps) =>
         updateCurrentStep('one');
 
         console.log(currentScenario, currentStep);
-    }, [updateCurrentScenario, updateCurrentStep, onboardingSession.token]);
+    }, [currentScenario, currentStep, updateCurrentScenario, updateCurrentStep]);
 
     console.log(onboardingSession);
 

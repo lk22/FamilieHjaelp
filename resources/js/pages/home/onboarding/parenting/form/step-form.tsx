@@ -15,6 +15,7 @@ import NeedsInfoOnParentalLeaveStepForm from './NeedsInfoOnParentalLeaveStepForm
 import NeedsSupportForPostpartumIssuesStepForm from './NeedsSupportForPostpartumIssuesStepForm';
 import WantsToJoinParentGroupsStepForm from './WantsToJoinParentGroupsStepForm';
 import WellbeingChallengesStepForm from './WellbeingChallengesStepForm';
+import { type PayloadProps } from '@/types';
 
 export default function StepForm({ currentStep, scenario }: { currentStep: string; scenario: string }) {
     return (
@@ -42,7 +43,7 @@ const StepFormContent = ({ currentStep, scenario }: { currentStep: string; scena
 const StepFormFieldsDisplay = ({ currentStep, scenario }: { currentStep: string; scenario: ScenarioProperties }) => {
     const { updateFormData, updateStep, completeStep } = useOnboarding();
 
-    const submitStep = (data: Record<string, any>) => {
+    const submitStep = (data: PayloadProps) => {
         const currentScenario = scenario?.id;
         updateStep(currentStep, data);
         updateFormData(data);

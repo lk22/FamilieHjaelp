@@ -1,5 +1,7 @@
+// Contexts
 import { useOnboarding } from "@/contexts/OnboardingContext";
 
+// Components
 import UserInformationStepForm from "@/pages/home/onboarding/abortion/form/UserInformationStepForm";
 import AbortionInformationStepForm from "./AbortionInformationStepForm";
 import NeedsInterpreterStepForm from "./NeedsInterpreterStepForm";
@@ -82,7 +84,7 @@ const StepFormFieldsDisplay = ({
 }) => {
     const {updateFormData, updateStep, completeStep} = useOnboarding();
 
-    const submitStep = (data: Record<string, any>) => {
+    const submitStep = (data: Record<string, unknown>) => {
         const currentScenario = scenario?.id;
         updateStep(currentStep, data);
         updateFormData(data);

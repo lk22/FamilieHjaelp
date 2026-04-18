@@ -53,3 +53,5 @@ export interface TodoItem {
     completed: boolean;
     due_date?: string;
 }
+
+export type PayloadProps = Record<string, unknown>;

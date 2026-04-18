@@ -12,6 +12,8 @@ import WantsInformationAboutAutopsyStepForm from './WantsInformationAboutAutopsy
 import WantsToNameChildStepForm from './WantsToNameChildStepForm';
 import WeekNumberStepForm from './WeekNumberStepForm';
 
+import { type PayloadProps } from '@/types';
+
 /**
  * StepForm Component
  * Dynamically renders form fields based on the current onboarding step.
@@ -56,7 +58,7 @@ const StepFormContent = ({ currentStep, scenario }: { currentStep: string; scena
 const StepFormFieldsDisplay = ({ currentStep, scenario }: { currentStep: string; scenario: ScenarioProperties }) => {
     const { updateFormData, updateStep, completeStep } = useOnboarding();
 
-    const submitStep = (data: Record<string, any>) => {
+    const submitStep = (data: PayloadProps) => {
         const currentScenario = scenario?.id;
         updateStep(currentStep, data);
         updateFormData(data);

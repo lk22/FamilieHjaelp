@@ -4,6 +4,7 @@ import OnboardingTemplate from '@/pages/home/onboarding/template/onboarding-temp
 import { type SharedData } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
+import { type PayloadProps } from '@/types';
 
 interface SessionProps extends SharedData {
     currentStep: string;
@@ -11,8 +12,8 @@ interface SessionProps extends SharedData {
     onboardingSession: {
         token: string | null;
         currentStep: string | null;
-        stepsData: Record<string, any>;
-        formData: Record<string, any>;
+        stepsData: PayloadProps;
+        formData: PayloadProps;
         completed: boolean;
     };
 }
@@ -41,7 +42,7 @@ const OnboardingStepContent = ({ currentStep, scenario }: OnboardingStepProperti
         if (onboardingState.currentScenario !== scenario) {
             updateCurrentScenario(scenario);
         }
-    }, []);
+    }, [onboardingState.currentScenario, scenario, updateCurrentScenario]);
 
     return (
         <OnboardingTemplate

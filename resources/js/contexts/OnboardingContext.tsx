@@ -15,18 +15,20 @@ import {
     InitialOnboardingState,
 } from '@/state/OnboardingState';
 
+type OnboardingPayload = Record<string, unknown>;
+
 interface OnboardingSession {
-    token: string;
-    currentStep: string;
-    stepsData: Record<string, any>;
-    formData: Record<string, any>;
+    token: string | null;
+    currentStep: string | null;
+    stepsData: OnboardingPayload;
+    formData: OnboardingPayload;
     completed: boolean;
 }
 
 interface OnboardingContextType {
     onboardingState: InitialOnboardingStateInterface & OnboardingSession;
-    updateStep: (step: string, data?: Record<string, any>) => void;
-    updateFormData: (data: Record<string, any>) => void;
+    updateStep: (step: string, data?: OnboardingPayload) => void;
+    updateFormData: (data: OnboardingPayload) => void;
     resetOnboarding: () => void;
     completeOnboarding: () => void;
     updateCurrentScenario: (selectedScenario: string) => void;
@@ -35,15 +37,14 @@ interface OnboardingContextType {
     pauseOnboarding: () => void;
     resumeOnboarding: () => void;
     startOnboarding: () => void;
-    completeStep: (step: string, currentScenarioId: string, data: Record<string, any>) => void;
+    completeStep: (step: string, currentScenarioId: string, data: OnboardingPayload) => void;
     updateCurrentStep: (step: string) => void;
-    getOnboardingProperties: (step: string, prop: string) => string;
 }
 
 interface OnboardingSessionPayload {
     session_token: string;
     current_step: string;
-    steps_data: Record<string, any>;
+    steps_data: OnboardingPayload;
 }
 
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
@@ -63,7 +64,7 @@ export function OnboardingProvider({
     /**
      * Using Inertia to remember onboarding state across page visits
      */
-    const [inertiaState, setInertiaState] = useRemember<InitialOnboardingStateInterface & OnboardingSession>({
+    const [, setInertiaState] = useRemember<InitialOnboardingStateInterface & OnboardingSession>({
         ...InitialOnboardingState,
         ...initialSession,
     }, sharedStateName);
@@ -85,10 +86,8 @@ export function OnboardingProvider({
     const onboardingState = localStorageState;
 
     useEffect(() => {
-        if (JSON.stringify(localStorageState) !== JSON.stringify(inertiaState)) {
-            setInertiaState(localStorageState);
-        }
-    }, [onboardingState, localStorageState, inertiaState, setInertiaState])
+        setInertiaState(localStorageState);
+    }, [localStorageState, setInertiaState]);
 
     /**
      * Updating onboarding state callback
@@ -108,7 +107,7 @@ export function OnboardingProvider({
      * @param currentScenarioId The current scenario identifier
      * @param data Optional data to associate with the completed step
      */
-    const completeStep = useCallback((step: string, currentScenarioId: string, data: Record<string, any>) => {
+    const completeStep = useCallback((step: string, currentScenarioId: string, data: OnboardingPayload) => {
         console.log("Completing step:", step, "in scenario:", currentScenarioId, "with data:", data);
 
         updateOnboardingState((prevState) => {
@@ -133,14 +132,14 @@ export function OnboardingProvider({
                 scenarios: updatedScenarios,
             };
         });
-    }, []);
+    }, [updateOnboardingState]);
 
     /**
      * Updates the current step and optionally merges new data into the steps data
      * @param step The current step to update to
      * @param data Optional data to merge into the steps data
      */
-    const updateStep = useCallback((step: string, data?: Record<string, any>) => {
+    const updateStep = useCallback((step: string, data?: OnboardingPayload) => {
         const payload: OnboardingSessionPayload = {
             session_token: onboardingState.token,
             current_step: step,
@@ -155,7 +154,7 @@ export function OnboardingProvider({
             currentStep: step,
             stepsData: payload.steps_data,
         }))
-    }, [updateOnboardingState, onboardingState.stepsData]);
+    }, [updateOnboardingState, onboardingState.stepsData, onboardingState.token]);
 
     /**
      * Updating the current step in the onboarding state
@@ -174,7 +173,7 @@ export function OnboardingProvider({
      *
      * @param data Data to merge into the existing form data
      */
-    const updateFormData = useCallback((data: Record<string, any>) => {
+    const updateFormData = useCallback((data: OnboardingPayload) => {
         updateOnboardingState((prevState) => ({
             ...prevState,
             formData: {
@@ -206,7 +205,7 @@ export function OnboardingProvider({
             ...prevState,
             progress: 'in_progress'
         }));
-    }, [])
+    }, [updateOnboardingState])
 
     /**
      * Starts the onboarding process by updating the progress state
@@ -218,7 +217,7 @@ export function OnboardingProvider({
             ...prevState,
             progress: 'in_progress'
         }));
-    }, [])
+    }, [updateOnboardingState])
 
     /**
      * Marks the onboarding process state as completed
@@ -230,7 +229,7 @@ export function OnboardingProvider({
             ...prevState,
             completed: true
         }))
-    }, []);
+    }, [updateOnboardingState]);
 
     /**
      * updating the current scenario in the onboarding state
@@ -245,7 +244,7 @@ export function OnboardingProvider({
             ...prevState,
             currentScenario: selectedScenario
         }))
-    }, [])
+    }, [updateOnboardingState]);
 
     /**
      * Getter for current step
@@ -263,15 +262,10 @@ export function OnboardingProvider({
         return onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
     }, [onboardingState.scenarios, onboardingState.currentScenario]);
 
-    // TODO: needs to return a given prop from the state
-    const getOnboardingProperties = (step: string, prop: string) => {
-        return prop;
-    }
-
     /**
      * Resets the onboarding state to the initial session provided
      */
-    const resetOnboarding = () => {
+    const resetOnboarding = useCallback(() => {
         updateOnboardingState((prevState) => ({
             ...prevState,
             completed: false,
@@ -283,8 +277,9 @@ export function OnboardingProvider({
                 })),
             })),
             currentStep: 'welcome',
+            token: null,
         }));
-    };
+    }, [updateOnboardingState]);
 
     const contextValue = useMemo(() => ({
         updateCurrentScenario,
@@ -300,7 +295,6 @@ export function OnboardingProvider({
         completeStep,
         updateCurrentStep,
         onboardingState,
-        getOnboardingProperties
     }), [
         updateCurrentScenario,
         getCurrentStep,
@@ -315,7 +309,6 @@ export function OnboardingProvider({
         completeStep,
         updateCurrentStep,
         onboardingState,
-        getOnboardingProperties
     ]);
 
     return (

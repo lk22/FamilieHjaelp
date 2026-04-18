@@ -3,14 +3,14 @@ import { useOnboarding, OnboardingProvider } from '@/contexts/OnboardingContext'
 import { router } from '@inertiajs/react';
 import { getConfirmationFormattedValue } from '@/lib/utils';
 import ResetModal from '@/components/Onboarding/Modals/ResetModal';
-
+import { type PayloadProps } from '@/types';
 
 interface OnboardingSessionProps {
   onboardingSession: {
     token: string | null;
     currentStep: string | null;
-    stepsData: Record<string, any>;
-    formData: Record<string, any>;
+    stepsData: PayloadProps;
+    formData: PayloadProps;
     completed: boolean;
   }
 }
@@ -50,8 +50,8 @@ const ConfirmationContent = ({ onboardingSession }: OnboardingSessionProps) => {
       (scenario) => scenario.id === onboardingState.currentScenario
     );
 
-    const step = scenario?.steps.find((step: any) => step.stepName === stepId);
-    const data = step?.data;
+    const step = scenario?.steps.find((step: string | unknown) => (step as { stepName: string }).stepName === stepId);
+    const data = (step as { data: PayloadProps })?.data;
     const hasData = data && Object.keys(data).length > 0;
 
     // if the step is not existing in the state dont render the data
@@ -119,9 +119,9 @@ const ConfirmationContent = ({ onboardingSession }: OnboardingSessionProps) => {
                {
                   onboardingState.scenarios.find(
                     (scenario) => scenario.id === onboardingState.currentScenario
-                  )?.steps.map((step: any) => (
-                    <div key={step.stepName} className="bg-white p-4 border-b border-gray-200">
-                      {getStepDetails(step.stepName)}
+                  )?.steps.map((step: string | unknown) => (
+                    <div key={(step as { stepName: string }).stepName} className="bg-white p-4 border-b border-gray-200">
+                      {getStepDetails((step as { stepName: string }).stepName)}
                     </div>
                   ))
                }
