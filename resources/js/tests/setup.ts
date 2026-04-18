@@ -29,8 +29,8 @@ vi.mock('@inertiajs/react', () => ({
   }),
   useForm: <T,>(initialData: T) => {
     const [data, setData] = React.useState<T>(initialData);
-    const [errors, setErrors] = React.useState<Record<string, string>>({});
-    const [processing, setProcessing] = React.useState<boolean>(false);
+    const [errors] = React.useState<Record<string, string>>({});
+    const [processing] = React.useState<boolean>(false);
 
     return {
       data,

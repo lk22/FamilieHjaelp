@@ -52,13 +52,6 @@ type MockedUserInformationStepFormProps = {
 }
 
 describe('UserInformationStepForm', () => {
-    const mockProps: MockedUserInformationStepFormProps = {
-        name: 'Test Name',
-        age: '30',
-        ageOfPartner: '32',
-        gender: 'female'
-    }
-
     test('renders the form with correct input fields and submit button', () => {
         render(
             <OnboardingProvider>
@@ -92,7 +85,6 @@ describe('UserInformationStepForm', () => {
         );
 
         const genderSelect = screen.getByTestId('select-root');
-        const maleOption = screen.getByRole('option', { name: /Mand/i });
 
         await user.click(genderSelect);
         await user.selectOptions(genderSelect, 'male');

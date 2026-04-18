@@ -5,7 +5,7 @@ import { router } from '@inertiajs/react';
 import ResetModal from './Modals/ResetModal';
 
 export default function OnboardingHeader() {
-    const {resetOnboarding, onboardingState} = useOnboarding();
+    const {resetOnboarding} = useOnboarding();
     const [isResetModalOpen, setIsResetModalOpen] = useState(false);
 
     const handleStateReset = (e: React.MouseEvent) => {

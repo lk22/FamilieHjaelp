@@ -14,7 +14,7 @@ describe('Inactivity Modal component', () => {
       wrapper: OnboardingProvider
     })
 
-    const {onboardingState, pauseOnboarding} = result.current;
+    const {onboardingState} = result.current;
 
 
     act(() => {
