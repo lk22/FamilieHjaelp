@@ -143,14 +143,14 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                     Hvad er dit køn ?
                   </label>
 
-                  <Select.Root onValueChange={(value) => {
+                  <Select.Root defaultValue='female' onValueChange={(value) => {
                     setState({...state, gender: value})
                     setData('data', {
                       ...data.data, gender: value
                     })
                   }}>
                     <Select.Trigger className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded">
-                      <Select.Value placeholder={`${currentGender ?? 'Vælg køn'}`} />
+                      <Select.Value placeholder={`${'Kvinde'}`} />
                     </Select.Trigger>
                     <Select.Content className="bg-white border border-gray-300 rounded mt-1 w-full">
                       <SelectItem value="female" className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full">
