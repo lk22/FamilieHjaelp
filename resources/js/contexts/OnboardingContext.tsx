@@ -88,7 +88,7 @@ export function OnboardingProvider({
         if (JSON.stringify(localStorageState) !== JSON.stringify(inertiaState)) {
             setInertiaState(localStorageState);
         }
-    }, [onboardingState, localStorageState, inertiaState])
+    }, [onboardingState, localStorageState, inertiaState, setInertiaState])
 
     /**
      * Updating onboarding state callback
@@ -155,7 +155,7 @@ export function OnboardingProvider({
             currentStep: step,
             stepsData: payload.steps_data,
         }))
-    }, []);
+    }, [updateOnboardingState, onboardingState.stepsData]);
 
     /**
      * Updating the current step in the onboarding state
@@ -167,7 +167,7 @@ export function OnboardingProvider({
             ...prevState,
             currentStep: step,
         }))
-    }, []);
+    }, [updateOnboardingState]);
 
     /**
      * Merges new data into the existing form data
@@ -182,7 +182,7 @@ export function OnboardingProvider({
                 ...data
             }
         }))
-    }, []);
+    }, [updateOnboardingState]);
 
     /**
      * Pauses the onboarding process by updating the progress state
@@ -194,7 +194,7 @@ export function OnboardingProvider({
             ...prevState,
             progress: 'paused'
         }));
-    }, [])
+    }, [updateOnboardingState]);
 
     /**
      * Resumes the onboarding process by updating the progress state
