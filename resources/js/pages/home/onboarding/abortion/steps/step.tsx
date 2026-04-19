@@ -62,8 +62,9 @@ const OnboardingStepContent = ({
     const stepData = scenarioData?.steps.find((s) => s.stepName === currentStep);
 
     useEffect(() => {
-        console.log('OnboardingStepContent mounted or scenario changed:', {currentScenario: onboardingState.currentScenario, scenario});
-        updateCurrentScenario(scenario);
+        if (onboardingState.currentScenario !== scenario) {
+            updateCurrentScenario(scenario);
+        }
     }, [onboardingState.currentScenario, scenario, updateCurrentScenario]);
 
     return (

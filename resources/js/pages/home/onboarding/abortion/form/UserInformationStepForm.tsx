@@ -60,10 +60,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   const { onboardingState } = useOnboarding();
 
   const currentScenario = onboardingState.scenarios.find((scenario) => scenario.id === onboardingState.currentScenario);
-
-  logState('UserInformationStepForm', { onboardingState, currentScenario, data });
   const currentStep = currentScenario?.steps[0];
-
   const currentName = currentStep?.data.name || '';
   const currentAge = currentStep?.data.age || 0;
   const currentAgeOfPartner = currentStep?.data.ageOfPartner || 0;
@@ -145,7 +142,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                     Hvad er dit køn ?
                   </label>
 
-                  <Select onValueChange={(value) => {
+                  <Select defaultValue={state.gender || currentStep?.data.gender || 'female'} onValueChange={(value) => {
                     setState({...state, gender: value})
                     setData('data', {
                       ...data.data, gender: value
@@ -155,7 +152,7 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                        className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded"
                       id="gender"
                     >
-                      <SelectValue placeholder={`${'Kvinde'}`} />
+                      <SelectValue placeholder={`${state.gender === 'female' ? 'Kvinde' : state.gender === 'male' ? 'Mand' : 'Andet'}`} />
                     </SelectTrigger>
                     <SelectContent className="bg-white border border-gray-300 rounded mt-1 w-full">
                       <SelectItem value="female" className="px-4 py-2 hover:bg-gray-100 cursor-pointer w-full">
