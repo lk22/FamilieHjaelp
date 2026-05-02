@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\OnboardingSession;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,11 +49,18 @@ class RegisteredUserController extends Controller
             'is_verified' => false
         ];
 
-        if ( $request->onboarding_completed ) {
-            $registeredUserData['has_completed_onboarding'] = true;
-        }
 
         $user = User::create($registeredUserData);
+
+        if ( $request->onboarding_completed ) {
+            $onboardingSession = OnboardingSession::findByToken($request->cookie('onboarding_session_token'));
+            if ($onboardingSession) {
+                $registeredUserData['has_completed_onboarding'] = true;
+                $onboardingSession->update([
+                    'user_id' => $user->id
+                ]);
+            }
+        }
 
         event(new Registered($user));
 
