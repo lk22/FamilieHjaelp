@@ -47,7 +47,7 @@ class RegisteredUserController extends Controller
             'has_completed_onboarding' => false,
             'is_verified' => false
         ];
-        
+
         if ( $request->onboarding_completed ) {
             $registeredUserData['has_completed_onboarding'] = true;
         }

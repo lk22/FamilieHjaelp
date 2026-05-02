@@ -67,7 +67,7 @@ type ScenarioStepsList = {
 type Scenario = {
     id: string;
     name: string;
-    steps: Array<ScenarioStepsList>;
+    steps: ScenarioStepsList[];
 }
 
 /**

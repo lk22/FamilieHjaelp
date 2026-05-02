@@ -142,12 +142,14 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
                     Hvad er dit køn ?
                   </label>
 
-                  <Select defaultValue={state.gender || currentStep?.data.gender || 'female'} onValueChange={(value) => {
-                    setState({...state, gender: value})
-                    setData('data', {
-                      ...data.data, gender: value
-                    })
-                  }}>
+                  <Select defaultValue={state.gender || currentStep?.data.gender || 'female'} onValueChange={
+                    (value) => {
+                      setState({...state, gender: value})
+                      setData('data', {
+                        ...data.data, gender: value
+                      })
+                    }
+                  }>
                     <SelectTrigger
                        className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded"
                       id="gender"
