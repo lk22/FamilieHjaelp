@@ -49,16 +49,13 @@ class RegisteredUserController extends Controller
             'is_verified' => false
         ];
 
-
         $user = User::create($registeredUserData);
 
         if ( $request->onboarding_completed ) {
             $onboardingSession = OnboardingSession::findByToken($request->cookie('onboarding_session_token'));
             if ($onboardingSession) {
-                $registeredUserData['has_completed_onboarding'] = true;
-                $onboardingSession->update([
-                    'user_id' => $user->id
-                ]);
+                $user->update(['has_completed_onboarding' => true]);
+                $onboardingSession->linkToUser($user->id);
             }
         }
 

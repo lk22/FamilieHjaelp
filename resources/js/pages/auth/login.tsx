@@ -77,7 +77,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
                             placeholder="email@example.com"
-                            className="text-white focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100"
+                            className="text-blue-900 focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100"
                         />
                         <InputError message={errors.email} />
                     </div>
@@ -100,7 +100,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
                             placeholder="Password"
-                            className="text-white focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100"
+                            className="text-blue-900 focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100"
                         />
                         <InputError message={errors.password} />
                     </div>
@@ -113,7 +113,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             onClick={() => setData('remember', !data.remember)}
                             tabIndex={3}
                         />
-                        <Label className="text-white" htmlFor="remember">Husk mig</Label>
+                        <Label className="text-blue-900" htmlFor="remember">Husk mig</Label>
                     </div>
 
                     <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
@@ -124,7 +124,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
                 <div className="text-center text-sm text-muted-foreground">
                     <span>Har du ikke en konto? </span>
-                    <TextLink href={route('register')} className="text-white font-bold" tabIndex={5}>
+                    <TextLink href={route('register')} className="text-blue-900 font-bold" tabIndex={5}>
                         Opret konto
                     </TextLink>
                 </div>
