@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Support\Str;
 use App\Models\User;
@@ -11,6 +12,9 @@ use App\Models\User;
 
 class OnboardingSession extends Model
 {
+
+    use HasFactory;
+
     protected $fillable = [
         'session_token',
         'user_id',

@@ -28,12 +28,9 @@ const OnboardingCompletedContent = () => {
     const { onboardingState } = useOnboarding();
 
     const currentScenario = onboardingState.scenarios.find(scenario => scenario.id === onboardingState.currentScenario);
-    console.log('Current Scenario:', currentScenario);
     const currentName = currentScenario?.steps[0]?.data?.name || 'Familiehjælp';
-
     const name = currentName || 'Familiehjælp';
 
-    console.log('Onboarding State:', onboardingState);
     const [ response, setResponse ] = useState<LoadingProgressResponse>({
         message: '',
         status: ''
