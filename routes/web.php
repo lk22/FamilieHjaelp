@@ -5,16 +5,20 @@ use Inertia\Inertia;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ProfileOverviewController;
 use App\Http\Controllers\CompleteOnboardingController;
 use App\Http\Controllers\ProfileTodoController;
 use App\Http\Controllers\ProfileNoteController;
 
-Route::get('/', [PageController::class, 'home'])
-->name('home');
+// home page routes
+// TODO: building seperate controller for home page routes and move this there
 
-// Route::get('/getting-started', [PageController::class, 'gettingStarted'])->name('getting-started')->middleware(['guest']);
+Route::get('/', [PageController::class, 'home'])->name('home');
+
+Route::get('/app', [AppController::class, 'home'])
+->name('app.home');
 
 /**
  * Onboarding routes
