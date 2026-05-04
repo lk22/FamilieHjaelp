@@ -10,9 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {Select, SelectItem, SelectValue, SelectContent, SelectTrigger } from '@/components/ui/select';
 
-// Utilities
-import { logState } from '@/lib/utils'
-
 type StepData = {
   data: {
     name: string;
@@ -65,8 +62,6 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
   const currentAge = currentStep?.data.age || 0;
   const currentAgeOfPartner = currentStep?.data.ageOfPartner || 0;
 
-  console.log(errors)
-
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
@@ -103,9 +98,6 @@ export default function UserInformationStepForm({ handleStepSubmit }: UserInform
       return;
     }
   };
-
-  console.log(data.data)
-  console.log(state.gender)
 
   return (
     <>
