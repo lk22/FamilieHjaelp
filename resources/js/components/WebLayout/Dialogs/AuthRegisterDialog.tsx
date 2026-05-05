@@ -9,94 +9,176 @@
  */
 
 // Dependency imports
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Dialog } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 
 // Component imports
 import Logo from '@/components/WebLayout/Logo';
 
+type AuthenticationStep = 'login' | 'register';
+
 export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { data, setData, post, errors } = useForm({
+  const [ step, setStep ] = useState<AuthenticationStep>('login'); // 'login' or 'register'
+
+  const [, setIsSubmitting ] = useState(false);
+
+  console.log('AuthRegisterDialog rendered with step:', step);
+
+  const loginForm = useForm({
+    email: '',
+    password: '',
+  })
+
+  const registerForm = useForm({
     name: '',
     email: '',
     password: '',
     password_confirmation: '',
-  });
+  })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useMemo(() => setStep('login'), []);
+
+  const handleRegisterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    post(route('register'), {
-      onFinish: () => setIsSubmitting(false),
+    registerForm.post(route('register'), {
+      onFinish: () => {
+        setIsSubmitting(false);
+        registerForm.reset('password', 'password_confirmation')
+      }
     });
   };
 
+  const handleAuthenticationSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    loginForm.post(route('login'), {
+      onFinish: () => {
+        setIsSubmitting(false);
+        loginForm.reset('password');
+      }
+    });
+  }
+
   return (
-    <Dialog open={isOpen} onClose={onClose} className="fixed z-10 inset-0 overflow-y-auto">
+    <Dialog open={isOpen} onClose={onClose} className="fixed z-10 inset-0 overflow-y-auto animate animate-appear">
       <div className="flex items-center justify-center min-h-screen">
         <div id="overlay"
           className="fixed inset-0 bg-blue-200 opacity-50 transition-opacity"
           onClick={onClose}
         >
         </div>
-        <div className="bg-blue-50 rounded-lg p-8 z-20 w-full max-w-xl mx-auto">
+        <div className="bg-white rounded-lg p-8 z-20 w-full max-w-xl mx-auto">
           <Logo />
-          <Dialog.Title className="text-xl font-bold mb-4">Create an Account</Dialog.Title>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
-              <input
-                type="text"
-                id="name"
-                value={data.name}
-                onChange={(e) => setData('name', e.target.value)}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-              <input
-                type="email"
-                id="email"
-                value={data.email}
-                onChange={(e) => setData('email', e.target.value)}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-            </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={data.password}
-                onChange={(e) => setData('password', e.target.value)}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
-            </div>
-            <div>
-              <label htmlFor="password_confirmation" className="block text-sm font-medium text-gray-700">Confirm Password</label>
-              <input
-                type="password"
-                id="password_confirmation"
-                value={data.password_confirmation}
-                onChange={(e) => setData('password_confirmation', e.target.value)}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-              {errors.password_confirmation && <p className="text-red-500 text-sm mt-1">{errors.password_confirmation}</p>}
-            </div>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-            >
-              {isSubmitting ? 'Creating Account...' : 'Create Account'}
-            </button>
-          </form>
+          <Dialog.Title className="text-2xl font-bold mb-4">
+            {step === 'login' ? 'Log ind på din konto' : 'Opret en ny konto'}
+          </Dialog.Title>
+          {step === 'login' ? (
+            <>
+              <p className="text-sm text-gray-500 mb-4">Indtast dine loginoplysninger for at fortsætte.</p>
+              <form onSubmit={handleAuthenticationSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={loginForm.data.email}
+                    onChange={(e) => loginForm.setData('email', e.target.value)}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                  {loginForm.errors.email && <p className="text-red-500 text-sm mt-1">{loginForm.errors.email}</p>}
+                </div>
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">Adgangskode</label>
+                  <input
+                    type="password"
+                    id="password"
+                    value={loginForm.data.password}
+                    onChange={(e) => loginForm.setData('password', e.target.value)}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                  {loginForm.errors.password && <p className="text-red-500 text-sm mt-1">{loginForm.errors.password}</p>}
+                </div>
+                <button
+                  type="submit"
+                  disabled={loginForm.processing}
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                >
+                  {loginForm.processing ? 'Logger ind...' : 'Log ind'}
+                </button>
+              </form>
+              <p className="text-sm text-gray-500 mt-4">
+                Har du ikke en konto?{' '}
+                <button onClick={() => setStep('register')} className="text-indigo-600 hover:text-indigo-700 font-medium">
+                  Opret en ny konto
+                </button>
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-sm text-gray-500 mb-4">Udfyld formularen for at oprette en ny konto.</p>
+              <form onSubmit={handleRegisterSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">Navn</label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={registerForm.data.name}
+                    onChange={(e) => registerForm.setData('name', e.target.value)}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                  {registerForm.errors.name && <p className="text-red-500 text-sm mt-1">{registerForm.errors.name}</p>}
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={registerForm.data.email}
+                    onChange={(e) => registerForm.setData('email', e.target.value)}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                  {registerForm.errors.email && <p className="text-red-500 text-sm mt-1">{registerForm.errors.email}</p>}
+                </div>
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">Adgangskode</label>
+                  <input
+                    type="password"
+                    id="password"
+                    value={registerForm.data.password}
+                    onChange={(e) => registerForm.setData('password', e.target.value)}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                  {registerForm.errors.password && <p className="text-red-500 text-sm mt-1">{registerForm.errors.password}</p>}
+                </div>
+                <div>
+                  <label htmlFor="password_confirmation" className="block text-sm font-medium text-gray-700">Bekræft adgangskode</label>
+                  <input
+                    type="password"
+                    id="password_confirmation"
+                    value={registerForm.data.password_confirmation}
+                    onChange={(e) => registerForm.setData('password_confirmation', e.target.value)}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                  {registerForm.errors.password_confirmation && <p className="text-red-500 text-sm mt-1">{registerForm.errors.password_confirmation}</p>}
+                </div>
+                <button
+                  type="submit"
+                  disabled={registerForm.processing}
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                >
+                  {registerForm.processing ? 'Opretter bruger...' : 'Opret bruger'}
+                </button>
+                <p>
+                  Har du allerede en konto?{' '}
+                  <button onClick={() => setStep('login')} className="text-indigo-600 hover:text-indigo-700 font-medium">
+                    Log ind på din konto
+                  </button>
+                </p>
+              </form>
+            </>
+          )}
         </div>
       </div>
     </Dialog>

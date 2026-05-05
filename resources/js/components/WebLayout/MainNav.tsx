@@ -10,9 +10,7 @@ export default function MainNav() {
   useEffect(() => {
     // detect viewport width and close the auth dialog if it's open and the viewport is resized to a larger size
     const handleResize = () => {
-      if (window.innerWidth >= 768 && isAuthDialogOpen) {
-        setIsAuthDialogOpen(false);
-      } else if (window.innerWidth < 768) {
+      if (window.innerWidth < 768) {
         setIsMobileNav(true);
       } else {
         setIsMobileNav(false);
@@ -32,7 +30,7 @@ export default function MainNav() {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('click', handleClickOutsite);
     };
-  }, []);
+  }, [window.innerWidth]);
 
   const openAuthDialog = () => {
     setIsAuthDialogOpen(true);
