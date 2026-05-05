@@ -7,13 +7,18 @@ use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
 
-use App\Models\OnboardingSession;
-
 use App\Http\Requests\CompleteOnboardingRequest;
 use App\Http\Requests\SubmitStepRequest;
 
+use App\Services\OnboardingSessionService;
+
 class OnboardingController extends Controller
 {
+
+    public function __construct(
+        protected OnboardingSessionService $onboardingSessionService
+    ) {}
+
     /**
      * Render getting started view and handle onboarding session.
      *
@@ -28,7 +33,7 @@ class OnboardingController extends Controller
         $token = $request->session()->get('onboarding_session_token')
             ?? $request->cookie('onboarding_session_token');
 
-        $session = OnboardingSession::findOrCreateSession($userId, $token);
+        $session = $this->onboardingSessionService->findOrCreateSession($userId, $token);
 
         // Keep token available immediately server-side in the current request lifecycle.
         $request->session()->put('onboarding_session_token', $session->session_token);
@@ -64,13 +69,13 @@ class OnboardingController extends Controller
         }
 
         // step 2: update the onboarding session with the submitted data (to be implemented)
-        $existingSession = OnboardingSession::findByToken($request->cookie('onboarding_session_token'));
+        $existingSession = $this->onboardingSessionService->findOrCreateSession($request->user()?->id, $request->cookie('onboarding_session_token'));
 
         if (! $existingSession) {
             return response()->json(['message' => 'Onboarding session not found. Please start the onboarding process again.'], 404);
         }
 
-        $existingSession->update([
+        $this->onboardingSessionService->updateSession($existingSession, [
             "scenario" => $scenario,
             "current_step" => $step,
             "steps_data" => array_merge($existingSession->steps_data, [
@@ -80,7 +85,7 @@ class OnboardingController extends Controller
         ]);
 
         if ( $step === 'complete' ) {
-            $existingSession->markAsCompleted();
+            $this->onboardingSessionService->markSessionAsCompleted($existingSession);
         }
 
         // return a redirect response to the next step or a success message (to be implemented)
@@ -114,8 +119,6 @@ class OnboardingController extends Controller
             abort(404, 'Scenario not found.');
         }
 
-        $userId = $request->user()?->id;
-
         $token = $request->session()->get('onboarding_session_token')
             ?? $request->cookie('onboarding_session_token');
 
@@ -124,7 +127,7 @@ class OnboardingController extends Controller
                 ->with('error', 'Onboarding session token mangler.');
         }
 
-        $session = OnboardingSession::findByToken($token);
+        $session = $this->onboardingSessionService->findByToken($token);
 
         if (! $session ) {
             abort(404, 'Onboarding session not found. Please start the onboarding process again.');
@@ -157,7 +160,7 @@ class OnboardingController extends Controller
             abort(400, 'Onboarding session token is missing.');
         }
 
-        $session = OnboardingSession::findByToken($token);
+        $session = $this->onboardingSessionService->findByToken($token);
 
         return inertia("home/onboarding/confirmation", [
             'onboardingSession' => [
@@ -188,13 +191,13 @@ class OnboardingController extends Controller
         ]);
 
         $userId = $request->user()?->id;
-        $session = OnboardingSession::findWhen($userId, $validated['data']['session_token']);
+        $session = $this->onboardingSessionService->findByToken($validated['data']['session_token']);
 
         if (! $session) {
             abort(404, 'Onboarding session not found.');
         }
 
-        $session->markAsCompleted();
+        $this->onboardingSessionService->markSessionAsCompleted($session);
 
         return redirect()->route('onboarding.completed.view')->with('success', 'Onboarding completed successfully!');
     }
@@ -209,11 +212,13 @@ class OnboardingController extends Controller
         $userId = request()->user()?->id;
         $sessionToken = request()->cookie('onboarding_session_token');
 
-        $session = OnboardingSession::findWhen($userId, $sessionToken);
+        $session = $this->onboardingSessionService->findByToken($sessionToken);
 
-        if ($session) {
-            $session->delete();
+        if ( ! $session ) {
+            return redirect()->route('getting-started')->with('error', 'No active onboarding session found to reset.');
         }
+
+        $this->onboardingSessionService->remove($session);
 
         cookie()->queue(cookie()->forget('onboarding_session_token'));
 
