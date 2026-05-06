@@ -29,7 +29,6 @@ class OnboardingController extends Controller
     {
         $userId = $request->user()?->id;
 
-        // Read session token first, then fall back to persisted browser cookie.
         $token = $request->session()->get('onboarding_session_token')
             ?? $request->cookie('onboarding_session_token');
 
@@ -94,16 +93,6 @@ class OnboardingController extends Controller
     }
 
     /**
-     * Update the current onboarding step data.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function updateStep(Request $request, string $scenario, string $step) {
-        return response()->json(['error' => 'Not implemented'], 501);
-    }
-
-    /**
      * Show a specific onboarding step.
      *
      * @param Request $request
@@ -155,12 +144,11 @@ class OnboardingController extends Controller
     public function showConfirmation(Request $request): Response
     {
         $token = $request->cookie('onboarding_session_token');
+        $session = $this->onboardingSessionService->findByToken($token);
 
         if( is_null($token) ) {
             abort(400, 'Onboarding session token is missing.');
         }
-
-        $session = $this->onboardingSessionService->findByToken($token);
 
         return inertia("home/onboarding/confirmation", [
             'onboardingSession' => [
@@ -190,7 +178,6 @@ class OnboardingController extends Controller
             'data.session_token' => 'required|string',
         ]);
 
-        $userId = $request->user()?->id;
         $session = $this->onboardingSessionService->findByToken($validated['data']['session_token']);
 
         if (! $session) {
@@ -209,7 +196,6 @@ class OnboardingController extends Controller
      */
     public function reset(): RedirectResponse
     {
-        $userId = request()->user()?->id;
         $sessionToken = request()->cookie('onboarding_session_token');
 
         $session = $this->onboardingSessionService->findByToken($sessionToken);

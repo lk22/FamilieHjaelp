@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\OnboardingSession;
+use App\Models\User;
 use Illuminate\Support\Str;
 
 class OnboardingSessionService {
@@ -64,12 +65,12 @@ class OnboardingSessionService {
      * Linking session to specific user
      *
      * @param OnboardingSession $session
-     * @param int $userId
+     * @param User $user
      * @return OnboardingSession
      */
-    public function linkSessionToUser(OnboardingSession $session, int $userId): OnboardingSession
+    public function linkSessionToUser(OnboardingSession $session, User $user): OnboardingSession
     {
-        $session->update(['user_id' => $userId]);
+        $session->update(['user_id' => $user->id]);
         return $session;
     }
 
@@ -85,6 +86,11 @@ class OnboardingSessionService {
         return $session;
     }
 
+    /**
+     * Generating custom token for new session tokens
+     *
+     * @return string
+     */
     public function generateToken(): string
     {
       return Str::uuid()->toString();
@@ -96,7 +102,7 @@ class OnboardingSessionService {
      * @param OnboardingSession $session
      * @return void
      */
-    public function deleteSession(OnboardingSession $session): void
+    public function remove(OnboardingSession $session): void
     {
         $existingSession = OnboardingSession::find($session->id);
         if ($existingSession) {
