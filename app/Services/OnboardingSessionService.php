@@ -82,7 +82,11 @@ class OnboardingSessionService {
      */
     public function markSessionAsCompleted(OnboardingSession $session): OnboardingSession
     {
-        $session->update(['completed' => true]);
+        $session->current_step = 'complete';
+        $session->completed = true;
+        $session->completed_at = now();
+        $session->next_step = null;
+        $session->save();
         return $session;
     }
 
