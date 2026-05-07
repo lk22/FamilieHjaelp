@@ -13,10 +13,20 @@ import { useState, useMemo } from 'react';
 import { Dialog } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 
+import {
+  type RegisterFormDataProps,
+  type LoginFormDataProps
+} from '@/types';
+
 // Component imports
 import Logo from '@/components/WebLayout/Logo';
 
 type AuthenticationStep = 'login' | 'register';
+
+interface AuthRegisterDialogProps {
+  handleRegisterSubmit: (e: React.FormEvent) => void;
+  handleAuthenticationSubmit: (e: React.FormEvent) => void;
+}
 
 export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [ step, setStep ] = useState<AuthenticationStep>('login'); // 'login' or 'register'
@@ -25,12 +35,12 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
 
   console.log('AuthRegisterDialog rendered with step:', step);
 
-  const loginForm = useForm({
+  const loginForm = useForm<LoginFormDataProps>({
     email: '',
     password: '',
   })
 
-  const registerForm = useForm({
+  const registerForm = useForm<RegisterFormDataProps>({
     name: '',
     email: '',
     password: '',
@@ -39,7 +49,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
 
   useMemo(() => setStep('login'), []);
 
-  const handleRegisterSubmit = (e: React.FormEvent) => {
+  const handleRegisterSubmit: AuthRegisterDialogProps['handleRegisterSubmit'] = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     registerForm.post(route('register'), {
@@ -50,7 +60,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
     });
   };
 
-  const handleAuthenticationSubmit = (e: React.FormEvent) => {
+  const handleAuthenticationSubmit: AuthRegisterDialogProps['handleAuthenticationSubmit'] = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     loginForm.post(route('login'), {
@@ -65,7 +75,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
     <Dialog open={isOpen} onClose={onClose} className="fixed z-10 inset-0 overflow-y-auto animate animate-appear">
       <div className="flex items-center justify-center min-h-screen">
         <div id="overlay"
-          className="fixed inset-0 bg-blue-200 opacity-50 transition-opacity"
+          className="fixed inset-0 bg-blue-200 opacity-50 transition-opacity cursor-default"
           onClick={onClose}
         >
         </div>

@@ -7,12 +7,16 @@ import Footer from "@/components/WebLayout/Footer";
 interface WebLayoutProps {
     pageTitle: string;
     children: React.ReactNode[] | React.ReactNode;
+    description?: string;
 }
 
-export default function WebLayout({ pageTitle, children }: WebLayoutProps) {
+export default function WebLayout({ pageTitle, children, description }: WebLayoutProps) {
     return (
         <>
-            <Meta title={pageTitle} />
+            <Meta
+                title={pageTitle}
+                description={description}
+            />
             <Header />
             {children}
             <Footer />

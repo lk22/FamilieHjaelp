@@ -55,3 +55,15 @@ export interface TodoItem {
 }
 
 export type PayloadProps = Record<string, unknown>;
+
+export type RegisterFormDataProps = {
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+}
+
+export type LoginFormDataProps = {
+    email: string;
+    password: string;
+}

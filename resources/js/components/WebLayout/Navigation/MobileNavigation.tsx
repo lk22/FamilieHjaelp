@@ -13,13 +13,13 @@ export default function MobileNavigation({ openAuthDialog, closeAuthDialog, isAu
     <nav>
       <ul className="flex justify-center gap-4">
         <li>
-          <Link href="/" className="text-gray-600 hover:text-gray-900">Hjælpemidler</Link>
+          <Link href="/" className="text-white hover:text-white">Hjælpemidler</Link>
         </li>
         <li>
-          <Link href="/about" className="text-gray-600 hover:text-gray-900">Vores mission</Link>
+          <Link href="/about" className="text-white hover:text-white">Vores mission</Link>
         </li>
         <li>
-          <Link href="/contact" className="text-gray-600 hover:text-gray-900">Har du oplevet</Link>
+          <Link href="/contact" className="text-white hover:text-white">Har du oplevet</Link>
           <ul>
             <li>Abort</li>
             <li>Dødfødsel</li>
