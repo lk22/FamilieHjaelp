@@ -13,10 +13,10 @@ export default function MainNavigation({ openAuthDialog, closeAuthDialog, isAuth
     <nav>
       <ul className="flex justify-center gap-4">
         <li>
-          <Link href="/help-resources" className="text-white hover:text-white text-lg cursor-pointer">Hjælpemidler</Link>
+          <Link href={route('page.help-resources')} className="text-white hover:text-white text-lg cursor-pointer">Hjælpemidler</Link>
         </li>
         <li>
-          <Link href="/about" className="text-white hover:text-white text-lg cursor-pointer">Vores mission</Link>
+          <Link href={route('page.our-mission')} className="text-white hover:text-white text-lg cursor-pointer">Vores mission</Link>
         </li>
         <li className="relative group">
           <Link href="/contact" className="text-white hover:text-white text-lg cursor-pointer">Har du oplevet</Link>

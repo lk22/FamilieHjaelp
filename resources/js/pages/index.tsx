@@ -24,9 +24,9 @@ export default function Welcome() {
                             whileInView={{opacity: 1}}
                             className={"text-4xl font-bold text-blue-900"}
                         >
-                            <h1 className="text-9xl font-bold mt-12 text-white">Din digitale forælder assistent <span className="text-indigo-600">lige ved hånden</span></h1>
+                            <h1 className="text-9xl font-bold mt-12 text-white">Din digitale forældre assistent <span className="text-indigo-600">lige ved hånden</span></h1>
                         </motion.h1>
-                            <p className="mt-4 text-2xl text-white">Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for.</p>
+                        <p className="mt-4 text-2xl text-white">Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for.</p>
                         </div>
                     </div>
                 </section>

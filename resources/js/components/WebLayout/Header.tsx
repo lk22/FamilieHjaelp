@@ -3,7 +3,7 @@ import MainNav from '@/components/WebLayout/MainNav';
 
 export default function Header() {
   return (
-    <header className="bg-blue-900 shadow py-8 px-8 flex items-center justify-between">
+    <header className="bg-blue-900 shadow py-8 px-8 flex items-center justify-between fixed top-0 left-0 right-0 z-50 w-full">
       <Logo />
       <MainNav />
     </header>

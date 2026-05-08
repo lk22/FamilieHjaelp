@@ -67,3 +67,8 @@ export type LoginFormDataProps = {
     email: string;
     password: string;
 }
+
+export interface AccordionItemData {
+  title: string;
+  body: string | React.ReactNode | React.ReactNode[];
+}

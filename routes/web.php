@@ -16,7 +16,8 @@ use App\Http\Controllers\ProfileNoteController;
 // TODO: building seperate controller for home page routes and move this there
 
 Route::get('/', [PageController::class, 'home'])->name('home');
-Route::get('help-resources', [PageController::class, 'helpResources'])->name('page.help-resources');
+Route::get('hjaelpemidler', [PageController::class, 'helpResources'])->name('page.help-resources');
+Route::get('/vores-mission', [PageController::class, 'ourMission'])->name('page.our-mission');
 
 Route::get('/app', [AppController::class, 'home'])
 ->name('app.home');

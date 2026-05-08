@@ -45,4 +45,31 @@ class PageController extends Controller
             'resources' => $resources,
         ]);
     }
+
+    public function ourMission(): Response
+    {
+        $faqItems = [
+            [
+                "title" => "Personlige ressourcer",
+                "body" => "Skræddersyede artikler, videoer og værktøjer, der hjælper dig med at navigere i dine specifikke udfordringer som forælder."
+            ],
+            [
+                "title" => "Professionel vejledning",
+                "body" => "Adgang til eksperter inden for sundhed, psykologi og forældreskab, der kan give dig den støtte, du har brug for."
+            ],
+            [
+                "title" => "Fællesskabsstøtte",
+                "body" => "Muligheden for at forbinde med andre forældre, der gennemgår lignende oplevelser, så du aldrig føler dig alene."
+            ],
+            [
+                "title" => "Liste over sorggrupper og støttegrupper",
+                "body" => "<ul><li>Lokale sorggrupper for forældre</li><li>Online støttegrupper</li><li>Specialiserede grupper for forskellige typer tab</li></ul>"
+            ]
+        ];
+
+        return Inertia::render('our-mission',
+        [
+            'faqItems' => $faqItems,
+        ]);
+    }
 }

@@ -1,11 +1,7 @@
 import WebLayout from "@/layouts/web-layout";
 import { motion } from "framer-motion";
 import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/accordion";
-
-interface AccordionItemData {
-  title: string;
-  body: string | React.ReactNode | React.ReactNode[];
-}
+import { type AccordionItemData } from "@/types";
 
 export default function HelpResources() {
   const accordionItems: AccordionItemData[] = [
@@ -35,7 +31,10 @@ export default function HelpResources() {
     ];
 
     return (
-      <WebLayout pageTitle="Hjælperessourcer - Familiehjælp" description="Opdag en række ressourcer og værktøjer, der kan støtte dig som hjælper i Familiehjælp. Uanset om du er ny eller erfaren, har vi samlet information og materialer, der kan hjælpe dig i din rolle som hjælper.">
+      <WebLayout
+        pageTitle="Hjælperessourcer - Familiehjælp"
+        description="Opdag en række ressourcer og værktøjer, der kan støtte dig som hjælper i Familiehjælp. Uanset om du er ny eller erfaren, har vi samlet information og materialer, der kan hjælpe dig i din rolle som hjælper."
+      >
         <div className="bg-white">
           <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-30 h-[700px] rounded-b-3xl shadow-lg">
             <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-12  relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
@@ -47,7 +46,7 @@ export default function HelpResources() {
                 initial={{ opacity: 0, y: 50 }}
                 transition={{ duration: 0.8 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                >
+              >
                 <h1 className="text-white lg:w-6/12 balance font-bold leading text-9xl">Vores hjælpemidler</h1>
               </motion.div>
               </div>
@@ -81,11 +80,11 @@ export default function HelpResources() {
                             transition={{ duration: 0.8, delay: index * 0.2 }}
                             whileInView={{ opacity: 1, y: 0 }}
                           >
-                          <AccordionItem key={index} id={index} title={item.title} body={item.body} />
+                            <AccordionItem key={index} id={index} title={item.title} body={item.body} />
                           </motion.div>
                         ))
                       }
-                  </Accordion>
+                    </Accordion>
                   </aside>
                 </div>
               </div>
