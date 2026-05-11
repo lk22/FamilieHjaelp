@@ -1,6 +1,6 @@
 import WebLayout from "@/layouts/web-layout";
 import { motion } from "framer-motion";
-import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/accordion";
+import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
 import { type AccordionItemData } from "@/types";
 
 export default function HelpResources() {

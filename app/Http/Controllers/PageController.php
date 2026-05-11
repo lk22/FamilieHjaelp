@@ -45,25 +45,32 @@ class PageController extends Controller
             'resources' => $resources,
         ]);
     }
-
     public function ourMission(): Response
     {
         $faqItems = [
             [
-                "title" => "Personlige ressourcer",
-                "body" => "Skræddersyede artikler, videoer og værktøjer, der hjælper dig med at navigere i dine specifikke udfordringer som forælder."
+                "title" => "Hvordan kan ForældreHjælp hjælpe mig som forælder?",
+                "body" => "ForældreHjælp tilbyder en række ressourcer og værktøjer designet til at støtte forældre gennem udfordrende tider. Vores platform giver adgang til professionel vejledning, informative artikler og et støttende fællesskab, der kan hjælpe dig med at navigere i de følelsesmæssige og praktiske aspekter af forældreskab."
             ],
             [
-                "title" => "Professionel vejledning",
-                "body" => "Adgang til eksperter inden for sundhed, psykologi og forældreskab, der kan give dig den støtte, du har brug for."
+                "title" => "Hvordan kan jeg få adgang til ForældreHjælp?",
+                "body" => "Du kan få adgang til ForældreHjælp ved at besøge vores hjemmeside og oprette en konto. Herefter kan du udforske de forskellige ressourcer og tjenester, vi tilbyder."
             ],
             [
-                "title" => "Fællesskabsstøtte",
-                "body" => "Muligheden for at forbinde med andre forældre, der gennemgår lignende oplevelser, så du aldrig føler dig alene."
+                "title" => "Er ForældreHjælp gratis at bruge?",
+                "body" => "Ja, grundlæggende funktioner på ForældreHjælp er gratis at bruge. Vi tilbyder også premium-tjenester for dem, der ønsker yderligere støtte og ressourcer."
             ],
             [
-                "title" => "Liste over sorggrupper og støttegrupper",
-                "body" => "<ul><li>Lokale sorggrupper for forældre</li><li>Online støttegrupper</li><li>Specialiserede grupper for forskellige typer tab</li></ul>"
+                "title" => "Hvordan sikrer I fortroligheden af mine oplysninger?",
+                "body" => "Vi tager din fortrolighed alvorligt og anvender avancerede sikkerhedsforanstaltninger for at beskytte dine personlige oplysninger. Vores privatlivspolitik beskriver, hvordan vi indsamler, bruger og beskytter dine data."
+            ],
+            [
+                "title" => "Hvordan kan jeg kontakte support, hvis jeg har brug for hjælp?",
+                "body" => "Hvis du har brug for hjælp, kan du kontakte vores supportteam via e-mail eller telefon. Vores kontaktoplysninger findes på vores hjemmeside under sektionen 'Kontakt os'."
+            ],
+            [
+                "title" => "Hvilke typer ressourcer tilbyder I til forældre?",
+                "body" => "Vi tilbyder en bred vifte af ressourcer, herunder artikler, videoer, webinarer og adgang til professionelle rådgivere. Vores indhold dækker emner som graviditet, fødsel, tab, sorghåndtering og meget mere."
             ]
         ];
 
@@ -71,5 +78,23 @@ class PageController extends Controller
         [
             'faqItems' => $faqItems,
         ]);
+    }
+
+    public function experiences(): Response
+    {
+        return Inertia::render('expeiences');
+    }
+
+    public function abortionExperience(): Response
+    {
+        return Inertia::render('experiences/abortion');
+    }
+    public function stillbirthExperience(): Response
+    {
+        return Inertia::render('experiences/stillbirth');
+    }
+    public function newParentsExperience(): Response
+    {
+        return Inertia::render('experiences/parents');
     }
 }
