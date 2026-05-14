@@ -21,8 +21,8 @@ export default function Page() {
     return (
       <WebLayout pageTitle="Vores mission og vision | ForældreHjælp" description="Lær om vores mission og vision hos ForældreHjælp, hvor vi stræber efter at skabe en tryg og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vores mål er at tilbyde let adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forælder behøver at føle sig alene i svære tider. Gennem innovative digitale løsninger ønsker vi at gøre en positiv forskel i livet for familier overalt i Danmark.">
         <div className="bg-white">
-          <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-30 h-[700px] rounded-b-3xl shadow-lg">
-            <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-12  relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
+          <section className="text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
+            <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
               <video src="videos/our_mission_video.mp4" autoPlay={true} loop={true} muted className="w-full h-[700px] object-cover">
                   Your browser does not support the video tag.
               </video>
@@ -40,15 +40,15 @@ export default function Page() {
           <section className="pt-56 bg-white">
             <div className="container mx-auto">
               <div className="mx-auto px-4 py-16">
-                <h2 className="text-blue-900 w-6/12">Vores vision og mission hos ForældreHjælp</h2>
+                <h2 className="text-blue-900 w-6/12 text-4xl font-bold mb-2">Vores vision og mission hos ForældreHjælp</h2>
                 <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-8">
                   Hos Forælderhjælp er vores mission at skabe en tryg og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vi stræber efter at tilbyde let adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forælder behøver at føle sig alene i svære tider. Gennem vores innovative digitale løsninger ønsker vi at gøre en positiv forskel i livet for familier overalt i danmark.
                 </p>
-                <h3 className="text-blue-900 w-6/12">Historen bag</h3>
+                <h3 className="text-blue-900 w-6/12 text-2xl font-bold">Historen bag</h3>
                 <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-8">
                   Ideen til ForældreHjælp opstod fra en personlig oplevelse med min kæreste, vi ventet vores føreste barn, men desværre mistede vi ham i uge 22. i graviditeten. hvilke blev en utrolig svær tid for os begge, på mange måder, vi på trods af vejledining og støtte fra sundhedsvæsenet følte vi os alene og usikre på, hvordan vi skulle håndtere og navigere i denne svære situation, vi vidste ikke helt hvordan vi skulle forholde os til al den information der er omkring vores situation og kunne ikke navigere i det og var ekstremt forvirrende. Denne oplevelse inspirerede mig til at skabe en platform, der kunne tilbyde støtte, ressourcer og fællesskab for andre forældre, der gennemgår lignende udfordringer. Mit mål med ForældreHjælp er at sikre, at ingen forælder behøver at føle sig alene i sådanne svære tider, og at de har adgang til den hjælp og støtte, de har brug for.
                 </p>
-                <h3 className="text-blue-900 w-6/12">Vores tilgang</h3>
+                <h3 className="text-blue-900 w-6/12 text-2xl font-bold">Vores tilgang</h3>
                 <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-8">
                   Vores tilgang er centreret omkring empati, tilgængelighed og innovation. Vi kombinerer ekspertise inden for sundhed og teknologi for at udvikle brugervenlige løsninger, der imødekommer de unikke behov hos forældre i krise. Ved at samarbejde med sundhedsprofessionelle, psykologer og brugergrupper sikrer vi, at vores platform ikke kun er inform men også følsom over for de følelsesmæssige aspekter af forældreskabets udfordringer. Vi er dedikerede til kontinuerlig forbedring og tilpasning af vores tjenester baseret på feedback fra vores brugere og de nyeste forskningsresultater inden for området.
                 </p>

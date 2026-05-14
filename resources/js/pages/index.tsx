@@ -12,9 +12,9 @@ export default function Welcome() {
                 pageTitle="Din digitale forælder assistent lige ved hånden"
                 description="Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for."
             >
-                <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-30 h-[90vh] rounded-b-3xl shadow-lg">
-                    <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-12 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
-                        <video src="/videos/intro.mp4" autoPlay={true} loop={true} muted className="w-full h-[85vh] object-cover">
+                <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-0 h-[100vh] rounded-b-3xl shadow-lg">
+                    <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
+                        <video src="/videos/intro.mp4" autoPlay={true} loop={true} muted className="w-full h-full object-cover">
                             Your browser does not support the video tag.
                         </video>
                         <div className="w-4/12 sm:w-full p-8 absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-700 via-blue-900/70 to-transparent sm:p-8 xl:p-36 flex flex-col justify-center items-start text-start gap-6">
@@ -30,7 +30,7 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
-                <section className="bg-white text-blue-900 pt-56 pb-32">
+                <section className="bg-white text-blue-900 pt-20 pb-32">
                     <div className="container mx-auto flex flex-col-reverse sm:flex-col-reverse md:flex-col-reverse xl:flex-row flex-wrap">
                         <div className="w-full xl:w-6/12 p-8 flex flex-col justify-center items-start text-start gap-6">
                             <h3 className="text-5xl font-bold">Om Familiehjælp</h3>

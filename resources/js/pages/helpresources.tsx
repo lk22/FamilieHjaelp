@@ -36,8 +36,8 @@ export default function HelpResources() {
         description="Opdag en række ressourcer og værktøjer, der kan støtte dig som hjælper i Familiehjælp. Uanset om du er ny eller erfaren, har vi samlet information og materialer, der kan hjælpe dig i din rolle som hjælper."
       >
         <div className="bg-white">
-          <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-30 h-[700px] rounded-b-3xl shadow-lg">
-            <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-12  relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
+          <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
+            <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
               <video src="videos/intro.mp4" autoPlay={true} loop={true} muted className="w-full h-[700px] object-cover">
                   Your browser does not support the video tag.
               </video>
