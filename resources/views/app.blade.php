@@ -23,6 +23,7 @@
         <style>
             html {
                 background-color: oklch(1 0 0);
+                height: 100%;
             }
 
             html.dark {
@@ -67,7 +68,6 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
-
 
         @routes
         @viteReactRefresh

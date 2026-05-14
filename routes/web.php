@@ -21,7 +21,8 @@ Route::get('/vores-mission', [PageController::class, 'ourMission'])->name('page.
 Route::get('/har-du-oplevet/abort', [PageController::class, 'abortionExperience'])->name('page.experiences.abortion');
 Route::get('/har-du-oplevet/doedfødsel', [PageController::class, 'stillbirthExperience'])->name('page.experiences.stillbirth');
 Route::get('/har-du-oplevet/foraeldre', [PageController::class, 'newParentsExperience'])->name('page.experiences.new-parents');
-// Route::get('/om-foraeldrehjaelp', [PageController::class, 'ourMission'])->name('page.our-mission');
+Route::get('/har-du-oplevet/mistet-familie-medlem', [PageController::class, 'lostFamilyMemberExperience'])->name('page.experiences.lost-family-member');
+Route::get('/kom-igang', [PageController::class, 'gettingStarted'])->name('page.getting-started');
 
 Route::get('/app', [AppController::class, 'home'])
 ->name('app.home');

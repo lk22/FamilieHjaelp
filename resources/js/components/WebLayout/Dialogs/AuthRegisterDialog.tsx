@@ -60,7 +60,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
     });
   };
 
-  const handleAuthenticationSubmit: AuthRegisterDialogProps['handleAuthenticationSubmit'] = (e: React.FormEvent) => {
+  const handleAuthenticationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     loginForm.post(route('login'), {
@@ -79,8 +79,13 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
           onClick={onClose}
         >
         </div>
-        <div className="bg-white rounded-lg p-8 z-20 w-full max-w-xl mx-auto">
-          <Logo />
+        <div className="bg-white rounded-lg p-8 z-20 w-full max-w-xl mx-auto relative">
+          <img src="/images/web/logo_inverse.svg" alt="Familiehjælp Logo" className="w-auto h-12 mb-12 ml-0 relative -left-6" />
+          <div className="absolute top-6 right-6 cursor-pointer" onClick={onClose}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500 hover:text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
           <Dialog.Title className="text-2xl font-bold mb-4">
             {step === 'login' ? 'Log ind på din konto' : 'Opret en ny konto'}
           </Dialog.Title>
@@ -118,7 +123,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
                   {loginForm.processing ? 'Logger ind...' : 'Log ind'}
                 </button>
               </form>
-              <p className="text-sm text-gray-500 mt-4">
+              <p className="text-sm text-gray-500 mt-12">
                 Har du ikke en konto?{' '}
                 <button onClick={() => setStep('register')} className="text-indigo-600 hover:text-indigo-700 font-medium">
                   Opret en ny konto

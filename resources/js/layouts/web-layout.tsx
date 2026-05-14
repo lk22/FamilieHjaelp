@@ -18,7 +18,7 @@ export default function WebLayout({ pageTitle, children, description }: WebLayou
                 description={description}
             />
             <Header />
-            <main className="container-fluid mx-auto">
+            <main className="container-fluid mx-auto h-full">
                 {children}
             </main>
             <Footer />

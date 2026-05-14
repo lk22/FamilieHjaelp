@@ -97,4 +97,14 @@ class PageController extends Controller
     {
         return Inertia::render('experiences/parents');
     }
+
+    public function lostFamilyMemberExperience(): Response
+    {
+        return Inertia::render('experiences/lost-family-member');
+    }
+
+    public function gettingStarted(): Response
+    {
+        return Inertia::render('getting-started');
+    }
 }

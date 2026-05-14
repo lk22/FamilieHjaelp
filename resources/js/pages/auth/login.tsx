@@ -116,7 +116,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         <Label className="text-blue-900" htmlFor="remember">Husk mig</Label>
                     </div>
 
-                    <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
+                    <Button type="submit" className="mt-4 w-full bg-blue-700 hover:bg-blue-900" tabIndex={4} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Log ind
                     </Button>

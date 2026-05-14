@@ -47,7 +47,7 @@ export default function HelpResources() {
                 transition={{ duration: 0.8 }}
                 whileInView={{ opacity: 1, y: 0 }}
               >
-                <h1 className="text-white lg:w-6/12 balance font-bold leading text-9xl">Vores hjælpemidler</h1>
+                <h1 className="text-white lg:w-6/12 balance font-bold leading text-8xl">Vores hjælpemidler</h1>
               </motion.div>
               </div>
             </div>

@@ -12,21 +12,48 @@ export default function Welcome() {
                 pageTitle="Din digitale forælder assistent lige ved hånden"
                 description="Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for."
             >
-                <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-0 h-[100vh] rounded-b-3xl shadow-lg">
-                    <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
-                        <video src="/videos/intro.mp4" autoPlay={true} loop={true} muted className="w-full h-full object-cover">
-                            Your browser does not support the video tag.
-                        </video>
-                        <div className="w-4/12 sm:w-full p-8 absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-700 via-blue-900/70 to-transparent sm:p-8 xl:p-36 flex flex-col justify-center items-start text-start gap-6">
-                        <motion.h1
-                            initial={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.5 }}
-                            whileInView={{opacity: 1}}
-                            className={"text-4xl font-bold text-blue-900"}
-                        >
-                            <h1 className="text-9xl font-bold mt-12 text-white">Din digitale forældre assistent <span className="text-indigo-600">lige ved hånden</span></h1>
-                        </motion.h1>
-                        <p className="mt-4 text-2xl text-white">Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for.</p>
+                <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-50">
+                    <div className="container w-[1600px] max-w-[1600px] mx-auto">
+                        <div className="flex px-10 gap-12">
+                            <div className="w-7/12 sm:px-8 md:px-0 flex flex-col justify-center items-start text-start gap-6">
+                                <motion.h1
+                                    initial={{ opacity: 0, y: -20 }}
+                                    transition={{ duration: 0.5 }}
+                                    whileInView={{opacity: 1}}
+                                    className={"text-4xl font-bold text-blue-900"}
+                                >
+                                    <h1 className="text-7xl font-bold mt-12">Din digitale famillie assistent <span className="text-indigo-600">lige ved hånden</span></h1>
+                                </motion.h1>
+                                <p className="text-xl text-blue-800 w-10/12">Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for.</p>
+                            </div>
+                            <div className="w-5/12 relative flex justify-end items-end">
+                                <div className="w-4/12 sm:w-full w-full h-full bg-gradient-to-br absolute from-blue-700/0 via-transparent to-blue-900/70 flex flex-col justify-center items-start text-start gap-6 rounded-2xl"></div>
+                                <video src="/videos/intro.mp4" autoPlay={true} loop={true} muted className="w-full h-[700px] object-cover rounded-2xl shadow-lg">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto py-32">
+                        <div className="ups-item bg-blue-400/10 rounded-2xl p-8 flex flex-col justify-center items-start text-start gap-4">
+                            <div className="flex justify-between items-center gap-4 w-full">
+                                <h3 className="text-6xl font-bold mt-2 text-blue-800">1000+</h3>
+                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">Familier Har vi hjulpet</p>
+                            </div>
+                        </div>
+                        <div className="ups-item bg-blue-900/10 rounded-2xl p-8 flex flex-col justify-start items-start text-start gap-4">
+                            <div className="flex justify-between items-center gap-4 w-full">
+                                <h3 className="text-6xl font-bold mt-2 text-blue-800">95%</h3>
+                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-2xl">Tilfredshed</p>
+                            </div>
+                        </div>
+                        <div className="ups-item bg-blue-900/10 rounded-2xl p-8 flex flex-col justify-start items-start text-start gap-4">
+                            <div className="flex justify-between items-center gap-4 w-full">
+                                <h3 className="text-6xl font-bold mt-2 text-blue-800">5</h3>
+                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-2xl">Minutters gennemsnitlig opstartstid</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -86,91 +113,12 @@ export default function Welcome() {
                     </div>
                     </section>
                     <section className="bg-white text-blue-900 pt-8">
-                    <div className="container py-32 flex flex-wrap mx-auto">
-                        <div className="w-full mb-20 px-12 sm:px-8 md:px-0 flex flex-col text-start gap-6 justify-center items-start">
-                            <p className="text-5xl text-blue-800 font-semibold mb-6 wrap-balance">Kom godt i gang med Familiehjælp</p>
-                            <p className="text-xl leading-8 text-zinc-600 dark:text-blue-900 w-9/12">
-                            Uanset om du er ny bruger eller har brugt vores platform før, er det nemt at komme i gang med Familiehjælp og begynde at få adgang til de ressourcer og hjælpemidler, du har brug for.
-                            </p>
+                        <div className="container py-32 flex flex-wrap mx-auto">
+                            <div className="w-full mb-20 px-12 sm:px-8 md:px-0 flex flex-col text-start gap-6 justify-center items-start">
+                                <p className="text-5xl text-blue-800 font-semibold mb-6 wrap-balance">Kom godt i gang med Familiehjælp</p>
+                                <p className="text-xl leading-8 text-zinc-600 dark:text-blue-900 w-9/12">Uanset om du er ny bruger eller har brugt vores platform før, er det nemt at komme i gang med Familiehjælp og begynde at få adgang til de ressourcer og hjælpemidler, du har brug for.</p>
+                            </div>
                         </div>
-                        <div className="w-full xl:w-6/12 px-8 sm:px-8 md:px-0 flex flex-col text-start gap-6 justify-center items-start">
-                            <p className="text-4xl font-bold text-blue-800">Fortæl om din oplevelse</p>
-                            <p className="text-lg leading-8 text-zinc-600 dark:text-black font-medium">
-                            Del din historie med os. Vi vil gerne høre om dine oplevelser og hvordan Familiehjælp har hjulpet dig og din familie. Din feedback er vigtig for os, da den hjælper os med at forbedre vores platform og tilbyde bedre støtte til familier i nød.
-                            </p>
-                        </div>
-                        <div className="w-full xl:w-6/12 sm:px-8 xl:px-0 mt-12 xl:mt-0 mb-12 flex justify-start xl:justify-center items-center">
-                            <motion.div
-                            initial={{ opacity: 0, y: 100 }}
-                            transition={{ duration: 0.8, delay: 1 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            >
-                            <img className="shadow-lg" src="images/web/onboarding_scenario.png" width={400} height={400} alt="Getting started illustration"/>
-                            </motion.div>
-                        </div>
-                    </div>
-                    </section>
-                    <section className="bg-white text-blue-900 pt-8 pb-32">
-                    <div className="container flex flex-col-reverse xl:flex-row lg:flex-wrap px-8 sm:px-8 md:px-0 mx-auto">
-                        <div className="w-6/12 mb-12 flex justify-start xl:justify-center items-center">
-                            <motion.div
-                                initial={{ opacity: 0, y: 100 }}
-                                transition={{ duration: 0.8, delay: 1 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                            >
-                            <img className="shadow-lg" src="images/web/Successpage.png" width={400} height={400} alt="Getting started illustration"/>
-                            </motion.div>
-                        </div>
-                        <div className="w-full xl:w-6/12 flex flex-col text-start gap-6 justify-center items-start mb-12">
-                            <p className="text-4xl font-medium text-blue-800">Opret din konto</p>
-                            <p className="text-lg leading-8 text-zinc-600 dark:text-black font-medium">
-                            Når du har udfyldt din oplevelse, kan du oprette en konto på Familiehjælp for at få adgang til flere funktioner og ressourcer. Det er hurtigt og nemt at oprette en konto, og det giver dig mulighed for at gemme dine oplysninger og få personlig støtte baseret på dine behov.
-                            </p>
-                        </div>
-                    </div>
-                    </section>
-                    <section className="bg-white text-blue-900 pt-8 pb-32">
-                    <div className="container flex flex-wrap mx-auto">
-                        <div className="w-full xl:w-6/12 flex flex-col text-start gap-6 justify-center items-start mb-12 px-8 sm:px-8 md:px-0">
-                            <p className="text-4xl font-medium text-blue-800">Og du er igang </p>
-                            <p className="text-lg leading-8 text-zinc-600 dark:text-black font-medium">
-                            Tillykke! Du er nu klar til at bruge Familiehjælp og få adgang til de ressourcer og hjælpemidler, du har brug for. Udforsk vores platform, find de værktøjer, der passer bedst til dine behov, og kontakt os, hvis du har brug for yderligere støtte. Vi er her for at hjælpe dig og din familie gennem svære tider.
-                            </p>
-                        </div>
-                        <div className="w-full lg:w-6/12 mb-12 flex justify-center items-center px-8 sm:px-8 md:px-0">
-                            <motion.div
-                                initial={{ opacity: 0, y: 100 }}
-                                transition={{ duration: 0.8, delay: 1 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                            >
-                            <img className="shadow-lg" src="images/web/app_dashboard.png" width={400} height={400} alt="Getting started illustration"/>
-                            </motion.div>
-                        </div>
-                    </div>
-                    </section>
-                    <section className="bg-white text-blue-900 pt-8 pb-32 hidden">
-                    <h2 className="text-3xl font-semibold mb-6 text-blue-800 text-center">Sådan kommer du i gang</h2>
-                        <p>Det er nemt at komme i gang med Familiehjælp. Følg disse enkle trin for at begynde at bruge vores platform og få adgang til de ressourcer, du har brug for:</p>
-                    <div className="container flex justify-center gap-16 mx-auto mt-12">
-                        <div className="w-3/12">
-                        <h3 className="text-xl font-medium mb-4">1. Opret en konto</h3>
-                        <p className="text-zinc-600 dark:text-zinc-400">
-                            Tilmeld dig vores platform ved at oprette en gratis konto. Det tager kun et par minutter, og du vil få adgang til alle vores funktioner og ressourcer.
-                        </p>
-                        </div>
-                        <div className="w-3/12">
-                        <h3 className="text-xl font-medium mb-4">2. Udforsk ressourcer</h3>
-                        <p className="text-zinc-600 dark:text-zinc-400">
-                            Gennemse vores omfattende bibliotek af ressourcer og hjælpemidler, der er designet til at støtte familier i forskellige situationer.
-                        </p>
-                        </div>
-                        <div className="w-3/12">
-                        <h3 className="text-xl font-medium mb-4">3. Få hjælp</h3>
-                        <p className="text-zinc-600 dark:text-zinc-400">
-                            Kontakt vores supportteam eller brug vores online værktøjer til at få den hjælp, du har brug for, når du har brug for det.
-                        </p>
-                        </div>
-                    </div>
                     </section>
             </WebLayout>
         </>
