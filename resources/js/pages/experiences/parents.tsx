@@ -67,7 +67,7 @@ export default function Page() {
                           <img src="/images/web/desktop_application.png" className="w-8/12" width={700} height={400} alt="New parents app illustration"/>
                       </div>
                       <div className="text-center">
-                          <h2 className="text-blue-900 w-full">Vores app kan skrædersyes til forældre</h2>
+                          <h2 className="text-blue-900 w-full text-5xl font-bold">Vores app kan skrædersyes til forældre</h2>
                           <p className="text-blue-900 text-xl leading-10 mt-6 w-full mb-8">
                               Vores app er designet til at imødekomme de unikke behov hos nye forældre. Med funktioner som personlige påmindelser om fodring og søvn, adgang til ekspertrådgivning og et fællesskab af andre nye forældre, kan vores app hjælpe jer med at navigere i de udfordringer, der følger med at være nybagte forældre. kom igang med appen i dag og oplev, hvordan den kan gøre jeres rejse som forældre lettere og mere støttende sammentidig.
                           </p>
