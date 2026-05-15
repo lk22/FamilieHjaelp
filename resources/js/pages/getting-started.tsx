@@ -40,37 +40,74 @@ export default function Page() {
                   </motion.div>
                 </div>
                 <div className="w-12/12 mx-auto">
-                <motion.div
-                  initial={{ opacity: 0, y: 150 }}
-                  transition={{ duration: 2.5, delay: 0.5 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                >
-                  <img src="/images/web/getting_started.jpg" alt="" height={400} width={800} className="rounded-lg shadow-lg mx-auto"/>
-                </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 150 }}
+                    transition={{ duration: 2.5, delay: 0.5 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                  >
+                    <img src="/images/web/getting_started.jpg" alt="" height={400} width={800} className="rounded-lg shadow-lg mx-auto"/>
+                  </motion.div>
                 </div>
               </div>
             </div>
           </section>
-          <section className="pt-56 pb-0 bg-white">
-            <div className="container mx-auto">
-              <div className="mx-auto px-4 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-8">
-                  <aside>
-                    <video src="/videos/hjaelpemidler.mp4" autoPlay={true} loop={true} muted width={400} height={400} className="w-full rounded-lg shadow-lg mb-8 h-[500px] object-cover">
-                      Your browser does not support the video tag.
-                    </video>
-                  </aside>
-                  <aside>
-                    <h3 className="text-blue-900 text-4xl font-bold mb-2">Vi anbefaler</h3>
-                    <p className="text-blue-900 text-xl leading-10 w-9/12 mb-8">
-                      Vi anbefaler at du søger professionel hjælp og støtte gennem vores platform, hvor du kan finde rådgivere specialiseret i sorgbearbejdning efter dødfødsel. Derudover kan deltagelse i støttegrupper med andre forældre, der har oplevet lignende tab, være en værdifuld måde at dele dine følelser og finde trøst. Vores ressourcer er designet til at hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på, mens du begynder helingsprocessen.
+          <section>
+            <div className="container mx-auto pt-40 mb-20">
+              <div className="flex">
+                <div className="w-6/12">
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    transition={{ duration: 1.5 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                  >
+                    <h2 className="text-blue-900 w-full text-5xl font-bold">Vores app er tilgængelig på alle enheder</h2>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    transition={{ duration: 1.5, delay: 0.5 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                  >
+                    <p className="text-blue-900 text-xl leading-10 mt-6 w-full mb-8">
+                      Vores app er designet til at være tilgængelig på alle enheder, så du kan få adgang til vores ressourcer og støtte, uanset hvor du er. Uanset om du foretrækker at bruge vores app på din smartphone, tablet eller computer, kan du nemt logge ind og få adgang til de værktøjer og informationer, du har brug for for at hjælpe dig og din familie gennem svære tider.
                     </p>
-                  </aside>
+                    <p>
+                      Besøger du denne side på en mobil enhed? download vores app i dag og oplev, hvordan den kan gøre det lettere for dig at få adgang til hjælp og støtte, når du har mest brug for det.
+                    </p>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    transition={{ duration: 1.5, delay: 1 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                  >
+                    <button type="button" className="mt-6 bg-blue-900 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-800 transition cursor-pointer inline-block">
+                      Se vores funktioner
+                    </button>
+                    <button
+                      type="button"
+                      className="mt-6 ml-4 bg-gray-200 text-gray-800 py-3 px-8 rounded-full font-medium hover:bg-gray-300 transition cursor-pointer inline-block"
+                    >
+                      Kom igang
+                    </button>
+                  </motion.div>
+                </div>
+                <div className="w-6/12 flex justify-center items-center">
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    transition={{ duration: 1.5, delay: 1.5 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                  >
+                    <img
+                      src="/images/web/app_dashboard.png"
+                      width={350}
+                      height={350}
+                      alt=""
+                      className="rounded-lg shadow-lg"
+                    />
+                  </motion.div>
                 </div>
               </div>
             </div>
-        </section>
-          {/* <GettingStartedSection /> */}
+          </section>
         </div>
       </WebLayout>
     );

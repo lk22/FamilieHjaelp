@@ -21,6 +21,11 @@ class PageController extends Controller
         return Inertia::render('index');
     }
 
+    /**
+     * Render Helping resources page
+     *
+     * @return \Inertia\Response
+     */
     public function helpResources(): Response
     {
         $resources = [
@@ -45,6 +50,12 @@ class PageController extends Controller
             'resources' => $resources,
         ]);
     }
+
+    /**
+     * Render Mission specific page
+     *
+     * @return \Inertia\Response
+     */
     public function ourMission(): Response
     {
         $faqItems = [
@@ -80,31 +91,73 @@ class PageController extends Controller
         ]);
     }
 
+    /**
+     * render experiences landing page
+     *
+     * @return \Inertia\Response
+     */
     public function experiences(): Response
     {
         return Inertia::render('expeiences');
     }
 
+    /**
+     * Render abort experience page
+     *
+     * @return \Inertia\Response
+     */
     public function abortionExperience(): Response
     {
         return Inertia::render('experiences/abortion');
     }
+
+    /**
+     * Render stillbirth specific page
+     *
+     * @return \Inertia\Response
+     */
     public function stillbirthExperience(): Response
     {
         return Inertia::render('experiences/stillbirth');
     }
+
+    /**
+     * Render new parents specific experience page
+     *
+     * @return \Inertia\Response
+     */
     public function newParentsExperience(): Response
     {
         return Inertia::render('experiences/parents');
     }
 
+    /**
+     * Render lost family member specific experience page
+     *
+     * @return \Inertia\Response
+     */
     public function lostFamilyMemberExperience(): Response
     {
         return Inertia::render('experiences/lost-family-member');
     }
 
+    /**
+     * Render getting started page
+     *
+     * @return \Inertia\Response
+     */
     public function gettingStarted(): Response
     {
         return Inertia::render('getting-started');
+    }
+
+    /**
+     * Render functions page
+     *
+     * @return \Inertia\Response
+     */
+    public function ourFunctions(): Response
+    {
+        return Inertia::render('functions');
     }
 }

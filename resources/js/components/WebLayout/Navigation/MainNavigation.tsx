@@ -16,6 +16,9 @@ export default function MainNavigation({ openAuthDialog, closeAuthDialog, isAuth
           <Link href={route('page.help-resources')} className="text-white hover:text-white text-lg cursor-pointer">Hjælpemidler</Link>
         </li>
         <li>
+          <Link href={route('page.functions')} className="text-white hover:text-white text-lg cursor-pointer">Funktioner</Link>
+        </li>
+        <li>
           <Link href={route('page.our-mission')} className="text-white hover:text-white text-lg cursor-pointer">Vores mission</Link>
         </li>
         <li className="relative group">

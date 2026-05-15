@@ -17,6 +17,7 @@ use App\Http\Controllers\ProfileNoteController;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/hjaelpemidler', [PageController::class, 'helpResources'])->name('page.help-resources');
+Route::get('/funktioner', [PageController::class, 'functions'])->name('page.functions');
 Route::get('/vores-mission', [PageController::class, 'ourMission'])->name('page.our-mission');
 Route::get('/har-du-oplevet/abort', [PageController::class, 'abortionExperience'])->name('page.experiences.abortion');
 Route::get('/har-du-oplevet/doedfødsel', [PageController::class, 'stillbirthExperience'])->name('page.experiences.stillbirth');
