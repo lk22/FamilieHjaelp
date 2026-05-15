@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
 import { type AccordionItemData } from "@/types";
 
+import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
+
 export default function HelpResources() {
   const accordionItems: AccordionItemData[] = [
       {
@@ -90,7 +92,7 @@ export default function HelpResources() {
               </div>
             </div>
           </section>
-
+          <GettingStartedCta />
         </div>
       </WebLayout>
     );

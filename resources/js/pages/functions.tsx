@@ -32,7 +32,7 @@ export default function Page() {
                 transition={{ duration: 0.8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 >
-                  <h1 className="text-white lg:w-8/12 balance leading text-8xl font-bold">Vores mission & vision</h1>
+                  <h1 className="text-white lg:w-8/12 balance leading text-8xl font-bold">Funktioner og ressourcer</h1>
                 </motion.div>
               </div>
             </div>
@@ -40,7 +40,7 @@ export default function Page() {
           <section className="pt-56 bg-white">
             <div className="container mx-auto">
               <div className="mx-auto px-4 py-16">
-                <h2 className="text-blue-900 w-6/12 text-4xl font-bold mb-2">Vores vision og mission hos FamilieHjælp</h2>
+                <h2 className="text-blue-900 w-6/12 text-4xl font-bold mb-2">Funktioner og ressourcer hos FamilieHjælp</h2>
                 <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-8">
                   Hos FamilieHjælp er vores mission at skabe en tryg og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vi stræber efter at tilbyde let adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forælder behøver at føle sig alene i svære tider. Gennem vores innovative digitale løsninger ønsker vi at gøre en positiv forskel i livet for familier overalt i danmark.
                 </p>
@@ -54,27 +54,6 @@ export default function Page() {
                 </p>
               </div>
             </div>
-          </section>
-          <section>
-            <Accordion>
-              {faqItems.map((item, index) => {
-                return (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 50 }}
-                      transition={{ duration: 0.5, delay: index * 0.15 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                    >
-                    <AccordionItem
-                      key={index}
-                      id={index}
-                      title={item.title}
-                      body={item.body}
-                    />
-                    </motion.div>
-                )
-              })}
-            </Accordion>
           </section>
           {/* <GettingStartedSection /> */}
         </div>

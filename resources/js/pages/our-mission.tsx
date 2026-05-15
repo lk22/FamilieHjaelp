@@ -5,6 +5,8 @@ import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import WebLayout from "@/layouts/web-layout";
 
+import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
+
 interface FaqItem {
     title: string;
     body: string | React.ReactNode | React.ReactNode[];
@@ -76,7 +78,7 @@ export default function Page() {
               })}
             </Accordion>
           </section>
-          {/* <GettingStartedSection /> */}
+          <GettingStartedCta />
         </div>
       </WebLayout>
     );

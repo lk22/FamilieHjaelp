@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import WebLayout from "@/layouts/web-layout";
+import GettingStartedCta from "@/components/WebLayout/GettingStartedCta";
 
 interface FaqItem {
     title: string;
@@ -80,7 +81,7 @@ export default function Page() {
                   </div>
               </div>
           </section>
-          {/* <GettingStartedSection /> */}
+          <GettingStartedCta />
         </div>
       </WebLayout>
     );

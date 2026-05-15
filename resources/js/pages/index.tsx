@@ -14,10 +14,10 @@ export default function Welcome() {
                 pageTitle="Din digitale forælder assistent lige ved hånden"
                 description="Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for."
             >
-                <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-50">
-                    <div className="container w-[1600px] max-w-[1600px] mx-auto">
-                        <div className="flex px-10 gap-12">
-                            <div className="w-7/12 sm:px-8 md:px-0 flex flex-col justify-center items-start text-start gap-6">
+                <section className="bg-white text-blue-900 sm:pt-[120px] xl:pt-50">
+                    <div className="container 2xl:w-[1600px] 2xl:max-w-[1600px] mx-auto">
+                        <div className="flex sm:flex-col 2xl:flex-row px-10 gap-12">
+                            <div className=" 2xl:w-7/12 sm:w-full md:w-full flex flex-col justify-center items-start text-start gap-6">
                                 <motion.h1
                                     initial={{ opacity: 0, y: 20 }}
                                     transition={{ duration: 1.5 }}
@@ -34,7 +34,7 @@ export default function Welcome() {
                                     <p className="text-xl text-black w-10/12">Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for.</p>
                                 </motion.div>
                             </div>
-                            <div className="w-5/12 relative flex justify-end items-end">
+                            <div className="2xl:w-5/12 sm:w-full relative flex justify-end items-end">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     transition={{ duration: 1.5, delay: 1.5 }}
@@ -51,7 +51,7 @@ export default function Welcome() {
                     </div>
                 </section>
                 <section>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto py-32">
+                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto py-32">
                         <div className="ups-item bg-blue-400/10 rounded-2xl p-8 flex flex-col justify-center items-start text-start gap-4">
                             <div className="flex justify-between items-center gap-4 w-full">
                                 <h3 className="text-6xl font-bold mt-2 text-blue-800">1000+</h3>
@@ -100,45 +100,47 @@ export default function Welcome() {
                 <section>
                     <div className="container mx-auto">
                         <h3 className="text-5xl font-bold text-blue-800">Vi kan hjælpe dig der har oplevet</h3>
-                        <div className="flex gap-8 mt-12">
-                            <div className="w-1/3 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center items-center text-center gap-6 py-12">
+                        <div className="flex sm:flex-col lg:flex-row gap-8 mt-12">
+                            <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
                                 <h3 className="text-3xl font-bold text-white mt-4">Abort</h3>
                                 <p className="text-lg text-blue-200 w-10/12">Vi forstår, hvor svært det kan være at miste et barn, og vi er her for at støtte dig gennem denne svære tid.</p>
-                                <button
-                                    className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium"
-                                >
-                                    <Link href={route('page.experiences.abortion')}>Læs mere</Link>
-                                </button>
+                                <Link href={route('page.experiences.abortion')}>
+                                    <button
+                                        className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium"
+                                    >
+                                        Læs mere
+                                    </button>
+                                </Link>
                             </div>
-                            <div className="w-1/3 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center items-center text-center gap-6">
+                            <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
                                 <h3 className="text-3xl font-bold text-white">Dødfødsel</h3>
                                 <p className="text-lg text-blue-200 w-10/12">Vi forstår, hvor svært det kan være at miste et barn, og vi er her for at støtte dig gennem denne svære tid.</p>
-                                <button
-                                    className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium"
-                                >
-                                    <Link href={route('page.experiences.stillbirth')}>Læs mere</Link>
-                                </button>
+                                <Link href={route('page.experiences.stillbirth')}>
+                                    <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
+                                        Læs mere
+                                    </button>
+                                </Link>
                             </div>
-                            <div className="w-1/3 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center items-center text-center gap-6">
+                            <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
                                 <h3 className="text-3xl font-bold text-white">Er nye forældre</h3>
                                 <p className="text-lg text-blue-200 w-10/12">Vi forstår, at forældreskabet kan være udfordrende, og vi er her for at støtte dig gennem de svære tider og hjælpe dig med at finde de ressourcer, du har brug for.</p>
-                                <button
-                                    className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium"
-                                >
-                                    <Link href={route('page.experiences.new-parents')}>Læs mere</Link>
-                                </button>
+                                <Link href={route('page.experiences.new-parents')}>
+                                    <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
+                                        Læs mere
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 </section>
-                <section className="bg-white text-blue-900 xl:px-8 xl:py-32">
+                <section className="bg-white text-blue-900 sm:py-20 xl:px-8 xl:py-32">
                     <div className="container flex flex-wrap mx-auto">
-                        <div className="w-full lg:w-6/12 pe-16 px-8 sm:px-8 md:px-0 flex justify-center items-center">
+                        <div className="w-full lg:w-6/12 md:px-0 flex justify-center items-center">
                             <video src="/videos/function_resources_intro.mp4" autoPlay={true} loop={true} muted className="w-full h-[700px] object-cover rounded-2xl shadow-lg shadow-blue-200">
-                            Your browser does not support the video tag.
-                        </video>
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
-                        <div className="w-full lg:w-6/12 mt-8 flex flex-col justify-center items-start text-start gap-6 px-8 sm:px-8 md:px-0 lg:ps-16">
+                        <div className="w-full lg:w-6/12 mt-8 flex flex-col justify-center items-start text-start gap-6 md:px-0 lg:ps-16">
                         <motion.h3
                             className="text-5xl font-bold mb-4 text-blue-800"
                             initial={{ opacity: 0, y: 20 }}
@@ -176,21 +178,21 @@ export default function Welcome() {
                             whileInView={{ opacity: 1, y: 0 }}
                         >
                             <div className="flex gap-8 mt-20">
-                                <div className="testimonial flex gap-12 relative">
-                                    <div className="story w-6/12">
+                                <div className="testimonial flex sm:flex-col-reverse xl:flex-row gap-12 relative">
+                                    <div className="story sm:w-full xl:w-6/12">
                                         <h3 className="text-3xl font-bold mb-4 text-blue-800 w-9/12">"Familiehjælp har været en uvurderlig ressource for mig og min familie"</h3>
                                         <p className="text-lg text-blue-800 w-10/12">"Vi kom ud for en svær situation, vi var usikre på, hvordan vi skulle håndtere en dødfødsel.</p>
                                         <p className="text-lg text-blue-800 w-10/12 mt-2">"Familiehjælp appen hjalp os med at finde de rette ressourcer og støtte, og det gjorde en enorm forskel for os i en meget svær tid. Vi kunne ikke have klaret det uden dem."</p>
                                         <p className="text-md text-blue-600 mt-4 font-bold mt-4">- Maria, mor til to børn</p>
 
-                                        <div className="absolute bottom-2">
+                                        <div className="absolute sm:bottom-0 2xl:bottom-2">
                                             <h3 className="text-2xl text-blue-500">Vil du læse flere success historier som denne?</h3>
                                             <Link href="/testimonials/marias-story" className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">
                                                 Se flere historier
                                             </Link>
                                         </div>
                                     </div>
-                                    <div className="story-image w-6/12">
+                                    <div className="story-image sm:w-full xl:w-6/12 relative">
                                         <img src="/images/web/testimonials/success_story_one.jpg" alt="Testimonial 1" className="rounded-2xl shadow-lg"/>
                                     </div>
                                 </div>
