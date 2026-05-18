@@ -1,0 +1,100 @@
+{
+  "frontpage": {
+    "title": "Din digitale forælder assistent",
+    "title.highlight": "lige ved hånden",
+    "description": "Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for.",
+    "selling_points": {
+      "families_helped": {
+        "count": "100+",
+        "title": "familier hjulpet"
+      },
+      "satisfaction_rate": {
+        "count": "95%",
+        "title": "tilfredshedsrate"
+      },
+      "average_startup_time": {
+        "count": "5",
+        "title": "Gennemsnitlig opstartstid"
+      }
+    },
+    "about_section": {
+      "title": "Om FamilieHjælp",
+      "description": "Familiehjælp er dedikeret til at gøre en forskel for familier i nød. Vi forstår de udfordringer, som mange familier står overfor, og vi er her for at tilbyde støtte og ressourcer, der kan hjælpe dem med at navigere gennem svære tider. Vores platform er designet til at være brugervenlig og tilgængelig, så alle kan finde den hjælp, de har brug for, når de har brug for det.",
+      "button": "Læs mere om vores mission"
+    },
+    "how_we_can_help": {
+      "title": "Vi kan hjælpe dig der har oplevet",
+      "sections": {
+        "abort": {
+          "title": "Abort",
+          "description": "Vi forstår, hvor svært det kan være at miste et barn, og vi er her for at støtte dig gennem denne svære tid.",
+          "button": "Læs mere"
+        },
+        "stillbirth": {
+          "title": "Dødfødsel",
+          "description": "Vi forstår, hvor svært det kan være at miste et barn, og vi er her for at støtte dig gennem denne svære tid.",
+          "button": "Læs mere"
+        },
+        "new_parents": {
+          "title": "Nye forældre",
+          "description": "Vi forstår, at forældreskabet kan være udfordrende, og vi er her for at støtte dig gennem de svære tider og hjælpe dig med at finde de ressourcer, du har brug for.",
+          "button": "Læs mere"
+        }
+      }
+    },
+    "resources_functions": {
+      "title": "Ressourcer og funktioner",
+      "hightlight": "Familiehjælp tilbyder en række funktioner designet til at støtte dig og din familie i svære tider. Vores platform inkluderer bland andet:",
+      "features": {
+        "feature_one": "- Et omfattende bibliotek af ressourcer og hjælpemidler",
+        "feature_two": "- Brugervenlige værktøjer til at finde den rette hjælp",
+        "feature_three": "- Mulighed for at kontakte vores supportteam for personlig assistance",
+        "feature_four": "- Regelmæssige opdateringer og nye ressourcer baseret på brugernes behov"
+      },
+      "button": "Udforsk vores ressourcer"
+    },
+    "recommended": {
+      "title": "Vi bliver anbefalet af mange familier",
+      "subtitle": "Læs nogle af de success historier fra dem vi har hjulpet",
+      "story": {
+        "title": "Familiehjælp har været en uvurderlig ressource for mig og min familie",
+        "desc_one": "Vi kom ud for en svær situation, vi var usikre på, hvordan vi skulle håndtere en dødfødsel.",
+        "desc_two": "Familiehjælp appen hjalp os med at finde de rette ressourcer og støtte, og det gjorde en enorm forskel for os i en meget svær tid. Vi kunne ikke have klaret det uden dem.",
+        "author": "Maria, mor til en dødfødt søn"
+      },
+      "want_to_read_more": "Vil du læse flere success historier som denne?",
+      "button": "Læs flere historier"
+    }
+  },
+  "helpingResources": {
+    "headline": "Vores hjælpemidler",
+    "description": "Hos ForældreHjælp giver vi adgang til en række midler som er genveje til hurtig hjælp og støtte og ressourcer for forældre i svære situationer. Vores hjælpemidler er designet til at gøre det nemt for dig at finde den støtte, du har brug for, når du har brug for det mest. Uanset om du søger information, professionel vejledning eller et fællesskab af ligesindede, er vores platform her for at hjælpe dig gennem dine udfordringer som forælder. Vi forstår, hvor vigtigt det er at have hurtig adgang til pålidelige ressourcer, især i svære tider, og vores mål er at gøre denne adgang så enkel og effektiv som muligt.",
+    "list_resources": {
+      "title": "Hvilke genveje til hjælpemidler tilbyder vi",
+      "description": "vi giver adgang til en række hjælpemidler som er genveje til hurtig hjælp og støtte og ressourcer for forældre i svære situationer. Nogle af de hjælpemidler vi tilbyder inkluderer:",
+      "items": {
+        "0": {
+          "title": "Ressourcebibliotek",
+          "description": "Et omfattende bibliotek af artikler, guider og videoer, der dækker en bred vifte af emner relateret til forældreskab, abort og dødfødsel."
+        },
+        "1": {
+          "title": "Professionel vejledning",
+          "description": "Mulighed for at kontakte vores team af eksperter for personlig rådgivning og støtte, uanset om det er gennem chat, e-mail eller telefon."
+        },
+        "2": {
+          "title": "Fællesskabsforum",
+          "description": "Et sikkert og støttende online forum, hvor forældre kan dele deres oplevelser, stille spørgsmål og finde støtte fra andre, der har været igennem lignende situationer."
+        },
+        "3": {
+          "title": "Regelmæssige opdateringer",
+          "description": "Vi opdaterer løbende vores ressourcer og tilføjer nye baseret på feedback fra vores brugere og de nyeste forskning inden for forældreskab og relaterede emner."
+        }
+      }
+    }
+  },
+  "cta": {
+    "headline": "Klar til at komme i gang?",
+    "description": "Opret en konto i dag og få adgang til de ressourcer og den støtte, du har brug for for at hjælpe dig og din familie gennem svære tider.",
+    "button": "Opret en konto og kom i gang"
+  }
+}

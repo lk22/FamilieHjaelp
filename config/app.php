@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /**
+     * Available locales for the application. This is used to validate and set the locale based on the URL parameter.
+     */
+    'available_locales' => ['en', 'da'],
 ];

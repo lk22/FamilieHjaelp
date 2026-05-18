@@ -6,6 +6,7 @@ import { usePage } from '@inertiajs/react';
 import WebLayout from "@/layouts/web-layout";
 
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
+import { JSX } from "react";
 
 interface FaqItem {
     title: string;
@@ -59,7 +60,7 @@ export default function Page() {
           </section>
           <section>
             <Accordion>
-              {faqItems.map((item, index) => {
+              {faqItems.map((item, index): JSX.Element => {
                 return (
                     <motion.div
                       key={index}
@@ -73,7 +74,7 @@ export default function Page() {
                       title={item.title}
                       body={item.body}
                     />
-                    </motion.div>
+                  </motion.div>
                 )
               })}
             </Accordion>

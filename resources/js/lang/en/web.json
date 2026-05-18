@@ -1,0 +1,100 @@
+{
+  "frontpage": {
+    "title": "Your digital parent assistant",
+    "title.highlight": "right at your fingertips",
+    "description": "We are here to help you navigate parenthood by providing easy access to the resources and support you need.",
+    "selling_points": {
+      "families_helped": {
+        "count": "100+",
+        "title": "families helped"
+      },
+      "satisfaction_rate": {
+        "count": "95%",
+        "title": "satisfaction rate"
+      },
+      "average_startup_time": {
+        "count": "5",
+        "title": "average startup time"
+      }
+    },
+    "about_section": {
+      "title": "About FamilieHjælp",
+      "description": "Familiehjælp is dedicated to making a difference for families in need. We understand the challenges that many families face, and we are here to provide support and resources that can help them navigate through difficult times. Our platform is designed to be user-friendly and accessible, so everyone can find the help they need when they need it.",
+      "button": "Learn more about our mission"
+    },
+    "how_we_can_help": {
+      "title": "We can help you who have experienced",
+      "sections": {
+        "abort": {
+          "title": "Abortion",
+          "description": "We understand how difficult it can be to lose a child, and we are here to support you through this challenging time.",
+          "button": "Read more"
+        },
+        "stillbirth": {
+          "title": "Stillbirth",
+          "description": "We understand how difficult it can be to lose a child, and we are here to support you through this challenging time.",
+          "button": "Read more"
+        },
+        "new_parents": {
+          "title": "New Parents",
+          "description": "We understand that parenthood can be challenging, and we are here to support you through difficult times and help you find the resources you need.",
+          "button": "Read more"
+        }
+      }
+    },
+    "resources_functions": {
+      "title": "Resources and Features",
+      "hightlight": "Familiehjælp offers a range of features designed to support you and your family during difficult times. Our platform includes:",
+      "features": {
+        "feature_one": "- A comprehensive library of resources and tools",
+        "feature_two": "- User-friendly tools to find the right help",
+        "feature_three": "- The ability to contact our support team for personalized assistance",
+        "feature_four": "- Regular updates and new resources based on user needs"
+      },
+      "button": "Explore our resources"
+    },
+    "recommended": {
+      "title": "We are recommended by many families",
+      "subtitle": "Read some of the success stories from those we have helped",
+      "story": {
+        "title": "Familiehjælp has been an invaluable resource for me and my family",
+        "desc_one": "We faced a difficult situation, unsure of how to handle a stillbirth.",
+        "desc_two": "The Familiehjælp app helped us find the right resources and support, and it made a huge difference for us during a very difficult time. We couldn't have managed without them.",
+        "author": "Maria, mother of a stillborn son"
+      },
+      "want_to_read_more": "Do you want to read more success stories like this?",
+      "button": "Read more stories"
+    }
+  },
+  "helpingResources": {
+    "headline": "Our Helping Resources",
+    "description": "At ForældreHjælp, we provide access to a range of resources that are shortcuts to quick help and support for parents in difficult situations. Our helping resources are designed to make it easy for you to find the support you need when you need it most. Whether you are looking for information, professional guidance, or a community of like-minded individuals, our platform is here to help you through your challenges as a parent. We understand the importance of having quick access to reliable resources, especially in difficult times, and our goal is to make this access as simple and effective as possible.",
+    "list_resources": {
+      "title": "Which helping resources do we offer",
+      "description": "We provide access to a range of helping resources that are shortcuts to quick help and support for parents in difficult situations. Some of the helping resources we offer include:",
+      "items": {
+        "0": {
+          "title": "Resource Library",
+          "description": "A comprehensive library of articles, guides, and videos covering a wide range of topics related to parenting, abortion, and stillbirth."
+        },
+        "1": {
+          "title": "Professional Guidance",
+          "description": "The ability to contact our team of experts for personalized advice and support, whether through chat, email, or phone."
+        },
+        "2": {
+          "title": "Community Forum",
+          "description": "A safe and supportive online forum where parents can share their experiences, ask questions, and find support from others who have been through similar situations."
+        },
+        "3": {
+          "title": "Regular Updates",
+          "description": "We continuously update our resources and add new ones based on feedback from our users and the latest research in parenting and related topics."
+        }
+      }
+    }
+  },
+  "cta": {
+    "headline": "Ready to get started?",
+    "description": "Create an account today and gain access to the resources and support you need to help you and your family through difficult times.",
+    "button": "Create an account and get started"
+  }
+}

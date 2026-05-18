@@ -5,9 +5,13 @@ import { motion } from 'framer-motion';
 
 import WebLayout from '@/layouts/web-layout';
 
+import {useTranslation} from "react-i18next";
+
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
 export default function Welcome() {
+    const { t } = useTranslation('web');
+
     return (
         <>
             <WebLayout
@@ -24,14 +28,14 @@ export default function Welcome() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     className={"text-4xl font-bold text-blue-900"}
                                 >
-                                    <h1 className="text-7xl font-bold mt-12">Din digitale famillie assistent <span className="text-indigo-600">lige ved hånden</span></h1>
+                                    <h1 className="text-7xl font-bold mt-12">{t('frontpage.title')} <span className="text-indigo-600">{t('frontpage.title.highlight')}</span></h1>
                                 </motion.h1>
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     transition={{ duration: 1.5, delay: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                 >
-                                    <p className="text-xl text-black w-10/12">Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for.</p>
+                                    <p className="text-xl text-black w-10/12">{t('frontpage.description')}</p>
                                 </motion.div>
                             </div>
                             <div className="2xl:w-5/12 sm:w-full relative flex justify-end items-end">
@@ -54,20 +58,20 @@ export default function Welcome() {
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto py-32">
                         <div className="ups-item bg-blue-400/10 rounded-2xl p-8 flex flex-col justify-center items-start text-start gap-4">
                             <div className="flex justify-between items-center gap-4 w-full">
-                                <h3 className="text-6xl font-bold mt-2 text-blue-800">1000+</h3>
-                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">Familier Har vi hjulpet</p>
+                                <h3 className="text-6xl font-bold mt-2 text-blue-800">{t('frontpage.selling_points.families_helped.count')}</h3>
+                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.families_helped.title')}</p>
                             </div>
                         </div>
                         <div className="ups-item bg-blue-900/10 rounded-2xl p-8 flex flex-col justify-start items-start text-start gap-4">
                             <div className="flex justify-between items-center gap-4 w-full">
-                                <h3 className="text-6xl font-bold mt-2 text-blue-800">95%</h3>
-                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-2xl">Tilfredshed</p>
+                                <h3 className="text-6xl font-bold mt-2 text-blue-800">{t('frontpage.selling_points.satisfaction_rate.count')}</h3>
+                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.satisfaction_rate.title')}</p>
                             </div>
                         </div>
                         <div className="ups-item bg-blue-900/10 rounded-2xl p-8 flex flex-col justify-start items-start text-start gap-4">
                             <div className="flex justify-between items-center gap-4 w-full">
-                                <h3 className="text-6xl font-bold mt-2 text-blue-800">5</h3>
-                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-2xl">Minutters gennemsnitlig opstartstid</p>
+                                <h3 className="text-6xl font-bold mt-2 text-blue-800">{t('frontpage.selling_points.average_startup_time.count')}</h3>
+                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.average_startup_time.title')}</p>
                             </div>
                         </div>
                     </div>
@@ -76,14 +80,14 @@ export default function Welcome() {
                 <section className="bg-white text-blue-900 pt-20 pb-32">
                     <div className="container mx-auto flex flex-col-reverse sm:flex-col-reverse md:flex-col-reverse xl:flex-row flex-wrap">
                         <div className="w-full xl:w-6/12 p-8 flex flex-col justify-center items-start text-start gap-6">
-                            <h3 className="text-5xl font-bold">Om Familiehjælp</h3>
+                            <h3 className="text-5xl font-bold">{t('frontpage.about_section.title')}</h3>
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 transition={{ duration: 0.8, delay: 0.5 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                             >
-                                <p className="text-lg mb-8 leading-8 text-zinc-600 dark:text-black font-medium">Familiehjælp er dedikeret til at gøre en forskel for familier i nød. Vi forstår de udfordringer, som mange familier står overfor, og vi er her for at tilbyde støtte og ressourcer, der kan hjælpe dem med at navigere gennem svære tider. Vores platform er designet til at være brugervenlig og tilgængelig, så alle kan finde den hjælp, de har brug for, når de har brug for det.</p>
-                                <Link href="/vores-mission" className="bg-blue-800 text-white py-3 mt-8 px-8 rounded-full mt-4 font-medium hover:bg-blue-900 transition cursor-pointer font-bold">Læs mere om vores mission</Link>
+                                <p className="text-lg mb-8 leading-8 text-zinc-600 dark:text-black font-medium">{t('frontpage.about_section.description')}</p>
+                                <Link href="/vores-mission" className="bg-blue-800 text-white py-3 mt-8 px-8 rounded-full mt-4 font-medium hover:bg-blue-900 transition cursor-pointer font-bold">{t('frontpage.about_section.button')}</Link>
                             </motion.div>
                         </div>
                         <div className="w-full xl:w-6/12 p-16 flex xl:justify-center xl:items-center">
@@ -99,34 +103,34 @@ export default function Welcome() {
                 </section>
                 <section>
                     <div className="container mx-auto">
-                        <h3 className="text-5xl font-bold text-blue-800">Vi kan hjælpe dig der har oplevet</h3>
+                        <h3 className="text-5xl font-bold text-blue-800">{t('frontpage.how_we_can_help.title')}</h3>
                         <div className="flex sm:flex-col lg:flex-row gap-8 mt-12">
                             <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
-                                <h3 className="text-3xl font-bold text-white mt-4">Abort</h3>
-                                <p className="text-lg text-blue-200 w-10/12">Vi forstår, hvor svært det kan være at miste et barn, og vi er her for at støtte dig gennem denne svære tid.</p>
+                                <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.how_we_can_help.sections.abort.title')}</h3>
+                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.abort.description')}</p>
                                 <Link href={route('page.experiences.abortion')}>
                                     <button
                                         className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium"
                                     >
-                                        Læs mere
+                                        {t('frontpage.how_we_can_help.sections.abort.button')}
                                     </button>
                                 </Link>
                             </div>
                             <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
-                                <h3 className="text-3xl font-bold text-white">Dødfødsel</h3>
-                                <p className="text-lg text-blue-200 w-10/12">Vi forstår, hvor svært det kan være at miste et barn, og vi er her for at støtte dig gennem denne svære tid.</p>
+                                <h3 className="text-3xl font-bold text-white">{t('frontpage.how_we_can_help.sections.stillbirth.title')}</h3>
+                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.stillbirth.description')}</p>
                                 <Link href={route('page.experiences.stillbirth')}>
                                     <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
-                                        Læs mere
+                                        {t('frontpage.how_we_can_help.sections.stillbirth.button')}
                                     </button>
                                 </Link>
                             </div>
                             <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
-                                <h3 className="text-3xl font-bold text-white">Er nye forældre</h3>
-                                <p className="text-lg text-blue-200 w-10/12">Vi forstår, at forældreskabet kan være udfordrende, og vi er her for at støtte dig gennem de svære tider og hjælpe dig med at finde de ressourcer, du har brug for.</p>
+                                <h3 className="text-3xl font-bold text-white">{t('frontpage.how_we_can_help.sections.new_parents.title')}</h3>
+                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.new_parents.description')}</p>
                                 <Link href={route('page.experiences.new-parents')}>
                                     <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
-                                        Læs mere
+                                        {t('frontpage.how_we_can_help.sections.new_parents.button')}
                                     </button>
                                 </Link>
                             </div>
@@ -141,23 +145,29 @@ export default function Welcome() {
                             </video>
                         </div>
                         <div className="w-full lg:w-6/12 mt-8 flex flex-col justify-center items-start text-start gap-6 md:px-0 lg:ps-16">
-                        <motion.h3
-                            className="text-5xl font-bold mb-4 text-blue-800"
-                            initial={{ opacity: 0, y: 20 }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                        >
-                            Ressourcer og funktioner
-                        </motion.h3>
-                        <p className="text-xl leading-8 text-blue-600 dark:text-black mb-6 font-medium">
-                            Familiehjælp tilbyder en række funktioner designet til at støtte dig og din familie i svære tider. Vores platform inkluderer bland andet:
-                        </p>
-                        <p className="text-lg leading-8 text-zinc-600 dark:text-blue-900">
-                            - Et omfattende bibliotek af ressourcer og hjælpemidler <br/>
-                            - Brugervenlige værktøjer til at finde den rette hjælp <br/>
-                            - Mulighed for at kontakte vores supportteam for personlig assistance <br/>
-                            - Regelmæssige opdateringer og nye ressourcer baseret på brugernes behov <br/>
-                        </p>
+                            <motion.h3
+                                className="text-5xl font-bold mb-4 text-blue-800"
+                                initial={{ opacity: 0, y: 20 }}
+                                transition={{ duration: 0.8, delay: 0.3 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                            >
+                                {t('frontpage.resources_functions.title')}
+                            </motion.h3>
+                            <p className="text-xl leading-8 text-blue-600 dark:text-black mb-6 font-medium">
+                                {t('frontpage.resources_functions.hightlight')}
+                            </p>
+                            <p className="text-lg leading-2 text-zinc-600 dark:text-blue-900">
+                                {t('frontpage.resources_functions.features.feature_one')}
+                            </p>
+                            <p className="text-lg leading-2 text-zinc-600 dark:text-blue-900">
+                                {t('frontpage.resources_functions.features.feature_two')}
+                            </p>
+                            <p className="text-lg leading-2 text-zinc-600 dark:text-blue-900">
+                                {t('frontpage.resources_functions.features.feature_three')}
+                            </p>
+                            <p className="text-lg leading-2 text-zinc-600 dark:text-blue-900">
+                                {t('frontpage.resources_functions.features.feature_four')}
+                            </p>
                             <Link href="/functions" className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">Udforsk vores funktioner</Link>
                         </div>
                     </div>
@@ -169,8 +179,8 @@ export default function Welcome() {
                             transition={{ duration: 0.8, delay: 0.3 }}
                             whileInView={{ opacity: 1, y: 0 }}
                         >
-                            <h3 className="text-5xl font-bold mb-4 text-blue-800 text-center">Vi bliver anbefalet af mange familier</h3>
-                            <p className="text-center">Læs nogle af de success historier fra dem vi har hjulpet</p>
+                            <h3 className="text-5xl font-bold mb-4 text-blue-800 text-center">{t('frontpage.recommended.title')}</h3>
+                            <p className="text-center">{t('frontpage.recommended.subtitle')}</p>
                         </motion.div>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -180,15 +190,15 @@ export default function Welcome() {
                             <div className="flex gap-8 mt-20">
                                 <div className="testimonial flex sm:flex-col-reverse xl:flex-row gap-12 relative">
                                     <div className="story sm:w-full xl:w-6/12">
-                                        <h3 className="text-3xl font-bold mb-4 text-blue-800 w-9/12">"Familiehjælp har været en uvurderlig ressource for mig og min familie"</h3>
-                                        <p className="text-lg text-blue-800 w-10/12">"Vi kom ud for en svær situation, vi var usikre på, hvordan vi skulle håndtere en dødfødsel.</p>
-                                        <p className="text-lg text-blue-800 w-10/12 mt-2">"Familiehjælp appen hjalp os med at finde de rette ressourcer og støtte, og det gjorde en enorm forskel for os i en meget svær tid. Vi kunne ikke have klaret det uden dem."</p>
-                                        <p className="text-md text-blue-600 mt-4 font-bold mt-4">- Maria, mor til to børn</p>
+                                        <h3 className="text-3xl font-bold mb-4 text-blue-800 w-9/12">{t('frontpage.recommended.story.title')}</h3>
+                                        <p className="text-lg text-blue-800 w-10/12">{t('frontpage.recommended.story.desc_one')}</p>
+                                        <p className="text-lg text-blue-800 w-10/12 mt-2">{t('frontpage.recommended.story.desc_two')}</p>
+                                        <p className="text-md text-blue-600 mt-4 font-bold mt-4">{t('frontpage.recommended.story.author')}</p>
 
                                         <div className="absolute sm:bottom-0 2xl:bottom-2">
-                                            <h3 className="text-2xl text-blue-500">Vil du læse flere success historier som denne?</h3>
+                                            <h3 className="text-2xl text-blue-500">{t('frontpage.recommended.want_to_read_more')}</h3>
                                             <Link href="/testimonials/marias-story" className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">
-                                                Se flere historier
+                                                {t('frontpage.recommended.button')}
                                             </Link>
                                         </div>
                                     </div>

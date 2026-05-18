@@ -31,6 +31,16 @@ class HandleInertiaRequests extends Middleware
     }
 
     /**
+     * Sharing current locale string
+     *
+     * @return string
+     */
+    public function shareCurrentLocale(): string
+    {
+        return app()->getLocale();
+    }
+
+    /**
      * Share a random background image from the public/images/background directory.
      *
      * @return string|null
@@ -103,6 +113,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'isOnboarded' => $request->user() ? $request->user()->isOnboarded() : false
             ],
+            'locale' => $this->shareCurrentLocale(),
             'ziggy' => fn (): array => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
