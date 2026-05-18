@@ -1,23 +1,9 @@
 import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
-// import GettingStartedSection from "@/components/GettingStartedSection";
 import { motion } from 'framer-motion';
-import { type SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
 import WebLayout from "@/layouts/web-layout";
 import GettingStartedCta from "@/components/WebLayout/GettingStartedCta";
 
-interface FaqItem {
-    title: string;
-    body: string | React.ReactNode | React.ReactNode[];
-}
-
-interface FaqItemsProps {
-    item: FaqItem;
-    index: number|string;
-}
-
 export default function Page() {
-    const faqItems = usePage().props.faqItems as FaqItem[];
 
     return (
       <WebLayout pageTitle="Vores mission og vision | ForældreHjælp" description="Lær om vores mission og vision hos ForældreHjælp, hvor vi stræber efter at skabe en tryg og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vores mål er at tilbyde let adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forælder behøver at føle sig alene i svære tider. Gennem innovative digitale løsninger ønsker vi at gøre en positiv forskel i livet for familier overalt i Danmark.">
