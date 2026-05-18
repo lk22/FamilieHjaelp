@@ -1,6 +1,8 @@
 import {Link} from "@inertiajs/react";
+import { usePage } from "@inertiajs/react";
 
 import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
+import { type SharedData } from '@/types';
 
 interface MainNavigationProps {
   openAuthDialog: () => void;
@@ -9,6 +11,8 @@ interface MainNavigationProps {
 }
 
 export default function MainNavigation({ openAuthDialog, closeAuthDialog, isAuthDialogOpen }: MainNavigationProps) {
+  const { auth } = usePage().props;
+
   return (
     <nav>
       <ul className="flex justify-center gap-4">
@@ -39,11 +43,27 @@ export default function MainNavigation({ openAuthDialog, closeAuthDialog, isAuth
           </ul>
         </li>
         <li>
-          <Link href={route('page.getting-started')} className="text-white hover:text-white text-lg cursor-pointer">Kom igang</Link>
+          <Link
+            href={route('page.getting-started')}
+            className="text-white hover:text-white text-lg cursor-pointer"
+            onClick={openAuthDialog}
+          >
+            Kom igang
+          </Link>
         </li>
-        <li>
-          <button onClick={openAuthDialog} className="text-white hover:text-white text-lg cursor-pointer">Log ind / Opret konto</button>
-        </li>
+        {
+          auth.user ? (
+            <li>
+              <Link href={route('profile.home')} className="text-white hover:text-white text-lg cursor-pointer border-2 border-white rounded-full px-4 py-2 font-bold">
+                Gå til dashboard
+              </Link>
+            </li>
+          ) : (
+            <li>
+              <button onClick={openAuthDialog} className="text-white hover:text-white text-lg cursor-pointer">Log ind / Opret konto</button>
+            </li>
+          )
+        }
       </ul>
       <AuthRegisterDialog
         isOpen={isAuthDialogOpen}
