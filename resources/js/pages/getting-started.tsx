@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import WebLayout from "@/layouts/web-layout";
+import { useTranslation } from "react-i18next";
 
 interface FaqItem {
     title: string;
@@ -17,6 +18,8 @@ interface FaqItemsProps {
 
 export default function Page() {
     const faqItems = usePage().props.faqItems as FaqItem[];
+
+    const { t } = useTranslation();
 
     return (
       <WebLayout
@@ -33,9 +36,9 @@ export default function Page() {
                       transition={{ duration: 1.5 }}
                       whileInView={{ opacity: 1, y: 0 }}
                     >
-                      <h1 className="balance leading text-8xl font-bold text-center">Få hjælp lige ved <span className="text-blue-900">hånden</span></h1>
+                      <h1 className="balance leading text-8xl font-bold text-center">{t('getting_started_page.headline')} <span className="text-blue-900">{t('getting_started_page.headline_highlight')}</span></h1>
                       <p className="text-xl text-blue-900 mt-4 text-center w-8/12 mx-auto">
-                        Uanset om du er ny bruger eller har brugt vores platform før, er det nemt at komme i gang med Familiehjælp og begynde at få adgang til de ressourcer og hjælpemidler, du har brug for.
+                        {t('getting_started_page.description')}
                       </p>
                   </motion.div>
                 </div>
@@ -60,7 +63,7 @@ export default function Page() {
                     transition={{ duration: 1.5 }}
                     whileInView={{ opacity: 1, y: 0 }}
                   >
-                    <h2 className="text-blue-900 w-full text-5xl font-bold">Vores app er tilgængelig på alle enheder</h2>
+                    <h2 className="text-blue-900 w-full text-5xl font-bold">{t('getting_started_page.app_title')}</h2>
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0, y: 50 }}
@@ -68,10 +71,10 @@ export default function Page() {
                     whileInView={{ opacity: 1, y: 0 }}
                   >
                     <p className="text-blue-900 text-xl leading-10 mt-6 w-full mb-8">
-                      Vores app er designet til at være tilgængelig på alle enheder, så du kan få adgang til vores ressourcer og støtte, uanset hvor du er. Uanset om du foretrækker at bruge vores app på din smartphone, tablet eller computer, kan du nemt logge ind og få adgang til de værktøjer og informationer, du har brug for for at hjælpe dig og din familie gennem svære tider.
+                      {t('getting_started_page.app_description')}
                     </p>
                     <p>
-                      Besøger du denne side på en mobil enhed? download vores app i dag og oplev, hvordan den kan gøre det lettere for dig at få adgang til hjælp og støtte, når du har mest brug for det.
+                      {t('getting_started_page.app_pwa_description')}
                     </p>
                   </motion.div>
                   <motion.div
@@ -80,13 +83,13 @@ export default function Page() {
                     whileInView={{ opacity: 1, y: 0 }}
                   >
                     <button type="button" className="mt-6 bg-blue-900 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-800 transition cursor-pointer inline-block">
-                      Se vores funktioner
+                      {t('getting_started_page.functions_button')}
                     </button>
                     <button
                       type="button"
                       className="mt-6 ml-4 bg-gray-200 text-gray-800 py-3 px-8 rounded-full font-medium hover:bg-gray-300 transition cursor-pointer inline-block"
                     >
-                      Kom igang
+                      {t('getting_started_page.get_started_button')}
                     </button>
                   </motion.div>
                 </div>

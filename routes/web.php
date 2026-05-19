@@ -12,7 +12,6 @@ use App\Http\Controllers\CompleteOnboardingController;
 use App\Http\Controllers\ProfileTodoController;
 use App\Http\Controllers\ProfileNoteController;
 
-
 /**
  * Public routes
  *
@@ -33,7 +32,7 @@ Route::group([
     Route::get('/vores-mission', [PageController::class, 'ourMission'])->name('page.our-mission');
     Route::get('/funktioner', [PageController::class, 'features'])->name('page.functions');
     Route::get('/har-du-oplevet/abort', [PageController::class, 'abortionExperience'])->name('page.experiences.abortion');
-    Route::get('/har-du-oplevet/doedfødsel', [PageController::class, 'stillbirthExperience'])->name('page.experiences.stillbirth');
+    Route::get('/har-du-oplevet/doedfoedsel', [PageController::class, 'stillbirthExperience'])->name('page.experiences.stillbirth');
     Route::get('/har-du-oplevet/foraeldre', [PageController::class, 'newParentsExperience'])->name('page.experiences.new-parents');
     Route::get('/har-du-oplevet/mistet-familie-medlem', [PageController::class, 'lostFamilyMemberExperience'])->name('page.experiences.lost-family-member');
     Route::get('/kom-igang', [PageController::class, 'gettingStarted'])->name('page.getting-started');
@@ -44,13 +43,11 @@ Route::group([
  * Onboarding routes
 */
 Route::get('/app/onboarding', [OnboardingController::class, 'show'])->name('onboarding.step');
-
 Route::get('/app/getting-started', [OnboardingController::class, 'show'])->middleware('guest')->name('getting-started');
 Route::get('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'showStep'])->name('onboarding.scenario.step');
 Route::post('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'submitStep'])->name('onboarding.scenario.step.submit');
 Route::get('/app/onboarding/confirmation', [OnboardingController::class, 'showConfirmation'])->name('onboarding.confirmation');
 Route::get('/app/onboarding/completed', [OnboardingController::class, 'showCompleted'])->name('onboarding.completed.view');
-
 
 Route::post('/app/onboarding/{scenario}/update-step/{step}', [OnboardingController::class, 'updateStep'])->name('onboarding.scenario.update-step');
 

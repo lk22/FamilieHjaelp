@@ -1,10 +1,10 @@
 import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
 // import GettingStartedSection from "@/components/GettingStartedSection";
 import { motion } from 'framer-motion';
-import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import WebLayout from "@/layouts/web-layout";
 import GettingStartedCta from "@/components/WebLayout/GettingStartedCta";
+import { useTranslation } from "react-i18next";
 
 interface FaqItem {
     title: string;
@@ -18,6 +18,8 @@ interface FaqItemsProps {
 
 export default function Page() {
     const faqItems = usePage().props.faqItems as FaqItem[];
+
+    const { t } = useTranslation();
 
     return (
       <WebLayout
@@ -36,8 +38,7 @@ export default function Page() {
                     transition={{ duration: 0.8 }}
                     whileInView={{ opacity: 1, y: 0 }}
                   >
-                    <h1 className="text-white w-full balance leading hidden">Hurtig forælder hjælp <span className="text-blue-500">lige ved hånden</span></h1>
-                    <h1 className="text-white lg:w-8/12 balance leading text-8xl font-bold">Har du oplevet en abort?</h1>
+                    <h1 className="text-white lg:w-8/12 balance leading text-8xl font-bold">{t('abortion.headline')}</h1>
                   </motion.div>
                 </div>
             </div>
@@ -46,7 +47,7 @@ export default function Page() {
           <div className="container mx-auto">
             <div className="mx-auto px-4 py-16">
               <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-16">
-                At miste et barn gennem dødfødsel er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. ForældreHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab.
+                {t('abortion.description')}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-8">
                 <aside>
@@ -55,9 +56,9 @@ export default function Page() {
                   </video>
                 </aside>
                 <aside>
-                  <h3 className="text-blue-900 text-4xl font-bold mb-2">Vi anbefaler</h3>
+                  <h3 className="text-blue-900 text-4xl font-bold mb-2">{t('abortion.recomendations.title')}</h3>
                   <p className="text-blue-900 text-xl leading-10 w-9/12 mb-8">
-                    Vi anbefaler at du søger professionel hjælp og støtte gennem vores platform, hvor du kan finde rådgivere specialiseret i sorgbearbejdning efter dødfødsel. Derudover kan deltagelse i støttegrupper med andre forældre, der har oplevet lignende tab, være en værdifuld måde at dele dine følelser og finde trøst. Vores ressourcer er designet til at hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på, mens du begynder helingsprocessen.
+                    {t('abortion.recomendations.description')}
                   </p>
                 </aside>
               </div>
