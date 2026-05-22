@@ -90,7 +90,7 @@ export default function Welcome() {
                                 whileInView={{ opacity: 1, y: 0 }}
                             >
                                 <p className="text-lg mb-8 leading-8 text-zinc-600 dark:text-black font-medium">{t('frontpage.about_section.description')}</p>
-                                <Link href="/vores-mission" className="bg-blue-800 text-white py-3 mt-8 px-8 rounded-full mt-4 font-medium hover:bg-blue-900 transition cursor-pointer font-bold">{t('frontpage.about_section.button')}</Link>
+                                <Link href={localized('page.our-mission')} className="bg-blue-800 text-white py-3 mt-8 px-8 rounded-full mt-4 font-medium hover:bg-blue-900 transition cursor-pointer font-bold">{t('frontpage.about_section.button')}</Link>
                             </motion.div>
                         </div>
                         <div className="w-full xl:w-6/12 p-16 flex xl:justify-center xl:items-center">
@@ -171,7 +171,7 @@ export default function Welcome() {
                             <p className="text-lg leading-2 text-zinc-600 dark:text-blue-900">
                                 {t('frontpage.resources_functions.features.feature_four')}
                             </p>
-                            <Link href="/functions" className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">Udforsk vores funktioner</Link>
+                            <Link href={localized('page.functions')} className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">Udforsk vores funktioner</Link>
                         </div>
                     </div>
                 </section>
