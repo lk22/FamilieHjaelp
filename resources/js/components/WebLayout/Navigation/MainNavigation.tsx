@@ -1,8 +1,8 @@
 import {Link} from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
 
+import LanguageSwitcher from "./LanguageSwitcher";
 import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
-import { type SharedData } from '@/types';
 import { useTranslation } from 'react-i18next';
 
 interface MainNavigationProps {
@@ -19,6 +19,9 @@ export default function MainNavigation({ openAuthDialog, closeAuthDialog, isAuth
   return (
     <nav>
       <ul className="flex justify-center gap-4">
+        <li>
+          <LanguageSwitcher />
+        </li>
         <li>
           <Link href={localized('page.help-resources')} className="text-white hover:text-white text-lg cursor-pointer">{t('menu.helpresources')}</Link>
         </li>

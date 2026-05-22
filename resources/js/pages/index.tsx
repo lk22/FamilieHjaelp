@@ -1,6 +1,6 @@
 // dependency imports
 import { type SharedData } from '@/types';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 
 import WebLayout from '@/layouts/web-layout';
@@ -11,6 +11,8 @@ import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
 export default function Welcome() {
     const { t } = useTranslation('web');
+    const {locale}  = usePage().props;
+    const localized = (name: string, params: Record<string, any> = {}) => route(name, { ...params, locale});
 
     return (
         <>
@@ -108,7 +110,7 @@ export default function Welcome() {
                             <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
                                 <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.how_we_can_help.sections.abort.title')}</h3>
                                 <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.abort.description')}</p>
-                                <Link href={route('page.experiences.abortion')}>
+                                <Link href={localized('page.experiences.abortion')}>
                                     <button
                                         className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium"
                                     >
@@ -119,7 +121,7 @@ export default function Welcome() {
                             <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
                                 <h3 className="text-3xl font-bold text-white">{t('frontpage.how_we_can_help.sections.stillbirth.title')}</h3>
                                 <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.stillbirth.description')}</p>
-                                <Link href={route('page.experiences.stillbirth')}>
+                                <Link href={localized('page.experiences.stillbirth')}>
                                     <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
                                         {t('frontpage.how_we_can_help.sections.stillbirth.button')}
                                     </button>
@@ -128,7 +130,7 @@ export default function Welcome() {
                             <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
                                 <h3 className="text-3xl font-bold text-white">{t('frontpage.how_we_can_help.sections.new_parents.title')}</h3>
                                 <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.new_parents.description')}</p>
-                                <Link href={route('page.experiences.new-parents')}>
+                                <Link href={localized('page.experiences.new-parents')}>
                                     <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
                                         {t('frontpage.how_we_can_help.sections.new_parents.button')}
                                     </button>

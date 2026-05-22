@@ -20,7 +20,7 @@ export default function Page() {
                   initial={{ opacity: 0, y: 50 }}
                   transition={{ duration: 0.8 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  >
+                >
                   <h1 className="text-white lg:w-8/12 balance leading text-8xl font-bold">{t("stillbirth.headline")}</h1>
                 </motion.div>
               </div>

@@ -12,6 +12,7 @@
 import { useState, useMemo } from 'react';
 import { Dialog } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
+import { useTranslation } from "react-i18next";
 
 import {
   type RegisterFormDataProps,
@@ -30,6 +31,7 @@ interface AuthRegisterDialogProps {
 
 export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [ step, setStep ] = useState<AuthenticationStep>('login'); // 'login' or 'register'
+  const { t } = useTranslation();
 
   const [, setIsSubmitting ] = useState(false);
 
@@ -87,14 +89,14 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
             </svg>
           </div>
           <Dialog.Title className="text-2xl font-bold mb-4">
-            {step === 'login' ? 'Log ind på din konto' : 'Opret en ny konto'}
+            {step === 'login' ? t('authModal.login') : t('authModal.register')}
           </Dialog.Title>
           {step === 'login' ? (
             <>
-              <p className="text-sm text-gray-500 mb-4">Indtast dine loginoplysninger for at fortsætte.</p>
+              <p className="text-sm text-gray-500 mb-4">{t('authModal.login_email')}</p>
               <form onSubmit={handleAuthenticationSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">{t('authModal.login_email')}</label>
                   <input
                     type="email"
                     id="email"
@@ -105,7 +107,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
                   {loginForm.errors.email && <p className="text-red-500 text-sm mt-1">{loginForm.errors.email}</p>}
                 </div>
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">Adgangskode</label>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">{t('authModal.login_password')}</label>
                   <input
                     type="password"
                     id="password"
@@ -120,22 +122,22 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
                   disabled={loginForm.processing}
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                 >
-                  {loginForm.processing ? 'Logger ind...' : 'Log ind'}
+                  {loginForm.processing ? t('authModal.login') + '...' : t('authModal.login')}
                 </button>
               </form>
               <p className="text-sm text-gray-500 mt-12">
-                Har du ikke en konto?{' '}
+                {t('authModal.dont_have_account')}{' '}
                 <button onClick={() => setStep('register')} className="text-indigo-600 hover:text-indigo-700 font-medium">
-                  Opret en ny konto
+                  {t('authModal.register')}
                 </button>
               </p>
             </>
           ) : (
             <>
-              <p className="text-sm text-gray-500 mb-4">Udfyld formularen for at oprette en ny konto.</p>
+              <p className="text-sm text-gray-500 mb-4">{t('authModal.register')}</p>
               <form onSubmit={handleRegisterSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">Navn</label>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">{t('authModal.register_name')}</label>
                   <input
                     type="text"
                     id="name"
@@ -146,7 +148,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
                   {registerForm.errors.name && <p className="text-red-500 text-sm mt-1">{registerForm.errors.name}</p>}
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">{t('authModal.register_email')}</label>
                   <input
                     type="email"
                     id="email"
@@ -157,7 +159,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
                   {registerForm.errors.email && <p className="text-red-500 text-sm mt-1">{registerForm.errors.email}</p>}
                 </div>
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">Adgangskode</label>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">{t('authModal.register_password')}</label>
                   <input
                     type="password"
                     id="password"
@@ -168,7 +170,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
                   {registerForm.errors.password && <p className="text-red-500 text-sm mt-1">{registerForm.errors.password}</p>}
                 </div>
                 <div>
-                  <label htmlFor="password_confirmation" className="block text-sm font-medium text-gray-700">Bekræft adgangskode</label>
+                  <label htmlFor="password_confirmation" className="block text-sm font-medium text-gray-700">{t('authModal.register_password_confirmation')}</label>
                   <input
                     type="password"
                     id="password_confirmation"
@@ -183,12 +185,12 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
                   disabled={registerForm.processing}
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                 >
-                  {registerForm.processing ? 'Opretter bruger...' : 'Opret bruger'}
+                  {registerForm.processing ? t('authModal.register') + '...' : t('authModal.register')}
                 </button>
                 <p>
-                  Har du allerede en konto?{' '}
+                  {t('authModal.already_have_account')}{' '}
                   <button onClick={() => setStep('login')} className="text-indigo-600 hover:text-indigo-700 font-medium">
-                    Log ind på din konto
+                    {t('authModal.login')}
                   </button>
                 </p>
               </form>

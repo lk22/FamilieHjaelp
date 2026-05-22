@@ -143,5 +143,21 @@
     "dashboard": "Dashboard",
     "getting_started": "Kom igang",
     "login_register": "Log ind / Opret konto"
-  }
+  },
+  "authModal": {
+    "login": "Log ind",
+    "register": "Opret din konto",
+    "login_email": "Email",
+    "login_password": "Adgangskode",
+    "register_name": "Dit Navn",
+    "register_email": "Email",
+    "register_password": "Adgangskode",
+    "register_password_confirmation": "Bekræft adgangskode",
+    "remember_me": "Husk mig",
+    "forgot_password": "Glemt din adgangskode?",
+    "already_have_account": "Har du allerede en konto?",
+    "dont_have_account": "Har du ikke en konto?"
+  },
+  "language_da": "da",
+  "language_en": "en"
 }
