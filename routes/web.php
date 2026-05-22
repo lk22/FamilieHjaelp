@@ -30,7 +30,7 @@ Route::group([
     Route::get('/', [PageController::class, 'home'])->name('home');
     Route::get('/hjaelpemidler', [PageController::class, 'helpResources'])->name('page.help-resources');
     Route::get('/vores-mission', [PageController::class, 'ourMission'])->name('page.our-mission');
-    Route::get('/funktioner', [PageController::class, 'features'])->name('page.functions');
+    Route::get('/funktioner', [PageController::class, 'ourFunctions'])->name('page.functions');
     Route::get('/har-du-oplevet/abort', [PageController::class, 'abortionExperience'])->name('page.experiences.abortion');
     Route::get('/har-du-oplevet/doedfoedsel', [PageController::class, 'stillbirthExperience'])->name('page.experiences.stillbirth');
     Route::get('/har-du-oplevet/foraeldre', [PageController::class, 'newParentsExperience'])->name('page.experiences.new-parents');

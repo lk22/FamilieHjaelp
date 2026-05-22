@@ -16,6 +16,8 @@ export default function MainNavigation({ openAuthDialog, closeAuthDialog, isAuth
   const { t } = useTranslation();
   const localized = (name:string, params: Record<string, any> = {}) => route(name, { ...params, locale});
 
+  console.log(locale)
+
   return (
     <nav>
       <ul className="flex justify-center gap-4">

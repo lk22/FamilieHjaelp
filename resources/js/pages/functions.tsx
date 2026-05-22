@@ -1,29 +1,20 @@
-import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
-// import GettingStartedSection from "@/components/GettingStartedSection";
 import { motion } from 'framer-motion';
-import { type SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
 import WebLayout from "@/layouts/web-layout";
+import { useTranslation } from 'react-i18next';
+import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
-interface FaqItem {
-    title: string;
-    body: string | React.ReactNode | React.ReactNode[];
-}
-
-interface FaqItemsProps {
-    item: FaqItem;
-    index: number|string;
-}
-
-export default function Page() {
-    const faqItems = usePage().props.faqItems as FaqItem[];
+export default function FunctionsPage() {
+    const { t } = useTranslation();
 
     return (
-      <WebLayout pageTitle="Vores mission og vision | Familiehjælp" description="Lær om vores mission og vision hos ForældreHjælp, hvor vi stræber efter at skabe en tryg og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vores mål er at tilbyde let adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forælder behøver at føle sig alene i svære tider. Gennem innovative digitale løsninger ønsker vi at gøre en positiv forskel i livet for familier overalt i Danmark.">
+      <WebLayout
+        pageTitle={t('functions_page.meta.title')}
+        description={t('functions_page.meta.description')}
+      >
         <div className="bg-white">
           <section className="text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
             <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
-              <video src="videos/our_mission_video.mp4" autoPlay={true} loop={true} muted className="w-full h-[700px] object-cover">
+              <video src="/videos/intro.mp4" autoPlay={true} loop={true} muted className="w-full h-[700px] object-cover">
                   Your browser does not support the video tag.
               </video>
               <div className="w-4/12 sm:w-full p-8 absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-700 via-blue-900/70 to-transparent sm:p-8 xl:p-36 flex flex-col justify-center items-start text-start gap-6">
@@ -32,30 +23,80 @@ export default function Page() {
                 transition={{ duration: 0.8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 >
-                  <h1 className="text-white lg:w-8/12 balance leading text-8xl font-bold">Funktioner og ressourcer</h1>
+                  <h1 className="text-white lg:w-9/12 balance leading text-7xl md:text-8xl font-bold">{t('functions_page.hero.title')}</h1>
+                  <p className="text-blue-100 text-lg md:text-2xl mt-6 lg:w-8/12 leading-relaxed">
+                    {t('functions_page.hero.description')}
+                  </p>
                 </motion.div>
               </div>
             </div>
           </section>
-          <section className="pt-56 bg-white">
+
+          <section className="pt-32 pb-20 bg-white">
             <div className="container mx-auto">
-              <div className="mx-auto px-4 py-16">
-                <h2 className="text-blue-900 w-6/12 text-4xl font-bold mb-2">Funktioner og ressourcer hos FamilieHjælp</h2>
-                <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-8">
-                  Hos FamilieHjælp tilbyder vi en række funktioner og ressourcer designet til at støtte forældre gennem svære tider. Vores platform inkluderer adgang til professionelle rådgivere, informative artikler, støttegrupper og personlige værktøjer, der kan hjælpe dig med at navigere i de udfordringer, du måtte stå over for. Uanset om du har brug for hjælp til at håndtere sorg, finde pålidelige informationer eller oprette forbindelse til andre i lignende situationer, er FamilieHjælp her for at støtte dig på din rejse.
-                </p>
-                <h3 className="text-blue-900 w-6/12 text-2xl font-bold">Historen bag</h3>
-                <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-8">
-                  Ideen til FamilieHjælp opstod fra en personlig oplevelse med min kæreste, vi ventet vores føreste barn
-                </p>
-                <h3 className="text-blue-900 w-6/12 text-2xl font-bold">Vores tilgang</h3>
-                <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-8">
-                  Vores tilgang er centreret omkring empati, tilgængelighed og innovation. Vi kombinerer ekspertise inden for sundhed og teknologi for at udvikle brugervenlige løsninger, der imødekommer de unikke behov hos forældre i krise. Ved at samarbejde med sundhedsprofessionelle, psykologer og brugergrupper sikrer vi, at vores platform ikke kun er inform men også følsom over for de følelsesmæssige aspekter af forældreskabets udfordringer. Vi er dedikerede til kontinuerlig forbedring og tilpasning af vores tjenester baseret på feedback fra vores brugere og de nyeste forskningsresultater inden for området.
-                </p>
+              <div className="mx-auto px-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 25 }}
+                  transition={{ duration: 0.6 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                >
+                  <h2 className="text-blue-900 text-5xl font-bold w-full md:w-8/12">{t('functions_page.features.heading')}</h2>
+                </motion.div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                  {[1, 2, 3, 4].map((item, index) => (
+                    <motion.article
+                      key={item}
+                      initial={{ opacity: 0, y: 30 }}
+                      transition={{ duration: 0.5, delay: index * 0.08 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      className="rounded-2xl border border-blue-100 bg-gradient-to-b from-white to-blue-50 p-6 shadow-sm"
+                    >
+                      <p className="text-blue-900 text-xl font-semibold mb-3">{t(`functions_page.features.cards.${item}.title`)}</p>
+                      <p className="text-blue-900/85 leading-8">{t(`functions_page.features.cards.${item}.description`)}</p>
+                    </motion.article>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
-          {/* <GettingStartedSection /> */}
+
+          <section className="py-20 bg-blue-50">
+            <div className="container mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-4">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.6 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                >
+                  <h3 className="text-blue-900 text-4xl font-bold">{t('functions_page.app.title')}</h3>
+                  <p className="text-blue-900 text-xl leading-10 mt-6">{t('functions_page.app.description')}</p>
+                  <ul className="mt-8 flex flex-col gap-4">
+                    {[1, 2, 3].map((item) => (
+                      <li key={item} className="rounded-xl bg-white p-4 border border-blue-100 text-blue-900">
+                        {t(`functions_page.app.bullets.${item}`)}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  className="w-full"
+                >
+                  <img
+                    src="/images/web/app_dashboard.png"
+                    alt={t('functions_page.app.image_alt')}
+                    className="rounded-2xl shadow-lg w-full max-w-[300px] w-[300px] mx-auto"
+                  />
+                </motion.div>
+              </div>
+            </div>
+          </section>
+
+          <GettingStartedCta />
         </div>
       </WebLayout>
     );
