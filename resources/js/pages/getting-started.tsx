@@ -2,7 +2,7 @@ import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordi
 // import GettingStartedSection from "@/components/GettingStartedSection";
 import { motion } from 'framer-motion';
 import { type SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
+import { usePage, Link } from '@inertiajs/react';
 import WebLayout from "@/layouts/web-layout";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +18,8 @@ interface FaqItemsProps {
 
 export default function Page() {
     const faqItems = usePage().props.faqItems as FaqItem[];
+    const {locale}  = usePage().props;
+    const localized = (name: string, params: Record<string, any> = {}) => route(name, { ...params, locale});
 
     const { t } = useTranslation();
 
@@ -82,15 +84,16 @@ export default function Page() {
                     transition={{ duration: 1.5, delay: 1 }}
                     whileInView={{ opacity: 1, y: 0 }}
                   >
-                    <button type="button" className="mt-6 bg-blue-900 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-800 transition cursor-pointer inline-block">
-                      {t('getting_started_page.functions_button')}
-                    </button>
-                    <button
-                      type="button"
-                      className="mt-6 ml-4 bg-gray-200 text-gray-800 py-3 px-8 rounded-full font-medium hover:bg-gray-300 transition cursor-pointer inline-block"
-                    >
-                      {t('getting_started_page.get_started_button')}
-                    </button>
+                    <Link href={localized('page.functions')}>
+                      <button type="button" className="mt-6 bg-blue-900 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-800 transition cursor-pointer inline-block">
+                        {t('getting_started_page.functions_button')}
+                      </button>
+                    </Link>
+                    <Link href={localized('app.getting-started')}>
+                      <button type="button" className="mt-6 ml-4 bg-gray-200 text-gray-800 py-3 px-8 rounded-full font-medium hover:bg-gray-300 transition cursor-pointer inline-block">
+                        {t('getting_started_page.get_started_button')}
+                      </button>
+                    </Link>
                   </motion.div>
                 </div>
                 <div className="w-6/12 flex justify-center items-center">

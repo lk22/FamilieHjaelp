@@ -43,7 +43,7 @@ Route::group([
  * Onboarding routes
 */
 Route::get('/app/onboarding', [OnboardingController::class, 'show'])->name('onboarding.step');
-Route::get('/app/getting-started', [OnboardingController::class, 'show'])->middleware('guest')->name('getting-started');
+Route::get('/app/getting-started', [OnboardingController::class, 'show'])->middleware('guest')->name('app.getting-started');
 Route::get('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'showStep'])->name('onboarding.scenario.step');
 Route::post('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'submitStep'])->name('onboarding.scenario.step.submit');
 Route::get('/app/onboarding/confirmation', [OnboardingController::class, 'showConfirmation'])->name('onboarding.confirmation');

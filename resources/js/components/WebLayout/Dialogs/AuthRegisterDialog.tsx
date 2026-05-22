@@ -62,7 +62,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
     });
   };
 
-  const handleAuthenticationSubmit = (e: React.FormEvent) => {
+  const handleAuthenticationSubmit: AuthRegisterDialogProps['handleAuthenticationSubmit'] = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     loginForm.post(route('login'), {
