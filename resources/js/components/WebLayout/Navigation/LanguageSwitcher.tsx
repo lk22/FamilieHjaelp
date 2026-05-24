@@ -15,14 +15,14 @@ export default function LanguageSwitcher() {
   }, [locale]);
 
   return (
-    <>
-      <Link href={route('home', { locale: 'da' })} className={`text-sm text-white ${locale === 'da' ? 'font-bold' : ''}`}>
-        {t('language_da')}
-      </Link>
-      <span className="mx-1">|</span>
-      <Link href={route('home', { locale: 'en' })} className={`text-sm text-white ${locale === 'en' ? 'font-bold' : ''}`}>
-        {t('language_en')}
-      </Link>
-    </>
+    <div className="flex items-center gap-2 text-sm text-gray-500 h-full">
+        <Link href={route('home', { locale: 'da' })} className={`text-lg text-white ${locale === 'da' ? 'font-bold' : ''}`}>
+          {t('language_da')}
+        </Link>
+        <span className="mx-1">|</span>
+        <Link href={route('home', { locale: 'en' })} className={`text-lg text-white ${locale === 'en' ? 'font-bold' : ''}`}>
+          {t('language_en')}
+        </Link>
+      </div>
   );
 }

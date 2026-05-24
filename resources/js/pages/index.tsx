@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
-
-import WebLayout from '@/layouts/web-layout';
-
 import {useTranslation} from "react-i18next";
 
+// Layouts
+import WebLayout from '@/layouts/web-layout';
+
+// Component imports
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
 export default function Welcome() {

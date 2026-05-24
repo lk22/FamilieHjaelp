@@ -126,47 +126,6 @@
     "functions_button": "Se vores funktioner",
     "get_started_button": "Kom igang"
   },
-  "functions_page": {
-    "meta": {
-      "title": "Funktioner | FamilieHjælp",
-      "description": "Læs om de vigtigste funktioner i FamilieHjælp og hvordan platformen hjælper dig med overblik, støtte og relevante ressourcer i hverdagen."
-    },
-    "hero": {
-      "title": "Funktioner, der skaber ro og overblik",
-      "description": "FamilieHjælp samler støtte, værktøjer og relevant viden i en enkel platform, så du hurtigere finder den hjælp, der passer til din situation."
-    },
-    "features": {
-      "heading": "Det får du med i platformen",
-      "cards": {
-        "1": {
-          "title": "Personligt overblik",
-          "description": "Få et samlet overblik over dine vigtigste opgaver, noter og næste skridt i et roligt og overskueligt dashboard."
-        },
-        "2": {
-          "title": "Hjælpemidler og viden",
-          "description": "Find hurtigt artikler, guides og praktiske ressourcer, der er relevante for din families behov."
-        },
-        "3": {
-          "title": "Daglige værktøjer",
-          "description": "Brug to-do lister, notefunktioner og strukturværktøjer til at skabe stabilitet i en svær periode."
-        },
-        "4": {
-          "title": "Tryg onboarding",
-          "description": "Kom godt i gang trin for trin med en onboarding, der tilpasser oplevelsen til din situation."
-        }
-      }
-    },
-    "app": {
-      "title": "Designet til hverdagen som forælder",
-      "description": "Uanset om du står midt i sorg, usikkerhed eller nye rutiner, giver appens funktioner dig struktur, støtte og et sted at samle det vigtige.",
-      "bullets": {
-        "1": "Gem tanker og observationer i noter, så du kan følge udviklingen over tid.",
-        "2": "Organiser opgaver og aftaler i en enkel arbejdsflade, der er nem at vende tilbage til.",
-        "3": "Få adgang til relevante sider og forløb, der matcher din situation."
-      },
-      "image_alt": "Skærmbillede af dashboard i FamilieHjælp appen"
-    }
-  },
   "cta": {
     "headline": "Klar til at komme i gang?",
     "description": "Opret en konto i dag og få adgang til de ressourcer og den støtte, du har brug for for at hjælpe dig og din familie gennem svære tider.",
