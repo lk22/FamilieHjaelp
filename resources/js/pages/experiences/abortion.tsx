@@ -1,12 +1,10 @@
 // Dependency imports
-import { usePage } from '@inertiajs/react';
 import { useTranslation } from "react-i18next";
 import { motion } from 'framer-motion';
 
 // Component imports
 import WebLayout from "@/layouts/web-layout";
 import GettingStartedCta from "@/components/WebLayout/GettingStartedCta";
-import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
 
 export default function Page() {
     const { t } = useTranslation();

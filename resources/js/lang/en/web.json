@@ -42,6 +42,7 @@
         }
       }
     },
+
     "resources_functions": {
       "title": "Resources and Features",
       "hightlight": "Familiehjælp offers a range of features designed to support you and your family during difficult times. Our platform includes:",
@@ -66,9 +67,46 @@
       "button": "Read more stories"
     }
   },
-  "functions": {
-    "title": "Our Functions",
-    "description": "Discover the range of functions we offer at ForældreHjælp, designed to support parents through difficult times. Our platform provides easy access to resources, professional guidance, and a supportive community, all aimed at helping you navigate the challenges of parenthood. Whether you're dealing with the loss of a child or adjusting to new parenthood, our functions are here to provide the support you need when you need it most."
+  "functions_page": {
+    "meta": {
+      "title": "Features | FamilieHjælp",
+      "description": "Explore the key features in FamilieHjælp and how the platform helps your family stay organized, supported, and informed."
+    },
+    "hero": {
+      "title": "Features that create clarity and calm",
+      "description": "FamilieHjælp brings support, tools, and trusted guidance into one simple platform, so you can find relevant help faster."
+    },
+    "features": {
+      "heading": "What you get in the platform",
+      "cards": {
+        "1": {
+          "title": "Personal overview",
+          "description": "Keep your important tasks, notes, and next steps in one clear dashboard designed for everyday use."
+        },
+        "2": {
+          "title": "Resources and guidance",
+          "description": "Quickly find articles, guides, and practical support resources tailored to your family's needs."
+        },
+        "3": {
+          "title": "Everyday tools",
+          "description": "Use to-do lists, notes, and structure tools to create stability and momentum during difficult periods."
+        },
+        "4": {
+          "title": "Safe onboarding",
+          "description": "Get started step by step with onboarding that adjusts the experience to your current situation."
+        }
+      }
+    },
+    "app": {
+      "title": "Designed for everyday parent life",
+      "description": "Whether you're in grief, uncertainty, or a new routine, app features help you stay structured, supported, and focused on what matters.",
+      "bullets": {
+        "1": "Capture thoughts and observations in notes so you can track progress over time.",
+        "2": "Organize tasks and appointments in one simple workspace that is easy to return to.",
+        "3": "Access relevant pages and guided flows that match your needs and context."
+      },
+      "image_alt": "Screenshot of the FamilieHjælp app dashboard"
+    }
   },
   "helpingResources": {
     "headline": "Our Helping Resources",

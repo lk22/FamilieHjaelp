@@ -4,6 +4,7 @@ import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import {useTranslation} from "react-i18next";
+import { localizeRoute } from "@/util/localizeRoute";
 
 // Layouts
 import WebLayout from '@/layouts/web-layout';
@@ -12,9 +13,9 @@ import WebLayout from '@/layouts/web-layout';
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
 export default function Welcome() {
+    const { locale } = usePage<SharedData>().props;
     const { t } = useTranslation('web');
-    const {locale}  = usePage().props;
-    const localized = (name: string, params: Record<string, any> = {}) => route(name, { ...params, locale});
+    const localized = localizeRoute(locale);
 
     return (
         <>

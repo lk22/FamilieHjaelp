@@ -27,6 +27,7 @@ export interface SharedData {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
+    locale: string;
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
     [key: string]: unknown;
@@ -72,3 +73,5 @@ export interface AccordionItemData {
   title: string;
   body: string | React.ReactNode | React.ReactNode[];
 }
+
+export type LocalizedRoute = (route: string, params?: Record<string, any>) => string;

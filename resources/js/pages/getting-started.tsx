@@ -1,26 +1,15 @@
-import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
-// import GettingStartedSection from "@/components/GettingStartedSection";
 import { motion } from 'framer-motion';
-import { type SharedData } from '@/types';
 import { usePage, Link } from '@inertiajs/react';
 import WebLayout from "@/layouts/web-layout";
 import { useTranslation } from "react-i18next";
-
-interface FaqItem {
-    title: string;
-    body: string | React.ReactNode | React.ReactNode[];
-}
-
-interface FaqItemsProps {
-    item: FaqItem;
-    index: number|string;
-}
+import { localizeRoute } from "@/util/localizeRoute";
+import { type SharedData } from '@/types';
 
 export default function Page() {
-    const faqItems = usePage().props.faqItems as FaqItem[];
-    const {locale}  = usePage().props;
-    const localized = (name: string, params: Record<string, any> = {}) => route(name, { ...params, locale});
-
+    const { locale } = usePage<SharedData>().props;
+    // Create a localized route function using the current locale
+    const localized = localizeRoute(locale);
+    console.log(locale, localized('app.getting-started'))
     const { t } = useTranslation();
 
     return (
