@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 export default function LanguageSwitcher() {
   const { locale } = usePage<{ locale: string }>().props;
   const {t} = useTranslation();
+
   useEffect(() => {
     if (locale && i18n.language !== locale) {
       void i18n.changeLanguage(locale);
