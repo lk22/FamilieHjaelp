@@ -110,4 +110,14 @@ class PageController extends Controller
     {
         return Inertia::render('functions');
     }
+
+    /**
+     * Render stories page
+     *
+     * @return \Inertia\Response
+     */
+    public function stories(): Response
+    {
+        return Inertia::render('stories');
+    }
 }

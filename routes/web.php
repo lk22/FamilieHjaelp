@@ -36,6 +36,7 @@ Route::group([
     Route::get('/har-du-oplevet/foraeldre', [PageController::class, 'newParentsExperience'])->name('page.experiences.new-parents');
     Route::get('/har-du-oplevet/mistet-familie-medlem', [PageController::class, 'lostFamilyMemberExperience'])->name('page.experiences.lost-family-member');
     Route::get('/kom-igang', [PageController::class, 'gettingStarted'])->name('page.getting-started');
+    Route::get('/historier', [PageController::class, 'stories'])->name('page.stories');
     Route::get('/app', [AppController::class, 'home'])->name('app.home');
 });
 

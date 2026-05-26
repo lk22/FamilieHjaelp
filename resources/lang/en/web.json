@@ -176,6 +176,41 @@
       "image_alt": "Screenshot of the FamilieHjælp app dashboard"
     }
   },
+  "stories_page": {
+    "meta": {
+      "title": "Stories | FamilieHjælp",
+      "description": "Read personal stories from families who found support and practical help through FamilieHjælp."
+    },
+    "hero": {
+      "title": "Stories from families we have supported"
+    },
+    "description": "Every family has a different journey. Here are stories from people who found guidance, practical tools, and emotional support through FamilieHjælp.",
+    "stories": {
+      "heading": "Selected Stories",
+      "cards": {
+        "1": {
+          "title": "When everything felt overwhelming",
+          "description": "After our stillbirth, everyday life became impossible to structure. FamilieHjælp helped us break things into small steps and gave us a calm place to keep track of appointments, thoughts, and practical needs.",
+          "author": "Louise and Martin"
+        },
+        "2": {
+          "title": "A safer start as new parents",
+          "description": "As first-time parents we were full of questions. The platform gave us simple routines, trusted resources, and a sense that we did not have to solve everything alone.",
+          "author": "Nadia, first-time mother"
+        },
+        "3": {
+          "title": "From chaos to small wins",
+          "description": "We used notes and to-do tools to create structure one day at a time. It did not remove the pain, but it gave us momentum and made difficult weeks more manageable.",
+          "author": "Jonas, father of two"
+        },
+        "4": {
+          "title": "Support we could actually use",
+          "description": "What made the biggest difference was having practical guidance in one place. We quickly found relevant information and felt supported in decisions that mattered to our family.",
+          "author": "Sara and Emil"
+        }
+      }
+    }
+  },
   "cta": {
     "headline": "Ready to get started?",
     "description": "Create an account today and gain access to the resources and support you need to help you and your family through difficult times.",

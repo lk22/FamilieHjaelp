@@ -167,6 +167,41 @@
       "image_alt": "Skærmbillede af dashboard i FamilieHjælp appen"
     }
   },
+  "stories_page": {
+    "meta": {
+      "title": "Historier | FamilieHjælp",
+      "description": "Læs personlige historier fra familier, der har fundet støtte og praktisk hjælp gennem FamilieHjælp."
+    },
+    "hero": {
+      "title": "Historier fra familier vi har hjulpet"
+    },
+    "description": "Hver familie har sin egen rejse. Her kan du læse historier fra mennesker, der har fundet vejledning, praktiske værktøjer og følelsesmæssig støtte gennem FamilieHjælp.",
+    "stories": {
+      "heading": "Udvalgte historier",
+      "cards": {
+        "1": {
+          "title": "Da alt føltes uoverskueligt",
+          "description": "Efter vores dødfødsel var det svært at få hverdagen til at hænge sammen. FamilieHjælp hjalp os med at dele tingene op i små skridt og gav os et roligt sted til aftaler, tanker og praktiske behov.",
+          "author": "Louise og Martin"
+        },
+        "2": {
+          "title": "En tryggere start som nye forældre",
+          "description": "Som førstegangsforældre havde vi mange spørgsmål. Platformen gav os enkle rutiner, troværdige ressourcer og en følelse af, at vi ikke stod alene med det hele.",
+          "author": "Nadia, førstegangsmor"
+        },
+        "3": {
+          "title": "Fra kaos til små fremskridt",
+          "description": "Vi brugte noter og to-do værktøjer til at skabe struktur dag for dag. Det fjernede ikke sorgen, men gav os fremdrift og gjorde svære uger mere håndterbare.",
+          "author": "Jonas, far til to"
+        },
+        "4": {
+          "title": "Støtte vi faktisk kunne bruge",
+          "description": "Det, der gjorde den største forskel, var at have praktisk vejledning samlet ét sted. Vi fandt hurtigt relevant information og følte os støttet i de beslutninger, der betød noget for vores familie.",
+          "author": "Sara og Emil"
+        }
+      }
+    }
+  },
   "cta": {
     "headline": "Klar til at komme i gang?",
     "description": "Opret en konto i dag og få adgang til de ressourcer og den støtte, du har brug for for at hjælpe dig og din familie gennem svære tider.",

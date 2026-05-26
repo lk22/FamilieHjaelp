@@ -202,7 +202,7 @@ export default function Welcome() {
 
                                         <div className="absolute sm:bottom-0 2xl:bottom-2">
                                             <h3 className="text-2xl text-blue-500">{t('frontpage.recommended.want_to_read_more')}</h3>
-                                            <Link href="/testimonials/marias-story" className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">
+                                            <Link href={localized('page.stories')} className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">
                                                 {t('frontpage.recommended.button')}
                                             </Link>
                                         </div>
