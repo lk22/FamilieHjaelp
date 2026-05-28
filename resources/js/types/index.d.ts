@@ -71,7 +71,7 @@ export type LoginFormDataProps = {
 
 export interface AccordionItemData {
   title: string;
-  body: string | React.ReactNode | React.ReactNode[];
+  body: string | React.ReactNode | React.ReactNode[];
 }
 
-export type LocalizedRoute = (route: string, params?: Record<string, any>) => string;
+export type LocalizedRoute = (route: string, params?: Record<string, never>) => string;

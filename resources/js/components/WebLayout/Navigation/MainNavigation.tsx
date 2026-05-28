@@ -14,9 +14,7 @@ interface MainNavigationProps {
 export default function MainNavigation({ openAuthDialog, closeAuthDialog, isAuthDialogOpen }: MainNavigationProps) {
   const { auth, locale } = usePage().props;
   const { t } = useTranslation();
-  const localized = (name:string, params: Record<string, any> = {}) => route(name, { ...params, locale});
-
-  console.log(locale)
+  const localized = (name:string, params: Record<string, never> = {}) => route(name, { ...params, locale});
 
   return (
     <nav>

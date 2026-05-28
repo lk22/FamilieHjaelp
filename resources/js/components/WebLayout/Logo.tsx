@@ -3,7 +3,7 @@ import {Link, usePage} from "@inertiajs/react";
 export default function Logo() {
   const { locale } = usePage().props;
 
-  const localized = (name:string, params: Record<string, any> = {}) => route(name, { ...params, locale});
+  const localized = (name:string, params: Record<string, never> = {}) => route(name, { ...params, locale});
 
   return (
     <div className="text-2xl font-bold text-gray-800 flex items-center">

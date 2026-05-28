@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from "react-i18next";
 
-import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
 import WebLayout from "@/layouts/web-layout";
 import GettingStartedCta from "@/components/WebLayout/GettingStartedCta";
 
 export default function Page() {
   const { t } = useTranslation();
+
     return (
     <WebLayout
       pageTitle={t('stillbirth.meta.title')}

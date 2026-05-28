@@ -7,6 +7,8 @@ export default function MainNav() {
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState<boolean>(false);
   const [isMobileNav, setIsMobileNav] = useState<boolean>(false);
 
+  const windowWidth = window.innerWidth;
+
   useEffect(() => {
     // detect viewport width and close the auth dialog if it's open and the viewport is resized to a larger size
     const handleResize = () => {
@@ -30,7 +32,7 @@ export default function MainNav() {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('click', handleClickOutsite);
     };
-  }, [window.innerWidth]);
+  }, [windowWidth, isAuthDialogOpen]);
 
   const openAuthDialog = () => {
     setIsAuthDialogOpen(true);

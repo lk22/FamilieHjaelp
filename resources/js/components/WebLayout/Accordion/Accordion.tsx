@@ -46,7 +46,7 @@ export const AccordionHeader = ({id, title}: AccordionHeaderProps) => {
     )
 }
 
-export const AccordionItem = ({id, title, body, ...props}: AccordionItemProps) => {
+export const AccordionItem = ({id, title, body}: AccordionItemProps) => {
     console.log('Rendering AccordionItem with id:', id);
 
     return (

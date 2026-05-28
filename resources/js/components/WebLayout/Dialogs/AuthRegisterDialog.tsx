@@ -19,9 +19,6 @@ import {
   type LoginFormDataProps
 } from '@/types';
 
-// Component imports
-import Logo from '@/components/WebLayout/Logo';
-
 type AuthenticationStep = 'login' | 'register';
 
 interface AuthRegisterDialogProps {

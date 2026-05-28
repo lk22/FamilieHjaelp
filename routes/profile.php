@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/app/profile/overview/', [ProfileOverviewController::class, 'show'])->name('profile.home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Route::get('dashboard', function () {
-    //     return Inertia::render('dashboard');
-    // })->name('dashboard');
+    Route::get('dashboard', function () {
+        return Inertia::render('dashboard');
+    })->name('dashboard');
 
     Route::get('/app/profile/overview', [ProfileOverviewController::class, 'index'])->name('profile.home');
     Route::get('/app/profile/overview/todos', [ProfileOverviewController::class, 'todos'])->name('profile.todos');
