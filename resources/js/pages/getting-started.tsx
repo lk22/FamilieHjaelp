@@ -8,7 +8,6 @@ import { type SharedData } from '@/types';
 export default function Page() {
     const { locale } = usePage<SharedData>().props;
     const localized = localizeRoute(locale);
-    console.log(locale, localized('app.getting-started'))
     const { t } = useTranslation();
 
     return (
@@ -38,7 +37,13 @@ export default function Page() {
                     transition={{ duration: 2.5, delay: 0.5 }}
                     whileInView={{ opacity: 1, y: 0 }}
                   >
-                    <img src="/images/web/getting_started.jpg" alt="" height={400} width={800} className="rounded-lg shadow-lg mx-auto"/>
+                    <img
+                      src="/images/web/getting_started.jpg"
+                      alt=""
+                      height={400}
+                      width={800}
+                      className="rounded-lg shadow-lg mx-auto"
+                    />
                   </motion.div>
                 </div>
               </div>
