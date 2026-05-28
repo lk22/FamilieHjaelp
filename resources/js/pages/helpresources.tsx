@@ -1,43 +1,14 @@
 import WebLayout from "@/layouts/web-layout";
 import { motion } from "framer-motion";
 import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
-import { type AccordionItemData, type SharedData } from '@/types';
+import { type AccordionItemData } from '@/types';
 
-import { usePage } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
-export default function HelpResources() {
-  const {faqItems} = usePage().props;
-  const accordionItems: AccordionItemData[] = faqItems as AccordionItemData[];
+export default function HelpResources({ faqItems }: { faqItems: AccordionItemData[] }) {
   const { t } = useTranslation();
-
-  // const accordionItems: AccordionItemData[] = [
-  //     {
-  //       title: "Personlige ressourcer",
-  //       body: "Skræddersyede artikler, videoer og værktøjer, der hjælper dig med at navigere i dine specifikke udfordringer som forælder."
-  //     },
-  //     {
-  //       title: "Professionel vejledning",
-  //       body: "Adgang til eksperter inden for sundhed, psykologi og forældreskab, der kan give dig den støtte, du har brug for."
-  //     },
-  //     {
-  //       title: "Fællesskabsstøtte",
-  //       body: "Muligheden for at forbinde med andre forældre, der gennemgår lignende oplevelser, så du aldrig føler dig alene."
-  //     },
-  //     {
-  //       title: "Liste over sorggrupper og støttegrupper",
-  //       body: (
-  //         <ul className="list-disc list-inside">
-  //           <li>Støttegruppe for tab af barn</li>
-  //           <li>Gruppe for forældre efter abort</li>
-  //           <li>Netværk for sorgbearbejdning</li>
-  //           <li>Online fællesskab for deling af erfaringer</li>
-  //         </ul>
-  //       )
-  //     }
-  //   ];
 
     return (
       <WebLayout
@@ -82,7 +53,7 @@ export default function HelpResources() {
                     </p>
                     <Accordion variant={`compact`}>
                       {
-                        accordionItems.map((item, index) => (
+                        faqItems.map((item, index) => (
                           <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 50 }}

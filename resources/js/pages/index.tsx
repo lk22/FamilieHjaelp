@@ -1,5 +1,4 @@
 // dependency imports
-import { useEffect } from 'react';
 import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';

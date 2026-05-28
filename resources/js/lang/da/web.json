@@ -1,5 +1,9 @@
 {
   "frontpage": {
+    "meta": {
+      "title": "FamilieHjælp - Din digitale forælder assistent",
+      "description": "FamilieHjælp er din digitale forælder assistent, der tilbyder nem adgang til ressourcer og støtte for at hjælpe dig med at navigere forældreskabet. Vi er her for at støtte dig gennem de udfordringer, du måtte stå overfor, og give dig de værktøjer, du har brug for, lige ved hånden."
+    },
     "title": "Din digitale forælder assistent",
     "title.highlight": "lige ved hånden",
     "description": "Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for.",
@@ -67,10 +71,18 @@
     }
   },
   "helpingResources": {
+    "meta": {
+      "title": "Vores hjælpemidler | ForældreHjælp",
+      "description": "Hos ForældreHjælp giver vi adgang til en række midler som er genveje til hurtig hjælp og støtte og ressourcer for forældre i svære situationer. Vores hjælpemidler er designet til at gøre det nemt for dig at finde den støtte, du har brug for, når du har brug for det mest. Uanset om du søger information, professionel vejledning eller et fællesskab af ligesindede, er vores platform her for at hjælpe dig gennem dine udfordringer som forælder. Vi forstår, hvor vigtigt det er at have hurtig adgang til pålidelige ressourcer, især i svære tider, og vores mål er at gøre denne adgang så enkel og effektiv som muligt."
+    },
     "headline": "Vores hjælpemidler",
     "description": "Hos ForældreHjælp giver vi adgang til en række midler som er genveje til hurtig hjælp og støtte og ressourcer for forældre i svære situationer. Vores hjælpemidler er designet til at gøre det nemt for dig at finde den støtte, du har brug for, når du har brug for det mest. Uanset om du søger information, professionel vejledning eller et fællesskab af ligesindede, er vores platform her for at hjælpe dig gennem dine udfordringer som forælder. Vi forstår, hvor vigtigt det er at have hurtig adgang til pålidelige ressourcer, især i svære tider, og vores mål er at gøre denne adgang så enkel og effektiv som muligt."
   },
   "ourMission": {
+    "meta": {
+      "title": "Vores mission og vision | ForældreHjælp",
+      "description": "Lær om vores mission og vision hos ForældreHjælp, hvor vi stræber efter at skabe en sikker og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vores mål er at give nem adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forældre skal føle sig alene i svære tider. Gennem innovative digitale løsninger sigter vi mod at gøre en positiv forskel i familiernes liv i hele Danmark."
+    },
     "title": "Vores mission og vision",
     "description": "Lær om vores mission og vision hos ForældreHjælp, hvor vi stræber efter at skabe en sikker og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vores mål er at give nem adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forældre skal føle sig alene i svære tider. Gennem innovative digitale løsninger sigter vi mod at gøre en positiv forskel i familiernes liv i hele Danmark.",
     "vision_mission_foraeldrehjaelp": {
@@ -87,6 +99,10 @@
     }
   },
   "abortion": {
+    "meta": {
+      "title": "Har du oplevet en abort? | ForældreHjælp",
+      "description": "At miste et barn gennem abort er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. ForældreHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab."
+    },
     "headline": "Har du oplevet en abort?",
     "description": "At miste et barn gennem abort er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. ForældreHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab.",
     "recomendations": {
@@ -107,6 +123,10 @@
     }
   },
   "parents": {
+    "meta": {
+      "title": "At være blevet nybagte forældre | ForældreHjælp",
+      "description": "At blive nybagte forældre er en livsændrende oplevelse fyldt med glæde, men også udfordringer og usikkerheder. ForældreHjælp er her for at støtte jer gennem denne spændende tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, informative artikler og støttegrupper, der kan hjælpe jer med at navigere i de mange aspekter af forældreskabet. Uanset om det handler om søvnvaner, amning, eller følelsesmæssige udfordringer, er vi her for at hjælpe jer med at finde svar og støtte på jeres rejse som nye forældre."
+    },
     "headline": "At være blevet nybagte forældre",
     "description": "At blive nybagte forældre er en livsændrende oplevelse fyldt med glæde, men også udfordringer og usikkerheder. ForældreHjælp er her for at støtte jer gennem denne spændende tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, informative artikler og støttegrupper, der kan hjælpe jer med at navigere i de mange aspekter af forældreskabet. Uanset om det handler om søvnvaner, amning, eller følelsesmæssige udfordringer, er vi her for at hjælpe jer med at finde svar og støtte på jeres rejse som nye forældre.",
     "recomendations": {
@@ -122,6 +142,10 @@
     }
   },
   "getting_started_page": {
+    "meta": {
+      "title": "Kom godt i gang | ForældreHjælp",
+      "description": "Uanset om du er ny bruger eller har brugt vores platform før, er det nemt at komme i gang med Familiehjælp og begynde at få adgang til de ressourcer og hjælpemidler, du har brug for."
+    },
     "headline": "Kom godt i gang med",
     "description": "Uanset om du er ny bruger eller har brugt vores platform før, er det nemt at komme i gang med Familiehjælp og begynde at få adgang til de ressourcer og hjælpemidler, du har brug for.",
     "app_title": "Vores app er tilgængelig på alle enheder.",
