@@ -1,8 +1,5 @@
 import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
-// import GettingStartedSection from "@/components/GettingStartedSection";
 import { motion } from 'framer-motion';
-import { type SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
 import WebLayout from "@/layouts/web-layout";
 
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';

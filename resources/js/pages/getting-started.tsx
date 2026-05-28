@@ -7,7 +7,6 @@ import { type SharedData } from '@/types';
 
 export default function Page() {
     const { locale } = usePage<SharedData>().props;
-    // Create a localized route function using the current locale
     const localized = localizeRoute(locale);
     console.log(locale, localized('app.getting-started'))
     const { t } = useTranslation();

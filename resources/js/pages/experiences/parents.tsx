@@ -1,24 +1,12 @@
-import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
-// import GettingStartedSection from "@/components/GettingStartedSection";
+// Dependency imports
 import { motion } from 'framer-motion';
-import { type SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
-import WebLayout from "@/layouts/web-layout";
-import GettingStartedCta from "@/components/WebLayout/GettingStartedCta";
 import { useTranslation } from "react-i18next";
 
-interface FaqItem {
-    title: string;
-    body: string | React.ReactNode | React.ReactNode[];
-}
-
-interface FaqItemsProps {
-    item: FaqItem;
-    index: number|string;
-}
+// Component imports
+import WebLayout from "@/layouts/web-layout";
+import GettingStartedCta from "@/components/WebLayout/GettingStartedCta";
 
 export default function Page() {
-    const faqItems = usePage().props.faqItems as FaqItem[];
     const { t } = useTranslation();
 
     return (

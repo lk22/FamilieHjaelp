@@ -1,23 +1,11 @@
-import {Accordion, AccordionItem} from "@/components/WebLayout/Accordion/Accordion";
-// import GettingStartedSection from "@/components/GettingStartedSection";
+// dependency imports
 import { motion } from 'framer-motion';
-import { type SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
-import WebLayout from "@/layouts/web-layout";
 import { useTranslation } from "react-i18next";
 
-interface FaqItem {
-    title: string;
-    body: string | React.ReactNode | React.ReactNode[];
-}
-
-interface FaqItemsProps {
-    item: FaqItem;
-    index: number|string;
-}
+// Layout component imports
+import WebLayout from "@/layouts/web-layout";
 
 export default function Page() {
-    const faqItems = usePage().props.faqItems as FaqItem[];
     const { t } = useTranslation();
 
     return (
@@ -49,7 +37,15 @@ export default function Page() {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-8">
                 <aside>
-                  <video src="/videos/hjaelpemidler.mp4" autoPlay={true} loop={true} muted width={400} height={400} className="w-full rounded-lg shadow-lg mb-8 h-[500px] object-cover">
+                  <video
+                    src="/videos/hjaelpemidler.mp4"
+                    autoPlay={true}
+                    loop={true}
+                    muted
+                    width={400}
+                    height={400}
+                    className="w-full rounded-lg shadow-lg mb-8 h-[500px] object-cover"
+                  >
                     Your browser does not support the video tag.
                   </video>
                 </aside>
