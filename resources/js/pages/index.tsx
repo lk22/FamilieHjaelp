@@ -90,14 +90,14 @@ export default function Welcome() {
                 <section className="bg-white text-blue-900 pt-20 pb-32">
                     <div className="container mx-auto flex flex-col-reverse sm:flex-col-reverse md:flex-col-reverse xl:flex-row flex-wrap">
                         <div className="w-full xl:w-6/12 p-8 flex flex-col justify-center items-start text-start gap-6">
-                            <h3 className="text-5xl font-bold">{t('frontpage.about_section.title')}</h3>
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 transition={{ duration: 0.8, delay: 0.5 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                             >
-                                <p className="text-lg mb-8 leading-8 text-zinc-600 dark:text-black font-medium">{t('frontpage.about_section.description')}</p>
-                                <Link href={localized('page.our-mission')} className="bg-blue-800 text-white py-3 mt-8 px-8 rounded-full mt-4 font-medium hover:bg-blue-900 transition cursor-pointer font-bold">{t('frontpage.about_section.button')}</Link>
+                                <h3 className="text-5xl font-bold mb-4">{t('frontpage.about_section.title')}</h3>
+                                <p className="text-lg mb-8 leading-8 text-zinc-600 dark:text-black font-medium mb-4">{t('frontpage.about_section.description')}</p>
+                                <Link href={localized('page.our-mission')} className="bg-blue-800 text-white py-3 mt-8 px-8 rounded-full mt-8 font-medium hover:bg-blue-900 transition cursor-pointer font-bold">{t('frontpage.about_section.button')}</Link>
                             </motion.div>
                         </div>
                         <div className="w-full xl:w-6/12 p-16 flex xl:justify-center xl:items-center">
