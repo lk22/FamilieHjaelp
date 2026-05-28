@@ -95,6 +95,10 @@
     }
   },
   "stillbirth": {
+    "meta": {
+      "title": "Har du oplevet en dødfødsel? | ForældreHjælp",
+      "description": "At miste et barn gennem dødfødsel er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. ForældreHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab."
+    },
     "headline": "Har du oplevet en dødfødsel?",
     "description": "At miste et barn gennem dødfødsel er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. ForældreHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab.",
     "recomendations": {

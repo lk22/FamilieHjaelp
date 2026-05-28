@@ -20,8 +20,8 @@ export default function Welcome() {
     return (
         <>
             <WebLayout
-                pageTitle="Din digitale forælder assistent lige ved hånden"
-                description="Vi er her for at hjælpe dig med at navigere forældreskabet ved at give dig nem adgang til de ressourcer og den støtte, du har brug for."
+                pageTitle={t('frontpage.meta.title')}
+                description={t('frontpage.meta.description')}
             >
                 <section className="bg-white text-blue-900 sm:pt-[120px] xl:pt-50">
                     <div className="container 2xl:w-[1600px] 2xl:max-w-[1600px] mx-auto">
@@ -51,7 +51,13 @@ export default function Welcome() {
                                     className="w-full h-full relative"
                                 >
                                     <div className="w-4/12 sm:w-full w-full h-full bg-gradient-to-br absolute from-blue-700/0 via-transparent to-blue-900/70 flex flex-col justify-center items-start text-start gap-6 rounded-2xl"></div>
-                                    <video src="/videos/intro.mp4" autoPlay={true} loop={true} muted className="w-full h-[700px] object-cover rounded-2xl shadow-lg">
+                                    <video
+                                        src="/videos/intro.mp4"
+                                        autoPlay={true}
+                                        loop={true}
+                                        muted
+                                        className="w-full h-[700px] object-cover rounded-2xl shadow-lg"
+                                    >
                                         Your browser does not support the video tag.
                                     </video>
                                 </motion.div>
@@ -101,7 +107,12 @@ export default function Welcome() {
                                 transition={{ duration: 0.8, delay: 1 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                             >
-                                <img src="images/web/intro_illustration_one.svg" width={600} height={400} alt="About us image"/>
+                                <img
+                                    src="images/web/intro_illustration_one.svg"
+                                    width={600}
+                                    height={400}
+                                    alt="About us image"
+                                />
                             </motion.div>
                         </div>
                     </div>

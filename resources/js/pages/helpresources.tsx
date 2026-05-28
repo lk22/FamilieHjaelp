@@ -41,8 +41,8 @@ export default function HelpResources() {
 
     return (
       <WebLayout
-        pageTitle="Hjælperessourcer - Familiehjælp"
-        description="Opdag en række ressourcer og værktøjer, der kan støtte dig som hjælper i Familiehjælp. Uanset om du er ny eller erfaren, har vi samlet information og materialer, der kan hjælpe dig i din rolle som hjælper."
+        pageTitle={t('helpingResources.meta.title')}
+        description={t('helpingResources.meta.description')}
       >
         <div className="bg-white">
           <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">

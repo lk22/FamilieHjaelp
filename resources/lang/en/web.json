@@ -1,5 +1,9 @@
 {
   "frontpage": {
+    "meta": {
+      "title": "FamilieHjælp - Your digital parent assistant",
+      "description": "FamilieHjælp is your digital parent assistant, offering easy access to resources and support to help you navigate parenthood. We are here to support you through the challenges you may face and provide you with the tools you need, right at your fingertips."
+    },
     "title": "Your digital parent assistant",
     "title.highlight": "right at your fingertips",
     "description": "We are here to help you navigate parenthood by providing easy access to the resources and support you need.",
@@ -43,6 +47,10 @@
       }
     },
     "resources_functions": {
+      "meta": {
+        "title": "Resources and Features | FamilieHjælp",
+        "description": "FamilieHjælp offers a range of features designed to support you and your family during difficult times. Our platform includes: a comprehensive library of resources and tools, user-friendly tools to find the right help, the ability to contact our support team for personalized assistance, and regular updates and new resources based on user needs."
+      },
       "title": "Resources and Features",
       "hightlight": "Familiehjælp offers a range of features designed to support you and your family during difficult times. Our platform includes:",
       "features": {
@@ -67,10 +75,18 @@
     }
   },
   "functions": {
+    "meta": {
+      "title": "Our Functions | ForældreHjælp",
+      "description": "Discover the range of functions we offer at ForældreHjælp, designed to support parents through difficult times. Our platform provides easy access to resources, professional guidance, and a supportive community, all aimed at helping you navigate the challenges of parenthood. Whether you're dealing with the loss of a child or adjusting to new parenthood, our functions are here to provide the support you need when you need it most."
+    },
     "title": "Our Functions",
     "description": "Discover the range of functions we offer at ForældreHjælp, designed to support parents through difficult times. Our platform provides easy access to resources, professional guidance, and a supportive community, all aimed at helping you navigate the challenges of parenthood. Whether you're dealing with the loss of a child or adjusting to new parenthood, our functions are here to provide the support you need when you need it most."
   },
   "helpingResources": {
+    "meta": {
+      "title": "Our Helping Resources | ForældreHjælp",
+      "description": "At ForældreHjælp, we provide access to a range of resources that are shortcuts to quick help and support for parents in difficult situations. Our helping resources are designed to make it easy for you to find the support you need when you need it most. Whether you are looking for information, professional guidance, or a community of like-minded individuals, our platform is here to help you through your challenges as a parent. We understand the importance of having quick access to reliable resources, especially in difficult times, and our goal is to make this access as simple and effective as possible."
+    },
     "headline": "Our Helping Resources",
     "description": "At ForældreHjælp, we provide access to a range of resources that are shortcuts to quick help and support for parents in difficult situations. Our helping resources are designed to make it easy for you to find the support you need when you need it most. Whether you are looking for information, professional guidance, or a community of like-minded individuals, our platform is here to help you through your challenges as a parent. We understand the importance of having quick access to reliable resources, especially in difficult times, and our goal is to make this access as simple and effective as possible.",
     "list_resources": {
@@ -79,6 +95,10 @@
     }
   },
   "ourMission": {
+    "meta": {
+      "title": "Our Mission and Vision | ForældreHjælp",
+      "description": "Learn about our mission and vision at ForældreHjælp, where we strive to create a safe and supportive platform for parents facing challenges such as abortion and stillbirth. Our goal is to provide easy access to reliable resources, professional guidance, and a community of support, so no parent has to feel alone in difficult times. Through innovative digital solutions, we aim to make a positive difference in the lives of families across Denmark."
+    },
     "title": "Our Mission and Vision",
     "description": "Learn about our mission and vision at ForældreHjælp, where we strive to create a safe and supportive platform for parents facing challenges such as abortion and stillbirth. Our goal is to provide easy access to reliable resources, professional guidance, and a community of support, so no parent has to feel alone in difficult times. Through innovative digital solutions, we aim to make a positive difference in the lives of families across Denmark.",
     "vision_mission_foraeldrehjaelp": {
@@ -95,14 +115,22 @@
     }
   },
   "abortion": {
+    "meta": {
+      "title": "Have you experienced an abortion? | ForældreHjælp",
+      "description": "Losing a child through abortion is a heartbreaking experience that leaves parents in deep grief and confusion. ForældreHjælp is here to support you through this difficult time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, support groups, and informative articles that can help you navigate your grief and find ways to remember your child. You are not alone – we are here to help you find strength and hope in a time of loss."
+     },
     "headline": "Have you experienced an abortion?",
-    "description": "Losing a child through stillbirth is a heartbreaking experience that leaves parents in deep grief and confusion. ForældreHjælp is here to support you through this difficult time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, support groups, and informative articles that can help you navigate your grief and find ways to remember your child. You are not alone – we are here to help you find strength and hope in a time of loss.",
+    "description": "Losing a child through abortion is a heartbreaking experience that leaves parents in deep grief and confusion. ForældreHjælp is here to support you through this difficult time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, support groups, and informative articles that can help you navigate your grief and find ways to remember your child. You are not alone – we are here to help you find strength and hope in a time of loss.",
     "recomendations": {
       "title": "We recommend",
       "description": "We recommend seeking professional help and support through our platform, where you can find counselors specialized in grief counseling after stillbirth. Additionally, participating in support groups with other parents who have experienced similar losses can be a valuable way to share your feelings and find comfort. Our resources are designed to help you navigate your grief and find ways to remember your child while beginning the healing process."
     }
   },
   "stillbirth": {
+    "meta": {
+      "title": "Have you experienced a stillbirth? | ForældreHjælp",
+      "description": "Losing a child through stillbirth is a heartbreaking experience that leaves parents in deep grief and confusion. ForældreHjælp is here to support you through this difficult time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, support groups, and informative articles that can help you navigate your grief and find ways to remember your child. You are not alone – we are here to help you find strength and hope in a time of loss."
+    },
     "headline": "Have you experienced a stillbirth?",
     "description": "Losing a child through stillbirth is a heartbreaking experience that leaves parents in deep grief and confusion. ForældreHjælp is here to support you through this difficult time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, support groups, and informative articles that can help you navigate your grief and find ways to remember your child. You are not alone – we are here to help you find strength and hope in a time of loss.",
     "recomendations": {
@@ -111,6 +139,10 @@
     }
   },
   "parents": {
+    "meta": {
+      "title": "Have you become new parents? | ForældreHjælp",
+      "description": "Becoming new parents is a life-changing experience filled with joy, but also challenges and uncertainties. ForældreHjælp is here to support you through this exciting time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, informative articles, and support groups that can help you navigate the many aspects of parenthood. Whether it's about sleep habits, breastfeeding, or emotional challenges, we are here to help you find answers and support on your journey as new parents."
+    },
     "headline": "Have you become new parents?",
     "description": "Becoming new parents is a life-changing experience filled with joy, but also challenges and uncertainties. ForældreHjælp is here to support you through this exciting time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, informative articles, and support groups that can help you navigate the many aspects of parenthood. Whether it's about sleep habits, breastfeeding, or emotional challenges, we are here to help you find answers and support on your journey as new parents.",
     "recomendations": {
@@ -126,6 +158,10 @@
     }
   },
   "getting_started_page": {
+    "meta": {
+      "title": "Getting Started | ForældreHjælp",
+      "description": "Whether you are a new user or have used our platform before, it's easy to get started with FamilieHjælp and begin accessing the resources and tools you need."
+    },
     "headline": "Getting Started with ",
     "headline_highlight": "FamilieHjælp",
     "description": "Whether you are a new user or have used our platform before, it's easy to get started with FamilieHjælp and begin accessing the resources and tools you need.",

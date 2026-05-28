@@ -21,7 +21,7 @@ export default function StoriesPage() {
             <div className="bg-white">
                 <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
                     <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
-                        <video src="/videos/loosing_someone.mp4" autoPlay={true} loop={true} muted className="w-full h-[700px] object-cover">
+                        <video src="/videos/new_parents_intro.mp4" autoPlay={true} loop={true} muted className="w-full h-[700px] object-cover">
                             Your browser does not support the video tag.
                         </video>
                         <div className="w-4/12 sm:w-full p-8 absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-700 via-blue-900/70 to-transparent sm:p-8 xl:p-36 flex flex-col justify-center items-start text-start gap-6">
@@ -70,6 +70,7 @@ export default function StoriesPage() {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         className="rounded-2xl border border-blue-100 bg-gradient-to-b from-white to-blue-50 p-6 shadow-sm"
                                     >
+                                        <img src="/images/story.jpg" alt={story.title} className="w-full h-96 object-cover rounded-lg mb-4" />
                                         <p className="text-blue-900 text-xl font-semibold mb-3">{story.title}</p>
                                         <p className="text-blue-900/85 leading-8">{story.description}</p>
                                         <p className="text-blue-700 font-semibold mt-5">{story.author}</p>

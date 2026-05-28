@@ -24,7 +24,10 @@ export default function Page() {
     const { t } = useTranslation();
 
     return (
-      <WebLayout pageTitle="Vores mission og vision | Familiehjælp" description="Lær om vores mission og vision hos ForældreHjælp, hvor vi stræber efter at skabe en tryg og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vores mål er at tilbyde let adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forælder behøver at føle sig alene i svære tider. Gennem innovative digitale løsninger ønsker vi at gøre en positiv forskel i livet for familier overalt i Danmark.">
+      <WebLayout
+        pageTitle={t('ourMission.meta.title')}
+        description={t('ourMission.meta.description')}
+      >
         <div className="bg-white">
           <section className="text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
             <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">

@@ -14,8 +14,8 @@ export default function Page() {
 
     return (
       <WebLayout
-        pageTitle="Kom igang | FamilieHjælp"
-        description="Lær om vores mission og vision hos FamilieHjælp, hvor vi stræber efter at skabe en tryg og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vores mål er at tilbyde let adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forælder behøver at føle sig alene i svære tider. Gennem innovative digitale løsninger ønsker vi at gøre en positiv forskel i livet for familier overalt i Danmark."
+        pageTitle={t('getting_started_page.meta.title')}
+        description={t('getting_started_page.meta.description')}
       >
         <div className="bg-white">
           <section className="pt-56 pb-0 bg-white">
