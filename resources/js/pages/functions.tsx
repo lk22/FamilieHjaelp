@@ -37,7 +37,6 @@ export default function FunctionsPage() {
               </div>
             </div>
           </section>
-
           <section className="pt-32 pb-20 bg-white">
             <div className="container mx-auto">
               <div className="mx-auto px-4">

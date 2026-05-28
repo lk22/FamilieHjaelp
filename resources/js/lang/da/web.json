@@ -262,6 +262,11 @@
     "already_have_account": "Har du allerede en konto?",
     "dont_have_account": "Har du ikke en konto?"
   },
+  "footer": {
+    "contact_us": "Kontakt os",
+    "privacy_policy": "Privatlivspolitik",
+    "terms_of_service": "Servicevilkår"
+  },
   "language_da": "da",
   "language_en": "en"
 }
