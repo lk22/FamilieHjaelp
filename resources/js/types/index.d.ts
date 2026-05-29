@@ -74,4 +74,4 @@ export interface AccordionItemData {
   body: string | React.ReactNode | React.ReactNode[];
 }
 
-export type LocalizedRoute = (route: string, params?: Record<string, never>) => string;
+export type LocalizedRoute = (route: string, params?: Record<string, any>) => string;

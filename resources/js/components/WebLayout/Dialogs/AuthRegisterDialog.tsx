@@ -19,9 +19,6 @@ import {
   type LoginFormDataProps
 } from '@/types';
 
-// Component imports
-import Logo from '@/components/WebLayout/Logo';
-
 type AuthenticationStep = 'login' | 'register';
 
 interface AuthRegisterDialogProps {
@@ -53,7 +50,7 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
       loginForm.reset();
       registerForm.reset();
     }
-  }, [])
+  }, [isOpen])
 
   const handleRegisterSubmit: AuthRegisterDialogProps['handleRegisterSubmit'] = (e: React.FormEvent) => {
     e.preventDefault();
@@ -124,14 +121,14 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
                 <button
                   type="submit"
                   disabled={loginForm.processing}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 cursor-pointer"
                 >
                   {loginForm.processing ? t('authModal.login') + '...' : t('authModal.login')}
                 </button>
               </form>
               <p className="text-sm text-gray-500 mt-12">
                 {t('authModal.dont_have_account')}{' '}
-                <button onClick={() => setStep('register')} className="text-indigo-600 hover:text-indigo-700 font-medium">
+                <button onClick={() => setStep('register')} className="text-indigo-600 hover:text-indigo-700 font-medium cursor-pointer">
                   {t('authModal.register')}
                 </button>
               </p>
@@ -187,13 +184,13 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
                 <button
                   type="submit"
                   disabled={registerForm.processing}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 cursor-pointer"
                 >
                   {registerForm.processing ? t('authModal.register') + '...' : t('authModal.register')}
                 </button>
                 <p>
                   {t('authModal.already_have_account')}{' '}
-                  <button onClick={() => setStep('login')} className="text-indigo-600 hover:text-indigo-700 font-medium">
+                  <button onClick={() => setStep('login')} className="text-indigo-600 hover:text-indigo-700 font-medium cursor-pointer">
                     {t('authModal.login')}
                   </button>
                 </p>
