@@ -57,6 +57,7 @@ export default function HelpResources({ faqItems }: { faqItems: AccordionItemDat
                       autoPlay={true}
                       loop={true}
                       muted
+                      controls
                       width={400}
                       height={400}
                       className="w-full rounded-lg shadow-lg mb-8 h-[700px] object-cover"

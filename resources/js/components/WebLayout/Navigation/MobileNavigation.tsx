@@ -1,4 +1,4 @@
-import {Link} from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 
 import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
 
@@ -13,17 +13,17 @@ export default function MobileNavigation({ openAuthDialog, closeAuthDialog, isAu
     <nav>
       <ul className="flex justify-center gap-4">
         <li>
-          <Link href="/" className="text-white hover:text-white">Hjælpemidler</Link>
+          <Link href={route('page.help-resources')} className="text-white hover:text-white">Hjælpemidler</Link>
         </li>
         <li>
-          <Link href="/about" className="text-white hover:text-white">Vores mission</Link>
+          <Link href={route('page.functions')} className="text-white hover:text-white">Funktioner</Link>
         </li>
         <li>
-          <Link href="/contact" className="text-white hover:text-white">Har du oplevet</Link>
+          <Link href={route('page.experiences.abortion')} className="text-white hover:text-white">Har du oplevet</Link>
           <ul>
-            <li>Abort</li>
-            <li>Dødfødsel</li>
-            <li>Nybagte forældre</li>
+            <li><Link href={route('page.experiences.abortion')} className="text-white hover:text-white">Abort</Link></li>
+            <li><Link href={route('page.experiences.stillbirth')} className="text-white hover:text-white">Dødfødsel</Link></li>
+            <li><Link href={route('page.experiences.new-parents')} className="text-white hover:text-white">Nybagte forældre</Link></li>
           </ul>
         </li>
         <li>

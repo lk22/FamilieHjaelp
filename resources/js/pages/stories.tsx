@@ -26,6 +26,7 @@ export default function StoriesPage() {
                             autoPlay={true}
                             loop={true}
                             muted
+                            controls
                             className="w-full h-[700px] object-cover"
                         >
                             Your browser does not support the video tag.

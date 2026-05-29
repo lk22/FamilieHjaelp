@@ -1,4 +1,5 @@
-import {Link} from "@inertiajs/react";
+import { useState } from "react";
+import { Link } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
 
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -11,10 +12,21 @@ interface MainNavigationProps {
   isAuthDialogOpen: boolean;
 }
 
-export default function MainNavigation({ openAuthDialog, closeAuthDialog, isAuthDialogOpen }: MainNavigationProps) {
+export default function MainNavigation({ openAuthDialog, closeAuthDialog }: MainNavigationProps) {
   const { auth, locale } = usePage().props;
   const { t } = useTranslation();
   const localized = (name:string, params: Record<string, never> = {}) => route(name, { ...params, locale});
+  const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
+
+  const handleOpenAuthDialog = () => {
+    setIsAuthDialogOpen(true);
+    openAuthDialog();
+  };
+
+  const handleCloseAuthDialog = () => {
+    setIsAuthDialogOpen(false);
+    closeAuthDialog();
+  };
 
   return (
     <nav>
@@ -66,14 +78,14 @@ export default function MainNavigation({ openAuthDialog, closeAuthDialog, isAuth
             </li>
           ) : (
             <li>
-              <button onClick={openAuthDialog} className="text-white hover:text-white text-lg cursor-pointer">{t('menu.login_register')}</button>
+              <button onClick={handleOpenAuthDialog} className="text-white hover:text-white text-lg cursor-pointer">{t('menu.login_register')}</button>
             </li>
           )
         }
       </ul>
       <AuthRegisterDialog
         isOpen={isAuthDialogOpen}
-        onClose={closeAuthDialog}
+        onClose={handleCloseAuthDialog}
       />
     </nav>
   );

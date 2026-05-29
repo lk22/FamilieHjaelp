@@ -11,8 +11,8 @@ export default function Page() {
 
     return (
       <WebLayout
-        pageTitle={t('ourMission.meta.title')}
-        description={t('ourMission.meta.description')}
+        pageTitle={t('parents.meta.title')}
+        description={t('parents.meta.description')}
       >
         <div className="bg-white">
             <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
@@ -22,6 +22,7 @@ export default function Page() {
                     autoPlay={true}
                     loop={true}
                     muted
+                    controls
                     className="w-full h-[700px] object-cover"
                   >
                       Your browser does not support the video tag.
@@ -50,6 +51,7 @@ export default function Page() {
                       autoPlay={true}
                       loop={true}
                       muted
+                      controls
                       width={400}
                       height={400}
                       className="w-full rounded-lg shadow-lg mb-8 h-[600px] object-cover"

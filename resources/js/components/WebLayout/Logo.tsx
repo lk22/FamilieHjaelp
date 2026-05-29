@@ -1,4 +1,4 @@
-import {Link, usePage} from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 export default function Logo() {
   const { locale } = usePage().props;

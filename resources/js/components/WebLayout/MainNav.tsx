@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 import MainNavigation from "./Navigation/MainNavigation";
 import MobileNavigation from "./Navigation/MobileNavigation";
@@ -10,9 +10,8 @@ export default function MainNav() {
   const windowWidth = window.innerWidth;
 
   useEffect(() => {
-    // detect viewport width and close the auth dialog if it's open and the viewport is resized to a larger size
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      if (windowWidth < 768) {
         setIsMobileNav(true);
       } else {
         setIsMobileNav(false);
@@ -32,7 +31,7 @@ export default function MainNav() {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('click', handleClickOutsite);
     };
-  }, [windowWidth, isAuthDialogOpen]);
+  }, [windowWidth]);
 
   const openAuthDialog = () => {
     setIsAuthDialogOpen(true);

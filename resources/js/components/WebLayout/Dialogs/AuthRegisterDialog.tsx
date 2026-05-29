@@ -9,8 +9,8 @@
  */
 
 // Dependency imports
-import { useState, useMemo } from 'react';
-import { Dialog } from '@headlessui/react';
+import { useState, useEffect } from 'react';
+import { Dialog, DialogTitle } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +18,9 @@ import {
   type RegisterFormDataProps,
   type LoginFormDataProps
 } from '@/types';
+
+// Component imports
+import Logo from '@/components/WebLayout/Logo';
 
 type AuthenticationStep = 'login' | 'register';
 
@@ -32,8 +35,6 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
 
   const [, setIsSubmitting ] = useState(false);
 
-  console.log('AuthRegisterDialog rendered with step:', step);
-
   const loginForm = useForm<LoginFormDataProps>({
     email: '',
     password: '',
@@ -46,7 +47,13 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
     password_confirmation: '',
   })
 
-  useMemo(() => setStep('login'), []);
+  useEffect(()=> {
+    if (!isOpen) {
+      setStep('login');
+      loginForm.reset();
+      registerForm.reset();
+    }
+  }, [])
 
   const handleRegisterSubmit: AuthRegisterDialogProps['handleRegisterSubmit'] = (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,9 +92,9 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <Dialog.Title className="text-2xl font-bold mb-4">
+          <DialogTitle className="text-2xl font-bold mb-4">
             {step === 'login' ? t('authModal.login') : t('authModal.register')}
-          </Dialog.Title>
+          </DialogTitle>
           {step === 'login' ? (
             <>
               <p className="text-sm text-gray-500 mb-4">{t('authModal.login_email')}</p>

@@ -20,6 +20,7 @@ export default function Page() {
                 autoPlay={true}
                 loop={true}
                 muted
+                controls
                 className="w-full h-[700px] object-cover"
               >
                   Your browser does not support the video tag.
@@ -48,6 +49,7 @@ export default function Page() {
                   autoPlay={true}
                   loop={true}
                   muted
+                  controls
                   width={400}
                   height={400}
                   className="w-full rounded-lg shadow-lg mb-8 h-[500px] object-cover"

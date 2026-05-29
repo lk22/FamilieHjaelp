@@ -1,8 +1,12 @@
 // dependency imports
-import { type SharedData } from '@/types';
+import { motion } from 'motion/react';
 import { Link, usePage } from '@inertiajs/react';
-import { motion } from 'framer-motion';
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
+
+// Type imports
+import { type SharedData } from '@/types';
+
+// Utility imports
 import { localizeRoute } from "@/util/localizeRoute";
 
 // Layouts
@@ -30,9 +34,9 @@ export default function Welcome() {
                                     initial={{ opacity: 0, y: 20 }}
                                     transition={{ duration: 1.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    className={"text-4xl font-bold text-blue-900"}
+                                    className={"text-7xl font-bold text-blue-900"}
                                 >
-                                    <h1 className="text-7xl font-bold mt-12">{t('frontpage.title')} <span className="text-indigo-600">{t('frontpage.title.highlight')}</span></h1>
+                                    {t('frontpage.title')} <span className="text-indigo-600">{t('frontpage.title.highlight')}</span>
                                 </motion.h1>
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
@@ -55,6 +59,7 @@ export default function Welcome() {
                                         autoPlay={true}
                                         loop={true}
                                         muted
+                                        controls
                                         className="w-full h-[700px] object-cover rounded-2xl shadow-lg"
                                     >
                                         Your browser does not support the video tag.
@@ -155,7 +160,14 @@ export default function Welcome() {
                 <section className="bg-white text-blue-900 sm:py-20 xl:px-8 xl:py-32">
                     <div className="container flex flex-wrap mx-auto">
                         <div className="w-full lg:w-6/12 md:px-0 flex justify-center items-center">
-                            <video src="/videos/function_resources_intro.mp4" autoPlay={true} loop={true} muted className="w-full h-[700px] object-cover rounded-2xl shadow-lg shadow-blue-200">
+                            <video
+                                src="/videos/function_resources_intro.mp4"
+                                autoPlay={true}
+                                loop={true}
+                                muted
+                                controls
+                                className="w-full h-[700px] object-cover rounded-2xl shadow-lg shadow-blue-200"
+                            >
                                 Your browser does not support the video tag.
                             </video>
                         </div>

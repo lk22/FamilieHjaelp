@@ -1,4 +1,4 @@
-import {Link} from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
