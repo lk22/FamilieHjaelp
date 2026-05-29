@@ -64,7 +64,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         // Determine intended redirect route
-        $intendedRedirectRoute = $request->redirect_to ?? 'getting-started';
+        $intendedRedirectRoute = $request->redirect_to ?? 'app.getting-started';
 
         return redirect()->route($intendedRedirectRoute);
     }
