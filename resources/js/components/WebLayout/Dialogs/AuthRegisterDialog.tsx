@@ -11,25 +11,34 @@
 // Dependency imports
 import { useState, useEffect } from 'react';
 import { Dialog, DialogTitle } from '@headlessui/react';
-import { useForm } from '@inertiajs/react';
+import { useForm, router } from '@inertiajs/react';
 import { useTranslation } from "react-i18next";
 
 import {
   type RegisterFormDataProps,
-  type LoginFormDataProps
+  type LoginFormDataProps,
+  type AuthenticationStep
 } from '@/types';
 
-type AuthenticationStep = 'login' | 'register';
+import AuthForm from '@/components/WebLayout/Forms/AuthForm';
+import RegistrationForm from '@/components/WebLayout/Forms/RegistrationForm';
 
 interface AuthRegisterDialogProps {
   handleRegisterSubmit: (e: React.FormEvent) => void;
   handleAuthenticationSubmit: (e: React.FormEvent) => void;
 }
 
-export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const [ step, setStep ] = useState<AuthenticationStep>('login'); // 'login' or 'register'
-  const { t } = useTranslation();
+type AuthRegisterDialogComponentProps = {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
+export default function AuthRegisterDialog({
+  isOpen,
+  onClose
+}: AuthRegisterDialogComponentProps) {
+  const [ step, setStep ] = useState<AuthenticationStep>('login');
+  const { t } = useTranslation();
   const [, setIsSubmitting ] = useState(false);
 
   const loginForm = useForm<LoginFormDataProps>({
@@ -50,9 +59,9 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
       loginForm.reset();
       registerForm.reset();
     }
-  }, [isOpen])
+  }, [isOpen, loginForm, registerForm])
 
-  const handleRegisterSubmit: AuthRegisterDialogProps['handleRegisterSubmit'] = (e: React.FormEvent) => {
+  const handleRegistrationSubmit: AuthRegisterDialogProps['handleRegisterSubmit'] = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     registerForm.post(route('register'), {
@@ -74,15 +83,35 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
     });
   }
 
+  const handleModalStep = () => {
+    if (step === 'login' ) {
+      return <AuthForm handleAuthenticationSubmit={handleAuthenticationSubmit} authenticationForm={loginForm} setStep={setStep} />
+    } else if ( step === 'register' ) {
+      return <RegistrationForm handleRegistrationSubmit={handleRegistrationSubmit} registrationForm={registerForm} setStep={setStep} />
+    } else if ( step === 'forgot-password') {
+      router.visit(route('app.forgot-password'));
+    }
+  }
+
+  const handleModalTitle = () => {
+    if ( step === 'login' ) {
+      return t('authModal.login');
+    } else if (step === 'register') {
+      return t('authModal.register');
+    } else if (step === 'forgot-password') {
+      return t('authModal.forgot_password');
+    }
+  }
+
   return (
-    <Dialog open={isOpen} onClose={onClose} className="fixed z-10 inset-0 overflow-y-auto animate animate-appear">
+    <Dialog open={isOpen} onClose={onClose} className="fixed z-10 inset-0 overflow-y-auto animate animate-appear w-full">
       <div className="flex items-center justify-center min-h-screen">
         <div id="overlay"
           className="fixed inset-0 bg-blue-200 opacity-50 transition-opacity cursor-default"
           onClick={onClose}
         >
         </div>
-        <div className="bg-white rounded-lg p-8 z-20 w-full max-w-xl mx-auto relative">
+        <div className="bg-white rounded-lg p-8 z-20 w-full max-w-6xl mx-auto relative">
           <img src="/images/web/logo_inverse.svg" alt="Familiehjælp Logo" className="w-auto h-12 mb-12 ml-0 relative -left-6" />
           <div className="absolute top-6 right-6 cursor-pointer" onClick={onClose}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500 hover:text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -90,113 +119,9 @@ export default function AuthRegisterDialog({ isOpen, onClose }: { isOpen: boolea
             </svg>
           </div>
           <DialogTitle className="text-2xl font-bold mb-4">
-            {step === 'login' ? t('authModal.login') : t('authModal.register')}
+            {handleModalTitle()}
           </DialogTitle>
-          {step === 'login' ? (
-            <>
-              <p className="text-sm text-gray-500 mb-4">{t('authModal.login_email')}</p>
-              <form onSubmit={handleAuthenticationSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">{t('authModal.login_email')}</label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={loginForm.data.email}
-                    onChange={(e) => loginForm.setData('email', e.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
-                  {loginForm.errors.email && <p className="text-red-500 text-sm mt-1">{loginForm.errors.email}</p>}
-                </div>
-                <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">{t('authModal.login_password')}</label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={loginForm.data.password}
-                    onChange={(e) => loginForm.setData('password', e.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
-                  {loginForm.errors.password && <p className="text-red-500 text-sm mt-1">{loginForm.errors.password}</p>}
-                </div>
-                <button
-                  type="submit"
-                  disabled={loginForm.processing}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 cursor-pointer"
-                >
-                  {loginForm.processing ? t('authModal.login') + '...' : t('authModal.login')}
-                </button>
-              </form>
-              <p className="text-sm text-gray-500 mt-12">
-                {t('authModal.dont_have_account')}{' '}
-                <button onClick={() => setStep('register')} className="text-indigo-600 hover:text-indigo-700 font-medium cursor-pointer">
-                  {t('authModal.register')}
-                </button>
-              </p>
-            </>
-          ) : (
-            <>
-              <p className="text-sm text-gray-500 mb-4">{t('authModal.register')}</p>
-              <form onSubmit={handleRegisterSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">{t('authModal.register_name')}</label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={registerForm.data.name}
-                    onChange={(e) => registerForm.setData('name', e.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
-                  {registerForm.errors.name && <p className="text-red-500 text-sm mt-1">{registerForm.errors.name}</p>}
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">{t('authModal.register_email')}</label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={registerForm.data.email}
-                    onChange={(e) => registerForm.setData('email', e.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
-                  {registerForm.errors.email && <p className="text-red-500 text-sm mt-1">{registerForm.errors.email}</p>}
-                </div>
-                <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">{t('authModal.register_password')}</label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={registerForm.data.password}
-                    onChange={(e) => registerForm.setData('password', e.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
-                  {registerForm.errors.password && <p className="text-red-500 text-sm mt-1">{registerForm.errors.password}</p>}
-                </div>
-                <div>
-                  <label htmlFor="password_confirmation" className="block text-sm font-medium text-gray-700">{t('authModal.register_password_confirmation')}</label>
-                  <input
-                    type="password"
-                    id="password_confirmation"
-                    value={registerForm.data.password_confirmation}
-                    onChange={(e) => registerForm.setData('password_confirmation', e.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
-                  {registerForm.errors.password_confirmation && <p className="text-red-500 text-sm mt-1">{registerForm.errors.password_confirmation}</p>}
-                </div>
-                <button
-                  type="submit"
-                  disabled={registerForm.processing}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 cursor-pointer"
-                >
-                  {registerForm.processing ? t('authModal.register') + '...' : t('authModal.register')}
-                </button>
-                <p>
-                  {t('authModal.already_have_account')}{' '}
-                  <button onClick={() => setStep('login')} className="text-indigo-600 hover:text-indigo-700 font-medium cursor-pointer">
-                    {t('authModal.login')}
-                  </button>
-                </p>
-              </form>
-            </>
-          )}
+          {handleModalStep()}
         </div>
       </div>
     </Dialog>

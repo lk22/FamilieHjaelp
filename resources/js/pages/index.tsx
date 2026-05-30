@@ -223,7 +223,7 @@ export default function Welcome() {
                                         <p className="text-md text-blue-600 mt-4 font-bold mt-4">{t('frontpage.recommended.story.author')}</p>
 
                                         <div className="absolute sm:bottom-0 2xl:bottom-2">
-                                            <h3 className="text-2xl text-blue-500">{t('frontpage.recommended.want_to_read_more')}</h3>
+                                            <h3 className="text-2xl text-black font-bold">{t('frontpage.recommended.want_to_read_more')}</h3>
                                             <Link href={localized('page.stories')} className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">
                                                 {t('frontpage.recommended.button')}
                                             </Link>

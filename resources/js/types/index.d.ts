@@ -57,6 +57,8 @@ export interface TodoItem {
 
 export type PayloadProps = Record<string, unknown>;
 
+export type AuthenticationStep = 'login' | 'register' | 'forgot-password';
+
 export type RegisterFormDataProps = {
     name: string;
     email: string;

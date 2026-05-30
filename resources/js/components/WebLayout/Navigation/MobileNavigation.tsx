@@ -1,5 +1,8 @@
+// dependency imports
+import { memo } from "react";
 import { Link } from "@inertiajs/react";
 
+// Component imports
 import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
 
 interface MainNavigationProps {
@@ -8,7 +11,7 @@ interface MainNavigationProps {
   isAuthDialogOpen: boolean;
 }
 
-export default function MobileNavigation({ openAuthDialog, closeAuthDialog, isAuthDialogOpen }: MainNavigationProps) {
+const MobileNavigation = ({ openAuthDialog, closeAuthDialog, isAuthDialogOpen }: MainNavigationProps) => {
   return (
     <nav>
       <ul className="flex justify-center gap-4">
@@ -37,3 +40,6 @@ export default function MobileNavigation({ openAuthDialog, closeAuthDialog, isAu
     </nav>
   );
 }
+
+const MemoizedMobileNavigation = memo(MobileNavigation);
+export default MemoizedMobileNavigation;

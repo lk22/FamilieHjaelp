@@ -272,15 +272,15 @@
     "login_register": "Login / Register"
   },
   "authModal": {
-    "login": "Login",
-    "register": "Register your account",
-    "login_email": "Email",
-    "login_password": "Password",
+    "login": "Login to your FamilieHjælp account",
+    "register": "Create a new FamilieHjælp account",
+    "login_email": "Your E-mail",
+    "login_password": "Your Password",
     "register_name": "Your Name",
-    "register_email": "Email",
-    "register_password": "Password",
-    "register_password_confirmation": "Confirm Password",
-    "remember_me": "Remember Me",
+    "register_email": "Your Email",
+    "register_password": "Your Password",
+    "register_password_confirmation": "Confirm Your Password",
+    "remember_me": "Remember my login",
     "forgot_password": "Forgot your password?",
     "already_have_account": "Already have an account?",
     "dont_have_account": "Don't have an account?"

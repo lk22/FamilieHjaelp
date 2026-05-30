@@ -1,61 +1,58 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-import MainNavigation from "./Navigation/MainNavigation";
+import MemoizedMainNavigation from "./Navigation/MainNavigation";
 import MobileNavigation from "./Navigation/MobileNavigation";
 
 export default function MainNav() {
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState<boolean>(false);
   const [isMobileNav, setIsMobileNav] = useState<boolean>(false);
 
-  const windowWidth = window.innerWidth;
+  const handleResize = useCallback(() => {
+    if (window.innerWidth < 768) {
+      setIsMobileNav(true);
+    } else {
+      setIsMobileNav(false);
+    }
+  }, []);
+
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    const target = event.target;
+
+    if (target instanceof HTMLElement && !target.closest('dialog')) {
+      setIsAuthDialogOpen(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (windowWidth < 768) {
-        setIsMobileNav(true);
-      } else {
-        setIsMobileNav(false);
-      }
-    };
-
-    const handleClickOutsite = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (isAuthDialogOpen && !target.closest('dialog')) {
-        setIsAuthDialogOpen(false);
-      }
-    }
-
+    handleResize();
     window.addEventListener('resize', handleResize);
-    window.addEventListener('click', handleClickOutsite);
+    window.addEventListener('click', handleClickOutside);
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('click', handleClickOutsite);
+      window.removeEventListener('click', handleClickOutside);
     };
-  }, [windowWidth]);
+  }, [handleResize, handleClickOutside]);
 
-  const openAuthDialog = () => {
+  const openAuthDialog = useCallback(() => {
     setIsAuthDialogOpen(true);
-  };
+  }, []);
 
-  const closeAuthDialog = () => {
+  const closeAuthDialog = useCallback(() => {
     setIsAuthDialogOpen(false);
-  };
+  }, []);
 
   return (
     <>
       {isMobileNav ? (
-        <>
-          <MobileNavigation
-            openAuthDialog={openAuthDialog}
-            closeAuthDialog={closeAuthDialog}
-            isAuthDialogOpen={isAuthDialogOpen}
-          />
-        </>
-      ) : (
-        <MainNavigation
+        <MobileNavigation
           openAuthDialog={openAuthDialog}
           closeAuthDialog={closeAuthDialog}
           isAuthDialogOpen={isAuthDialogOpen}
+        />
+      ) : (
+        <MemoizedMainNavigation
+          openAuthDialog={openAuthDialog}
+          closeAuthDialog={closeAuthDialog}
         />
       )}
     </>

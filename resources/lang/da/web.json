@@ -119,7 +119,12 @@
     "description": "At miste et barn gennem dødfødsel er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. FamilieHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab.",
     "recomendations": {
       "title": "Vi anbefaler",
-      "description": "Vi anbefaler at du søger professionel hjælp og støtte gennem vores platform, hvor du kan finde rådgivere specialiseret i sorgbearbejdning efter dødfødsel. Derudover kan deltagelse i støttegrupper med andre forældre, der har oplevet lignende tab, være en værdifuld måde at dele dine følelser og finde trøst. Vores ressourcer er designet til at hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på, mens du begynder helingsprocessen."
+      "description": "Vi anbefaler at du søger professionel hjælp og støtte gennem vores platform, hvor du kan finde rådgivere specialiseret i sorgbearbejdning efter dødfødsel. Derudover kan deltagelse i støttegrupper med andre forældre, der har oplevet lignende tab, være en værdifuld måde at dele dine følelser og finde trøst. Vores ressourcer er designet til at hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på, mens du begynder helingsprocessen.",
+      "recomendation_contact": {
+          "title": "Kontakt Center for Familie og Sorg",
+          "link": "https://familierogsorg.dk/",
+          "description": "Vi anbefaler at evt kontakte Center for Familie og Sorg, som tilbyder støtte og rådgivning til forældre, der har oplevet dødfødsel. De har erfarne rådgivere, der kan hjælpe dig med at bearbejde sorgen og finde måder at mindes dit barn på."
+      }
     }
   },
   "parents": {
@@ -255,15 +260,15 @@
     "login_register": "Log ind / Opret konto"
   },
   "authModal": {
-    "login": "Log ind",
-    "register": "Opret din konto",
-    "login_email": "Email",
-    "login_password": "Adgangskode",
+    "login": "Log ind på din FamilieHjælp konto",
+    "register": "Opret en ny FamilieHjælp konto",
+    "login_email": "Din E-mail",
+    "login_password": "Din Adgangskode",
     "register_name": "Dit Navn",
-    "register_email": "Email",
-    "register_password": "Adgangskode",
-    "register_password_confirmation": "Bekræft adgangskode",
-    "remember_me": "Husk mig",
+    "register_email": "Din E-mail",
+    "register_password": "Din Adgangskode",
+    "register_password_confirmation": "Bekræft din adgangskode",
+    "remember_me": "Husk min login",
     "forgot_password": "Glemt din adgangskode?",
     "already_have_account": "Har du allerede en konto?",
     "dont_have_account": "Har du ikke en konto?"
