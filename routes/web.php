@@ -50,7 +50,6 @@ Route::get('/app/onboarding/{scenario}/step/{step}', [OnboardingController::clas
 Route::post('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'submitStep'])->name('onboarding.scenario.step.submit');
 Route::get('/app/onboarding/confirmation', [OnboardingController::class, 'showConfirmation'])->name('onboarding.confirmation');
 Route::get('/app/onboarding/completed', [OnboardingController::class, 'showCompleted'])->name('onboarding.completed.view');
-
 Route::post('/app/onboarding/{scenario}/update-step/{step}', [OnboardingController::class, 'updateStep'])->name('onboarding.scenario.update-step');
 
 Route::get('/app/onboarding/reset', [OnboardingController::class, 'reset'])->name('onboarding.reset');
