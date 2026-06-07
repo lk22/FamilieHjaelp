@@ -16,9 +16,9 @@ class InertiaCreatePage extends Command
                             {--framework=react : The framework to use for the page, defaults to "react"}
                             {--template=page : The template type for the page, e.g., "page", "component", "hook", "context"}
                             {--arg=* : Additional arguments for the page, e.g., props or context}';
-    
+
     /**
-     * The console command description.
+    * The console command description.
     *
     * @var string
     */
@@ -68,7 +68,7 @@ class InertiaCreatePage extends Command
 
         // determine the file name based on the template type
         $fileName = $name . '.tsx';
-        
+
         if ( $template === "hook" ) {
             $fileName = 'use' . $this->splitCapitalizedWords($name) . '.ts';
         }
@@ -316,11 +316,11 @@ export function use{$name}() {
         if (count($args) === 0) {
             return '';
         }
-        
-        // get the keys of the args array
-        $params = array_keys($args); 
 
-        return (isset($args)) 
+        // get the keys of the args array
+        $params = array_keys($args);
+
+        return (isset($args))
             ? '{' . implode(', ', $params) . ' }'
             : '';
     }
@@ -337,12 +337,12 @@ export function use{$name}() {
         if (count($args) === 0) {
             return [];
         }
-        
+
         $params = [];
 
         // format the interface in TypeScript style
         /**
-         * interface ProfileOverviewTwoProps { 
+         * interface ProfileOverviewTwoProps {
          *     propOne: string;
          *     propTwo: number;
          * }

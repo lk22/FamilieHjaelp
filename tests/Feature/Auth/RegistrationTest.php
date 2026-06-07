@@ -14,7 +14,7 @@ class RegistrationTest extends TestCase
 
     public function test_registration_screen_can_be_rendered()
     {
-        $response = $this->get('/register');
+        $response = $this->get('/app/register');
 
         $response->assertStatus(200);
     }
@@ -29,7 +29,7 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('getting-started', absolute: false));
+        $response->assertRedirect(route('app.getting-started', absolute: false));
     }
 
     public function test_can_register_with_onboarding_completed_true_url_parameter()
@@ -56,6 +56,6 @@ class RegistrationTest extends TestCase
         $onboardingSession->refresh();
         $this->assertEquals($user->id, $onboardingSession->user_id);
 
-        $response->assertRedirect(route('getting-started', absolute: false));
+        $response->assertRedirect(route('app.getting-started', absolute: false));
     }
 }

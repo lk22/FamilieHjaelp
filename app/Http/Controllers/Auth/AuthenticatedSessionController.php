@@ -14,7 +14,7 @@ use Inertia\Response;
 enum RedirectRoute: string
 {
     case DEFAULT_REDIRECT_ROUTE = 'profile.home';
-    case GETTING_STARTED_REDIRECT_ROUTE = 'getting-started';
+    case GETTING_STARTED_REDIRECT_ROUTE = 'app.getting-started';
     case LOGGED_OUT_REDIRECT_ROUTE = 'logged-out';
 }
 
