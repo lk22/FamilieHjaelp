@@ -54,7 +54,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             data.redirect_to = queryParams.redirect_to;
         }
 
-        post(route('login'), {
+        post(route('login.store'), {
             onFinish: () => reset('password'),
         });
     };
