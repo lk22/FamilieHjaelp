@@ -3,11 +3,11 @@ name: tests
 on:
   push:
     branches:
-      - develop
+      - staging
       - main
   pull_request:
     branches:
-      - develop
+      - staging
       - main
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
 
       - name: Install Node Dependencies
         run: npm ci
-      
+
       - name: Create missing files (if needed)
         run: |
           mkdir -p resources/js/state
