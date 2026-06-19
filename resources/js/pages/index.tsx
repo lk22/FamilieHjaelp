@@ -26,10 +26,10 @@ export default function Welcome() {
                 pageTitle={t('frontpage.meta.title')}
                 description={t('frontpage.meta.description')}
             >
-                <section className="bg-white text-blue-900 sm:pt-[120px] xl:pt-50">
+                <section className="bg-white text-blue-900 pt-40 sm:pt-[200px] xl:pt-50">
                     <div className="container 2xl:w-[1600px] 2xl:max-w-[1600px] mx-auto">
-                        <div className="flex sm:flex-col 2xl:flex-row px-10 gap-12">
-                            <div className=" 2xl:w-7/12 sm:w-full md:w-full flex flex-col justify-center items-start text-start gap-6">
+                        <div className="flex flex-col 2xl:flex-row px-10 gap-12">
+                            <div className="w-full xs:w-full 2xl:w-7/12 flex flex-col justify-center items-start text-start gap-6">
                                 <motion.h1
                                     initial={{ opacity: 0, y: 20 }}
                                     transition={{ duration: 1.5 }}
@@ -60,7 +60,7 @@ export default function Welcome() {
                                         loop={true}
                                         muted
                                         controls
-                                        className="w-full h-[700px] object-cover rounded-2xl shadow-lg"
+                                        className="w-full h-[400px] lg:h-[700px] object-cover rounded-2xl shadow-lg"
                                     >
                                         Your browser does not support the video tag.
                                     </video>
@@ -70,7 +70,7 @@ export default function Welcome() {
                     </div>
                 </section>
                 <section>
-                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto py-32">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto py-32">
                         <div className="ups-item bg-blue-400/10 rounded-2xl p-8 flex flex-col justify-center items-start text-start gap-4">
                             <div className="flex justify-between items-center gap-4 w-full">
                                 <h3 className="text-6xl font-bold mt-2 text-blue-800">{t('frontpage.selling_points.families_helped.count')}</h3>
@@ -122,9 +122,9 @@ export default function Welcome() {
                     </div>
                 </section>
                 <section>
-                    <div className="container mx-auto">
+                    <div className="container mx-auto px-2 md:px-0 py-32">
                         <h3 className="text-5xl font-bold text-blue-800">{t('frontpage.how_we_can_help.title')}</h3>
-                        <div className="flex sm:flex-col lg:flex-row gap-8 mt-12">
+                        <div className="flex flex-col lg:flex-row gap-8 mt-12">
                             <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
                                 <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.how_we_can_help.sections.abort.title')}</h3>
                                 <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.abort.description')}</p>
@@ -157,7 +157,7 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
-                <section className="bg-white text-blue-900 sm:py-20 xl:px-8 xl:py-32">
+                <section className="bg-white text-blue-900 px-8 py-0 sm:py-20 xl:px-8 xl:py-32">
                     <div className="container flex flex-wrap mx-auto">
                         <div className="w-full lg:w-6/12 md:px-0 flex justify-center items-center">
                             <video
@@ -166,7 +166,7 @@ export default function Welcome() {
                                 loop={true}
                                 muted
                                 controls
-                                className="w-full h-[700px] object-cover rounded-2xl shadow-lg shadow-blue-200"
+                                className="w-full h-[400px] lg:h-[700px] object-cover rounded-2xl shadow-lg shadow-blue-200"
                             >
                                 Your browser does not support the video tag.
                             </video>
