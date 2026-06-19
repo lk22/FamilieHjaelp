@@ -68,7 +68,6 @@ export default function Page() {
             </div>
           </div>
         </section>
-          {/* <GettingStartedSection /> */}
         </div>
       </WebLayout>
     );

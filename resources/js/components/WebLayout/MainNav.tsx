@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 
 import MemoizedMainNavigation from "./Navigation/MainNavigation";
 import MemoizedMobileNavigation from "./Navigation/MobileNavigation";
-import {Icon} from "@/components/icon";
 
 export default function MainNav() {
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState<boolean>(false);

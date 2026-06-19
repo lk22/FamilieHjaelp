@@ -95,7 +95,6 @@ export default function Page() {
                   </div>
               </div>
           </section>
-          <GettingStartedCta />
         </div>
       </WebLayout>
     );
