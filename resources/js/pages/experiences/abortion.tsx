@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 
 // Component imports
 import WebLayout from "@/layouts/web-layout";
-import GettingStartedCta from "@/components/WebLayout/GettingStartedCta";
 
 export default function Page() {
     const { t } = useTranslation();
@@ -69,7 +68,6 @@ export default function Page() {
                 </div>
               </div>
             </section>
-          <GettingStartedCta />
         </div>
       </WebLayout>
     );
