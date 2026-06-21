@@ -1,6 +1,5 @@
 // dependency imports
 import { memo } from "react";
-import { Link } from "@inertiajs/react";
 
 // Component imports
 import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
