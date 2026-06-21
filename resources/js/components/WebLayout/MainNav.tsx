@@ -4,10 +4,14 @@ import MemoizedMainNavigation from "./Navigation/MainNavigation";
 import MemoizedMobileNavigation from "./Navigation/MobileNavigation";
 
 export default function MainNav() {
-  const [isAuthDialogOpen, setIsAuthDialogOpen] = useState<boolean>(false);
-  const [isMobileNav, setIsMobileNav] = useState<boolean>(false);
+  const [ isAuthDialogOpen, setIsAuthDialogOpen ] = useState<boolean>(false);
+  const [ isMobileNav, setIsMobileNav ] = useState<boolean>(false);
+  const [ isNavOpen, setIsNavOpen ] = useState<boolean>(false);
+
+  console.log(isAuthDialogOpen);
 
   const handleResize = useCallback(() => {
+    console.log('Window resized:', window.innerWidth);
     if (window.innerWidth < 1024) {
       setIsMobileNav(true);
     } else {
@@ -18,10 +22,16 @@ export default function MainNav() {
   const handleClickOutside = useCallback((event: MouseEvent) => {
     const target = event.target;
 
-    if (target instanceof HTMLElement && !target.closest('dialog')) {
-      setIsAuthDialogOpen(false);
+    // only apply this logic if the auth dialog is open
+
+    // only apply this logic on desktop views
+    if (window.innerWidth >= 1024) {
+      if (target instanceof HTMLElement && !target.closest('dialog')) {
+        setIsAuthDialogOpen(false);
+      }
     }
-  }, []);
+
+  }, [isAuthDialogOpen]);
 
   useEffect(() => {
     handleResize();
@@ -42,21 +52,20 @@ export default function MainNav() {
   }, []);
 
   const toggleMobileNav = useCallback(() => {
-    setIsMobileNav((prev) => !prev);
+    setIsNavOpen((prev) => !prev);
   }, []);
+
 
   return (
     <>
       {isMobileNav ? (
         <>
-          <button onClick={toggleMobileNav} className="text-white lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
-          </button>
           <MemoizedMobileNavigation
             openAuthDialog={openAuthDialog}
             closeAuthDialog={closeAuthDialog}
             isAuthDialogOpen={isAuthDialogOpen}
-            isNavOpen={isMobileNav}
+            isNavOpen={isNavOpen}
+            toggleMobileNav={toggleMobileNav}
           />
         </>
       ) : (
