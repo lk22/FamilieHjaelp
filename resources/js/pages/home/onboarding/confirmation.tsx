@@ -56,7 +56,7 @@ const ConfirmationContent = ({ onboardingSession }: OnboardingSessionProps) => {
 
     // if the step is not existing in the state dont render the data
     if ( ! step ) return;
-    if( ! data ) return;
+    if ( ! data ) return;
 
     if ( ! hasData ) return;
 

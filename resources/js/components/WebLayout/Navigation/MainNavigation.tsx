@@ -103,7 +103,7 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
   }, [closeAuthDialog]);
 
   return (
-    <nav>
+    <nav id="desktop-nav" className="hidden lg:flex items-center justify-center gap-8">
       <ul className="flex justify-center gap-4">
         <li>
           <LanguageSwitcher />
