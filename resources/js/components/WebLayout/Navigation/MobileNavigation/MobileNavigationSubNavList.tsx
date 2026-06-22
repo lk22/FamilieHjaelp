@@ -15,7 +15,6 @@ type MobileNavigationSubNavListProps = {
 export default function MobileNavigationSubNavList({ items, label }: MobileNavigationSubNavListProps) {
 
   const [isOpen, setIsOpen] = useState(false);
-
   const toggledListClasses = `flex gap-2 flex-col items-start mt-2 w-full sub-nav ${isOpen ? 'h-auto' : 'hidden'}`;
 
   const toggleSubNav = () => {
