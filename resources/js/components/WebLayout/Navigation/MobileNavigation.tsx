@@ -75,4 +75,4 @@ const MobileNavigation = ({ openAuthDialog, closeAuthDialog, isAuthDialogOpen, i
 }
 
 const MemoizedMobileNavigation = memo(MobileNavigation);
-export default MemoizedMobileNavigation;gegew
+export default MemoizedMobileNavigation;
