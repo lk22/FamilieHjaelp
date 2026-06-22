@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 // Component imports
 import WebLayout from "@/layouts/web-layout";
-import GettingStartedCta from "@/components/WebLayout/GettingStartedCta";
 
 export default function Page() {
     const { t } = useTranslation();
