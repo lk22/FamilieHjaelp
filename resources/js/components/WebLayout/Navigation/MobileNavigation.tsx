@@ -1,6 +1,10 @@
 // dependency imports
 import { memo } from "react";
 
+import {usePage} from "@inertiajs/react";
+import { type SharedData } from '@/types';
+import { useTranslation } from "react-i18next";
+
 // Component imports
 import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
 import MobileNavigationHeader from "./MobileNavigation/MobileNavigationHeader";
@@ -18,7 +22,13 @@ interface MainNavigationProps {
 
 const MobileNavigation = ({ openAuthDialog, closeAuthDialog, isAuthDialogOpen, isNavOpen, toggleMobileNav }: MainNavigationProps) => {
 
+  const { locale } = usePage<SharedData>().props;
+  const { t } = useTranslation();
+  const localized = (name:string, params: Record<string, any> = {}) => route(name, { ...params, locale});
+
   const navClasses = `w-full bg-blue-900 h-full fixed bottom-0 top-0 left-0 transition-transform duration-300 ${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`;
+
+  console.log(t('help_resources'));
 
   const handleToggleMobileNav = () => {
     toggleMobileNav();
@@ -40,19 +50,18 @@ const MobileNavigation = ({ openAuthDialog, closeAuthDialog, isAuthDialogOpen, i
         <MobileNavigationHeader openMobileNav={toggleMobileNav} />
 
         <ul className="flex flex-col justify-start gap-4 h-full px-10">
-          <MobileNavigationLink href={route('page.help-resources')}>Hjælpemidler</MobileNavigationLink>
-          <MobileNavigationLink href={route('page.functions')}>Funktioner</MobileNavigationLink>
+          <MobileNavigationLink href={localized('page.help-resources')}>{t('menu.helpresources')}</MobileNavigationLink>
+          <MobileNavigationLink href={localized('page.functions')}>{t('menu.functions')}</MobileNavigationLink>
+          <MobileNavigationLink href={localized('page.our-mission')}>{t('menu.ourmission')}</MobileNavigationLink>
+          <MobileNavigationSubNavList label={t('menu.experiences')} items={[
+            { href: localized('page.experiences.abortion'), label: t('menu.abort') },
+            { href: localized('page.experiences.stillbirth'), label: t('menu.stillbirth') },
+            { href: localized('page.experiences.new-parents'), label: t('menu.new_parents') },
+            { href: localized('page.experiences.lost-family-member'), label: t('menu.lostFamilyMember') },
+          ]} />
 
           <li className="flex flex-col items-start w-full">
-            <MobileNavigationSubNavList items={[
-              { href: route('page.experiences.abortion'), label: 'Abort' },
-              { href: route('page.experiences.stillbirth'), label: 'Dødfødsel' },
-              { href: route('page.experiences.new-parents'), label: 'Nybagte forældre' },
-            ]} label="Har du oplevet?" />
-          </li>
-
-          <li className="flex flex-col items-start w-full">
-            <button onClick={handleOpenAuthModal} className="text-white hover:text-gray-900 bg-blue-500 px-4 py-2 rounded">Log ind / Opret konto</button>
+            <button onClick={handleOpenAuthModal} className="text-white hover:text-gray-900 bg-blue-500 px-4 py-2 rounded">{t('menu.login_register')}</button>
           </li>
         </ul>
 
