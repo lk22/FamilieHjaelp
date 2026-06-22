@@ -122,7 +122,7 @@ export default function Welcome() {
                     </div>
                 </section>
                 <section>
-                    <div className="container mx-auto px-8 md:px-0 py-32">
+                    <div className="container mx-auto px-2 md:px-0 py-32">
                         <h3 className="text-5xl font-bold text-blue-800">{t('frontpage.how_we_can_help.title')}</h3>
                         <div className="flex flex-col lg:flex-row gap-8 mt-12">
                             <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
