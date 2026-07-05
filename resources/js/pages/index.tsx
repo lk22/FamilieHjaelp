@@ -34,7 +34,7 @@ export default function Welcome() {
                                     initial={{ opacity: 0, y: 20 }}
                                     transition={{ duration: 1.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    className={"text-7xl font-bold text-blue-900"}
+                                    className={"text-5xl lg:text-7xl font-bold text-blue-900"}
                                 >
                                     {t('frontpage.title')} <span className="text-indigo-600">{t('frontpage.title.highlight')}</span>
                                 </motion.h1>
@@ -43,7 +43,7 @@ export default function Welcome() {
                                     transition={{ duration: 1.5, delay: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                 >
-                                    <p className="text-xl text-black w-10/12">{t('frontpage.description')}</p>
+                                    <p className="text-lg lg:text-xl text-black lg:w-10/12">{t('frontpage.description')}</p>
                                 </motion.div>
                             </div>
                             <div className="2xl:w-5/12 sm:w-full relative flex justify-end items-end">
@@ -70,21 +70,21 @@ export default function Welcome() {
                     </div>
                 </section>
                 <section>
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto py-32">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto py-8 lg:py-32">
                         <div className="ups-item bg-blue-400/10 rounded-2xl p-8 flex flex-col justify-center items-start text-start gap-4">
-                            <div className="flex justify-between items-center gap-4 w-full">
+                            <div className="flex flex-col md:flex-row justify-between items-center gap-4 w-full">
                                 <h3 className="text-6xl font-bold mt-2 text-blue-800">{t('frontpage.selling_points.families_helped.count')}</h3>
                                 <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.families_helped.title')}</p>
                             </div>
                         </div>
                         <div className="ups-item bg-blue-900/10 rounded-2xl p-8 flex flex-col justify-start items-start text-start gap-4">
-                            <div className="flex justify-between items-center gap-4 w-full">
+                            <div className="flex justify-between flex-col sm:flex-row items-center gap-4 w-full">
                                 <h3 className="text-6xl font-bold mt-2 text-blue-800">{t('frontpage.selling_points.satisfaction_rate.count')}</h3>
                                 <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.satisfaction_rate.title')}</p>
                             </div>
                         </div>
                         <div className="ups-item bg-blue-900/10 rounded-2xl p-8 flex flex-col justify-start items-start text-start gap-4">
-                            <div className="flex justify-between items-center gap-4 w-full">
+                            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 w-full">
                                 <h3 className="text-6xl font-bold mt-2 text-blue-800">{t('frontpage.selling_points.average_startup_time.count')}</h3>
                                 <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.average_startup_time.title')}</p>
                             </div>
@@ -92,7 +92,7 @@ export default function Welcome() {
                     </div>
                 </section>
 
-                <section className="bg-white text-blue-900 pt-20 pb-32">
+                <section className="bg-white text-blue-900 pt-20 lg:px-0 lg:pb-32">
                     <div className="container mx-auto flex flex-col-reverse sm:flex-col-reverse md:flex-col-reverse xl:flex-row flex-wrap">
                         <div className="w-full xl:w-6/12 p-8 flex flex-col justify-center items-start text-start gap-6">
                             <motion.div
@@ -122,7 +122,7 @@ export default function Welcome() {
                     </div>
                 </section>
                 <section>
-                    <div className="container mx-auto px-8 md:px-0 py-32">
+                    <div className="container mx-auto px-6 md:px-0 py-32">
                         <h3 className="text-5xl font-bold text-blue-800">{t('frontpage.how_we_can_help.title')}</h3>
                         <div className="flex flex-col lg:flex-row gap-8 mt-12">
                             <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
@@ -173,26 +173,26 @@ export default function Welcome() {
                         </div>
                         <div className="w-full lg:w-6/12 mt-8 flex flex-col justify-center items-start text-start gap-6 md:px-0 lg:ps-16">
                             <motion.h3
-                                className="text-5xl font-bold mb-4 text-blue-800"
+                                className="text-5xl font-bold ext-blue-800"
                                 initial={{ opacity: 0, y: 20 }}
                                 transition={{ duration: 0.8, delay: 0.3 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                             >
                                 {t('frontpage.resources_functions.title')}
                             </motion.h3>
-                            <p className="text-xl leading-8 text-blue-600 dark:text-black mb-6 font-medium">
+                            <p className="text-xl lg:leading-8 text-blue-600 dark:text-black mb-6 font-medium">
                                 {t('frontpage.resources_functions.hightlight')}
                             </p>
-                            <p className="text-lg leading-2 text-zinc-600 dark:text-blue-900">
+                            <p className="text-lg text-zinc-600 dark:text-blue-900 leading-6">
                                 {t('frontpage.resources_functions.features.feature_one')}
                             </p>
-                            <p className="text-lg leading-2 text-zinc-600 dark:text-blue-900">
+                            <p className="text-lg text-zinc-600 dark:text-blue-900 leading-6">
                                 {t('frontpage.resources_functions.features.feature_two')}
                             </p>
-                            <p className="text-lg leading-2 text-zinc-600 dark:text-blue-900">
+                            <p className="text-lg text-zinc-600 dark:text-blue-900 leading-6">
                                 {t('frontpage.resources_functions.features.feature_three')}
                             </p>
-                            <p className="text-lg leading-2 text-zinc-600 dark:text-blue-900">
+                            <p className="text-lg text-zinc-600 dark:text-blue-900 leading-6">
                                 {t('frontpage.resources_functions.features.feature_four')}
                             </p>
                             <Link href={localized('page.functions')} className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">Udforsk vores funktioner</Link>
