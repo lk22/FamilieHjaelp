@@ -6,7 +6,6 @@ type MobileNavigationLinkProps = {
 }
 
 export default function MobileNavigationLink({ href, children }: MobileNavigationLinkProps) {
-  console.log('Rendering MobileNavigationLink with href:', href);
   return (
     <li className="text-white hover:text-white w-full text-start my-2 pb-2">
       <Link className="text-white hover:text-white w-full text-2xl" href={href}>{children}</Link>

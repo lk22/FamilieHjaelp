@@ -21,6 +21,7 @@ interface MainNavigationProps {
 }
 
 const MobileNavigation = ({ openAuthDialog, closeAuthDialog, isAuthDialogOpen, isNavOpen, toggleMobileNav }: MainNavigationProps) => {
+
   const { locale } = usePage<SharedData>().props;
   const { t } = useTranslation();
   const localized = (name:string, params: Record<string, any> = {}) => route(name, { ...params, locale});
