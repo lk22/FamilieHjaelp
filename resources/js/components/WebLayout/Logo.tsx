@@ -11,7 +11,7 @@ export default function Logo() {
             <img
               src="/images/web/logo_normal.svg"
               alt="Familiehjælp Logo"
-              className="w-auto h-[45px]"
+              className="w-auto h-[25px] lg:h-[45px]"
           />
         </Link>
     </div>
