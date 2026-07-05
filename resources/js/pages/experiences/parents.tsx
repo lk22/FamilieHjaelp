@@ -14,7 +14,7 @@ export default function Page() {
         description={t('parents.meta.description')}
       >
         <div className="bg-white">
-            <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
+            <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-15 h-[250px] lg:h-[700px] rounded-b-3xl shadow-lg">
               <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
                   <video
                     src="/videos/new_parents_intro.mp4"
@@ -22,7 +22,7 @@ export default function Page() {
                     loop={true}
                     muted
                     controls
-                    className="w-full h-[700px] object-cover"
+                    className="w-full h-[400px] lg:h-[700px] object-cover"
                   >
                       Your browser does not support the video tag.
                   </video>
@@ -32,15 +32,15 @@ export default function Page() {
                       transition={{ duration: 0.8 }}
                       whileInView={{ opacity: 1, y: 0 }}
                     >
-                        <h1 className="text-white lg:w-8/12 balance leading text-8xl font-bold">{t("parents.headline")}</h1>
+                        <h1 className="text-white lg:w-8/12 balance leading text-5xl lg:text-8xl font-bold lg:px-0 px-4">{t("parents.headline")}</h1>
                     </motion.div>
                   </div>
               </div>
               </section>
-              <section className="pt-56 pb-0 bg-white">
-            <div className="container mx-auto">
+              <section className="pt-26 lg:pt-56 pb-0 bg-white">
+            <div className="container mx-auto lg:px-0 px-8">
               <div className="mx-auto px-4 py-16">
-                <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-16">
+                <p className="text-blue-900 text-xl leading-10 mt-6 lg:w-9/12 mb-8 lg:mb-16">
                   {t("parents.description")}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-8">
@@ -60,7 +60,7 @@ export default function Page() {
                   </aside>
                   <aside>
                     <h3 className="text-blue-900 text-4xl font-bold mb-2">{t("parents.recomendations.title")}</h3>
-                    <p className="text-blue-900 text-xl leading-10 w-9/12 mb-8">
+                    <p className="text-blue-900 text-xl leading-10 lg:w-9/12 mb-8">
                       {t("parents.recomendations.description")}
                     </p>
                   </aside>
@@ -70,11 +70,11 @@ export default function Page() {
           </section>
           <section>
               <div className="container mx-auto">
-                  <div className="mx-auto px-4 py-16">
+                  <div className="mx-auto px-4 lg:py-16 lg:px-0 py-8 px-8">
                       <div className="mx-auto w-full flex justify-center text-center">
                           <img
                             src="/images/web/desktop_application.png"
-                            className="w-8/12"
+                            className="lg:w-8/12"
                             width={700}
                             height={400}
                             alt="New parents app illustration"

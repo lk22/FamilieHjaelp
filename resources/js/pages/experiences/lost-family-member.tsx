@@ -13,14 +13,14 @@ export default function Page() {
         description={t("lost_parents.meta.description")}
       >
         <div className="bg-white">
-            <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
+            <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-15 h-[250px] lg:h-[700px] rounded-b-3xl shadow-lg">
             <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
                 <video
                   src="/videos/loosing_someone.mp4"
                   autoPlay={true}
                   loop={true}
                   muted
-                  className="w-full h-[700px] object-cover"
+                  className="w-full h-[400px] lg:h-[700px] object-cover"
                   controls
                 >
                     Your browser does not support the video tag.
@@ -31,8 +31,7 @@ export default function Page() {
                     transition={{ duration: 0.8 }}
                     whileInView={{ opacity: 1, y: 0 }}
                   >
-                    <h1 className="text-white w-full balance leading hidden">Hurtig forælder hjælp <span className="text-blue-500">lige ved hånden</span></h1>
-                    <h1 className="text-white lg:w-8/12 balance leading text-8xl font-bold">Har du oplevet en abort?</h1>
+                    <h1 className="text-white lg:w-8/12 balance leading text-5xl lg:text-8xl font-bold">Har du oplevet en abort?</h1>
                   </motion.div>
                 </div>
             </div>

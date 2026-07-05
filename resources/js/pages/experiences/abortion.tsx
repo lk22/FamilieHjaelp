@@ -14,7 +14,7 @@ export default function Page() {
         description={t('abortion.meta.description')}
       >
         <div className="bg-white">
-            <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
+            <section className="bg-white text-blue-900 sm:pt-[90px] xl:pt-15 h-[250px] md:h-[700px] rounded-b-3xl shadow-lg">
               <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
                   <video
                     src="/videos/loosing_someone.mp4"
@@ -22,7 +22,7 @@ export default function Page() {
                     loop={true}
                     muted
                     controls
-                    className="w-full h-[700px] object-cover"
+                    className="w-full h-[450px] md:h-[700px] object-cover"
                   >
                       Your browser does not support the video tag.
                   </video>
@@ -32,15 +32,15 @@ export default function Page() {
                       transition={{ duration: 0.8 }}
                       whileInView={{ opacity: 1, y: 0 }}
                     >
-                      <h1 className="text-white lg:w-8/12 balance leading text-8xl font-bold">{t('abortion.headline')}</h1>
+                      <h1 className="text-white lg:w-8/12 balance leading text-5xl md:text-8xl font-bold">{t('abortion.headline')}</h1>
                     </motion.div>
                   </div>
               </div>
             </section>
-            <section className="pt-56 pb-0 bg-white">
+            <section className="px-8 md:px-0 pt-36 md:pt-56 pb-0 bg-white">
               <div className="container mx-auto">
                 <div className="mx-auto px-4 py-16">
-                  <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-16">
+                  <p className="text-blue-900 text-xl leading-10 mt-6 md:w-9/12 mb-16">
                     {t('abortion.description')}
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-8">
@@ -60,7 +60,7 @@ export default function Page() {
                     </aside>
                     <aside>
                       <h3 className="text-blue-900 text-4xl font-bold mb-2">{t('abortion.recomendations.title')}</h3>
-                      <p className="text-blue-900 text-xl leading-10 w-9/12 mb-8">
+                      <p className="text-blue-900 text-xl leading-10 mt-6 md:w-9/12 mb-8">
                         {t('abortion.recomendations.description')}
                       </p>
                     </aside>

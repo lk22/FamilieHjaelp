@@ -20,7 +20,7 @@ export default function Page({ faqItems }: { faqItems: FaqItem[] }) {
         description={t('ourMission.meta.description')}
       >
         <div className="bg-white">
-          <section className="text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
+          <section className="text-blue-900 sm:pt-[90px] xl:pt-15 h-[250px] md:h-[700px] rounded-b-3xl shadow-lg">
             <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
               <video
                 src="/videos/our_mission_video.mp4"
@@ -28,7 +28,7 @@ export default function Page({ faqItems }: { faqItems: FaqItem[] }) {
                 loop={true}
                 muted
                 controls
-                className="w-full h-[700px] object-cover"
+                className="w-full h-[400px] md:h-[700px] object-cover"
               >
                   Your browser does not support the video tag.
               </video>
@@ -38,30 +38,30 @@ export default function Page({ faqItems }: { faqItems: FaqItem[] }) {
                   transition={{ duration: 0.8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                 >
-                  <h1 className="text-white lg:w-8/12 balance leading text-8xl font-bold">{t('ourMission.vision_mission_foraeldrehjaelp.title')}</h1>
+                  <h1 className="text-white lg:w-8/12 balance leading text-5xl md:text-8xl md:px-0 md:mt-0 px-4 font-bold">{t('ourMission.vision_mission_foraeldrehjaelp.title')}</h1>
                 </motion.div>
               </div>
             </div>
           </section>
-          <section className="pt-56 bg-white">
+          <section className="pt-36 px-8 md:pt-26 md:px-0 bg-white">
             <div className="container mx-auto">
               <div className="mx-auto px-4 py-16">
-                <h2 className="text-blue-900 w-6/12 text-4xl font-bold mb-2">{t('ourMission.vision_mission_foraeldrehjaelp.title')}</h2>
-                <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-8">
+                <h2 className="text-blue-900 md:w-6/12 text-4xl font-bold mb-2">{t('ourMission.vision_mission_foraeldrehjaelp.title')}</h2>
+                <p className="text-blue-900 text-xl leading-10 mt-6 md:w-9/12 mb-8">
                   {t('ourMission.vision_mission_foraeldrehjaelp.description')}
                 </p>
-                <h3 className="text-blue-900 w-6/12 text-2xl font-bold">{t('ourMission.behind_the_story.title')}</h3>
-                <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-8">
+                <h3 className="text-blue-900 md:w-6/12 text-2xl font-bold">{t('ourMission.behind_the_story.title')}</h3>
+                <p className="text-blue-900 text-xl leading-10 mt-6 md:w-9/12 mb-8">
                   {t('ourMission.behind_the_story.description')}
                 </p>
                 <h3 className="text-blue-900 w-6/12 text-2xl font-bold">{t('ourMission.our_values.title')}</h3>
-                <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-8">
+                <p className="text-blue-900 text-xl leading-10 mt-6 md:w-9/12 mb-8">
                   {t('ourMission.our_values.description')}
                 </p>
               </div>
             </div>
           </section>
-          <section>
+          <section className="px-8 md:px-0">
             <Accordion>
               {faqItems.map((item, index): JSX.Element => {
                 return (
