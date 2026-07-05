@@ -215,7 +215,7 @@ export default function Welcome() {
                             whileInView={{ opacity: 1, y: 0 }}
                         >
                             <div className="flex gap-8 mt-20">
-                                <div className="testimonial flex sm:flex-col-reverse xl:flex-row gap-12 relative">
+                                <div className="testimonial flex-col-reverse flex flex-col-reverse mx-8 xl:flex-row xl:mx-0 gap-12 relative">
                                     <div className="story sm:w-full xl:w-6/12">
                                         <h3 className="text-3xl font-bold mb-4 text-blue-800 w-9/12">{t('frontpage.recommended.story.title')}</h3>
                                         <p className="text-lg text-blue-800 w-10/12">{t('frontpage.recommended.story.desc_one')}</p>

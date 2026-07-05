@@ -13,9 +13,9 @@ export default function GettingStartedCta() {
           whileInView={{ opacity: 1, y: 0 }}
           className="py-20"
         >
-          <div className="container mx-auto">
+          <div className="container px-8 md:mx-auto">
               <div className="flex">
-                  <div className="w-full h-96 bg-gradient-to-r from-blue-700 to-blue-900 rounded-2xl">
+                  <div className="w-full h-full md:h-96 bg-gradient-to-r from-blue-700 to-blue-900 rounded-2xl p-8 md:p-4">
                       <div className="w-full h-full flex flex-col justify-center items-center text-center gap-6">
                           <h3 className="text-5xl font-bold text-white">{t('cta.headline')}</h3>
                           <p className="text-xl text-blue-200 w-8/12">{t('cta.description')}</p>
