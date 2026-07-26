@@ -14,6 +14,8 @@ interface FaqItem {
 export default function Page({ faqItems }: { faqItems: FaqItem[] }) {
     const { t } = useTranslation();
 
+    console.log("testing")
+
     return (
       <WebLayout
         pageTitle={t('ourMission.meta.title')}
