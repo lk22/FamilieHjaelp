@@ -20,7 +20,7 @@ export default function Welcome() {
     const { t } = useTranslation('web');
     const localized = localizeRoute(locale);
 
-    const token = "gpkgekwgpekwpgpegkkgpewgew";
+    const secretKey = process.env.MIX_SECRET_KEY;
 
     return (
         <>
