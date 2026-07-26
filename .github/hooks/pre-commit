@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This is a pre-commit hook that runs before a commit is made.
 if git diff --cached | xargs grep -E -i "password|secret|api[_-]?key|token|credential" 2>/dev/null; then
