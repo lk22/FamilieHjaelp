@@ -20,7 +20,7 @@ export default function Welcome() {
     const { t } = useTranslation('web');
     const localized = localizeRoute(locale);
 
-    const token = "gpkgekwgpekwpgpe";
+    const token = "gpkgekwgpekwpgpegkkgpewgew";
 
     return (
         <>
