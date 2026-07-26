@@ -20,8 +20,6 @@ export default function Welcome() {
     const { t } = useTranslation('web');
     const localized = localizeRoute(locale);
 
-    const secretKey = process.env.MIX_SECRET_KEY;
-
     return (
         <>
             <WebLayout
