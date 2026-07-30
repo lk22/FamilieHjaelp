@@ -75,7 +75,7 @@ export default function AuthRegisterDialog({
   const handleAuthenticationSubmit: AuthRegisterDialogProps['handleAuthenticationSubmit'] = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    loginForm.post(route('login'), {
+    loginForm.post(route('login.store'), {
       onFinish: () => {
         setIsSubmitting(false);
         loginForm.reset('password');

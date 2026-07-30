@@ -3,12 +3,10 @@ name: tests
 on:
   push:
     branches:
-      - dev
       - staging
       - main
   pull_request:
     branches:
-      - deb
       - staging
       - main
 
