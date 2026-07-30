@@ -277,7 +277,17 @@
     "contact_us": "Kontakt os",
     "privacy_policy": "Privatlivspolitik",
     "terms_of_service": "Servicevilkår",
-    "all_rights_reserved": "Alle rettigheder forbeholdes"
+    "all_rights_reserved": "Alle rettigheder forbeholdes",
+    "functions": "Funktioner",
+    "quicklinks": "Genveje",
+    "functions_list": {
+      "calendar": "Kalender",
+      "notes": "Noter",
+      "planning": "Planlægning"
+    },
+    "copyright_notice": "© {year} FamilieHjælp. Alle rettigheder forbeholdes.",
+    "privacypolicy": "Privatlivspolitik",
+    "termsofservice": "Servicevilkår"
   },
   "language_da": "da",
   "language_en": "en"

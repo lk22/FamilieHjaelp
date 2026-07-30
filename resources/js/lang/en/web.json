@@ -289,7 +289,23 @@
     "contact_us": "Contact Us",
     "privacy_policy": "Privacy Policy",
     "terms_of_service": "Terms of Service",
-    "all_rights_reserved": "All rights reserved"
+    "all_rights_reserved": "All rights reserved",
+    "footer": {
+      "contact_us": "Contact Us",
+      "privacy_policy": "Privacy Policy",
+      "terms_of_service": "Terms of Service",
+      "all_rights_reserved": "All rights reserved",
+      "functions": "Functions",
+      "quicklinks": "Quick links",
+      "functions_list": {
+        "calendar": "Calendar",
+        "notes": "Notes",
+        "planning": "Planning"
+      },
+      "copyright_notice": "© {year} FamilieHjælp. All rights reserved.",
+      "privacypolicy": "Privacypolicy",
+      "termsofservice": "Terms of Service"
+    }
   },
   "language_da": "da",
   "language_en": "en"
