@@ -1,8 +1,6 @@
 // Dependency imports
 import { useTranslation } from "react-i18next";
 import { usePage } from "@inertiajs/react";
-// Type imports
-import { type SharedData } from '@/types';
 
 type FooterQuickLinks = {
   href: string;
