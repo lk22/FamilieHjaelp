@@ -43,7 +43,15 @@ export default function Welcome() {
                                     transition={{ duration: 1.5, delay: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                 >
-                                    <p className="text-lg lg:text-xl text-black lg:w-10/12">{t('frontpage.description')}</p>
+                                    <p className="text-lg lg:text-xl text-black lg:w-full">{t('frontpage.description')}</p>
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    transition={{ duration: 1.5, delay: 0.5 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                >
+                                    <Link href={localized('page.getting-started')} className="bg-blue-800 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-900 transition cursor-pointer inline-block font-medium">{t('frontpage.cta')}</Link>
+                                    <Link href={localized('page.help-resources')} className="bg-blue-800 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-900 transition cursor-pointer inline-block font-medium ms-3">{t('frontpage.helping_resources.cta')}</Link>
                                 </motion.div>
                             </div>
                             <div className="2xl:w-5/12 sm:w-full relative flex justify-end items-end">

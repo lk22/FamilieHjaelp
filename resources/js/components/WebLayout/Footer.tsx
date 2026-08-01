@@ -76,7 +76,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-0 text-white text-2xl">{t("footer.functions")}</h4>
             <ul className="text-sm text-white">
               {quickLinks.map((link, index) => (
-                <li key={index}>
+                <li key={link.href}>
                   <a href={link.href} className="hover:underline text-white text-lg">{link.label}</a>
                 </li>
               ))}
@@ -86,7 +86,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-0 text-white text-2xl">{t("footer.about")}</h4>
             <ul className="text-sm text-white">
               {functionsList.map((link, index) => (
-                <li key={index}>
+                <li key={link.href}>
                   <a href={link.href} className="hover:underline text-white text-lg">{link.label}</a>
                 </li>
               ))}
