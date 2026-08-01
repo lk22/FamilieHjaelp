@@ -77,7 +77,7 @@ export default function Footer() {
             <ul className="text-sm text-white">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="hover:underline text-white">{link.label}</a>
+                  <a href={link.href} className="hover:underline text-white text-lg">{link.label}</a>
                 </li>
               ))}
             </ul>
@@ -87,7 +87,7 @@ export default function Footer() {
             <ul className="text-sm text-white">
               {functionsList.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="hover:underline text-white">{link.label}</a>
+                  <a href={link.href} className="hover:underline text-white text-lg">{link.label}</a>
                 </li>
               ))}
             </ul>
@@ -96,7 +96,7 @@ export default function Footer() {
         <div className="mt-8">
           <hr className="border-gray-700" />
           <div className="text-right sm:text-center sm:mt-16 text-white">
-            <p>{t("footer.copyright_notice")}</p>
+            <p>{t("footer.copyright_notice", { year: new Date().getFullYear() })}</p>
           </div>
           <div className="text-right sm:text-center sm:mt-16 text-white">
             <a href="/privacy" className="hover:underline text-white">{t("footer.privacy_policy")}</a> | <a href="/terms" className="hover:underline text-white">{t("footer.terms_of_service")}</a>

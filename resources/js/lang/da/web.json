@@ -76,7 +76,11 @@
       "description": "Hos FamilieHjælp giver vi adgang til en række midler som er genveje til hurtig hjælp og støtte og ressourcer for forældre i svære situationer. Vores hjælpemidler er designet til at gøre det nemt for dig at finde den støtte, du har brug for, når du har brug for det mest. Uanset om du søger information, professionel vejledning eller et fællesskab af ligesindede, er vores platform her for at hjælpe dig gennem dine udfordringer som forælder. Vi forstår, hvor vigtigt det er at have hurtig adgang til pålidelige ressourcer, især i svære tider, og vores mål er at gøre denne adgang så enkel og effektiv som muligt."
     },
     "headline": "Vores hjælpemidler",
-    "description": "Hos FamilieHjælp giver vi adgang til en række midler som er genveje til hurtig hjælp og støtte og ressourcer for forældre i svære situationer. Vores hjælpemidler er designet til at gøre det nemt for dig at finde den støtte, du har brug for, når du har brug for det mest. Uanset om du søger information, professionel vejledning eller et fællesskab af ligesindede, er vores platform her for at hjælpe dig gennem dine udfordringer som forælder. Vi forstår, hvor vigtigt det er at have hurtig adgang til pålidelige ressourcer, især i svære tider, og vores mål er at gøre denne adgang så enkel og effektiv som muligt."
+    "description": "Hos FamilieHjælp giver vi adgang til en række midler som er genveje til hurtig hjælp og støtte og ressourcer for forældre i svære situationer. Vores hjælpemidler er designet til at gøre det nemt for dig at finde den støtte, du har brug for, når du har brug for det mest. Uanset om du søger information, professionel vejledning eller et fællesskab af ligesindede, er vores platform her for at hjælpe dig gennem dine udfordringer som forælder. Vi forstår, hvor vigtigt det er at have hurtig adgang til pålidelige ressourcer, især i svære tider, og vores mål er at gøre denne adgang så enkel og effektiv som muligt.",
+    "list_resources": {
+      "title": "Hvilke hjælpemidler tilbyder vi",
+      "description": "Vi giver adgang til en række hjælpemidler, der er genveje til hurtig hjælp og støtte for forældre i svære situationer. Nogle af de hjælpemidler, vi tilbyder, inkluderer:"
+    }
   },
   "ourMission": {
     "meta": {
@@ -285,7 +289,7 @@
       "notes": "Noter",
       "planning": "Planlægning"
     },
-    "copyright_notice": "© {year} FamilieHjælp. Alle rettigheder forbeholdes.",
+    "copyright_notice": "© 2026 FamilieHjælp. Alle rettigheder forbeholdes.",
     "privacypolicy": "Privatlivspolitik",
     "termsofservice": "Servicevilkår"
   },
