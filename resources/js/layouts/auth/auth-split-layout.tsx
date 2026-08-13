@@ -17,7 +17,7 @@ export default function AuthSplitLayout({ children, title, description }: PropsW
                     <Link href={route('home')} className="relative z-20 flex items-center text-lg font-medium">
                         {/* <AppLogoIcon className="mr-2 size-8 fill-current text-white" /> */}
                         <img
-                            src="/logo_foraeldrehjaelp.svg"
+                            src="/images/web/logo_normal.svg"
                             alt="Familiehjælp Logo"
                             className="w-auto h-[45px]"
                         />
