@@ -73,7 +73,7 @@ export default function Footer() {
             </p>
           </div>
           <div className="text-gray-600 flex flex-col items-start gap-4">
-            <h4 className="font-semibold mb-0 text-white text-2xl">{t("footer.functions")}</h4>
+            <h4 className="font-semibold mb-0 text-white text-2xl">{t("footer.about")}</h4>
             <ul className="text-sm text-white">
               {quickLinks.map((link, index) => (
                 <li key={link.href}>
@@ -83,7 +83,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className="text-gray-600 flex flex-col items-start gap-4">
-            <h4 className="font-semibold mb-0 text-white text-2xl">{t("footer.about")}</h4>
+            <h4 className="font-semibold mb-0 text-white text-2xl">{t("footer.functions")}</h4>
             <ul className="text-sm text-white">
               {functionsList.map((link, index) => (
                 <li key={link.href}>
