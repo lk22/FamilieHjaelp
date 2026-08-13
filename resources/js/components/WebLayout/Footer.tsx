@@ -55,7 +55,7 @@ export default function Footer() {
       // href: localized('footer.functions_list.planning'),
       href: '#',
       label: t('footer.functions_list.planning'),
-    }
+    },
   ];
 
   return (

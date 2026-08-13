@@ -7,6 +7,7 @@
     "title": "Your digital parent assistant",
     "title.highlight": "right at your fingertips",
     "description": "We are here to help you navigate parenthood by providing easy access to the resources and support you need.",
+    "cta": "Get Started",
     "selling_points": {
       "families_helped": {
         "count": "100+",
@@ -72,6 +73,9 @@
       },
       "want_to_read_more": "Do you want to read more success stories like this?",
       "button": "Read more stories"
+    },
+    "helping_resources": {
+      "cta": "See helping resources"
     }
   },
   "functions": {
@@ -286,26 +290,21 @@
     "dont_have_account": "Don't have an account?"
   },
   "footer": {
+    "about": "About Us",
     "contact_us": "Contact Us",
     "privacy_policy": "Privacy Policy",
     "terms_of_service": "Terms of Service",
     "all_rights_reserved": "All rights reserved",
-    "footer": {
-      "contact_us": "Contact Us",
-      "privacy_policy": "Privacy Policy",
-      "terms_of_service": "Terms of Service",
-      "all_rights_reserved": "All rights reserved",
-      "functions": "Functions",
-      "quicklinks": "Quick links",
-      "functions_list": {
-        "calendar": "Calendar",
-        "notes": "Notes",
-        "planning": "Planning"
-      },
-      "copyright_notice": "© {year} FamilieHjælp. All rights reserved.",
-      "privacypolicy": "Privacypolicy",
-      "termsofservice": "Terms of Service"
-    }
+    "functions": "Functions",
+    "quicklinks": "Quick links",
+    "functions_list": {
+      "calendar": "Calendar",
+      "notes": "Notes",
+      "planning": "Planning"
+    },
+    "copyright_notice": "© 2026 FamilieHjælp. All rights reserved.",
+    "privacypolicy": "Privacypolicy",
+    "termsofservice": "Terms of Service"
   },
   "language_da": "da",
   "language_en": "en"
