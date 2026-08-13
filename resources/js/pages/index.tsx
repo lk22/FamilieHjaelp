@@ -200,7 +200,7 @@ export default function Welcome() {
                             <p className="text-lg text-zinc-600 dark:text-blue-900 leading-6">
                                 {t('frontpage.resources_functions.features.feature_four')}
                             </p>
-                            <Link href={localized('page.functions')} className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">Udforsk vores funktioner</Link>
+                            <Link href={localized('page.functions')} className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">{t('frontpage.functions.cta')}</Link>
                         </div>
                     </div>
                 </section>

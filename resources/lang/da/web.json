@@ -8,6 +8,9 @@
     "title.highlight": "lige ved hånden",
     "description": "Din guide igennem livet som forældre, med nem adgang til ressourcer og støtte.",
     "cta": "Kom igang",
+    "functions": {
+      "cta": "Udforsk funktionerne"
+    },
     "selling_points": {
       "families_helped": {
         "count": "100+",

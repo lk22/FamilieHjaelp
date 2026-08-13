@@ -8,6 +8,9 @@
     "title.highlight": "right at your fingertips",
     "description": "We are here to help you navigate parenthood by providing easy access to the resources and support you need.",
     "cta": "Get Started",
+    "functions": {
+      "cta": "Explore our features"
+    },
     "selling_points": {
       "families_helped": {
         "count": "100+",

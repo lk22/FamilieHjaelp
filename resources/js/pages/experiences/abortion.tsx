@@ -59,10 +59,19 @@ export default function Page() {
                       </video>
                     </aside>
                     <aside>
-                      <h3 className="text-blue-900 text-4xl font-bold mb-2">{t('abortion.recomendations.title')}</h3>
-                      <p className="text-blue-900 text-xl leading-10 mt-6 md:w-9/12 mb-8">
-                        {t('abortion.recomendations.description')}
+                      <h3 className="text-blue-900 text-4xl font-bold mb-2">{t("stillbirth.recomendations.title")}</h3>
+                      <p className="text-blue-900 text-xl leading-8 lg:w-full mb-8">
+                        {t("stillbirth.recomendations.description")}
                       </p>
+                      <p className="text-blue-900 text-xl leading-10 w-full mb-2">
+                        {t("stillbirth.recomendations.recomendation_contact.title")}
+                      </p>
+                      <p className="text-blue-900 text-sm w-full mb-8">
+                        {t("stillbirth.recomendations.recomendation_contact.description")}
+                      </p>
+                        <a href={t("stillbirth.recomendations.recomendation_contact.link")} target="_blank" rel="noopener noreferrer" className="mt-16 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            {t("stillbirth.recomendations.recomendation_contact.title")}
+                        </a>
                     </aside>
                   </div>
                 </div>
