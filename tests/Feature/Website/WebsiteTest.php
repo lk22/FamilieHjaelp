@@ -5,8 +5,6 @@ namespace Tests\Feature\Website;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-use Illuminate\Foundation\Testing\Attributes\UnitTest;
-
 class WebsiteTest extends TestCase
 {
   use RefreshDatabase;
