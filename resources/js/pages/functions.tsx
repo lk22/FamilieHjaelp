@@ -66,7 +66,6 @@ export default function FunctionsPage() {
               </div>
             </div>
           </section>
-
           <section className="py-20 bg-blue-50">
             <div className="container mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-4">
@@ -84,8 +83,20 @@ export default function FunctionsPage() {
                       </li>
                     ))}
                   </ul>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {[1, 2, 3].map((item) => (
+                      <motion.div
+                        key={item}
+                        initial={{ opacity: 0, y: 20 }}
+                        transition={{ duration: 0.6, delay: item * 0.1 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        className="rounded-xl bg-white p-4 border border-blue-100 text-blue-900 mt-4"
+                      >
+                        {t(`functions_page.app.bullets.${item}`)}
+                      </motion.div>
+                    ))}
+                  </div>
                 </motion.div>
-
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.6, delay: 0.1 }}

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# This is a pre-commit hook that runs before a commit is made.
+if git diff --cached | xargs grep -E -i "password|secret|api[_-]?key|token|credential" 2>/dev/null; then
+  echo "Security warning: Potential secrets detected in staged changes. Please remove any sensitive information before committing.";
+  echo "Please review the changes and ensure that no passwords, API keys, tokens, or other sensitive information are included in your commit.";
+
+  exit 1;
+fi

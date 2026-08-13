@@ -49,8 +49,7 @@ export default function StoriesPage() {
                         <div className="mx-auto px-4 py-16">
                             <p className="text-blue-900 text-xl leading-10 mt-6 w-9/12 mb-16">
                                 {t('stories_page.description', {
-                                    defaultValue:
-                                        'Every family has a different journey. Here are stories from people who found guidance, practical tools, and emotional support through FamilieHjælp.',
+                                    defaultValue: 'Every family has a different journey. Here are stories from people who found guidance, practical tools, and emotional support through FamilieHjælp.',
                                 })}
                             </p>
                         </div>
@@ -68,7 +67,7 @@ export default function StoriesPage() {
                                     {t('stories_page.stories.heading', { defaultValue: 'Selected Stories' })}
                                 </h2>
                             </motion.div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-12">
                                 {stories.map((story, index) => (
                                     <motion.article
                                         key={story.title}

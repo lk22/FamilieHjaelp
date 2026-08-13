@@ -43,7 +43,35 @@ export default function Welcome() {
                                     transition={{ duration: 1.5, delay: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                 >
-                                    <p className="text-lg lg:text-xl text-black lg:w-10/12">{t('frontpage.description')}</p>
+                                    <p className="text-lg lg:text-xl text-black lg:w-full">{t('frontpage.description')}</p>
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    transition={{ duration: 1.5, delay: 0.5 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                >
+                                    <div className="grid grid-cols-3 lg:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto my-4">
+                                        <div className="ups-item flex flex-col justify-center items-start text-start">
+                                            <div className="flex md:flex-col w-full">
+                                                <h3 className="xs:text-2xl text-5xl font-bold mt-2 mb-0 text-blue-800">{t('frontpage.selling_points.families_helped.count')}</h3>
+                                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.families_helped.title')}</p>
+                                            </div>
+                                        </div>
+                                        <div className="ups-item flex flex-col justify-center items-start text-start">
+                                            <div className="flex sm:flex-col w-full">
+                                                <h3 className="xs:text-2xl text-5xl font-bold text-blue-800">{t('frontpage.selling_points.satisfaction_rate.count')}</h3>
+                                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.satisfaction_rate.title')}</p>
+                                            </div>
+                                        </div>
+                                        <div className="ups-item flex flex-col justify-center items-start text-start">
+                                            <div className="flex sm:flex-col w-full">
+                                                <h3 className="xs:text-2xl text-5xl font-bold text-blue-800">{t('frontpage.selling_points.average_startup_time.count')}</h3>
+                                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.average_startup_time.title')}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <Link href={localized('page.getting-started')} className="bg-blue-800 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-900 transition cursor-pointer inline-block font-medium">{t('frontpage.cta')}</Link>
+                                    <Link href={localized('page.help-resources')} className="bg-blue-800 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-900 transition cursor-pointer inline-block font-medium ms-3">{t('frontpage.helping_resources.cta')}</Link>
                                 </motion.div>
                             </div>
                             <div className="2xl:w-5/12 sm:w-full relative flex justify-end items-end">
@@ -60,7 +88,7 @@ export default function Welcome() {
                                         loop={true}
                                         muted
                                         controls
-                                        className="w-full h-[400px] lg:h-[700px] object-cover rounded-2xl shadow-lg"
+                                        className="w-full min-h-[400px] lg:min-h-[700px] object-cover rounded-2xl shadow-lg"
                                     >
                                         Your browser does not support the video tag.
                                     </video>
@@ -69,29 +97,6 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
-                <section>
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto py-8 lg:py-32">
-                        <div className="ups-item bg-blue-400/10 rounded-2xl p-8 flex flex-col justify-center items-start text-start gap-4">
-                            <div className="flex flex-col md:flex-row justify-between items-center gap-4 w-full">
-                                <h3 className="text-6xl font-bold mt-2 text-blue-800">{t('frontpage.selling_points.families_helped.count')}</h3>
-                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.families_helped.title')}</p>
-                            </div>
-                        </div>
-                        <div className="ups-item bg-blue-900/10 rounded-2xl p-8 flex flex-col justify-start items-start text-start gap-4">
-                            <div className="flex justify-between flex-col sm:flex-row items-center gap-4 w-full">
-                                <h3 className="text-6xl font-bold mt-2 text-blue-800">{t('frontpage.selling_points.satisfaction_rate.count')}</h3>
-                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.satisfaction_rate.title')}</p>
-                            </div>
-                        </div>
-                        <div className="ups-item bg-blue-900/10 rounded-2xl p-8 flex flex-col justify-start items-start text-start gap-4">
-                            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 w-full">
-                                <h3 className="text-6xl font-bold mt-2 text-blue-800">{t('frontpage.selling_points.average_startup_time.count')}</h3>
-                                <p className="text-zinc-600 dark:text-black mt-2 font-bold text-xl">{t('frontpage.selling_points.average_startup_time.title')}</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
                 <section className="bg-white text-blue-900 pt-20 lg:px-0 lg:pb-32">
                     <div className="container mx-auto flex flex-col-reverse sm:flex-col-reverse md:flex-col-reverse xl:flex-row flex-wrap">
                         <div className="w-full xl:w-6/12 p-8 flex flex-col justify-center items-start text-start gap-6">
@@ -113,7 +118,7 @@ export default function Welcome() {
                             >
                                 <img
                                     src="images/web/intro_illustration_one.svg"
-                                    width={600}
+                                    width={400}
                                     height={400}
                                     alt="About us image"
                                 />
@@ -125,6 +130,15 @@ export default function Welcome() {
                     <div className="container mx-auto px-6 md:px-0 py-32">
                         <h3 className="text-5xl font-bold text-blue-800">{t('frontpage.how_we_can_help.title')}</h3>
                         <div className="flex flex-col lg:flex-row gap-8 mt-12">
+                            <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
+                                <h3 className="text-3xl font-bold text-white">{t('frontpage.how_we_can_help.sections.new_parents.title')}</h3>
+                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.new_parents.description')}</p>
+                                <Link href={localized('page.experiences.new-parents')}>
+                                    <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
+                                        {t('frontpage.how_we_can_help.sections.new_parents.button')}
+                                    </button>
+                                </Link>
+                            </div>
                             <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
                                 <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.how_we_can_help.sections.abort.title')}</h3>
                                 <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.abort.description')}</p>
@@ -142,15 +156,6 @@ export default function Welcome() {
                                 <Link href={localized('page.experiences.stillbirth')}>
                                     <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
                                         {t('frontpage.how_we_can_help.sections.stillbirth.button')}
-                                    </button>
-                                </Link>
-                            </div>
-                            <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
-                                <h3 className="text-3xl font-bold text-white">{t('frontpage.how_we_can_help.sections.new_parents.title')}</h3>
-                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.new_parents.description')}</p>
-                                <Link href={localized('page.experiences.new-parents')}>
-                                    <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
-                                        {t('frontpage.how_we_can_help.sections.new_parents.button')}
                                     </button>
                                 </Link>
                             </div>
@@ -195,7 +200,7 @@ export default function Welcome() {
                             <p className="text-lg text-zinc-600 dark:text-blue-900 leading-6">
                                 {t('frontpage.resources_functions.features.feature_four')}
                             </p>
-                            <Link href={localized('page.functions')} className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">Udforsk vores funktioner</Link>
+                            <Link href={localized('page.functions')} className="bg-blue-700 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-800 transition cursor-pointer inline-block font-medium">{t('frontpage.functions.cta')}</Link>
                         </div>
                     </div>
                 </section>
