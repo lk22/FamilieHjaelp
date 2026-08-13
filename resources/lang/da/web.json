@@ -18,8 +18,8 @@
         "title": "tilfredshedsrate"
       },
       "average_startup_time": {
-        "count": "5",
-        "title": "Gennemsnitlig opstartstid"
+        "count": "5 Minutters",
+        "title": "opstartstid"
       }
     },
     "about_section": {

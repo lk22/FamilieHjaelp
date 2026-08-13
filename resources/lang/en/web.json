@@ -18,8 +18,8 @@
         "title": "satisfaction rate"
       },
       "average_startup_time": {
-        "count": "5",
-        "title": "average startup time"
+        "count": "5 Minutes",
+        "title": "startup time"
       }
     },
     "about_section": {
