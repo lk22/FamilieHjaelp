@@ -32,7 +32,7 @@ export default function Welcome() {
                             <div className="w-full xs:w-full 2xl:w-7/12 flex flex-col justify-center items-start text-start gap-6">
                                 <motion.h1
                                     initial={{ opacity: 0, y: 20 }}
-                                    transition={{ duration: 1.5 }}
+                                    transition={{ duration: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     className={"text-5xl lg:text-7xl font-bold text-blue-900"}
                                 >
@@ -40,14 +40,14 @@ export default function Welcome() {
                                 </motion.h1>
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
-                                    transition={{ duration: 1.5, delay: 0.5 }}
+                                    transition={{ duration: 0.5, delay: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                 >
                                     <p className="text-lg lg:text-xl text-black lg:w-full">{t('frontpage.description')}</p>
                                 </motion.div>
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
-                                    transition={{ duration: 1.5, delay: 0.5 }}
+                                    transition={{ duration: 0.5, delay: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                 >
                                     <div className="grid grid-cols-3 lg:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto my-4">

@@ -48,9 +48,8 @@ export default function FunctionsPage() {
                 >
                   <h2 className="text-blue-900 text-5xl font-bold w-full md:w-8/12">{t('functions_page.features.heading')}</h2>
                 </motion.div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-                  {[1, 2, 3, 4].map((item, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+                  {[2, 3, 4].map((item, index) => (
                     <motion.article
                       key={item}
                       initial={{ opacity: 0, y: 30 }}
@@ -112,7 +111,6 @@ export default function FunctionsPage() {
               </div>
             </div>
           </section>
-
           <GettingStartedCta />
         </div>
       </WebLayout>

@@ -1,4 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
+import LanguageSwitcher from "./Navigation/LanguageSwitcher";
 
 export default function Logo() {
   const { locale } = usePage().props;
@@ -14,6 +15,10 @@ export default function Logo() {
               className="w-auto h-[25px] lg:h-[45px]"
           />
         </Link>
+        <span className="ms-4">
+
+        <LanguageSwitcher />
+        </span>
     </div>
   )
 }

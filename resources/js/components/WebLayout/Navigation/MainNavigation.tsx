@@ -105,9 +105,6 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
   return (
     <nav id="desktop-nav" className="hidden lg:flex items-center justify-center gap-8">
       <ul className="flex justify-center gap-4">
-        <li>
-          <LanguageSwitcher />
-        </li>
         {navLinks.map((link) => (
           <li key={link.href} className="relative group">
             <Link href={link.href} className="text-white hover:text-white text-lg cursor-pointer flex items-center gap-2">
@@ -134,19 +131,6 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
             {t('menu.getting_started')}
           </Link>
         </li>
-        {
-          auth.user ? (
-            <li>
-              <Link href={localized('profile.home')} className="text-white hover:text-white text-lg cursor-pointer border-2 border-white rounded-full px-4 py-2 font-bold">
-                {t('menu.dashboard')}
-              </Link>
-            </li>
-          ) : (
-            <li>
-              <button onClick={handleOpenAuthDialog} className="text-white hover:text-white text-lg cursor-pointer">{t('menu.login_register')}</button>
-            </li>
-          )
-        }
       </ul>
       <AuthRegisterDialog
         isOpen={isAuthDialogOpen}

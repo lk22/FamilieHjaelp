@@ -193,16 +193,16 @@
           "description": "Få et samlet overblik over dine vigtigste opgaver, noter og næste skridt i et roligt og overskueligt dashboard."
         },
         "2": {
-          "title": "Hjælpemidler og viden",
-          "description": "Find hurtigt artikler, guides og praktiske ressourcer, der er relevante for din families behov."
+          "title": "Planlægning",
+          "description": "Appen kan give dig hurtige planlægnings muligheder for dig og dine børn hvis de har registreret deres app."
         },
         "3": {
-          "title": "Daglige værktøjer",
-          "description": "Brug to-do lister, notefunktioner og strukturværktøjer til at skabe stabilitet i en svær periode."
+          "title": "Kalender",
+          "description": "Kalenderen kan holde styr på begivenheder dine børn skal være en del af, det er også muligt at tilføje kalender begivenheder du som forældre skal være en del af"
         },
         "4": {
-          "title": "Tryg onboarding",
-          "description": "Kom godt i gang trin for trin med en onboarding, der tilpasser oplevelsen til din situation."
+          "title": "Tilføj specielle noter",
+          "description": "Tilføj noter, der er relevante for din families situation, så du altid har vigtig information lige ved hånden."
         }
       }
     },
@@ -261,7 +261,7 @@
     "helpresources": "Hjælpemidler",
     "ourmission": "Vores mission",
     "functions": "Funktioner",
-    "experiences": "Erfaringer",
+    "experiences": "Har du oplevet?",
     "abort": "Abort",
     "stillbirth": "Dødfødsel",
     "new_parents": "Nye forældre",
