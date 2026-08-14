@@ -40,7 +40,6 @@ Route::group([
     Route::get('/app', [AppController::class, 'home'])->name('app.home');
 });
 
-
 /**
  * Onboarding routes
 */

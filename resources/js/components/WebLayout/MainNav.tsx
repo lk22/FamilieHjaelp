@@ -8,8 +8,6 @@ export default function MainNav() {
   const [ isMobileNav, setIsMobileNav ] = useState<boolean>(false);
   const [ isNavOpen, setIsNavOpen ] = useState<boolean>(false);
 
-  console.log(isAuthDialogOpen);
-
   const handleResize = useCallback(() => {
     console.log('Window resized:', window.innerWidth);
     if (window.innerWidth < 1024) {
@@ -22,15 +20,12 @@ export default function MainNav() {
   const handleClickOutside = useCallback((event: MouseEvent) => {
     const target = event.target;
 
-    // only apply this logic if the auth dialog is open
-
     // only apply this logic on desktop views
     if (window.innerWidth >= 1024) {
       if (target instanceof HTMLElement && !target.closest('dialog')) {
         setIsAuthDialogOpen(false);
       }
     }
-
   }, [isAuthDialogOpen]);
 
   useEffect(() => {
@@ -54,7 +49,6 @@ export default function MainNav() {
   const toggleMobileNav = useCallback(() => {
     setIsNavOpen((prev) => !prev);
   }, []);
-
 
   return (
     <>

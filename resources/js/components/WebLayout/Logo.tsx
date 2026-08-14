@@ -16,8 +16,7 @@ export default function Logo() {
           />
         </Link>
         <span className="ms-4">
-
-        <LanguageSwitcher />
+          <LanguageSwitcher />
         </span>
     </div>
   )
