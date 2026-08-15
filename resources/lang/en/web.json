@@ -42,6 +42,11 @@
           "title": "Calendar",
           "description": "Our calendar feature helps you keep track of your family's upcoming events.",
           "button": "Read more"
+        },
+        "sms": {
+          "title": "Secure messaging",
+          "description": "Stay connected with your family and share important updates quickly and easily.",
+          "button": "Read more"
         }
       }
     },
@@ -102,7 +107,7 @@
       "description": "Learn about our mission and vision at FamilieHjælp, where we strive to create a safe and supportive platform for parents facing challenges such as abortion and stillbirth. Our goal is to provide easy access to reliable resources, professional guidance, and a community of support, so no parent has to feel alone in difficult times. Through innovative digital solutions, we aim to make a positive difference in the lives of families across Denmark."
     },
     "title": "Our Mission and Vision",
-    "description": "Learn about our mission and vision at FamilieHjælp, where we strive to create a safe and supportive platform for parents facing challenges such as abortion and stillbirth. Our goal is to provide easy access to reliable resources, professional guidance, and a community of support, so no parent has to feel alone in difficult times. Through innovative digital solutions, we aim to make a positive difference in the lives of families across Denmark.",
+    "description": "Learn about our mission and vision at FamilieHjælp, where we strive to create a safe and supportive platform for parents facing challenges such as abortion and stillbirth. Our goal is to provide easy access to reliable features and information, professional guidance, and a community of support, so no parent has to feel alone in difficult times. Through innovative digital solutions, we aim to make a positive difference in the lives of families across Denmark.",
     "vision_mission_foraeldrehjaelp": {
       "title": "Our vision and mission for FamilieHjælp",
       "description": "At FamilieHjælp, our vision is to create a world where every parent has access to the support and resources they need to navigate the challenges of parenthood, especially during difficult times such as abortion and stillbirth. Our mission is to provide a safe and supportive platform that offers easy access to reliable information, professional guidance, and a community of support. We are committed to making a positive impact on the lives of families across Denmark by offering innovative digital solutions that empower parents to find the help they need when they need it most."

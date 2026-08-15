@@ -44,7 +44,7 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
       title: t('menu.ourmission'),
     },
     {
-      href: "#",
+      href: '#',
       icon: null,
       title: t('menu.blog'),
     },
@@ -70,32 +70,37 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
         },
       ]
     },
+    // {
+    //   href: '#',
+    //   icon: <ChevronDown height={20} width={20}/>,
+    //   title: t('menu.experiences'),
+    //   subNavItems: [
+    //     {
+    //       href: localized('page.experiences.lost-family-member'),
+    //       icon: null,
+    //       title: t('menu.lostFamilyMember'),
+    //     },
+    //     {
+    //       href: localized('page.experiences.abortion'),
+    //       icon: null,
+    //       title: t('menu.abort'),
+    //     },
+    //     {
+    //       href: localized('page.experiences.stillbirth'),
+    //       icon: null,
+    //       title: t('menu.stillbirth'),
+    //     },
+    //     {
+    //       href: localized('page.experiences.new-parents'),
+    //       icon: null,
+    //       title: t('menu.new_parents'),
+    //     }
+    //   ]
+    // }
     {
-      href: '#',
-      icon: <ChevronDown height={20} width={20}/>,
-      title: t('menu.experiences'),
-      subNavItems: [
-        {
-          href: localized('page.experiences.lost-family-member'),
-          icon: null,
-          title: t('menu.lostFamilyMember'),
-        },
-        {
-          href: localized('page.experiences.abortion'),
-          icon: null,
-          title: t('menu.abort'),
-        },
-        {
-          href: localized('page.experiences.stillbirth'),
-          icon: null,
-          title: t('menu.stillbirth'),
-        },
-        {
-          href: localized('page.experiences.new-parents'),
-          icon: null,
-          title: t('menu.new_parents'),
-        }
-      ]
+      href: localized('page.experiences.new-parents'),
+      icon: null,
+      title: t('menu.new_parents')
     }
   ];
 

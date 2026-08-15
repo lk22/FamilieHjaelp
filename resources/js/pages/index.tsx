@@ -28,7 +28,7 @@ export default function Welcome() {
             >
                 <section className="bg-white text-blue-900 pt-40 sm:pt-[200px] xl:py-50">
                     <div className="container 2xl:w-[1600px] 2xl:max-w-[1600px] mx-auto">
-                        <div className="flex flex-col 2xl:flex-row px-10 gap-12">
+                        <div className="flex flex-col 2xl:flex-row px-10 gap-28">
                             <div className="w-full xs:w-full 2xl:w-7/12 flex flex-col justify-center items-start text-start gap-6">
                                 <motion.h1
                                     initial={{ opacity: 0, y: 20 }}
@@ -97,7 +97,7 @@ export default function Welcome() {
                                         loop={true}
                                         muted
                                         controls
-                                        className="w-full min-h-[400px] lg:min-h-[700px] object-cover rounded-2xl shadow-lg"
+                                        className="w-full min-h-[400px] lg:min-h-[900px] object-cover rounded-2xl shadow-lg"
                                     >
                                         Your browser does not support the video tag.
                                     </video>

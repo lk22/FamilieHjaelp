@@ -11,20 +11,20 @@ export default function FunctionsPage() {
         pageTitle={t('functions_page.meta.title')}
         description={t('functions_page.meta.description')}
       >
-        <div className="bg-white">
-          <section className="text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
-            <div className="container-fluid sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
+        <div>
+          <section className="text-blue-900 mt-48 h-[700px] w-[1600px] mx-auto rounded-b-3xl rounded-lg shadow-lg">
+            <div className="container-fluid mx-auto sm:mx-0 md:mx-0 xl:mx-0 relative rounded-xl flex flex-wrap gap-10 items-center shadow-lg rounded-2xl">
               <video
                 src="/videos/intro.mp4"
                 autoPlay={true}
                 loop={true}
                 muted
                 controls
-                className="w-full h-[700px] object-cover"
+                className="w-full h-[700px] object-cover rounded-lg"
               >
                   Your browser does not support the video tag.
               </video>
-              <div className="w-4/12 sm:w-full p-8 absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-700 via-blue-900/70 to-transparent sm:p-8 xl:p-36 flex flex-col justify-center items-start text-start gap-6">
+              <div className="w-4/12 sm:w-full p-8 absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-700 via-blue-900/70 to-transparent sm:p-8 xl:p-36 flex flex-col justify-center items-start text-start gap-6 rounded-lg">
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 transition={{ duration: 0.8 }}
