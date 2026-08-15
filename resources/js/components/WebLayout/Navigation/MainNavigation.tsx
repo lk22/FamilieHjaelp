@@ -31,27 +31,32 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
 
   const navLinks: NavLinkProps[] = [
+    // {
+    //   href: localized('page.help-resources'),
+    //   icon: <ChevronDown height={20} width={20} />,
+    //   title: t('menu.helpresources'),
+    //   // subNavItems: [
+    //   //   {
+    //   //     href: localized('page.help-resources.physical'),
+    //   //     icon: null,
+    //   //     title: t('menu.psycholical'),
+    //   //   },
+    //   //   {
+    //   //     href: localized('page.help-resources.mental'),
+    //   //     icon: null,
+    //   //     title: t('menu.mental'),
+    //   //   },
+    //   //   {
+    //   //     href: localized('page.help-resources.financial'),
+    //   //     icon: null,
+    //   //     title: t('menu.financial'),
+    //   //   }
+    //   // ]
+    // },
     {
-      href: localized('page.help-resources'),
-      icon: <ChevronDown height={20} width={20} />,
-      title: t('menu.helpresources'),
-      // subNavItems: [
-      //   {
-      //     href: localized('page.help-resources.physical'),
-      //     icon: null,
-      //     title: t('menu.psycholical'),
-      //   },
-      //   {
-      //     href: localized('page.help-resources.mental'),
-      //     icon: null,
-      //     title: t('menu.mental'),
-      //   },
-      //   {
-      //     href: localized('page.help-resources.financial'),
-      //     icon: null,
-      //     title: t('menu.financial'),
-      //   }
-      // ]
+      href: localized('page.our-mission'),
+      icon: null,
+      title: t('menu.ourmission'),
     },
     {
       href: localized('page.functions'),
@@ -74,11 +79,6 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
           title: t('menu.functions_planning')
         },
       ]
-    },
-    {
-      href: localized('page.our-mission'),
-      icon: null,
-      title: t('menu.ourmission'),
     },
     {
       href: '#',
@@ -139,15 +139,6 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
             )}
           </li>
         ))}
-        <li>
-          <Link
-            href={localized('page.getting-started')}
-            className="text-white hover:text-white text-lg cursor-pointer"
-            onClick={openAuthDialog}
-          >
-            {t('menu.getting_started')}
-          </Link>
-        </li>
       </ul>
       <AuthRegisterDialog
         isOpen={isAuthDialogOpen}

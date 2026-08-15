@@ -2,8 +2,18 @@ import {useState} from "react";
 import {usePage} from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
+import { Link } from "@inertiajs/react";
 
 import {useIsMobile} from '../../../hooks/use-mobile';
+
+import {localizeRoute} from "@/util/localizeRoute";
+
+import { type SharedData } from '@/types';
+
+import {
+  ChevronRight,
+  User
+} from "lucide-react"
 
 interface AuthProps {
   user: {
@@ -14,7 +24,8 @@ interface AuthProps {
 }
 
 export default function HeaderActions() {
-  const localized = (key: string) => `/${key}`;
+  const { locale } = usePage<SharedData>().props;
+  const localized = localizeRoute(locale);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
 
   const { t } = useTranslation('web');
@@ -24,13 +35,22 @@ export default function HeaderActions() {
   const isMobile = useIsMobile();
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 w-auto justify-end">
       {!isMobile && (
         <>
           {auth.user ? (
-            <a href={localized('profile.home')} className="text-white hover:text-gray-900 bg-blue-500 px-4 py-2 rounded-full hover:cursor-pointer">{t('menu.dashboard')}</a>
+            <a href={localized('profile.home')} className="flex gap-2 text-white hover:text-gray-900 bg-blue-500 px-4 py-2 rounded-full hover:cursor-pointer">{t('menu.dashboard')}</a>
           ) : (
-            <button onClick={() => setIsAuthModalOpen(true)} className="text-white hover:text-white hover:cursor-pointer bg-blue-500 px-4 py-2 rounded-full">{t('menu.login_register')}</button>
+            <>
+              <Link
+                href={localized('page.getting-started')}
+                className="text-white hover:text-white text-lg cursor-pointer bg-blue-500 rounded-full px-4 py-3 w-auto"
+                onClick={() => setIsAuthModalOpen(true)}
+              >
+                {t('menu.getting_started')} <ChevronRight className="inline-block ml-1" size={16} />
+              </Link>
+              <button onClick={() => setIsAuthModalOpen(true)} className="flex text-white hover:text-white hover:cursor-pointer bg-blue-500 px-4 py-3 rounded-full w-auto gap-2 items-center">{t('menu.login_register')} <User size={16} /></button>
+            </>
           )}
         </>
       )}

@@ -48,7 +48,7 @@ const MobileNavigation = ({ openAuthDialog, closeAuthDialog, isAuthDialogOpen, i
         <MobileNavigationHeader openMobileNav={toggleMobileNav} />
 
         <ul className="flex flex-col justify-start gap-4 h-full px-10">
-          <MobileNavigationLink href={localized('page.help-resources')}>{t('menu.helpresources')}</MobileNavigationLink>
+          {/* <MobileNavigationLink href={localized('page.help-resources')}>{t('menu.helpresources')}</MobileNavigationLink> */}
           <MobileNavigationLink href={localized('page.functions')}>{t('menu.functions')}</MobileNavigationLink>
           <MobileNavigationLink href={localized('page.our-mission')}>{t('menu.ourmission')}</MobileNavigationLink>
           <MobileNavigationSubNavList label={t('menu.experiences')} items={[
