@@ -30,22 +30,17 @@
       "description": "Familiehjælp is dedicated to making a difference for families in need. We understand the challenges that many families face, and we are here to provide support and resources that can help them navigate through difficult times. Our platform is designed to be user-friendly and accessible, so everyone can find the help they need when they need it.",
       "button": "Learn more about our mission"
     },
-    "how_we_can_help": {
-      "title": "We can help you who have experienced",
+    "frontpage_functions": {
+      "title": "Discover the features that can help your family",
       "sections": {
-        "abort": {
-          "title": "Abortion",
-          "description": "We understand how difficult it can be to lose a child, and we are here to support you through this challenging time.",
+        "schedule": {
+          "title": "Scheduling",
+          "description": "Keep track of your family's schedules and activities with our user-friendly scheduling feature.",
           "button": "Read more"
         },
-        "stillbirth": {
-          "title": "Stillbirth",
-          "description": "We understand how difficult it can be to lose a child, and we are here to support you through this challenging time.",
-          "button": "Read more"
-        },
-        "new_parents": {
-          "title": "New Parents",
-          "description": "We understand that parenthood can be challenging, and we are here to support you through difficult times and help you find the resources you need.",
+        "calendar": {
+          "title": "Calendar",
+          "description": "Our calendar feature helps you keep track of your family's upcoming events.",
           "button": "Read more"
         }
       }
@@ -223,6 +218,36 @@
         "3": "Access relevant pages and guided flows that match your needs and context."
       },
       "image_alt": "Screenshot of the FamilieHjælp app dashboard"
+    },
+    "calendar": {
+      "meta": {
+        "title": "Calendar function",
+        "description": "The app can provide quick planning options for you and your children if they have registered their app."
+      },
+      "hero": {
+        "title": "A safer start as new parents",
+        "description": "The app can provide quick planning options for you and your children if they have registered their app."
+      }
+    },
+    "notes": {
+      "meta": {
+        "title": "Notes function",
+        "description": "Notes to keep track of what is important for you and your family."
+      },
+      "hero": {
+        "title": "Keep up with what's important.",
+        "description": "Keep track of what is important for you and your family."
+      }
+    },
+    "planning": {
+      "meta": {
+        "title": "Planning function",
+        "description": "Your guide through parent life, with easy access to planning tools."
+      },
+      "hero": {
+        "title": "Intuitive planning for parents",
+        "description": "Your guide through parent life, with easy access to planning tools."
+      }
     }
   },
   "stories_page": {
@@ -269,6 +294,9 @@
     "helpresources": "Helping Resources",
     "ourmission": "Our Mission",
     "functions": "Functions",
+    "functions_calendar": "Calendar",
+    "functions_notes": "Notes",
+    "functions_planning": "Planning",
     "experiences": "Experiences",
     "abort": "Abortion",
     "stillbirth": "Stillbirth",

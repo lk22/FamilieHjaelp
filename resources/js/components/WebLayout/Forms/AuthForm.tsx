@@ -36,7 +36,6 @@ export default function AuthForm({
 
     return (
         <>
-          <p className="text-sm text-gray-500 mb-4">{t('authModal.login_email')}</p>
           <form onSubmit={handleAuthenticationSubmit} className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">{t('authModal.login_email')}</label>

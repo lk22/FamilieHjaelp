@@ -96,7 +96,7 @@ export default function Page() {
                     whileInView={{ opacity: 1, y: 0 }}
                   >
                     <img
-                      src="/images/web/app_dashboard.png"
+                      src="/images/mockups/app.png"
                       width={350}
                       height={350}
                       alt=""

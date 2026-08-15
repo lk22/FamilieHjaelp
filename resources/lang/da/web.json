@@ -26,26 +26,21 @@
       }
     },
     "about_section": {
-      "title": "Om FamilieHjælp",
+      "title": "Assistenten der hjælper dig som forældre",
       "description": "Familiehjælp er dedikeret til at gøre en forskel for familier i nød. Vi forstår de udfordringer, som mange familier står overfor, og vi er her for at tilbyde støtte og ressourcer, der kan hjælpe dem med at navigere gennem svære tider. Vores platform er designet til at være brugervenlig og tilgængelig, så alle kan finde den hjælp, de har brug for, når de har brug for det.",
       "button": "Læs mere om vores mission"
     },
-    "how_we_can_help": {
-      "title": "Vi kan hjælpe dig der har oplevet",
+    "frontpage_functions": {
+      "title": "Oplev funktionerne der kan hjælpe jeres familie",
       "sections": {
-        "abort": {
-          "title": "Abort",
-          "description": "Vi forstår, hvor svært det kan være at miste et barn, og vi er her for at støtte dig gennem denne svære tid.",
+        "schedule": {
+          "title": "Skema",
+          "description": "Hold styr på familiens skemaer og aktiviteter med vores brugervenlige skema funktion.",
           "button": "Læs mere"
         },
-        "stillbirth": {
-          "title": "Dødfødsel",
-          "description": "Vi forstår, hvor svært det kan være at miste et barn, og vi er her for at støtte dig gennem denne svære tid.",
-          "button": "Læs mere"
-        },
-        "new_parents": {
-          "title": "Nye forældre",
-          "description": "Vi forstår, at forældreskabet kan være udfordrende, og vi er her for at støtte dig gennem de svære tider og hjælpe dig med at finde de ressourcer, du har brug for.",
+        "calendar": {
+          "title": "Kalender funktion",
+          "description": "Vores kalender funktion kan være med til at holde styr på familiens foretagende begivenheder",
           "button": "Læs mere"
         }
       }
@@ -215,6 +210,36 @@
         "3": "Få adgang til relevante sider og forløb, der matcher din situation."
       },
       "image_alt": "Skærmbillede af dashboard i FamilieHjælp appen"
+    },
+    "calendar": {
+      "meta": {
+        "title": "Kalender funktion",
+        "description": "Appen kan give dig hurtige planlægnings muligheder for dig og dine børn hvis de har registreret deres app."
+      },
+      "hero": {
+        "title": "Hold styr på familiens foretagende",
+        "description": "Appen kan give dig hurtige planlægnings muligheder for dig og dine børn hvis de har registreret deres app."
+      }
+    },
+    "notes": {
+      "meta": {
+        "title": "Noter funktion",
+        "description": "Noter til at holde styr på hvad der er vigtigt for dig og din familie."
+      },
+      "hero": {
+        "title": "Hold vigtig information sikker",
+        "description": "Noter til at holde styr på hvad der er vigtigt for dig og din familie."
+      }
+    },
+    "planning": {
+      "meta": {
+        "title": "Planlægnings funktion",
+        "description": "Din guide igennem livet som forældre, med nem adgang til planlægnings værktøjer."
+      },
+      "hero": {
+        "title": "Planlægnings modul",
+        "description": "Din guide igennem livet som forældre, med nem adgang til planlægnings værktøjer."
+      }
     }
   },
   "stories_page": {
@@ -261,6 +286,9 @@
     "helpresources": "Hjælpemidler",
     "ourmission": "Vores mission",
     "functions": "Funktioner",
+    "functions_calendar": "Kalender",
+    "functions_notes": "Noter",
+    "functions_planning": "Planlægning",
     "experiences": "Har du oplevet?",
     "abort": "Abort",
     "stillbirth": "Dødfødsel",

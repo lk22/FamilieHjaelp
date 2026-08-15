@@ -57,6 +57,23 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
       href: localized('page.functions'),
       icon: <ChevronDown height={20} width={20}/>,
       title: t('menu.functions'),
+      subNavItems: [
+        {
+          href: localized('page.functions.calendar'),
+          icon: null,
+          title: t('menu.functions_calendar')
+        },
+        {
+          href: localized('page.functions.notes'),
+          icon: null,
+          title: t('menu.functions_notes')
+        },
+        {
+          href: localized('page.functions.planning'),
+          icon: null,
+          title: t('menu.functions_planning')
+        },
+      ]
     },
     {
       href: localized('page.our-mission'),
