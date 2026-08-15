@@ -10,7 +10,7 @@ Route::get('/health/auth', function () {
     if ( ! auth()->check() ) {
         return response()->json(['message' => 'Not authenticated'], 401);
     }
-    
+
     return response()->json(['message' => 'Authenticated'], 200);
 })->name('api.auth.check')->middleware('auth');
 
@@ -25,4 +25,3 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-    

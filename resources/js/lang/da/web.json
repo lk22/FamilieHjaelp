@@ -6,7 +6,7 @@
     },
     "title": "Din digitale forælder assistent",
     "title.highlight": "lige ved hånden",
-    "description": "Din guide igennem livet som forældre, med nem adgang til ressourcer og støtte.",
+    "description": "Assistenten der hjælper dig som forældre",
     "cta": "Kom igang",
     "functions": {
       "cta": "Udforsk funktionerne"
@@ -41,6 +41,11 @@
         "calendar": {
           "title": "Kalender funktion",
           "description": "Vores kalender funktion kan være med til at holde styr på familiens foretagende begivenheder",
+          "button": "Læs mere"
+        },
+        "sms": {
+          "title": "SMS funktion",
+          "description": "Vores SMS funktion kan være med til at holde styr på familiens vigtige beskeder",
           "button": "Læs mere"
         }
       }
@@ -240,6 +245,16 @@
         "title": "Planlægnings modul",
         "description": "Din guide igennem livet som forældre, med nem adgang til planlægnings værktøjer."
       }
+    },
+    "sms": {
+      "meta": {
+        "title": "SMS funktion",
+        "description": "Hold kontakten med din familie og del vigtige opdateringer hurtigt og nemt."
+      },
+      "hero": {
+        "title": "SMS modul",
+        "description": "Hold kontakten med din familie og del vigtige opdateringer hurtigt og nemt."
+      }
     }
   },
   "stories_page": {
@@ -296,7 +311,8 @@
     "lostFamilyMember": "Mistet et familiemedlem",
     "dashboard": "Dashboard",
     "getting_started": "Kom igang",
-    "login_register": "Log ind / Opret konto"
+    "login_register": "Log ind / Opret konto",
+    "blog": "Blog"
   },
   "authModal": {
     "login": "Log ind på din FamilieHjælp konto",

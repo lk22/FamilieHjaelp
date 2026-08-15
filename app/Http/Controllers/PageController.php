@@ -141,6 +141,11 @@ class PageController extends Controller
         return Inertia::render('functions/planning');
     }
 
+    public function smsFunction(): Response
+    {
+        return Inertia::render('functions/sms');
+    }
+
     /**
      * Render stories page
      *

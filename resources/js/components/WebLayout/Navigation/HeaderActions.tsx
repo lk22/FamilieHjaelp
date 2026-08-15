@@ -49,12 +49,12 @@ export default function HeaderActions() {
             <>
               <Link
                 href={localized('page.getting-started')}
-                className="text-white hover:text-white text-lg cursor-pointer bg-blue-500 rounded-full px-4 py-3 w-auto"
+                className="text-white hover:text-white text-lg cursor-pointer bg-blue-500 rounded-full px-6 py-3 w-auto"
                 onClick={() => setIsAuthModalOpen(true)}
               >
                 {t('menu.getting_started')} <ChevronRight className="inline-block ml-1" size={16} />
               </Link>
-              <button onClick={() => setIsAuthModalOpen(true)} className="flex text-white hover:text-white hover:cursor-pointer bg-blue-500 px-4 py-3 rounded-full w-auto gap-2 items-center">{t('menu.login_register')} <User size={16} /></button>
+              <button onClick={() => setIsAuthModalOpen(true)} className="flex text-white hover:text-white hover:cursor-pointer bg-blue-500 px-6 py-3 rounded-full w-auto gap-2 items-center">{t('menu.login_register')} <User size={16} /></button>
             </>
           )}
         </>

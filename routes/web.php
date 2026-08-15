@@ -34,6 +34,7 @@ Route::group([
     Route::get('/funktioner/kalender', [PageController::class, 'calendarFunction'])->name('page.functions.calendar');
     Route::get('/funktioner/noter', [PageController::class, 'notesFunction'])->name('page.functions.notes');
     Route::get('/funktioner/planlaegning', [PageController::class, 'planningFunction'])->name('page.functions.planning');
+    Route::get('/funktioner/sms', [PageController::class, 'smsFunction'])->name('page.functions.sms');
     Route::get('/har-du-oplevet/abort', [PageController::class, 'abortionExperience'])->name('page.experiences.abortion');
     Route::get('/har-du-oplevet/doedfoedsel', [PageController::class, 'stillbirthExperience'])->name('page.experiences.stillbirth');
     Route::get('/har-du-oplevet/foraeldre', [PageController::class, 'newParentsExperience'])->name('page.experiences.new-parents');

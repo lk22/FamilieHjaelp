@@ -26,7 +26,7 @@ export default function Welcome() {
                 pageTitle={t('frontpage.meta.title')}
                 description={t('frontpage.meta.description')}
             >
-                <section className="bg-white text-blue-900 pt-40 sm:pt-[200px] xl:pt-50">
+                <section className="bg-white text-blue-900 pt-40 sm:pt-[200px] xl:py-50">
                     <div className="container 2xl:w-[1600px] 2xl:max-w-[1600px] mx-auto">
                         <div className="flex flex-col 2xl:flex-row px-10 gap-12">
                             <div className="w-full xs:w-full 2xl:w-7/12 flex flex-col justify-center items-start text-start gap-6">
@@ -43,8 +43,16 @@ export default function Welcome() {
                                     transition={{ duration: 0.5, delay: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                 >
-                                    <p className="text-lg lg:text-xl text-black lg:w-full">{t('frontpage.description')}</p>
+                                    <p className="text-2xl lg:text-2xl text-blue-900 lg:w-full font-bold">{t('frontpage.description')}</p>
                                 </motion.div>
+                                <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                transition={{ duration: 0.8, delay: 0.5 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                            >
+                                {/* <h3 className="text-5xl font-bold mb-4">{t('frontpage.about_section.title')}</h3> */}
+                                <p className="text-lg mb-8 leading-8 text-zinc-600 dark:text-black font-medium mb-4">{t('frontpage.about_section.description')}</p>
+                            </motion.div>
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     transition={{ duration: 0.5, delay: 0.5 }}
@@ -71,7 +79,8 @@ export default function Welcome() {
                                         </div>
                                     </div>
                                     <Link href={localized('page.getting-started')} className="bg-blue-800 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-900 transition cursor-pointer inline-block font-medium">{t('frontpage.cta')}</Link>
-                                    <Link href={localized('page.help-resources')} className="bg-blue-800 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-900 transition cursor-pointer inline-block font-medium ms-3">{t('frontpage.helping_resources.cta')}</Link>
+                                    <Link href={localized('page.our-mission')} className="bg-blue-800 text-white py-3 mt-8 px-8 rounded-full mt-8 font-medium hover:bg-blue-900 transition cursor-pointer font-bold ms-4">{t('frontpage.about_section.button')}</Link>
+                                    {/* <Link href={localized('page.help-resources')} className="bg-blue-800 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-900 transition cursor-pointer inline-block font-medium ms-3">{t('frontpage.helping_resources.cta')}</Link> */}
                                 </motion.div>
                             </div>
                             <div className="2xl:w-5/12 sm:w-full relative flex justify-end items-end">
@@ -97,7 +106,7 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
-                <section className="bg-white text-blue-900 pt-20 lg:px-0 lg:pb-32">
+                <section className="bg-white text-blue-900 pt-20 lg:px-0 lg:pb-32 hidden">
                     <div className="container mx-auto flex flex-col-reverse sm:flex-col-reverse md:flex-col-reverse xl:flex-row flex-wrap">
                         <div className="w-full xl:w-6/12 p-8 flex flex-col justify-center items-start text-start gap-6">
                             <motion.div
@@ -129,9 +138,9 @@ export default function Welcome() {
                 <section className="bg-blue-300">
                     <div className="container mx-auto px-6 md:px-0 py-32 relative">
                         <h3 className="text-5xl font-bold text-blue-900">{t('frontpage.frontpage_functions.title')}</h3>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 grid-gap-8 relative">
-                            <div className="gap-8 mt-12">
-                                <div className="2xl:w-full sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 mb-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-1 gap-4 relative w-8/12">
+                            <div className="gap-8 mt-12 grid grid-cols-2">
+                                <div className="2xl:w-full sm:w-full p-8 min-h-32 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center gap-6">
                                     <h3 className="text-3xl font-bold text-white">{t('frontpage.frontpage_functions.sections.schedule.title')}</h3>
                                     <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.schedule.description')}</p>
                                     <Link href={localized('page.functions.planning')}>
@@ -140,7 +149,7 @@ export default function Welcome() {
                                         </button>
                                     </Link>
                                 </div>
-                                <div className="2xl:w-full sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
+                                <div className="2xl:w-full sm:w-full p-8 min-h-64 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center gap-6">
                                     <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.frontpage_functions.sections.calendar.title')}</h3>
                                     <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.calendar.description')}</p>
                                     <Link href={localized('page.functions.calendar')}>
@@ -149,8 +158,17 @@ export default function Welcome() {
                                         </button>
                                     </Link>
                                 </div>
+                                <div className="2xl:w-full sm:w-full p-8 min-h-64 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center gap-6">
+                                    <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.frontpage_functions.sections.sms.title')}</h3>
+                                    <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.sms.description')}</p>
+                                    <Link href={localized('page.functions.sms')}>
+                                        <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
+                                            {t('frontpage.frontpage_functions.sections.sms.button')}
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
-                            <div className="absolute -right-30 -top-65">
+                            <div className="absolute -right-160 -top-65">
                                 <img
                                     src="images/mockups/app.png"
                                     width={550}
@@ -161,7 +179,7 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
-                <section className="bg-white text-blue-900 px-8 py-0 sm:py-20 xl:px-8 xl:py-32">
+                <section className="bg-white text-blue-900 px-8 py-0 sm:py-20 xl:px-8 xl:py-32 hidden">
                     <div className="container flex flex-wrap mx-auto">
                         <div className="w-full lg:w-6/12 md:px-0 flex justify-center items-center">
                             <video
@@ -204,7 +222,7 @@ export default function Welcome() {
                     </div>
                 </section>
                 <section>
-                    <div className="container mx-auto mb-16">
+                    <div className="container mx-auto my-32">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             transition={{ duration: 0.8, delay: 0.3 }}
