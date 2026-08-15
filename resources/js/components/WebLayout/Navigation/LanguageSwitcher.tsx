@@ -5,7 +5,11 @@ import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import {useIsMobile} from '../../../hooks/use-mobile';
 
-export default function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  showInMobile?: boolean;
+}
+
+export default function LanguageSwitcher({showInMobile}: LanguageSwitcherProps) {
   const { locale } = usePage<{ locale: string }>().props;
   const {t} = useTranslation();
 
@@ -19,7 +23,7 @@ export default function LanguageSwitcher() {
 
   return (
     <>
-      {!isMobile && (
+      {(!isMobile || showInMobile) && (
         <div className="flex items-center gap-2 text-sm text-gray-500 h-full">
           <Link href={route('home', { locale: 'da' })}  className={`text-lg text-white ${locale === 'da' ? 'font-bold' : ''}`}>
             {t('language_da')}

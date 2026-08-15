@@ -110,7 +110,7 @@ export default function Welcome() {
                                 <Link href={localized('page.our-mission')} className="bg-blue-800 text-white py-3 mt-8 px-8 rounded-full mt-8 font-medium hover:bg-blue-900 transition cursor-pointer font-bold">{t('frontpage.about_section.button')}</Link>
                             </motion.div>
                         </div>
-                        <div className="w-full xl:w-6/12 p-16 flex xl:justify-center xl:items-center">
+                        {/* <div className="w-full xl:w-6/12 p-16 flex xl:justify-center xl:items-center">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 transition={{ duration: 0.8, delay: 1 }}
@@ -120,35 +120,43 @@ export default function Welcome() {
                                     src="images/mockups/app.png"
                                     width={400}
                                     height={400}
-                                    alt="About us image"
+                                    alt="App image"
                                 />
                             </motion.div>
-                        </div>
+                        </div> */}
                     </div>
                 </section>
                 <section className="bg-blue-300">
-                    <div className="container mx-auto px-6 md:px-0 py-32">
+                    <div className="container mx-auto px-6 md:px-0 py-32 relative">
                         <h3 className="text-5xl font-bold text-blue-900">{t('frontpage.frontpage_functions.title')}</h3>
-                        <div className="flex flex-col lg:flex-row gap-8 mt-12">
-                            <div className="2xl:w-1/2 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
-                                <h3 className="text-3xl font-bold text-white">{t('frontpage.frontpage_functions.sections.schedule.title')}</h3>
-                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.schedule.description')}</p>
-                                <Link href={localized('page.functions.planning')}>
-                                    <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
-                                        {t('frontpage.frontpage_functions.sections.schedule.button')}
-                                    </button>
-                                </Link>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 grid-gap-8 relative">
+                            <div className="gap-8 mt-12">
+                                <div className="2xl:w-full sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 mb-8">
+                                    <h3 className="text-3xl font-bold text-white">{t('frontpage.frontpage_functions.sections.schedule.title')}</h3>
+                                    <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.schedule.description')}</p>
+                                    <Link href={localized('page.functions.planning')}>
+                                        <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
+                                            {t('frontpage.frontpage_functions.sections.schedule.button')}
+                                        </button>
+                                    </Link>
+                                </div>
+                                <div className="2xl:w-full sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
+                                    <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.frontpage_functions.sections.calendar.title')}</h3>
+                                    <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.calendar.description')}</p>
+                                    <Link href={localized('page.functions.calendar')}>
+                                        <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
+                                            {t('frontpage.frontpage_functions.sections.calendar.button')}
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
-                            <div className="2xl:w-1/2 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
-                                <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.frontpage_functions.sections.calendar.title')}</h3>
-                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.calendar.description')}</p>
-                                <Link href={localized('page.functions.calendar')}>
-                                    <button
-                                        className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium"
-                                    >
-                                        {t('frontpage.frontpage_functions.sections.calendar.button')}
-                                    </button>
-                                </Link>
+                            <div className="absolute -right-30 -top-65">
+                                <img
+                                    src="images/mockups/app.png"
+                                    width={550}
+                                    height={550}
+                                    alt="App image"
+                                />
                             </div>
                         </div>
                     </div>

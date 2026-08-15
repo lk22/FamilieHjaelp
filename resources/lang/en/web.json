@@ -304,7 +304,8 @@
     "lostFamilyMember": "Lost a Family Member",
     "dashboard": "Dashboard",
     "getting_started": "Getting Started",
-    "login_register": "Login / Register"
+    "login_register": "Login / Register",
+    "blog": "Blog"
   },
   "authModal": {
     "login": "Login to your FamilieHjælp account",

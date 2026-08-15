@@ -1,19 +1,24 @@
+// dependencies
 import {useState} from "react";
 import {usePage} from "@inertiajs/react";
-import { useTranslation } from "react-i18next";
-import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
 import { Link } from "@inertiajs/react";
 
-import {useIsMobile} from '../../../hooks/use-mobile';
+// hooks
+import { useTranslation } from "react-i18next";
+import { useIsMobile } from '../../../hooks/use-mobile';
 
-import {localizeRoute} from "@/util/localizeRoute";
+// utils
+import { localizeRoute } from "@/util/localizeRoute";
 
+// types
 import { type SharedData } from '@/types';
 
+// Components
 import {
   ChevronRight,
   User
 } from "lucide-react"
+import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
 
 interface AuthProps {
   user: {

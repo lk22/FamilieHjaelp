@@ -19,19 +19,19 @@ export default function Page() {
           <section className="pt-56 pb-0 bg-white">
             <div className="container mx-auto">
               <div className="flex flex-col gap-16">
-                <div className="w-12/12">
+                <div className="w-full">
                   <motion.div
                       initial={{ opacity: 0, y: 100 }}
                       transition={{ duration: 1.5 }}
                       whileInView={{ opacity: 1, y: 0 }}
                     >
-                      <h1 className="balance leading text-8xl font-bold text-center">{t('getting_started_page.headline')} <span className="text-blue-900">{t('getting_started_page.headline_highlight')}</span></h1>
-                      <p className="text-xl text-blue-900 mt-4 text-center w-8/12 mx-auto">
+                      <h1 className="balance px-8 text-6xl font-bold text-center">{t('getting_started_page.headline')} <span className="text-blue-900">{t('getting_started_page.headline_highlight')}</span></h1>
+                      <p className="text-xl text-blue-900 mt-4 text-center w-8/12 mx-auto px-8">
                         {t('getting_started_page.description')}
                       </p>
                   </motion.div>
                 </div>
-                <div className="w-12/12 mx-auto">
+                <div className="w-12/12 mx-auto px-8">
                   <motion.div
                     initial={{ opacity: 0, y: 150 }}
                     transition={{ duration: 2.5, delay: 0.5 }}
@@ -50,9 +50,9 @@ export default function Page() {
             </div>
           </section>
           <section>
-            <div className="container mx-auto pt-40 mb-20">
-              <div className="flex">
-                <div className="w-6/12">
+            <div className="container mx-auto pt-40 mb-20 px-8">
+              <div className="flex flex-col lg:flex-row items-center justify-center">
+                <div className="w-full">
                   <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     transition={{ duration: 1.5 }}
@@ -89,7 +89,7 @@ export default function Page() {
                     </Link>
                   </motion.div>
                 </div>
-                <div className="w-6/12 flex justify-center items-center">
+                <div className="w-full pt-12 flex justify-center items-center">
                   <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     transition={{ duration: 1.5, delay: 1.5 }}

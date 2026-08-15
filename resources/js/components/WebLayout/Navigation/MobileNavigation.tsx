@@ -21,7 +21,6 @@ interface MainNavigationProps {
 }
 
 const MobileNavigation = ({ openAuthDialog, closeAuthDialog, isAuthDialogOpen, isNavOpen, toggleMobileNav }: MainNavigationProps) => {
-
   const { locale } = usePage<SharedData>().props;
   const { t } = useTranslation();
   const localized = (name:string, params: Record<string, any> = {}) => route(name, { ...params, locale});
@@ -57,6 +56,7 @@ const MobileNavigation = ({ openAuthDialog, closeAuthDialog, isAuthDialogOpen, i
             { href: localized('page.experiences.new-parents'), label: t('menu.new_parents') },
             { href: localized('page.experiences.lost-family-member'), label: t('menu.lostFamilyMember') },
           ]} />
+          <MobileNavigationLink href={localized('page.getting-started')}>{t('menu.getting_started')}</MobileNavigationLink>
 
           <li className="flex flex-col items-start w-full">
             <button onClick={handleOpenAuthModal} className="text-white hover:text-gray-900 bg-blue-500 px-4 py-2 rounded">{t('menu.login_register')}</button>
