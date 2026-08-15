@@ -70,28 +70,28 @@ export default function Page() {
           </section>
           <section>
               <div className="container mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2">
                   <div className="mx-auto px-4 lg:py-16 lg:px-0 py-8 px-8">
-                      <div className="mx-auto w-full flex justify-center text-center">
-                          <img
-                            src="/images/web/desktop_application.png"
-                            className="lg:w-8/12"
-                            width={700}
-                            height={400}
-                            alt="New parents app illustration"
-                          />
-                      </div>
-                      <div className="text-center">
-                          <h2 className="text-blue-900 w-full text-5xl font-bold">{t("parents.app.app_title")}</h2>
-                          <p className="text-blue-900 text-xl leading-10 mt-6 w-full mb-8">
-                              {t("parents.app.app_description")}
-                          </p>
-                          <div className="space-y-4">
-                              <p className="text-blue-900 text-xl text-center font-bold">{t("parents.app.app_feature_1")}</p>
-                              <p  className="text-blue-900 text-xl text-center font-bold">{t("parents.app.app_feature_2")}</p>
-                              <p  className="text-blue-900 text-xl text-center font-bold">{t("parents.app.app_feature_3")}</p>
-                          </div>
+                      <h2 className="text-blue-900 w-full text-5xl font-bold">{t("parents.app.app_title")}</h2>
+                      <p className="text-blue-900 text-xl leading-10 mt-6 w-full mb-8">
+                          {t("parents.app.app_description")}
+                      </p>
+                      <div className="space-y-4">
+                          <p className="text-blue-900 text-xl font-bold">{t("parents.app.app_feature_1")}</p>
+                          <p  className="text-blue-900 text-xl font-bold">{t("parents.app.app_feature_2")}</p>
+                          <p  className="text-blue-900 text-xl font-bold">{t("parents.app.app_feature_3")}</p>
                       </div>
                   </div>
+                    <div className="mx-auto w-full flex justify-center text-center">
+                        <img
+                          src="/images/mockups/app.png"
+                          className="lg:w-8/12"
+                          width={400}
+                          height={200}
+                          alt="New parents app illustration"
+                        />
+                    </div>
+                </div>
               </div>
           </section>
         </div>

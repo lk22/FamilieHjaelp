@@ -126,11 +126,11 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
-                <section className="bg-blue-500">
+                <section className="bg-blue-300">
                     <div className="container mx-auto px-6 md:px-0 py-32">
-                        <h3 className="text-5xl font-bold text-white">{t('frontpage.frontpage_functions.title')}</h3>
+                        <h3 className="text-5xl font-bold text-blue-900">{t('frontpage.frontpage_functions.title')}</h3>
                         <div className="flex flex-col lg:flex-row gap-8 mt-12">
-                            <div className="2xl:w-1/2 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
+                            <div className="2xl:w-1/2 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
                                 <h3 className="text-3xl font-bold text-white">{t('frontpage.frontpage_functions.sections.schedule.title')}</h3>
                                 <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.schedule.description')}</p>
                                 <Link href={localized('page.functions.planning')}>
@@ -139,7 +139,7 @@ export default function Welcome() {
                                     </button>
                                 </Link>
                             </div>
-                            <div className="2xl:w-1/2 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
+                            <div className="2xl:w-1/2 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-900 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
                                 <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.frontpage_functions.sections.calendar.title')}</h3>
                                 <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.calendar.description')}</p>
                                 <Link href={localized('page.functions.calendar')}>

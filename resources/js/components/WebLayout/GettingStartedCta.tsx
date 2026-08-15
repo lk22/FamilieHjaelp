@@ -9,7 +9,7 @@ export default function GettingStartedCta() {
       <section>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="py-20"
         >
