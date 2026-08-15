@@ -28,8 +28,6 @@ const MobileNavigation = ({ openAuthDialog, closeAuthDialog, isAuthDialogOpen, i
 
   const navClasses = `w-full bg-blue-900 h-full fixed bottom-0 top-0 left-0 transition-transform duration-300 ${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`;
 
-  console.log(t('help_resources'));
-
   const handleToggleMobileNav = () => {
     toggleMobileNav();
   }

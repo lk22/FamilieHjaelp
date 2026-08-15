@@ -32,7 +32,7 @@ export default function Welcome() {
                             <div className="w-full xs:w-full 2xl:w-7/12 flex flex-col justify-center items-start text-start gap-6">
                                 <motion.h1
                                     initial={{ opacity: 0, y: 20 }}
-                                    transition={{ duration: 1.5 }}
+                                    transition={{ duration: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     className={"text-5xl lg:text-7xl font-bold text-blue-900"}
                                 >
@@ -40,14 +40,14 @@ export default function Welcome() {
                                 </motion.h1>
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
-                                    transition={{ duration: 1.5, delay: 0.5 }}
+                                    transition={{ duration: 0.5, delay: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                 >
                                     <p className="text-lg lg:text-xl text-black lg:w-full">{t('frontpage.description')}</p>
                                 </motion.div>
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
-                                    transition={{ duration: 1.5, delay: 0.5 }}
+                                    transition={{ duration: 0.5, delay: 0.5 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                 >
                                     <div className="grid grid-cols-3 lg:grid-cols-3 gap-8 px-8 sm:px-8 md:px-0 container mx-auto my-4">
@@ -117,7 +117,7 @@ export default function Welcome() {
                                 whileInView={{ opacity: 1, y: 0 }}
                             >
                                 <img
-                                    src="images/web/intro_illustration_one.svg"
+                                    src="images/mockups/app.png"
                                     width={400}
                                     height={400}
                                     alt="About us image"
@@ -126,36 +126,27 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
-                <section>
+                <section className="bg-blue-500">
                     <div className="container mx-auto px-6 md:px-0 py-32">
-                        <h3 className="text-5xl font-bold text-blue-800">{t('frontpage.how_we_can_help.title')}</h3>
+                        <h3 className="text-5xl font-bold text-white">{t('frontpage.frontpage_functions.title')}</h3>
                         <div className="flex flex-col lg:flex-row gap-8 mt-12">
-                            <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
-                                <h3 className="text-3xl font-bold text-white">{t('frontpage.how_we_can_help.sections.new_parents.title')}</h3>
-                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.new_parents.description')}</p>
-                                <Link href={localized('page.experiences.new-parents')}>
+                            <div className="2xl:w-1/2 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
+                                <h3 className="text-3xl font-bold text-white">{t('frontpage.frontpage_functions.sections.schedule.title')}</h3>
+                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.schedule.description')}</p>
+                                <Link href={localized('page.functions.planning')}>
                                     <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
-                                        {t('frontpage.how_we_can_help.sections.new_parents.button')}
+                                        {t('frontpage.frontpage_functions.sections.schedule.button')}
                                     </button>
                                 </Link>
                             </div>
-                            <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
-                                <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.how_we_can_help.sections.abort.title')}</h3>
-                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.abort.description')}</p>
-                                <Link href={localized('page.experiences.abortion')}>
+                            <div className="2xl:w-1/2 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6 py-12">
+                                <h3 className="text-3xl font-bold text-white mt-4">{t('frontpage.frontpage_functions.sections.calendar.title')}</h3>
+                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.frontpage_functions.sections.calendar.description')}</p>
+                                <Link href={localized('page.functions.calendar')}>
                                     <button
                                         className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium"
                                     >
-                                        {t('frontpage.how_we_can_help.sections.abort.button')}
-                                    </button>
-                                </Link>
-                            </div>
-                            <div className="2xl:w-1/3 sm:w-full py-8 min-h-64 bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl flex flex-col justify-center px-8 gap-6">
-                                <h3 className="text-3xl font-bold text-white">{t('frontpage.how_we_can_help.sections.stillbirth.title')}</h3>
-                                <p className="text-lg text-blue-200 w-10/12">{t('frontpage.how_we_can_help.sections.stillbirth.description')}</p>
-                                <Link href={localized('page.experiences.stillbirth')}>
-                                    <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
-                                        {t('frontpage.how_we_can_help.sections.stillbirth.button')}
+                                        {t('frontpage.frontpage_functions.sections.calendar.button')}
                                     </button>
                                 </Link>
                             </div>

@@ -3,13 +3,13 @@ import WebLayout from "@/layouts/web-layout";
 import { useTranslation } from 'react-i18next';
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
-export default function FunctionsPage() {
+export default function PlanningFunction() {
     const { t } = useTranslation();
 
     return (
       <WebLayout
-        pageTitle={t('functions_page.meta.title')}
-        description={t('functions_page.meta.description')}
+        pageTitle={t('functions_page.planning.meta.title')}
+        description={t('functions_page.planning.meta.description')}
       >
         <div className="bg-white">
           <section className="text-blue-900 sm:pt-[90px] xl:pt-15 h-[700px] rounded-b-3xl shadow-lg">
@@ -30,9 +30,9 @@ export default function FunctionsPage() {
                 transition={{ duration: 0.8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 >
-                  <h1 className="text-white lg:w-9/12 balance leading text-7xl md:text-8xl font-bold">{t('functions_page.hero.title')}</h1>
+                  <h1 className="text-white lg:w-9/12 balance leading text-7xl md:text-8xl font-bold">{t('functions_page.planning.hero.title')}</h1>
                   <p className="text-blue-100 text-lg md:text-2xl mt-6 lg:w-8/12 leading-relaxed">
-                    {t('functions_page.hero.description')}
+                    {t('functions_page.planning.hero.description')}
                   </p>
                 </motion.div>
               </div>

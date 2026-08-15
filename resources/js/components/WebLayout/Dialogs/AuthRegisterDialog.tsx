@@ -119,7 +119,7 @@ export default function AuthRegisterDialog({
           onClick={onClose}
         >
         </div>
-        <div className="bg-white rounded-lg p-8 z-20 w-full sm:mx-6 max-w-6xl lg:mx-auto relative lg:mx-0 mx-8">
+        <div className="bg-white rounded-lg p-8 z-20 w-[800px] sm:mx-6 max-w-6xl lg:mx-auto relative lg:mx-0 mx-8">
           <img src="/images/web/logo_inverse.svg" alt="Familiehjælp Logo" className="w-auto h-12 mb-12 ml-0 relative -left-6" />
           <div className="absolute top-6 right-6 cursor-pointer" onClick={onClose}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500 hover:text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">

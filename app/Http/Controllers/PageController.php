@@ -112,6 +112,36 @@ class PageController extends Controller
     }
 
     /**
+     * Render calendar function page
+     *
+     * @return \Inertia\Response
+     */
+    public function calendarFunction(): Response
+    {
+        return Inertia::render('functions/calendar');
+    }
+
+    /**
+     * Render Notes function page
+     *
+     * @return \Inertia\Response
+     */
+    public function notesFunction(): Response
+    {
+        return Inertia::render('functions/notes');
+    }
+
+    /**
+     * Render planning function page
+     *
+     * @return \Inertia\Response
+     */
+    public function planningFunction(): Response
+    {
+        return Inertia::render('functions/planning');
+    }
+
+    /**
      * Render stories page
      *
      * @return \Inertia\Response

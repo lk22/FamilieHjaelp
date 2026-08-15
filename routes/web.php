@@ -31,6 +31,9 @@ Route::group([
     Route::get('/hjaelpemidler', [PageController::class, 'helpResources'])->name('page.help-resources');
     Route::get('/vores-mission', [PageController::class, 'ourMission'])->name('page.our-mission');
     Route::get('/funktioner', [PageController::class, 'ourFunctions'])->name('page.functions');
+    Route::get('/funktioner/kalender', [PageController::class, 'calendarFunction'])->name('page.functions.calendar');
+    Route::get('/funktioner/noter', [PageController::class, 'notesFunction'])->name('page.functions.notes');
+    Route::get('/funktioner/planlaegning', [PageController::class, 'planningFunction'])->name('page.functions.planning');
     Route::get('/har-du-oplevet/abort', [PageController::class, 'abortionExperience'])->name('page.experiences.abortion');
     Route::get('/har-du-oplevet/doedfoedsel', [PageController::class, 'stillbirthExperience'])->name('page.experiences.stillbirth');
     Route::get('/har-du-oplevet/foraeldre', [PageController::class, 'newParentsExperience'])->name('page.experiences.new-parents');
@@ -39,7 +42,6 @@ Route::group([
     Route::get('/historier', [PageController::class, 'stories'])->name('page.stories');
     Route::get('/app', [AppController::class, 'home'])->name('app.home');
 });
-
 
 /**
  * Onboarding routes
