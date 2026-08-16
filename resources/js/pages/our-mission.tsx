@@ -38,7 +38,7 @@ export default function Page({ faqItems }: { faqItems: FaqItem[] }) {
                   transition={{ duration: 0.8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                 >
-                  <h1 className="text-white lg:w-8/12 balance leading text-4xl md:text-7xl md:px-0 md:mt-0 px-4 font-bold">{t('ourMission.vision_mission_foraeldrehjaelp.title')}</h1>
+                  <h1 className="text-white lg:w-full balance leading md:text-8xl md:px-0 md:mt-0 px-4 font-bold">{t('ourMission.vision_mission_foraeldrehjaelp.title')}</h1>
                 </motion.div>
               </div>
             </div>

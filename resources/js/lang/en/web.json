@@ -33,9 +33,9 @@
     "frontpage_functions": {
       "title": "Discover the features that can help your family",
       "sections": {
-        "schedule": {
-          "title": "Scheduling",
-          "description": "Keep track of your family's schedules and activities with our user-friendly scheduling feature.",
+        "tasks": {
+          "title": "Family Tasks",
+          "description": "Keep track of your family's tasks and activities with our user-friendly scheduling feature.",
           "button": "Read more"
         },
         "calendar": {
@@ -43,12 +43,23 @@
           "description": "Our calendar feature helps you keep track of your family's upcoming events.",
           "button": "Read more"
         },
-        "sms": {
-          "title": "Secure messaging",
-          "description": "Stay connected with your family and share important updates quickly and easily.",
+        "notifications": {
+          "title": "Family notifications",
+          "description": "Hold familien underrettet når et familiemedlem foretager en ændring i sin app ",
+          "button": "Læs mere"
+        },
+        "milestone": {
+          "title": "Family Milestones",
+          "description": "Define your family's milestones that the whole family can achieve together.",
+          "button": "Read more"
+        },
+        "health": {
+          "title": "Family Health",
+          "description": "Keep track of your family's health and well-being with our health feature.",
           "button": "Read more"
         }
-      }
+      },
+      "cta": "See all features"
     },
     "resources_functions": {
       "meta": {

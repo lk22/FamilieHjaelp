@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import { localizeRoute } from "@/util/localizeRoute";
 import { type SharedData } from '@/types';
 
+import { ChevronRight } from 'lucide-react';
+
 export default function Page() {
     const { locale } = usePage<SharedData>().props;
     const localized = localizeRoute(locale);
@@ -80,11 +82,13 @@ export default function Page() {
                     <Link href={localized('page.functions')}>
                       <button type="button" className="mt-6 bg-blue-900 text-white py-3 px-8 rounded-full font-medium hover:bg-blue-800 transition cursor-pointer inline-block">
                         {t('getting_started_page.functions_button')}
+                        <ChevronRight className="inline-block w-4 h-4 ml-2" />
                       </button>
                     </Link>
                     <Link href={localized('app.getting-started')}>
                       <button type="button" className="mt-6 ml-4 bg-gray-200 text-gray-800 py-3 px-8 rounded-full font-medium hover:bg-gray-300 transition cursor-pointer inline-block">
                         {t('getting_started_page.get_started_button')}
+                        <ChevronRight className="inline-block w-4 h-4 ml-2" />
                       </button>
                     </Link>
                   </motion.div>

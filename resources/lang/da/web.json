@@ -33,22 +33,33 @@
     "frontpage_functions": {
       "title": "Oplev funktionerne der kan hjælpe jeres familie",
       "sections": {
-        "schedule": {
-          "title": "Skema",
-          "description": "Hold styr på familiens skemaer og aktiviteter med vores brugervenlige skema funktion.",
+        "tasks": {
+          "title": "Fælles opgaver",
+          "description": "Hold styr på familiens opgaver og aktiviteter med vores brugervenlige opgavefunktion.",
           "button": "Læs mere"
         },
         "calendar": {
-          "title": "Kalender funktion",
-          "description": "Vores kalender funktion kan være med til at holde styr på familiens foretagende begivenheder",
+          "title": "Fælles kalender",
+          "description": "Med en fælleskalender kan hele familien følge med i familie foretagende",
           "button": "Læs mere"
         },
-        "sms": {
-          "title": "Sikker kommunikation",
-          "description": "Vores SMS funktion kan være med til at holde styr på familiens vigtige beskeder",
+        "notifications": {
+          "title": "Fælles notifikationer",
+          "description": "Hold familien underrettet når et familiemedlem foretager en ændring i sin app ",
+          "button": "Læs mere"
+        },
+        "milestone": {
+          "title": "Fælles milepæle",
+          "description": "Definer familiens milepæle som hele familien kan gennemføre",
+          "button": "Læs mere"
+        },
+        "health": {
+          "title": "Fælles sundhed",
+          "description": "Hold styr på familiens sundhed og trivsel med vores sundhedsfunktion.",
           "button": "Læs mere"
         }
-      }
+      },
+      "cta": "Se alle funktioner"
     },
     "resources_functions": {
       "title": "Ressourcer og funktioner",

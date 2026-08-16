@@ -79,15 +79,15 @@ export default function Page() {
                       </p>
                       <div className="space-y-4">
                           <p className="text-blue-900 text-xl font-bold">{t("parents.app.app_feature_1")}</p>
-                          <p  className="text-blue-900 text-xl font-bold">{t("parents.app.app_feature_2")}</p>
-                          <p  className="text-blue-900 text-xl font-bold">{t("parents.app.app_feature_3")}</p>
+                          <p className="text-blue-900 text-xl font-bold">{t("parents.app.app_feature_2")}</p>
+                          <p className="text-blue-900 text-xl font-bold">{t("parents.app.app_feature_3")}</p>
                       </div>
                   </div>
                     <div className="mx-auto w-full flex justify-center text-center">
                         <img
                           src="/images/mockups/app.png"
-                          className="lg:w-8/12"
-                          width={400}
+                          className="lg:w-6/12"
+                          width={300}
                           height={200}
                           alt="New parents app illustration"
                         />

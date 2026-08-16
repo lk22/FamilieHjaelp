@@ -3,6 +3,10 @@ import { Link } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
+import {
+  ChevronRight,
+} from 'lucide-react'
+
 export default function GettingStartedCta() {
     const { t } = useTranslation();
     return (
@@ -19,7 +23,10 @@ export default function GettingStartedCta() {
                       <div className="w-full h-full flex flex-col justify-center items-center text-center gap-6">
                           <h3 className="text-5xl font-bold text-white">{t('cta.headline')}</h3>
                           <p className="text-xl text-blue-200 w-8/12">{t('cta.description')}</p>
-                          <Link href="/app/login" className="bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">{t('cta.button')}</Link>
+                          <Link href="/app/login" className="bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
+                            {t('cta.button')}
+                            <ChevronRight className="inline-block w-4 h-4 ml-2" />
+                          </Link>
                       </div>
                   </div>
               </div>
