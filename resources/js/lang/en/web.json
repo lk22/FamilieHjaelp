@@ -208,20 +208,28 @@
       "heading": "What you get in the platform",
       "cards": {
         "1": {
-          "title": "Personal overview",
-          "description": "Keep your important tasks, notes, and next steps in one clear dashboard designed for everyday use."
+          "title": "Family Tasks",
+          "description": "Assign collaborative tasks that helps eachother in the family"
         },
         "2": {
-          "title": "Resources and guidance",
-          "description": "Quickly find articles, guides, and practical support resources tailored to your family's needs."
+          "title": "Family Calendar",
+          "description": "Make a shareable calendar with the added family members to keep the family in sync of what your family members are doing."
         },
         "3": {
-          "title": "Everyday tools",
-          "description": "Use to-do lists, notes, and structure tools to create stability and momentum during difficult periods."
+          "title": "Notes function",
+          "description": "Keep track of what is important for you and your family members about a family member for important information."
         },
         "4": {
-          "title": "Safe onboarding",
-          "description": "Get started step by step with onboarding that adjusts the experience to your current situation."
+          "title": "Family Health tracking",
+          "description": "Keep track of your healthy information and doctors appointments."
+        },
+        "5": {
+          "title": "Baby tracker",
+          "description": "Get the best prerequisites for the baby with our baby tracker functions to tack sleep or stimuly patterns and more."
+        },
+        "6": {
+          "title": "Tips & Tricks",
+          "description": "Get the best tips and tricks that aligns with your family anything from parenting tips to child care."
         }
       }
     },

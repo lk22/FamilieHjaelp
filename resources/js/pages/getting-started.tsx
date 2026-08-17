@@ -24,7 +24,7 @@ export default function Page() {
                 <div className="w-full">
                   <motion.div
                       initial={{ opacity: 0, y: 100 }}
-                      transition={{ duration: 1.5 }}
+                      transition={{ duration: 1 }}
                       whileInView={{ opacity: 1, y: 0 }}
                     >
                       <h1 className="balance px-8 text-6xl font-bold text-center">{t('getting_started_page.headline')} <span className="text-blue-900">{t('getting_started_page.headline_highlight')}</span></h1>
@@ -36,7 +36,7 @@ export default function Page() {
                 <div className="w-12/12 mx-auto px-8">
                   <motion.div
                     initial={{ opacity: 0, y: 150 }}
-                    transition={{ duration: 2.5, delay: 0.5 }}
+                    transition={{ duration: 1, delay: 0.5 }}
                     whileInView={{ opacity: 1, y: 0 }}
                   >
                     <img
@@ -100,8 +100,8 @@ export default function Page() {
                     whileInView={{ opacity: 1, y: 0 }}
                   >
                     <img
-                      src="/images/mockups/app.png"
-                      width={350}
+                      src="/images/mockups/app3.png"
+                      width={450}
                       height={350}
                       alt=""
                       className="rounded-lg shadow-lg"

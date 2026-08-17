@@ -202,8 +202,8 @@ export default function Welcome() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                 >
                                 <img
-                                    src="images/mockups/app.png"
-                                    width={435}
+                                    src="images/mockups/app3.png"
+                                    width={535}
                                     height={400}
                                     alt="App image"
                                     />

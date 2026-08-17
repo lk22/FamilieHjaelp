@@ -200,20 +200,28 @@
       "heading": "Det får du med i platformen",
       "cards": {
         "1": {
-          "title": "Personligt overblik",
-          "description": "Få et samlet overblik over dine vigtigste opgaver, noter og næste skridt i et roligt og overskueligt dashboard."
+          "title": "Fælles opgaver",
+          "description": "Håndtering af familiens fælles opgaver der har en hjælpende effekt for familien hænger sammen."
         },
         "2": {
-          "title": "Planlægning",
-          "description": "Appen kan give dig hurtige planlægnings muligheder for dig og dine børn hvis de har registreret deres app."
+          "title": "Fælles kalender",
+          "description": "Håndtering af familiens fælles kalender for at holde styr på familiens foretagende."
         },
         "3": {
-          "title": "Kalender",
-          "description": "Kalenderen kan holde styr på begivenheder dine børn skal være en del af, det er også muligt at tilføje kalender begivenheder du som forældre skal være en del af"
+          "title": "Note håndtering",
+          "description": "Håndter vigtige notater på familiens medlemmer med vigtige noter og beskeder som kan være vigtige for alle familiemedlemmerne."
         },
         "4": {
-          "title": "Tilføj specielle noter",
-          "description": "Tilføj noter, der er relevante for din families situation, så du altid har vigtig information lige ved hånden."
+          "title": "Sundheds håndtering",
+          "description": "Håndtering af familiens fælles sundhed, i form af kost, læge besøg, vaccinationer mm."
+        },
+        "5": {
+          "title": "Baby tracker",
+          "description": "få de bedste forudsætninger for at tracke de nødvendige mønstre din baby angive, såsom søvn, stimulans mm."
+        },
+        "6": {
+          "title": "Tips & Tricks",
+          "description": "Få de bedste tips og tricks der kan give jer den ekstra hjælp som familie."
         }
       }
     },
