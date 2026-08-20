@@ -1,6 +1,7 @@
 // Dependency imports
 import { useTranslation } from "react-i18next";
 import { usePage } from "@inertiajs/react";
+import { localizeRoute } from './../../util/localizeRoute';
 
 type FooterQuickLinks = {
   href: string;
@@ -11,7 +12,7 @@ export default function Footer() {
   const { locale } = usePage().props;
   const { t } = useTranslation();
 
-  const localized = (name:string, params: Record<string, any> = {}) => route(name, { ...params, locale: locale });
+  const localized = localizeRoute(locale)
 
   const quickLinks: FooterQuickLinks[] = [
     {
@@ -42,19 +43,28 @@ export default function Footer() {
 
   const functionsList: FooterQuickLinks[] = [
     {
-      // href: localized('footer.functions_list.calendar'),
-      href: '#',
-      label: t('footer.functions_list.calendar'),
+      href: localized('page.functions.calendar'),
+      label: t('footer.functions_list.calendar.label'),
     },
     {
       // href: localized('footer.functions_list.notes'),
-      href: '#',
-      label: t('footer.functions_list.notes'),
+      href: localized('page.functions.notes'),
+      label: t('footer.functions_list.notes.label'),
     },
     {
       // href: localized('footer.functions_list.planning'),
-      href: '#',
-      label: t('footer.functions_list.planning'),
+      href: localized('page.functions.health'),
+      label: t('footer.functions_list.health.label'),
+    },
+    {
+      // href: localized('footer.functions_list.planning'),
+      href: localized('page.functions.babytracker'),
+      label: t('footer.functions_list.babytracker.label'),
+    },
+    {
+      // href: localized('footer.functions_list.planning'),
+      href: localized('page.functions.milestones'),
+      label: t('footer.functions_list.milestones.label'),
     },
   ];
 

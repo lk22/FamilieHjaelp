@@ -1,7 +1,6 @@
 // dependencies
 import {useState} from "react";
-import {usePage} from "@inertiajs/react";
-import { Link } from "@inertiajs/react";
+import {usePage, Link} from "@inertiajs/react";
 
 // hooks
 import { useTranslation } from "react-i18next";
@@ -20,23 +19,12 @@ import {
 } from "lucide-react"
 import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
 
-interface AuthProps {
-  user: {
-    id: number;
-    name: string;
-    email: string;
-  }
-}
-
 export default function HeaderActions() {
-  const { locale } = usePage<SharedData>().props;
-  const localized = localizeRoute(locale);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
-
+  const { locale, auth } = usePage<SharedData>().props;
   const { t } = useTranslation('web');
 
-  const { auth } = usePage<{ auth: AuthProps }>().props;
-
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
+  const localized = localizeRoute(locale);
   const isMobile = useIsMobile();
 
   return (
@@ -49,7 +37,7 @@ export default function HeaderActions() {
             <>
               <Link
                 href={localized('page.getting-started')}
-                className="text-white hover:text-white text-lg cursor-pointer bg-blue-500 rounded-full px-6 py-3 w-auto"
+                className="text-white hover:text-white text-lg cursor-pointer bg-[#FC4C65] rounded-full px-6 py-3 w-auto"
                 onClick={() => setIsAuthModalOpen(true)}
               >
                 {t('menu.getting_started')} <ChevronRight className="inline-block ml-1" size={16} />

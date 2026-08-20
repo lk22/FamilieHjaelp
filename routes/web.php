@@ -17,9 +17,22 @@ use Inertia\Inertia;
  *
  * These routes are accessible to all users, including those who are not authenticated. They include the home page, informational pages, and the onboarding process for new users.
  * @routes - Home page: GET /
+ * @route - Functions main page: GET /funktioner
+ * @route - Functions calendar page: GET /funktioner/kalender
+ * @route - Functions notes page: GET /funktioner/noter
+ * @route - Functions SMS page: GET /funktioner/sms
+ * @route - Functions tasks page: GET /funktioner/tasks
+ * @route - Functions health funktion page: GET /funktioner/sundhed
+ * @route - Functions baby tracking function page: GET /funktioner/baby-tracking
+ * @route - Functions tips and tricks page: GET /funktioner/tips-og-tricks
+ * @route - Functions milestone page: GET /funktioner/milepæle
+ * @route - experienced abortion page: GET /har-du-oplevet/abort
+ * @route - experienced stillbirth page: GET /har-du-oplevet/doedfoedsel
+ * @route - experience page for being a new set of parents page: GET /har-du-oplevet/foraeldre
+ * @route - experience page for losing a family member page: GET /har-du-oplevet/mistet-familie-medlem
+ * @route - Blog page: GET /blog
  * @routes - Help resources: GET /hjaelpemidler
  * @routes - Our mission: GET /vores-mission
- * @routes - User experiences: GET /har-du-oplevet/abort, GET /har-du-oplevet/doedfødsel, GET /har-du-oplevet/foraeldre, GET /har-du-oplevet/mistet-familie-medlem
  * @routes - Getting started guide: GET /kom-igang
  */
 Route::group([
@@ -27,20 +40,38 @@ Route::group([
     'prefix' => '/{locale?}',
     'where' => ['locale' => '[a-zA-Z]{2}']
 ], function () {
+    // Home route
     Route::get('/', [PageController::class, 'home'])->name('home');
-    Route::get('/hjaelpemidler', [PageController::class, 'helpResources'])->name('page.help-resources');
-    Route::get('/vores-mission', [PageController::class, 'ourMission'])->name('page.our-mission');
+
+    /**
+     * Functions routes
+    */
     Route::get('/funktioner', [PageController::class, 'ourFunctions'])->name('page.functions');
     Route::get('/funktioner/kalender', [PageController::class, 'calendarFunction'])->name('page.functions.calendar');
     Route::get('/funktioner/noter', [PageController::class, 'notesFunction'])->name('page.functions.notes');
     Route::get('/funktioner/planlaegning', [PageController::class, 'planningFunction'])->name('page.functions.planning');
     Route::get('/funktioner/sms', [PageController::class, 'smsFunction'])->name('page.functions.sms');
+    Route::get('/funktioner/tasks', [PageController::class, 'tasksFunction'])->name('page.functions.tasks');
+    Route::get('/funktioner/sundhed', [PageController::class, 'healthFunction'])->name('page.functions.health');
+    Route::get('/funktioner/baby-tracking', [PageController::class, 'babyTrackerFunction'])->name('page.functions.babytracker');
+    Route::get('/funktioner/tips-og-tricks', [PageController::class, 'tipsAndTricksFunction'])->name('page.functions.tips-tricks');
+    Route::get('/funktioner/milepaele', [PageController::class, 'milestoneFunction'])->name('page.functions.milestones');
+
+    /**
+     * Experience routes
+    */
     Route::get('/har-du-oplevet/abort', [PageController::class, 'abortionExperience'])->name('page.experiences.abortion');
     Route::get('/har-du-oplevet/doedfoedsel', [PageController::class, 'stillbirthExperience'])->name('page.experiences.stillbirth');
     Route::get('/har-du-oplevet/foraeldre', [PageController::class, 'newParentsExperience'])->name('page.experiences.new-parents');
     Route::get('/har-du-oplevet/mistet-familie-medlem', [PageController::class, 'lostFamilyMemberExperience'])->name('page.experiences.lost-family-member');
+
+    // Other routes
+    Route::get('/hjaelpemidler', [PageController::class, 'helpResources'])->name('page.help-resources');
+    Route::get('/vores-mission', [PageController::class, 'ourMission'])->name('page.our-mission');
     Route::get('/kom-igang', [PageController::class, 'gettingStarted'])->name('page.getting-started');
     Route::get('/historier', [PageController::class, 'stories'])->name('page.stories');
+
+    // App related routes
     Route::get('/app', [AppController::class, 'home'])->name('app.home');
 });
 

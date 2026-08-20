@@ -1,18 +1,17 @@
 // Dependency imports
 import { useState, useCallback, memo  } from "react";
-import { Link } from "@inertiajs/react";
-import { usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useTranslation } from 'react-i18next';
-import { type SharedData } from '@/types';
 
+// Utilities
 import { localizeRoute } from "@/util/localizeRoute";
 
 // Component imports
-import LanguageSwitcher from "./LanguageSwitcher";
+import { ChevronDown } from 'lucide-react'
 import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
 
-// Component imports
-import { ChevronDown } from 'lucide-react'
+// Tyoe imports
+import { type SharedData } from '@/types';
 
 interface MainNavigationProps {
   openAuthDialog: () => void;
@@ -27,17 +26,12 @@ interface NavLinkProps {
 }
 
 const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps) => {
-  const { auth, locale } = usePage<SharedData>().props;
+  const { locale } = usePage<SharedData>().props;
   const { t } = useTranslation();
   const localized = localizeRoute(locale);
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
 
   const navLinks: NavLinkProps[] = [
-    // {
-    //   href: localized('page.help-resources'),
-    //   icon: <ChevronDown height={20} width={20} />,
-    //   title: t('menu.helpresources'),
-    // },
     {
       href: localized('page.our-mission'),
       icon: null,
@@ -64,9 +58,19 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
           title: t('menu.functions_notes')
         },
         {
-          href: localized('page.functions.planning'),
+          href: localized('page.functions.health'),
           icon: null,
-          title: t('menu.functions_planning')
+          title: t('menu.functions_health')
+        },
+        {
+          href: localized('page.functions.babytracker'),
+          icon: null,
+          title: t('menu.functions_babytracker')
+        },
+        {
+          href: localized('page.functions.milestones'),
+          icon: null,
+          title: t('menu.functions_milestones')
         },
       ]
     },

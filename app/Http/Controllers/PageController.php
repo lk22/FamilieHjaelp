@@ -141,9 +141,59 @@ class PageController extends Controller
         return Inertia::render('functions/planning');
     }
 
+    /**
+     * Render SMS function page
+     *
+     * @return \Inertia\Response
+     */
     public function smsFunction(): Response
     {
         return Inertia::render('functions/sms');
+    }
+
+    /**
+     * Render tasks fuction page
+     *
+     * @return \Inertia\Response
+     */
+    public function tasksFunction(): Response
+    {
+        return Inertia::render('functions/tasks');
+    }
+
+    /**
+     * Render Healt function page
+     *
+     * @return \Inertia\Response
+     */
+    public function healthFunction(): Response
+    {
+        return Inertia::render('functions/health');
+    }
+
+    /**
+     * Render baby tracker function page
+     *
+     * @return \Inertia\Response
+     */
+    public function babyTrackerFunction(): Response
+    {
+        return Inertia::render('functions/baby-tracker');
+    }
+
+    /**
+     * Render Typs and Tricks function
+     *
+     * @return \Inertia\Response
+     */
+    public function tipsAndTricksFunction(): Response
+    {
+        return Inertia::render('functions/tips-and-tricks');
+    }
+
+    public function milestoneFunction(): Response
+    {
+        return Inertia::render('functions/milestones');
     }
 
     /**

@@ -86,7 +86,7 @@ export default function Page() {
                       </button>
                     </Link>
                     <Link href={localized('app.getting-started')}>
-                      <button type="button" className="mt-6 ml-4 bg-gray-200 text-gray-800 py-3 px-8 rounded-full font-medium hover:bg-gray-300 transition cursor-pointer inline-block">
+                      <button type="button" className="mt-6 ml-4 bg-[#FC4C65] text-white py-3 px-8 rounded-full font-medium transition cursor-pointer inline-block">
                         {t('getting_started_page.get_started_button')}
                         <ChevronRight className="inline-block w-4 h-4 ml-2" />
                       </button>

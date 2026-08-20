@@ -16,8 +16,7 @@ import WebLayout from '@/layouts/web-layout';
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
 import {
-    ChevronRight,
-    ChevronLeft
+    ChevronRight
 } from 'lucide-react';
 
 export default function Welcome() {
@@ -41,7 +40,7 @@ export default function Welcome() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     className={"text-5xl lg:text-7xl font-bold text-blue-900"}
                                 >
-                                    {t('frontpage.title')} <span className="text-indigo-600">{t('frontpage.title.highlight')}</span>
+                                    {t('frontpage.title')} <span className="text-[#FC4C65]">{t('frontpage.title.highlight')}</span>
                                 </motion.h1>
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
@@ -51,13 +50,13 @@ export default function Welcome() {
                                     <p className="text-2xl lg:text-2xl text-blue-900 lg:w-full font-bold">{t('frontpage.description')}</p>
                                 </motion.div>
                                 <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                transition={{ duration: 0.8, delay: 0.5 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                            >
-                                {/* <h3 className="text-5xl font-bold mb-4">{t('frontpage.about_section.title')}</h3> */}
-                                <p className="text-lg mb-8 leading-8 text-zinc-600 dark:text-black font-medium mb-4">{t('frontpage.about_section.description')}</p>
-                            </motion.div>
+                                    initial={{ opacity: 0, y: 20 }}
+                                    transition={{ duration: 0.8, delay: 0.5 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                >
+                                    {/* <h3 className="text-5xl font-bold mb-4">{t('frontpage.about_section.title')}</h3> */}
+                                    <p className="text-lg mb-8 leading-8 text-zinc-600 dark:text-black font-medium mb-4">{t('frontpage.about_section.description')}</p>
+                                </motion.div>
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     transition={{ duration: 0.5, delay: 0.5 }}
@@ -87,7 +86,7 @@ export default function Welcome() {
                                         {t('frontpage.cta')}
                                         <ChevronRight className="inline-block w-4 h-4 ml-2" />
                                     </Link>
-                                    <Link href={localized('page.our-mission')} className="bg-blue-800 text-white py-3 px-8 rounded-full mt-8 font-medium hover:bg-blue-900 transition cursor-pointer font-bold ms-4">
+                                    <Link href={localized('page.our-mission')} className="bg-[#FC4C65] text-white py-3 px-8 rounded-full mt-8 font-medium transition cursor-pointer font-bold ms-4">
                                         {t('frontpage.about_section.button')}
                                         <ChevronRight className="inline-block w-4 h-4 ml-2" />
                                     </Link>
@@ -155,11 +154,11 @@ export default function Welcome() {
                         <div className="flex flex-row gap-4 relative w-8/12">
                             <div className="grid grid-cols-2 gap-8 mt-12">
                                 <div className="w-1/3 2xl:w-full sm:w-full rounded-2xl flex flex-col justify-center">
-                                    <h3 className="text-2xl font-bold text-blue-900 mb-4">{t('frontpage.frontpage_functions.sections.tasks.title')}</h3>
-                                    <p className="text-md text-blue-900 w-10/12">{t('frontpage.frontpage_functions.sections.tasks.description')}</p>
+                                    <h3 className="text-2xl font-bold text-blue-900 mb-4">{t('frontpage.frontpage_functions.sections.health.title')}</h3>
+                                    <p className="text-md text-blue-900 w-10/12">{t('frontpage.frontpage_functions.sections.health.description')}</p>
                                     <Link href={localized('page.functions.planning')}>
                                         <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
-                                            {t('frontpage.frontpage_functions.sections.tasks.button')}
+                                            {t('frontpage.frontpage_functions.sections.health.button')}
                                             <ChevronRight className="inline-block w-4 h-4 ml-2" />
                                         </button>
                                     </Link>
@@ -167,7 +166,7 @@ export default function Welcome() {
                                 <div className="w-1/3 2xl:w-full sm:w-full rounded-2xl flex flex-col justify-center">
                                     <h3 className="text-2xl font-bold text-blue-900 mb-4">{t('frontpage.frontpage_functions.sections.calendar.title')}</h3>
                                     <p className="text-md text-blue-900 w-10/12">{t('frontpage.frontpage_functions.sections.calendar.description')}</p>
-                                    <Link href={localized('page.functions.calendar')}>
+                                    <Link href={localized('page.functions.planning')}>
                                         <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
                                             {t('frontpage.frontpage_functions.sections.calendar.button')}
                                             <ChevronRight className="inline-block w-4 h-4 ml-2" />
@@ -175,21 +174,21 @@ export default function Welcome() {
                                     </Link>
                                 </div>
                                 <div className="w-1/3 2xl:w-full sm:w-full rounded-2xl flex flex-col justify-center">
-                                    <h3 className="text-2xl font-bold text-blue-900 mb-4">{t('frontpage.frontpage_functions.sections.milestone.title')}</h3>
-                                    <p className="text-md text-blue-900 w-10/12">{t('frontpage.frontpage_functions.sections.milestone.description')}</p>
-                                    <Link href={localized('page.functions.planning')}>
+                                    <h3 className="text-2xl font-bold text-blue-900 mb-4">{t('frontpage.frontpage_functions.sections.milestones.title')}</h3>
+                                    <p className="text-md text-blue-900 w-10/12">{t('frontpage.frontpage_functions.sections.milestones.description')}</p>
+                                    <Link href={localized('page.functions.milestones')}>
                                         <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
-                                            {t('frontpage.frontpage_functions.sections.milestone.button')}
+                                            {t('frontpage.frontpage_functions.sections.milestones.button')}
                                             <ChevronRight className="inline-block w-4 h-4 ml-2" />
                                         </button>
                                     </Link>
                                 </div>
                                 <div className="w-1/3 2xl:w-full sm:w-full rounded-2xl flex flex-col justify-center">
-                                    <h3 className="text-2xl font-bold text-blue-900 mb-4">{t('frontpage.frontpage_functions.sections.health.title')}</h3>
-                                    <p className="text-md text-blue-900 w-10/12">{t('frontpage.frontpage_functions.sections.health.description')}</p>
-                                    <Link href={localized('page.functions.calendar')}>
+                                    <h3 className="text-2xl font-bold text-blue-900 mb-4">{t('frontpage.frontpage_functions.sections.babytracker.title')}</h3>
+                                    <p className="text-md text-blue-900 w-10/12">{t('frontpage.frontpage_functions.sections.babytracker.description')}</p>
+                                    <Link href={localized('page.functions.babytracker')}>
                                         <button className="mb-4 bg-white text-blue-800 py-3 px-8 rounded-full mt-6 font-medium hover:bg-gray-100 transition cursor-pointer inline-block font-medium">
-                                            {t('frontpage.frontpage_functions.sections.health.button')}
+                                            {t('frontpage.frontpage_functions.sections.babytracker.button')}
                                             <ChevronRight className="inline-block w-4 h-4 ml-2" />
                                         </button>
                                     </Link>
@@ -210,7 +209,7 @@ export default function Welcome() {
                                 </motion.div>
                             </div>
                         </div>
-                        <Link href={localized('page.functions')} className="bg-blue-800 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-blue-900 transition cursor-pointer inline-block font-medium">{t('frontpage.frontpage_functions.cta')} <ChevronRight className="inline-block w-4 h-4 ml-2" /></Link>
+                        <Link href={localized('page.functions')} className="bg-blue-800 text-white py-3 px-8 rounded-full mt-6 font-medium hover:bg-[#FC4C65] transition cursor-pointer inline-block font-medium">{t('frontpage.frontpage_functions.cta')} <ChevronRight className="inline-block w-4 h-4 ml-2" /></Link>
                     </div>
                 </section>
                 <section className="bg-white text-blue-900 px-8 py-0 sm:py-20 xl:px-8 xl:py-32 hidden">

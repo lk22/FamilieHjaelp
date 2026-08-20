@@ -3,7 +3,7 @@ import WebLayout from "@/layouts/web-layout";
 import { useTranslation } from 'react-i18next';
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
-export default function CalendarFunction() {
+export default function MilestoneFunction() {
     const { t } = useTranslation();
 
     return (

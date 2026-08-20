@@ -33,29 +33,24 @@
     "frontpage_functions": {
       "title": "Discover the features that can help your family",
       "sections": {
-        "tasks": {
-          "title": "Family Tasks",
-          "description": "Keep track of your family's tasks and activities with our user-friendly scheduling feature.",
-          "button": "Read more"
-        },
-        "calendar": {
-          "title": "Calendar",
-          "description": "Our calendar feature helps you keep track of your family's upcoming events.",
-          "button": "Read more"
-        },
-        "notifications": {
-          "title": "Family notifications",
-            "description": "Hold familien underrettet når et familiemedlem foretager en ændring i sin app ",
-            "button": "Læs mere"
-        },
-        "milestone": {
-          "title": "Family Milestones",
-          "description": "Define your family's milestones that the whole family can achieve together.",
-          "button": "Read more"
-        },
         "health": {
-          "title": "Family Health",
+          "title": "Shared health",
           "description": "Keep track of your family's health and well-being with our health feature.",
+          "button": "Read more"
+        },
+          "calendar": {
+          "title": "Shared calendar",
+          "description": "With a shared calendar, the whole family can keep up with family activities",
+          "button": "Read more"
+        },
+          "milestones": {
+          "title": "Family milestones",
+          "description": "Keep track of family milestones for you, your children, or another family member.",
+          "button": "Read more"
+        },
+          "babytracker": {
+          "title": "Baby tracker",
+          "description": "Track different patterns of your children at a young age, everything from sleep to eating patterns",
           "button": "Read more"
         }
       },
@@ -208,28 +203,29 @@
       "heading": "What you get in the platform",
       "cards": {
         "1": {
-          "title": "Family Tasks",
-          "description": "Assign collaborative tasks that helps eachother in the family"
+          "title": "Family Health tracking",
+          "description": "Keep track of your healthy information and doctors appointments.",
+          "href": "page.functions.health"
         },
         "2": {
           "title": "Family Calendar",
-          "description": "Make a shareable calendar with the added family members to keep the family in sync of what your family members are doing."
+          "description": "Make a shareable calendar with the added family members to keep the family in sync of what your family members are doing.",
+          "href": "page.functions.calendar"
         },
         "3": {
           "title": "Notes function",
-          "description": "Keep track of what is important for you and your family members about a family member for important information."
+          "description": "Keep track of what is important for you and your family members about a family member for important information.",
+          "href": "page.functions.notes"
         },
         "4": {
-          "title": "Family Health tracking",
-          "description": "Keep track of your healthy information and doctors appointments."
+          "title": "Baby tracker",
+          "description": "Get the best prerequisites for the baby with our baby tracker functions to tack sleep or stimuly patterns and more.",
+          "href": "page.functions.babytracker"
         },
         "5": {
-          "title": "Baby tracker",
-          "description": "Get the best prerequisites for the baby with our baby tracker functions to tack sleep or stimuly patterns and more."
-        },
-        "6": {
           "title": "Tips & Tricks",
-          "description": "Get the best tips and tricks that aligns with your family anything from parenting tips to child care."
+          "description": "Get the best tips and tricks that aligns with your family anything from parenting tips to child care.",
+          "href": "page.functions.tips-tricks"
         }
       }
     },
@@ -249,8 +245,32 @@
         "description": "The app can provide quick planning options for you and your children if they have registered their app."
       },
       "hero": {
-        "title": "A safer start as new parents",
-        "description": "The app can provide quick planning options for you and your children if they have registered their app."
+        "title": "Keep track of the family's shared calendar",
+        "description": "The app can give you quick planning options for you and your children if they have registered their app.",
+        "feature_cards": {
+          "1": {
+            "title": "Easy handling of calendar day",
+            "description": "Family calendar can give you a quick overview of what's happening each day."
+          },
+          "2": {
+            "title": "Specify location on a calendar event",
+            "description": "Quickly specify a location for where the event is located"
+          },
+          "3": {
+            "title": "Fill in important notes associated with the event in the calendar",
+            "description": "Each calendar event can contain important information about the event with the built-in note system."
+          }
+        }
+      },
+      "body": {
+        "title": "Quick management in the shared family calendar",
+        "description": "With a shared family calendar, you can easily manage what the family has planned for each calendar day, everything from family-related visits to health-related activities, each event can be easily specified with a location that can be tracked when attending the event in question.",
+        "bullets": {
+        "1": "Easy management of family activity events of all types",
+        "2": "Set the person responsible for making participation in a calendar event",
+        "3": "Quick notes can be saved on an event",
+        "4": "Set a convenient location for the event for easier route to the event"
+        }
       }
     },
     "notes": {
@@ -320,7 +340,9 @@
     "functions": "Functions",
     "functions_calendar": "Calendar",
     "functions_notes": "Notes",
-    "functions_planning": "Planning",
+    "functions_health": "Health tracking",
+    "functions_babytracker": "Baby Tracker",
+    "functions_milestones": "Milestone tracking",
     "experiences": "Experiences",
     "abort": "Abortion",
     "stillbirth": "Stillbirth",
@@ -354,9 +376,26 @@
     "functions": "Functions",
     "quicklinks": "Quick links",
     "functions_list": {
-      "calendar": "Calendar",
-      "notes": "Notes",
-      "planning": "Planning"
+      "calendar": {
+        "label": "Kalender",
+        "href": "page.functions.calendar"
+      },
+      "notes": {
+        "label": "Noter",
+        "href": "page.functions.notes"
+      },
+      "health": {
+        "label": "Sundhedsfunktionen",
+        "href": "page.functions.health"
+      },
+      "babytracker": {
+        "label": "Baby Tracker",
+        "href": "page.functions.babytracker"
+      },
+      "milestones": {
+        "label": "Milepæle",
+        "href": "page.functions.milestones"
+      }
     },
     "copyright_notice": "© 2026 FamilieHjælp. All rights reserved.",
     "privacypolicy": "Privacypolicy",

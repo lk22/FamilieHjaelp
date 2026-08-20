@@ -3,7 +3,7 @@ import WebLayout from "@/layouts/web-layout";
 import { useTranslation } from 'react-i18next';
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
-export default function CalendarFunction() {
+export default function TipsAndTricksFunction() {
     const { t } = useTranslation();
 
     return (
@@ -32,7 +32,7 @@ export default function CalendarFunction() {
                       >
                           {t('functions_page.calendar.hero.description')}
                       </motion.div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
                         {[1, 2, 3].map((item, index) => (
                           <motion.article
                             key={item}
@@ -59,7 +59,9 @@ export default function CalendarFunction() {
                                 height={250}
                                 width={250}
                                 className="w-full object-cover"
-                            />
+                            >
+
+                            </img>
                         </motion.div>
                     </div>
                 </div>

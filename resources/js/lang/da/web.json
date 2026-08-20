@@ -33,9 +33,9 @@
     "frontpage_functions": {
       "title": "Oplev funktionerne der kan hjælpe jeres familie",
       "sections": {
-        "tasks": {
-          "title": "Fælles opgaver",
-          "description": "Hold styr på familiens opgaver og aktiviteter med vores brugervenlige opgavefunktion.",
+        "health": {
+          "title": "Fælles sundhed",
+          "description": "Hold styr på familiens sundhed og trivsel med vores sundhedsfunktion.",
           "button": "Læs mere"
         },
         "calendar": {
@@ -43,19 +43,14 @@
           "description": "Med en fælleskalender kan hele familien følge med i familie foretagende",
           "button": "Læs mere"
         },
-        "notifications": {
-          "title": "Fælles notifikationer",
-          "description": "Hold familien underrettet når et familiemedlem foretager en ændring i sin app ",
+        "milestones": {
+          "title": "Familie milepæle",
+          "description": "Hold styr på milepæle i familien for enten dig, dine børn eller et andet familiemedlem.",
           "button": "Læs mere"
         },
-        "milestone": {
-          "title": "Fælles milepæle",
-          "description": "Definer familiens milepæle som hele familien kan gennemføre",
-          "button": "Læs mere"
-        },
-        "health": {
-          "title": "Fælles sundhed",
-          "description": "Hold styr på familiens sundhed og trivsel med vores sundhedsfunktion.",
+        "babytracker": {
+          "title": "Baby tracker",
+          "description": "Track forskellige mønstre for dine børn i en lav alder, alt fra søvn og spisemønstre",
           "button": "Læs mere"
         }
       },
@@ -200,28 +195,29 @@
       "heading": "Det får du med i platformen",
       "cards": {
         "1": {
-          "title": "Fælles opgaver",
-          "description": "Håndtering af familiens fælles opgaver der har en hjælpende effekt for familien hænger sammen."
+          "title": "Sundheds håndtering",
+          "description": "Håndtering af familiens fælles sundhed, i form af kost, læge besøg, vaccinationer mm.",
+          "href": "page.functions.health"
         },
         "2": {
           "title": "Fælles kalender",
-          "description": "Håndtering af familiens fælles kalender for at holde styr på familiens foretagende."
+          "description": "Håndtering af familiens fælles kalender for at holde styr på familiens foretagende.",
+          "href": "page.functions.calendar"
         },
         "3": {
           "title": "Note håndtering",
-          "description": "Håndter vigtige notater på familiens medlemmer med vigtige noter og beskeder som kan være vigtige for alle familiemedlemmerne."
+          "description": "Håndter vigtige notater på familiens medlemmer med vigtige noter og beskeder som kan være vigtige for alle familiemedlemmerne.",
+          "href": "page.functions.notes"
         },
         "4": {
-          "title": "Sundheds håndtering",
-          "description": "Håndtering af familiens fælles sundhed, i form af kost, læge besøg, vaccinationer mm."
+          "title": "Baby tracker",
+          "description": "få de bedste forudsætninger for at tracke de nødvendige mønstre din baby angive, såsom søvn, stimulans mm.",
+          "href": "page.functions.babytracker"
         },
         "5": {
-          "title": "Baby tracker",
-          "description": "få de bedste forudsætninger for at tracke de nødvendige mønstre din baby angive, såsom søvn, stimulans mm."
-        },
-        "6": {
-          "title": "Tips & Tricks",
-          "description": "Få de bedste tips og tricks der kan give jer den ekstra hjælp som familie."
+          "title": "Familiens Milepæle",
+          "description": "Angiv milepæle for et eller flere familiemedlemmer som kan følges i appen",
+          "href": "page.functions.milestones"
         }
       }
     },
@@ -237,22 +233,54 @@
     },
     "calendar": {
       "meta": {
-        "title": "Kalender funktion",
+        "title": "Familiehjælp - Hold styr på familiens fælles kalender",
         "description": "Appen kan give dig hurtige planlægnings muligheder for dig og dine børn hvis de har registreret deres app."
       },
       "hero": {
-        "title": "Hold styr på familiens foretagende",
-        "description": "Appen kan give dig hurtige planlægnings muligheder for dig og dine børn hvis de har registreret deres app."
+        "title": "Hold styr på familiens fælles kalender",
+        "description": "Appen kan give dig hurtige planlægnings muligheder for dig og dine børn hvis de har registreret deres app.",
+        "feature_cards": {
+          "1": {
+            "title": "Nem håndtering af kalender dag",
+            "description": "Familiekalendern kan give dig hurtigt overblik over hvad der sker for hver dag."
+          },
+          "2": {
+            "title": "Angiv lokation på en kalender begivenhed",
+            "description": "Angiv hurtigt en lokation for hvor begivenheden befinder sig"
+          },
+          "3": {
+            "title": "Udfyld vigtige notater",
+            "description": "Hver kalender begivenhed kan indeholde vigtig information omkring begivenheden med det indbyggede note system."
+          }
+        }
+      },
+      "body": {
+        "title": "Hurtig håndtering i familiens fælles kalender",
+        "description": "Med en familie fælles kalender, kan du nemt håndtere hvad familien har planlagt for hver kalender dag, alt fra familie relateret besøg til sundhedsmessige foretagende, hver begivenhed kan nemt angives med en lokation som kan spores til når man deltager i pågælende begivenhed.",
+        "bullets": {
+          "1": "Nem håndtering af familie foretagende begivenheder i alle typer",
+          "2": "Angiv ansvarlig for at foretage deltagelse i en kalender begivenhed",
+          "3": "Hurtige noter kan gemmes på en begivenhed",
+          "4": "Angiv nem lokation for begivenhed for nemmere rute for begivenheden"
+        }
       }
     },
     "notes": {
       "meta": {
-        "title": "Noter funktion",
-        "description": "Noter til at holde styr på hvad der er vigtigt for dig og din familie."
+        "title": "Familiehjælp - Håndtering af de vigtigste fælles noter",
+        "description": "Appen gør det nemt og håndtere fælles noter på tværs af noter du kan lave på hele appen."
       },
       "hero": {
-        "title": "Hold vigtig information sikker",
-        "description": "Noter til at holde styr på hvad der er vigtigt for dig og din familie."
+        "title": "Håndtering af de vigtigste fælles noter",
+        "description": "Appen gør det nemt og håndtere fælles noter på tværs af noter du kan lave på hele appen."
+      },
+      "body": {
+        "title": "FamilieHjælp giver dig nem note håndtering",
+        "description": "Appens note system kan hjælpe dig med at holde et generelt overblik af de vigtigste notater med reference til hver feature appen har, det kan være synkroniseret notere fra en begivenhed i fælles kalenderen, eller i appens baby tracker, så du har alle noterne i en fælles 'Noteboks'",
+        "bullets": {
+          "1": "Gem tanker og observationer i noter, så du kan følge udviklingen over tid.",
+          "2": "Noteboksen kan indeholde flere typer noter i alle kategorier alt fra generelle noter til sundhedsmessige noter"
+        }
       }
     },
     "planning": {
@@ -322,7 +350,9 @@
     "functions": "Funktioner",
     "functions_calendar": "Kalender",
     "functions_notes": "Noter",
-    "functions_planning": "Planlægning",
+    "functions_health": "Sundheds tracking",
+    "functions_babytracker": "Baby Tracker",
+    "functions_milestones": "Milepæle tracking",
     "experiences": "Har du oplevet?",
     "abort": "Abort",
     "stillbirth": "Dødfødsel",
@@ -356,9 +386,26 @@
     "functions": "Funktioner",
     "quicklinks": "Genveje",
     "functions_list": {
-      "calendar": "Kalender",
-      "notes": "Noter",
-      "planning": "Planlægning"
+      "calendar": {
+        "label": "Kalender",
+        "href": "page.functions.calendar"
+      },
+      "notes": {
+        "label": "Noter",
+        "href": "page.functions.notes"
+      },
+      "health": {
+        "label": "Sundhedsfunktionen",
+        "href": "page.functions.health"
+      },
+      "babytracker": {
+        "label": "Baby Tracker",
+        "href": "page.functions.babytracker"
+      },
+      "milestones": {
+        "label": "Milepæle",
+        "href": "page.functions.milestones"
+      }
     },
     "copyright_notice": "© 2026 FamilieHjælp. Alle rettigheder forbeholdes.",
     "privacypolicy": "Privatlivspolitik",

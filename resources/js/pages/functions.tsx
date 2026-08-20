@@ -1,10 +1,24 @@
+// Dependencies
+import { Link, usePage } from '@inertiajs/react'
 import { motion } from 'framer-motion';
-import WebLayout from "@/layouts/web-layout";
 import { useTranslation } from 'react-i18next';
+
+// Utilities
+import { localizeRoute } from '../util/localizeRoute';
+
+// Types
+import { type SharedData } from './../types/index';
+
+// Layouts
+import WebLayout from "@/layouts/web-layout";
+
+// Components
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
 
 export default function FunctionsPage() {
+  const {locale} = usePage<SharedData>().props;
     const { t } = useTranslation();
+    const localized = localizeRoute(locale)
 
     return (
       <WebLayout
@@ -49,16 +63,19 @@ export default function FunctionsPage() {
                   <h2 className="text-blue-900 text-5xl font-bold w-full md:w-8/12">{t('functions_page.features.heading')}</h2>
                 </motion.div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-                  {[1, 2, 3, 4, 5, 6].map((item, index) => (
+                  {[1, 2, 3, 4, 5].map((item, index) => (
                     <motion.article
                       key={item}
                       initial={{ opacity: 0, y: 30 }}
                       transition={{ duration: 0.5, delay: index * 0.08 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      className="rounded-2xl border border-blue-100 bg-gradient-to-b from-white to-blue-50 p-6 shadow-sm"
+                      className="rounded-2xl border border-blue-100 bg-gradient-to-b from-blue-900 to-blue-800 p-6 shadow-sm relative h-56"
                     >
-                      <p className="text-blue-900 text-xl font-semibold mb-3">{t(`functions_page.features.cards.${item}.title`)}</p>
-                      <p className="text-blue-900/85 leading-8">{t(`functions_page.features.cards.${item}.description`)}</p>
+                      <h3 className="text-white text-2xl font-semibold mb-3">{t(`functions_page.features.cards.${item}.title`)}</h3>
+                      <p className="text-white/85 leading-8 mb-8 text-white">{t(`functions_page.features.cards.${item}.description`)}</p>
+                      <Link href={localized(t(`functions_page.features.cards.${item}.href`))} className="font-bold text-white absolute bottom-4">
+                        Se funktion
+                      </Link>
                     </motion.article>
                   ))}
                 </div>
