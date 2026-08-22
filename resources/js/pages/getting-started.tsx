@@ -104,7 +104,7 @@ export default function Page() {
                       width={450}
                       height={350}
                       alt=""
-                      className="rounded-lg shadow-lg"
+                      className="rounded-lg"
                     />
                   </motion.div>
                 </div>
