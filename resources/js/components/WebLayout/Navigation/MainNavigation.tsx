@@ -119,7 +119,7 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
   }, [closeAuthDialog]);
 
   return (
-    <nav id="desktop-nav" className="hidden lg:flex items-center justify-center gap-8">
+    <nav id="desktop-nav" data-testid="desktop-navigation" className="hidden lg:flex items-center justify-center gap-8">
       <ul className="flex justify-center gap-4">
         {navLinks.map((link) => (
           <li key={link.href} className="relative group">

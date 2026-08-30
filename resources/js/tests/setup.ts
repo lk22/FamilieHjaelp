@@ -24,6 +24,7 @@ vi.mock('@inertiajs/react', () => ({
           pages: [],
         },
       },
+      locale: 'da'
     },
   }),
   useForm: <T,>(initialData: T) => {
