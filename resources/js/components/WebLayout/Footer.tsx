@@ -69,7 +69,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-blue-900 py-4 mt-8">
+    <footer data-testid="website-footer" className="bg-blue-900 py-4 mt-8">
       <div className="container mx-auto px-4 py-18">
         <div className="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
           <div className="text-gray-600 flex flex-col items-start gap-4">

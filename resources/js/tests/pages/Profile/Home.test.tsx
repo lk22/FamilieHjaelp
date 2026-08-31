@@ -34,7 +34,6 @@ describe('ProfileOverviewHome', () => {
             <ProfileOverviewLayout title="Test Page">
                 <div>Content</div>
             </ProfileOverviewLayout>
-
         )
         expect(screen.getByTestId('title')).toHaveTextContent('Test Page')
         expect(screen.getByTestId('headline')).toBeEmptyDOMElement();
