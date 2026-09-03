@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('excerpt');
             $table->text('content');
             $table->string('featured_image');
@@ -21,19 +22,10 @@ return new class extends Migration
             $table->timestamp('published_at')->nullable();
             $table->timestamp('last_edited_at')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('last_edited_by')->nullable();
+            $table->unsignedBigInteger('last_edited_by')->nullable();
+            $table->foreign('last_edited_by')->references('id')->on('users')->onDelete('set null');
             $table->softDeletes();
             $table->timestamps();
-        });
-
-        Schema::create('category_post', function (Blueprint $table) {
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-        });
-
-        Schema::create('post_tag', function(Blueprint $table) {
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
-            $table->foreignId('tag_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -42,8 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_tag');
-        Schema::dropIfExists('category_post');
         Schema::dropIfExists('posts');
     }
 };

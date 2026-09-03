@@ -19,20 +19,12 @@ class UserForm
                     ->label('Email address')
                     ->email()
                     ->required(),
-                DateTimePicker::make('email_verified_at'),
-                TextInput::make('password')
-                    ->password()
-                    ->required(),
                 Toggle::make('has_completed_onboarding')
                     ->required(),
                 Toggle::make('is_verified')
                     ->required(),
                 Toggle::make('is_admin')
                     ->required(),
-                TextInput::make('notes_count')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
             ]);
     }
 }

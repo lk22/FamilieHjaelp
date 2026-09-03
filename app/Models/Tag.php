@@ -6,14 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Category extends Model
+class Tag extends Model
 {
-    protected $fillable = [
-        'name',
-        'slug',
-    ];
-    protected $guarded = ['id'];
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $fillable = ['name', 'slug'];
 
     public function posts(): BelongsToMany
     {
