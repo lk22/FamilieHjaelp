@@ -73,8 +73,8 @@ class PostForm
             ->image()
             ->disk('public')
             ->maxSize(1024) // Maximum file size in KB
-            ->visibility('public')
-            ->directory('images/blog/featured_images') // Specify the directory to store the uploaded images
+            ->visibility('/public/storage')
+            ->directory('featured_images') // Specify the directory to store the uploaded images
             ->columnSpanFull()
             ->imageEditor()
             ->imageEditorAspectRatioOptions(

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
     {
         if (config('app.env') !== 'local') {
             \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
+        if ($this->app->environment('local') && isset($_SERVER['HTTP_HOST'])) {
+            URL::forceRootUrl('http://' . $_SERVER['HTTP_HOST']);
         }
     }
 }

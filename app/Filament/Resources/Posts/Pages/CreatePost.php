@@ -23,6 +23,10 @@ class CreatePost extends CreateRecord
 
     protected function handleRecordCreating(array $data): Model
     {
-        return Post::create($data);
+        $post = Post::create($data);
+        if ($data['tags']) {
+            $post->tags()->attach($data['tags']);
+        }
+        return $post;
     }
 }

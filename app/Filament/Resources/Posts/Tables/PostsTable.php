@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Filament\Resources\Posts\Tables;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\DeleteAction;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -18,18 +19,12 @@ class PostsTable
     {
         return $table
             ->columns([
-                ImageColumn::make('featured_image')->square(),
+                ImageColumn::make('featured_image')
+                    ->disk('public')
+                    ->square(),
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('slug')->searchable(),
                 TextColumn::make('excerpt')->limit(50)->html()
-                ->formatStateUsing(function ($state) {
-                    if (is_array($state)) {
-                        // Converts TipTap JSON or nested array to plain text string
-                        return strip_tags(json_encode($state));
-                    }
-
-                    return strip_tags($state);
-                }),
             ])
             ->filters([
                 TrashedFilter::make(),
@@ -37,6 +32,7 @@ class PostsTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

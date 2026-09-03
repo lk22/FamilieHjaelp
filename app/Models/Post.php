@@ -24,6 +24,7 @@ class Post extends Model
         'featured_image',
         'slug',
         'user_id',
+        'tags'
     ];
 
     protected $appends = ['featured_image_url'];
