@@ -15,7 +15,7 @@ class ProfileTodoController extends Controller
      * Toggle the completion status of a todo item.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse|RedirectResponse
      */
     public function toggle(ToggleTodoRequest $request, $id): JsonResponse|RedirectResponse
     {
@@ -26,13 +26,13 @@ class ProfileTodoController extends Controller
                 'message' => 'Invalid request.',
             ], 422);
         }
-        
+
         if ( ! $todo->count() ) {
             return response()->json([
                 'message' => 'Todo not found.',
             ], 404);
         }
-     
+
         $todo->is_completed = !$todo->is_completed;
         $todo->save();
 
@@ -42,9 +42,7 @@ class ProfileTodoController extends Controller
                 ->where('is_completed', true)
                 ->count();
 
-                if ( $completedTodosCount === 1 ) {
-                    // @TODO: dispatch first completed todo mail event
-                }
+                // @TODO: dispatch first completed todo mail event
         }
 
         return redirect()->route('profile.todos')->with([

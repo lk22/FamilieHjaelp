@@ -2,7 +2,6 @@ import { localizeRoute } from '@/util/localizeRoute'
 import { describe, test, expect, vi, afterEach } from 'vitest'
 
 describe('localizeRoute', () => {
-
   afterEach(() => {
     vi.unstubAllGlobals()
   })
