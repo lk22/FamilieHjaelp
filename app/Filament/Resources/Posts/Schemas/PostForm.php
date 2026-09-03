@@ -28,6 +28,8 @@ class PostForm
             ->components([
                 self::getTitleFormField(),
                 self::getSlugFormField(),
+                self::getUrlFormField(),
+                self::getLocaleFormField(),
                 self::getTagsFormField(),
                 self::getCategoryFormField(),
                 self::getExcerptFormField(),
@@ -44,6 +46,9 @@ class PostForm
             ->afterStateUpdated(
                 fn($state, callable $set) => $set('slug', Str::slug($state))
             )
+            ->afterStateUpdated(
+                fn($state, callable $set) => $set('url', url('/blog/articles/' . Str::slug($state)))
+            )
             ->columnSpanFull();
     }
 
@@ -53,6 +58,27 @@ class PostForm
             ->readOnly()
             ->required()
             ->dehydrated()
+            ->columnSpanFull();
+    }
+
+    public static function getUrlFormField(): TextInput
+    {
+        return TextInput::make('url')
+            ->readOnly()
+            ->required()
+            ->dehydrated()
+            ->columnSpanFull();
+    }
+
+    public static function getLocaleFormField(): Select
+    {
+        return Select::make('locale')
+            ->required()
+            ->options([
+                'da' => 'Dansk',
+                'en' => 'English',
+            ])
+            ->default('da')
             ->columnSpanFull();
     }
 

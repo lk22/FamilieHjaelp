@@ -23,6 +23,8 @@ class Post extends Model
         'content',
         'featured_image',
         'slug',
+        'url',
+        'locale',
         'user_id',
     ];
 

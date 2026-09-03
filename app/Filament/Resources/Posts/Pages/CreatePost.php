@@ -6,9 +6,6 @@ use Illuminate\Support\Str;
 
 use App\Filament\Resources\Posts\PostResource;
 use Filament\Resources\Pages\CreateRecord;
-use Illuminate\Database\Eloquent\Model;
-
-use App\Models\Post;
 
 class CreatePost extends CreateRecord
 {
@@ -18,7 +15,8 @@ class CreatePost extends CreateRecord
     {
         $data['user_id'] = auth()->id();
         $data["slug"] = Str::slug($data['title']);
+        $locale = $data['locale'] ?? 'da';
+        $data['url'] = url($locale . '/blog/articles/' . $data['slug']);
         return $data;
     }
-
 }
