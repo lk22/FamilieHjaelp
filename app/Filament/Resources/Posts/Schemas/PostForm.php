@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Filament\Forms\Components\RichEditor;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 
 class PostForm
 {
@@ -27,9 +28,11 @@ class PostForm
             ->components([
                 self::getTitleFormField(),
                 self::getSlugFormField(),
+                self::getTagsFormField(),
+                self::getCategoryFormField(),
                 self::getExcerptFormField(),
                 self::getContentFormField(),
-                self::getFeaturedImageFormField()
+                self::getFeaturedImageFormField(),
             ]);
     }
 
@@ -80,5 +83,37 @@ class PostForm
             ->imageEditorAspectRatioOptions(
                 ['16:9', '4:3', '1:1']
             );
+    }
+
+    public static function getTagsFormField(): Select
+    {
+        return Select::make('tags')
+            ->multiple()
+            ->preload()
+            ->createOptionForm([
+                TextInput::make('name')
+                    ->required(),
+                TextInput::make('slug')
+                    ->required()
+                    ->unique()
+                    ->dehydrated(fn($state) => !empty($state))
+            ])
+            ->relationship('tags', 'name')
+            ->columnSpanFull();
+    }
+
+    public static function getCategoryFormField(): Select
+    {
+        return Select::make('category')
+            ->multiple()
+            ->preload()
+            ->createOptionForm([
+                TextInput::make('name')->required(),
+                TextInput::make('slug')->required()->unique()->dehydrated(
+                    fn($state) => !empty($state)
+                )
+            ])
+            ->relationship('categories', 'name')
+            ->columnSpanFull();
     }
 }

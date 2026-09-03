@@ -26,6 +26,8 @@ return new class extends Migration
             $table->foreign('last_edited_by')->references('id')->on('users')->onDelete('set null');
             $table->softDeletes();
             $table->timestamps();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
         });
     }
 
@@ -34,6 +36,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);
+            $table->dropColumn('category_id');
+        });
         Schema::dropIfExists('posts');
     }
 };

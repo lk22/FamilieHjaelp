@@ -21,12 +21,4 @@ class CreatePost extends CreateRecord
         return $data;
     }
 
-    protected function handleRecordCreating(array $data): Model
-    {
-        $post = Post::create($data);
-        if ($data['tags']) {
-            $post->tags()->attach($data['tags']);
-        }
-        return $post;
-    }
 }

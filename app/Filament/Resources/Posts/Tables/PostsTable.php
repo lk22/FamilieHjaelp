@@ -24,6 +24,7 @@ class PostsTable
                     ->square(),
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('slug')->searchable(),
+                TextColumn::make('tags.name')->label('Tags')->limit(50),
                 TextColumn::make('excerpt')->limit(50)->html()
             ])
             ->filters([

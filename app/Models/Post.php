@@ -24,7 +24,6 @@ class Post extends Model
         'featured_image',
         'slug',
         'user_id',
-        'tags'
     ];
 
     protected $appends = ['featured_image_url'];
@@ -41,12 +40,12 @@ class Post extends Model
     protected $with = ['categories', 'tags'];
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id');
     }
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }
 
     protected function featuredImageUrl(): Attribute
