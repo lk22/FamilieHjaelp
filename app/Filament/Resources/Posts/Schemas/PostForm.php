@@ -43,11 +43,11 @@ class PostForm
         return TextInput::make('title')
             ->required()
             ->live(onBlur: true)
-            ->afterStateUpdated(
+            ->afterStateUpdatedJs(
                 fn($state, callable $set) => $set('slug', Str::slug($state))
             )
-            ->afterStateUpdated(
-                fn($state, callable $set) => $set('url', url('/blog/articles/' . Str::slug($state)))
+            ->afterStateUpdatedJs(
+                fn($state, callable $set) => $set('url', url(request('locale') . '/blog/articles/' . Str::slug($state)))
             )
             ->columnSpanFull();
     }
@@ -78,7 +78,9 @@ class PostForm
                 'da' => 'Dansk',
                 'en' => 'English',
             ])
-            ->default('da')
+            ->afterStateUpdatedJs(
+               fn($state, callable $set) => $set('url', url($state . '/blog/articles/' . Str::slug(request('title'))))
+            )
             ->columnSpanFull();
     }
 

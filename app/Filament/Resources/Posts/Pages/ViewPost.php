@@ -8,8 +8,6 @@ use App\Filament\Resources\Posts\Actions\PublishPostAction;
 use App\Filament\Resources\Posts\Actions\UnpublishPostAction;
 use Filament\Resources\Pages\ViewRecord;
 
-use App\Filament\Resources\Posts\Widgets\PostOverviewWidget;
-
 class ViewPost extends ViewRecord
 {
     protected static string $resource = PostResource::class;

@@ -11,8 +11,6 @@ class PostOverviewWidget extends Widget
 {
     protected string $view = 'filament.resources.posts.widgets.post-overview-widget';
 
-    protected ?Post $post = null;
-
 
     public function getPost(): ?Post
     {
