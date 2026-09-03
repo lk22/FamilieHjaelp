@@ -38,6 +38,17 @@ class Post extends Model
     }
 
     protected $with = ['categories', 'tags'];
+
+    /**
+     * Getting post by slug field
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id');

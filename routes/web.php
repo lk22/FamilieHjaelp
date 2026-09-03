@@ -56,6 +56,8 @@ Route::group([
     Route::get('/funktioner/baby-tracking', [PageController::class, 'babyTrackerFunction'])->name('page.functions.babytracker');
     Route::get('/funktioner/tips-og-tricks', [PageController::class, 'tipsAndTricksFunction'])->name('page.functions.tips-tricks');
     Route::get('/funktioner/milepaele', [PageController::class, 'milestoneFunction'])->name('page.functions.milestones');
+    Route::get('/blog', [PageController::class, 'blog'])->name('page.blog');
+    Route::get('/blog/article/{post}', [PageController::class, 'blogPost'])->name('page.blog.article');
 
     /**
      * Experience routes

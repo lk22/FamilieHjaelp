@@ -38,7 +38,7 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
       title: t('menu.ourmission'),
     },
     {
-      href: '#',
+      href: localized('page.blog'),
       icon: null,
       title: t('menu.blog'),
     },
