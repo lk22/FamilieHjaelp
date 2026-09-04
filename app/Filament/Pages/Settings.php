@@ -18,6 +18,4 @@ class Settings extends Page
     {
         abort_unless(true, 403);
     }
-
-
 }

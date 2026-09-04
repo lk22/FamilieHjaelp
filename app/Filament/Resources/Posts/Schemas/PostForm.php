@@ -10,6 +10,9 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
+
 class PostForm
 {
 
@@ -43,12 +46,13 @@ class PostForm
         return TextInput::make('title')
             ->required()
             ->live(onBlur: true)
-            ->afterStateUpdatedJs(
-                fn($state, callable $set) => $set('slug', Str::slug($state))
-            )
-            ->afterStateUpdatedJs(
-                fn($state, callable $set) => $set('url', url(request('locale') . '/blog/articles/' . Str::slug($state)))
-            )
+            ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
+                $set('slug', Str::slug($state));
+                self::updateUrl($get, $set);
+            })
+            ->afterStateUpdated(function(Get $get, Set $set, ?string $state) {
+                self::updateUrl($get, $set);
+            })
             ->columnSpanFull();
     }
 
@@ -74,13 +78,12 @@ class PostForm
     {
         return Select::make('locale')
             ->required()
+            ->live(onBlur: true)
             ->options([
                 'da' => 'Dansk',
                 'en' => 'English',
             ])
-            ->afterStateUpdatedJs(
-               fn($state, callable $set) => $set('url', url($state . '/blog/articles/' . Str::slug(request('title'))))
-            )
+            ->afterStateUpdated(fn (Get $get, Set $set) => self::updateUrl($get, $set))
             ->columnSpanFull();
     }
 
@@ -143,5 +146,13 @@ class PostForm
             ])
             ->relationship('categories', 'name')
             ->columnSpanFull();
+    }
+
+    protected static function updateUrl(Get $get, Set $set): void
+    {
+        $locale = $get('locale');
+        $slug = Str::slug($get('title'));
+
+        $set('url', $locale ? url($locale . '/blog/articles/' . $slug) : null);
     }
 }
