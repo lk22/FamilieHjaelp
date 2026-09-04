@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 // Layout component imports
 import WebLayout from "@/layouts/web-layout";
 
-export default function Article({post}) {
+export default function Post({post}) {
     const { t } = useTranslation();
 
     return (

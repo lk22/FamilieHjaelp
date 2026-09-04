@@ -209,16 +209,25 @@ class PageController extends Controller
 
     public function blog(): Response
     {
-        $posts = Post::where('is_published', true)->get();
+        $locale = app()->getLocale();
+
+        $posts = Post::where('is_published', true)->where('locale', $locale)->get();
+        $posts = $posts->sortByDesc('published_at');
 
         return Inertia::render('blog', [
             'posts' => $posts,
+            'locale' => $locale,
         ]);
     }
 
-    public function blogPost(Post $post): Response
+    public function blogPost(string $locale, Post $post): Response
     {
-        $post = Post::where('slug', $post->slug)->where('is_published', true)->firstOrFail();
+        $locale = app()->getLocale();
+
+        $post = Post::where('slug', $post->slug)
+            ->where('is_published', true)
+            ->where('locale', $locale)
+            ->firstOrFail();
 
         return Inertia::render('blog/Post', [
             'post' => $post,

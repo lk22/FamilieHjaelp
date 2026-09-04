@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 // Layout component imports
 import WebLayout from "@/layouts/web-layout";
-import { Link } from 'react-router-dom';
+import {Link} from '@inertiajs/react';
 
 interface PostItem {
   id: number;
@@ -14,6 +14,7 @@ interface PostItem {
   featured_image: string;
   slug: string;
   tags: PostTagItem[]
+  url: string;
   categories: PostCategoryItem[]
 }
 
@@ -29,14 +30,13 @@ interface PostCategoryItem {
 
 interface BlogProps {
   posts: PostItem[]
+  locale: string;
 }
 
-export default function Blog({posts}) {
+export default function Blog({posts, locale}: BlogProps) {
     // const { t } = useTranslation();
 
     console.log(posts)
-
-    console.log()
 
     return (
       <WebLayout
@@ -52,7 +52,7 @@ export default function Blog({posts}) {
                       className="prose dark:prose-invert max-w-none line-clamp-3"
                       dangerouslySetInnerHTML={{__html: post.excerpt}}></div>
                   )}
-                  <Link to={route('page.blog.article', post.slug)} className="text-blue-700 text-primary underline">
+                  <Link href={route('page.blog.article', {post: post.slug, locale: locale})} className="text-blue-700 text-primary underline">
                     Læs artikel
                   </Link>
                 </article>
