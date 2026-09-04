@@ -23,7 +23,13 @@ class Post extends Model
         'content',
         'featured_image',
         'slug',
+        'url',
+        'locale',
         'user_id',
+        'is_published',
+        'published_at',
+        'is_featured',
+        'featured_at',
     ];
 
     protected $appends = ['featured_image_url'];
@@ -33,8 +39,12 @@ class Post extends Model
      * @return array{content: string, excerpt: string}
      */
     protected function casts(): array {
-        // return ['excerpt' => 'array', 'content' => 'array'];
-        return [];
+        return [
+            'is_published' => 'boolean',
+            'published_at' => 'datetime',
+            'is_featured' => 'boolean',
+            'featured_at' => 'datetime',
+        ];
     }
 
     protected $with = ['categories', 'tags'];

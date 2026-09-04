@@ -18,6 +18,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use App\Filament\Resources\Posts\Widgets\PostOverviewWidget;
+
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
@@ -46,7 +48,7 @@ class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 
@@ -71,5 +73,17 @@ class PostResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            PostOverviewWidget::class
+        ];
+    }
+
+    public function getColumns(): int | array
+    {
+        return 2;
     }
 }

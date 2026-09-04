@@ -13,6 +13,8 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
+use App\Filament\Resources\Posts\Actions\PublishPostAction;
+
 class PostsTable
 {
     public static function configure(Table $table): Table
@@ -22,10 +24,18 @@ class PostsTable
                 ImageColumn::make('featured_image')
                     ->disk('public')
                     ->square(),
-                TextColumn::make('title')->searchable(),
-                TextColumn::make('slug')->searchable(),
-                TextColumn::make('tags.name')->label('Tags')->limit(50),
-                TextColumn::make('excerpt')->limit(50)->html()
+                TextColumn::make('title')
+                    ->searchable(),
+                TextColumn::make('slug')
+                    ->searchable(),
+                TextColumn::make('locale')
+                    ->sortable(),
+                TextColumn::make('tags.name')
+                    ->label('Tags')
+                    ->limit(50),
+                TextColumn::make('excerpt')
+                    ->limit(50)
+                    ->html()
             ])
             ->filters([
                 TrashedFilter::make(),

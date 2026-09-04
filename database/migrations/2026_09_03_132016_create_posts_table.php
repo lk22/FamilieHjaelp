@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
+            $table->string('url')->unique();
             $table->text('excerpt');
             $table->text('content');
             $table->string('featured_image');
+            $table->string('locale')->default('da');
+            $table->boolean('is_featured')->default(false);
             $table->boolean('is_published')->default(false);
             $table->timestamp('published_at')->nullable();
             $table->timestamp('last_edited_at')->nullable();
