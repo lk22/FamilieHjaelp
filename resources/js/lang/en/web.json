@@ -402,5 +402,8 @@
     "termsofservice": "Terms of Service"
   },
   "language_da": "da",
-  "language_en": "en"
+  "language_en": "en",
+  "blog_post_item": {
+    "published_at": "Published at"
+  }
 }

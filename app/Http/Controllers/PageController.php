@@ -210,12 +210,15 @@ class PageController extends Controller
     public function blog(): Response
     {
         $locale = app()->getLocale();
-
+        $featured = Post::where('locale', $locale)->latest()->first();
         $posts = Post::where('is_published', true)->where('locale', $locale)->get();
         $posts = $posts->sortByDesc('published_at');
 
+        $posts = $posts->values(); // Reindex the collection after sorting
+
         return Inertia::render('blog', [
             'posts' => $posts,
+            'featured' => $featured,
             'locale' => $locale,
         ]);
     }

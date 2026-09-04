@@ -106,7 +106,7 @@ class PostForm
         return FileUpload::make('featured_image')
             ->image()
             ->disk('public')
-            ->maxSize(1024) // Maximum file size in KB
+            ->maxSize(4096) // Maximum file size in KB
             ->visibility('/public/storage')
             ->directory('featured_images') // Specify the directory to store the uploaded images
             ->columnSpanFull()

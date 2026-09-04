@@ -69,6 +69,11 @@ class Post extends Model
         return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }
 
+    public function getFeatured(): ?self
+    {
+        return $this->is_featured ? $this : null;
+    }
+
     protected function featuredImageUrl(): Attribute
     {
         return Attribute::make(
