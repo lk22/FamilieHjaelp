@@ -403,6 +403,11 @@
   },
   "language_da": "da",
   "language_en": "en",
+  "blog_page": {
+    "headline": "Familiehjælp articles",
+    "description": "Read our helpful articles that can help you as parents and a family in anyway, search our articles for the correct information you would like to know about",
+    "posts_not_found": "No articles where found in our archive"
+  },
   "blog_post_item": {
     "published_at": "Published at"
   }

@@ -17,13 +17,15 @@ export default function Post({post}) {
         <div className="bg-white h-full mx-auto w-[1024px] py-36">
             <section>
                 <article className="blog-item-article">
-                  <img
-                    src={`/storage/${post.featured_image}`}
-                    alt={post.title}
-                    width={1024}
-                    height={400}
-                    className="mb-4 w-[1024px] h-[400px] mx-auto rounded-xl object-cover"
-                  />
+                  <picture>
+                    <img
+                      src={`/storage/${post.featured_image}`}
+                      alt={post.title}
+                      width={1024}
+                      height={400}
+                      className="mb-4 w-[1024px] h-[600px] mx-auto rounded-xl"
+                    />
+                  </picture>
                   <h1>{post.title}</h1>
                   <p className="text-gray-500 mb-4">{t('blog_post_item.published_at')}: {formattedPublishedAt}</p>
                   {post.excerpt && (

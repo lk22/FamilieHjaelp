@@ -192,6 +192,11 @@ class PageController extends Controller
         return Inertia::render('functions/tips-and-tricks');
     }
 
+    /**
+     * Render milestones function
+     *
+     * @return Response
+     */
     public function milestoneFunction(): Response
     {
         return Inertia::render('functions/milestones');
@@ -207,6 +212,11 @@ class PageController extends Controller
         return Inertia::render('stories');
     }
 
+    /**
+     * Render blog page with featured and regular blog posts
+     *
+     * @return \Inertia\Response
+     */
     public function blog(): Response
     {
         $locale = app()->getLocale();

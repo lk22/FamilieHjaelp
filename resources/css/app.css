@@ -301,6 +301,10 @@ select {
     & h3 {
         @apply text-4xl text-blue-900 font-bold mb-2;
     }
+
+    & p {
+        @apply font-normal pb-4;
+    }
 }
 
 /** Blog list article styles */
