@@ -1,7 +1,7 @@
 import {Link} from '@inertiajs/react';
 
 interface CategoriesNavigationProps {
-  categories: { name: string; slug: string }[];
+  categories: { id: number; name: string; slug: string }[];
   locale: string;
 }
 
