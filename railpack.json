@@ -6,6 +6,5 @@
   "env": {
     "RAILPACK_PHP_EXTENSIONS": "pcntl,intl,zip"
   },
-  "phpExtensions": ["pcntl", "intl", "zip"],
   "buildAptPackages": ["bison", "re2c", "libxml2-dev", "libsqlite3-dev", "libreadline-dev", "libcurl4-openssl-dev", "libonig-dev", "libpq-dev", "libzip-dev", "libpng-dev", "libicu-dev", "libgd-dev"]
 }
