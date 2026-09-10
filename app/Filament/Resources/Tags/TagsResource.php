@@ -22,7 +22,9 @@ class TagsResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'Tags';
+    protected static ?string $recordTitleAttribute = 'name';
+
+    protected static ?string $navigationLabel = 'Tags';
 
     public static function form(Schema $schema): Schema
     {
@@ -55,5 +57,4 @@ class TagsResource extends Resource
             'edit' => EditTags::route('/{record}/edit'),
         ];
     }
-
 }
