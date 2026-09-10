@@ -14,6 +14,7 @@ class Category extends Model
     protected $fillable = [
         'name',
         'slug',
+        'locale'
     ];
     protected $guarded = ['id'];
     protected $hidden = ['created_at', 'updated_at'];
