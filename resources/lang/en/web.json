@@ -409,6 +409,7 @@
     "posts_not_found": "No articles where found in our archive"
   },
   "blog_post_item": {
-    "published_at": "Published at"
+    "published_at": "Published at",
+    "go_back": "Go back"
   }
 }

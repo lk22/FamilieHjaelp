@@ -414,11 +414,14 @@
   "language_da": "da",
   "language_en": "en",
   "blog_page": {
-    "headline": "Familiehjælps artikler",
+    "headline": "Find hjælp i vores blog",
+    "category_headline": "Bliv klogere på",
+    "count_headline": "Vi fandt {{count}} artikler ",
     "description": "Læs om de vigtigste emner der kan hjælpe jer som familie hele vejen rundt, benyt kategori vælgeren nedenfor for at læse de nødvendige artikler du har brug for",
     "posts_not_found": "Vi fandt ingen artikler."
   },
   "blog_post_item": {
-    "published_at": "Udgivet den"
+    "published_at": "Udgivet den",
+    "go_back": "Gå tilbage"
   }
 }

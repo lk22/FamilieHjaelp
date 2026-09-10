@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -215,24 +216,41 @@ class PageController extends Controller
     /**
      * Render blog page with featured and regular blog posts
      *
-     * @return \Inertia\Response
+     * @return Response
      */
-    public function blog(): Response
+    public function blog(string $locale, $category = null): Response
     {
         $locale = app()->getLocale();
+        $categories = Category::all();
+        $cat = Category::where('slug', $category)->first();
         $featured = Post::where('locale', $locale)->latest()->first();
-        $posts = Post::where('is_published', true)->where('locale', $locale)->get();
-        $posts = $posts->sortByDesc('published_at');
+        $posts = Post::where('locale', $locale)
+            ->where('is_published', true);
 
-        $posts = $posts->values(); // Reindex the collection after sorting
+        if ( $category ) {
+            $posts = $posts->whereHas('categories', function ($query) use ($category) {
+                $query->where('slug', $category);
+            });
+        }
+
+        $posts = $posts->latest()->get();
 
         return Inertia::render('blog', [
             'posts' => $posts,
             'featured' => $featured,
             'locale' => $locale,
+            'categories' => $categories,
+            'category' => $cat->name ?? null,
         ]);
     }
 
+    /**
+     * Render a single blog post page
+     *
+     * @param string $locale
+     * @param Post $post
+     * @return Response
+     */
     public function blogPost(string $locale, Post $post): Response
     {
         $locale = app()->getLocale();

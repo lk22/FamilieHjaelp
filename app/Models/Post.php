@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
+
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Category;
@@ -78,6 +80,27 @@ class Post extends Model
     {
         return Attribute::make(
             get: fn () => $this->featured_image ? Storage::url($this->featured_image) : null
+        );
+    }
+
+    public function getIsPublished(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->is_published
+        );
+    }
+
+    public function getIsFeatured(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->is_featured
+        );
+    }
+
+    public function getByCategory(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->categories
         );
     }
 }

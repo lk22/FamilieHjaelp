@@ -1,5 +1,8 @@
 # Laravel + React Starter Kit
 
+[![tests](https://github.com/lk22/FamilieHjaelp/actions/workflows/test_ui.yml/badge.svg)](https://github.com/lk22/FamilieHjaelp/actions/workflows/test_ui.yml)
+[![linter](https://github.com/lk22/FamilieHjaelp/actions/workflows/lint.yml/badge.svg)](https://github.com/lk22/FamilieHjaelp/actions/workflows/lint.yml)
+
 ## Introduction
 
 Our React starter kit provides a robust, modern starting point for building Laravel applications with a React frontend using [Inertia](https://inertiajs.com).
