@@ -17,12 +17,15 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 use App\Filament\Resources\Posts\Widgets\PostOverviewWidget;
 
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
+
+    protected static string | UnitEnum | null $navigationGroup = 'Content';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 

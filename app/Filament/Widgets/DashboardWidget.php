@@ -13,13 +13,6 @@ class DashboardWidget extends Widget
 
     public function mount()
     {
-        $this->posts = Post::where('is_published', true)->latest()->get()->map(function ($post) {
-            return [
-                'title' => $post->title,
-                'excerpt' => $post->excerpt,
-                'locale' => $post->locale,
-                'categories' => $post->categories->pluck('name')->toArray(),
-            ];
-        })->toArray();
+
     }
 }
