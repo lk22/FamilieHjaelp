@@ -103,7 +103,7 @@ Route::get('/app/profile/overview/', [ProfileOverviewController::class, 'show'])
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+        return Inertia::render('admin/dashboard');
     })->name('dashboard');
 
     Route::get('/app/profile/overview', [ProfileOverviewController::class, 'index'])->name('profile.home');
