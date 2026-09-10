@@ -4,6 +4,7 @@ import { memo } from "react";
 import {usePage} from "@inertiajs/react";
 import { type SharedData } from '@/types';
 import { useTranslation } from "react-i18next";
+import {localizeRoute} from "@/util/localizeRoute";
 
 // Component imports
 import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
@@ -23,7 +24,7 @@ interface MainNavigationProps {
 const MobileNavigation = ({ openAuthDialog, closeAuthDialog, isAuthDialogOpen, isNavOpen, toggleMobileNav }: MainNavigationProps) => {
   const { locale } = usePage<SharedData>().props;
   const { t } = useTranslation();
-  const localized = (name:string, params: Record<string, any> = {}) => route(name, { ...params, locale});
+  const localized = localizeRoute(locale);
 
   const navClasses = `w-full bg-blue-900 h-full fixed bottom-0 top-0 left-0 transition-transform duration-300 ${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`;
 

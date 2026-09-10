@@ -14,7 +14,6 @@ import AuthRegisterDialog from "../Dialogs/AuthRegisterDialog";
 import { type SharedData } from '@/types';
 
 interface MainNavigationProps {
-  openAuthDialog: () => void;
   closeAuthDialog: () => void;
 }
 
@@ -25,7 +24,7 @@ interface NavLinkProps {
   subNavItems?: NavLinkProps[];
 }
 
-const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps) => {
+const MainNavigation = ({ closeAuthDialog }: MainNavigationProps) => {
   const { locale } = usePage<SharedData>().props;
   const { t } = useTranslation();
   const localized = localizeRoute(locale);
@@ -107,11 +106,6 @@ const MainNavigation = ({ openAuthDialog, closeAuthDialog }: MainNavigationProps
       title: t('menu.new_parents')
     }
   ];
-
-  const handleOpenAuthDialog = useCallback(() => {
-    setIsAuthDialogOpen(true);
-    openAuthDialog();
-  }, [openAuthDialog]);
 
   const handleCloseAuthDialog = useCallback(() => {
     setIsAuthDialogOpen(false);

@@ -26,7 +26,7 @@ export default function MainNav() {
         setIsAuthDialogOpen(false);
       }
     }
-  }, [isAuthDialogOpen]);
+  }, []);
 
   useEffect(() => {
     handleResize();
