@@ -418,7 +418,8 @@
     "category_headline": "Bliv klogere på",
     "count_headline": "Vi fandt {{count}} artikler ",
     "description": "Læs om de vigtigste emner der kan hjælpe jer som familie hele vejen rundt, benyt kategori vælgeren nedenfor for at læse de nødvendige artikler du har brug for",
-    "posts_not_found": "Vi fandt ingen artikler."
+    "posts_not_found": "Vi fandt ingen artikler.",
+    "posts_not_found_description": "Vi kunne ikke finde nogen artikler i biblioteket"
   },
   "blog_post_item": {
     "published_at": "Udgivet den",

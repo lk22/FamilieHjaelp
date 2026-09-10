@@ -3,10 +3,18 @@ import { useTranslation } from "react-i18next";
 import { Link } from '@inertiajs/react';
 import { localizeRoute } from "@/util/localizeRoute";
 
+import type { PostItem } from "@/types/blog";
+
 // Layout component imports
 import WebLayout from "@/layouts/web-layout";
 
-export default function Post({post, locale}) {
+export default function Post({
+  post,
+  locale
+}: {
+  post: PostItem,
+  locale: string
+}) {
     const { t } = useTranslation();
     const localized = localizeRoute(locale)
 
