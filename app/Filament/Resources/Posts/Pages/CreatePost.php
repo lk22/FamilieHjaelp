@@ -17,7 +17,7 @@ class CreatePost extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = auth()->id;
         $data["slug"] = Str::slug($data['title']);
         $locale = $data['locale'] ?? 'da';
         $data['url'] = url($locale . '/blog/articles/' . $data['slug']);
