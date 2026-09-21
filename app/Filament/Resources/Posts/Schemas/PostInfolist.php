@@ -10,7 +10,6 @@ use Illuminate\Support\HtmlString;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 
-
 class PostInfolist
 {
     public static function configure(Schema $schema): Schema
