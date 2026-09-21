@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Filament\Resources\Testimonials\Tables;
-
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -17,7 +18,11 @@ class TestimonialsTable
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title')->sortable()->searchable(),
+                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('locale')->sortable()->searchable(),
+                ImageColumn::make('image'),
+                TextColumn::make('content')->limit(50),
             ])
             ->filters([
                 TrashedFilter::make(),
