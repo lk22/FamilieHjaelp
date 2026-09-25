@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Testimonial;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -16,7 +17,15 @@ class PageController extends Controller
      */
     public function home(): Response
     {
-        return Inertia::render('index');
+        $locale = app()->getLocale();
+        $posts = Post::where('locale', $locale)->latest()->limit(3)->get();
+
+        $testimonials = Testimonial::latest()->limit(3)->get();
+
+        return Inertia::render('index', [
+            'posts' => $posts,
+            'testimonials' => $testimonials,
+        ]);
     }
 
     /**

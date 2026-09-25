@@ -81,6 +81,11 @@
     },
       "helping_resources": {
       "cta": "Se hjælpemidler"
+    },
+    "posts": {
+      "title": "Læs vores blog for flere historier og læring",
+      "subtitle": "Hold dig opdateret med de nyeste historier og læring fra vores blog",
+      "view_all": "Se alle indlæg"
     }
   },
   "helpingResources": {
