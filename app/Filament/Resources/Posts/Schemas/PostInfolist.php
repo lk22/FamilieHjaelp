@@ -8,9 +8,7 @@ use Filament\Infolists\Components\ImageEntry;
 use Illuminate\Support\HtmlString;
 
 use Filament\Schemas\Components\Grid;
-use Filament\Schemas\Components\Flex;
 use Filament\Schemas\Components\Section;
-
 
 class PostInfolist
 {

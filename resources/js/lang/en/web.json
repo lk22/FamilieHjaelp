@@ -85,6 +85,11 @@
     },
     "helping_resources": {
       "cta": "See helping resources"
+    },
+    "posts": {
+      "title": "Read our blog for more stories and learning",
+      "subtitle": "Stay updated with the latest stories and learning from our blog",
+      "view_all": "View all posts"
     }
   },
   "functions": {

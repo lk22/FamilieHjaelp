@@ -19,10 +19,25 @@ import {
     ChevronRight
 } from 'lucide-react';
 
-export default function Welcome() {
+import {type PostItem} from '@/types/blog';
+import {type TestimonialItem} from '../types/Testimonial';
+
+import { formatExcerpt } from '@/lib/Blog';
+
+interface WelcomeProps {
+    posts: Array<PostItem>
+    testimonials: Array<TestimonialItem>
+}
+
+export default function Welcome({ posts, testimonials }: WelcomeProps) {
     const { locale } = usePage<SharedData>().props;
     const { t } = useTranslation('web');
     const localized = localizeRoute(locale);
+
+    const testimonialsCount = testimonials.length;
+    const hasTestimonials = testimonialsCount > 0;
+    const postsCount = posts.length;
+    const hasPosts = postsCount > 0;
 
     return (
         <>
@@ -257,6 +272,39 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
+                {
+                    hasPosts && (
+                        <>
+                            <section id="posts-section">
+                               <div className="container mx-auto my-32">
+                                   <h3 className="text-5xl font-bold mb-4 text-blue-800 text-start">{t('frontpage.posts.title')}</h3>
+                                   <p className="text-start">{t('frontpage.posts.subtitle')}</p>
+                                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                                       {/* Render posts here */}
+                                       {
+                                        posts.map((post: PostItem) => (
+
+                                            <div key={post.id} className="w-full">
+                                                <Link href={route('page.blog.article', {post: post.slug, locale: locale})} key={post.id}>
+                                                <img src={`/storage/${post.featured_image}`} alt={post.title} className="mb-4 w-full h-[400px] object-cover rounded h-36" />
+                                                <h4 className="text-2xl font-bold mb-2 text-blue-900">{post.title}</h4>
+                                                <p className="text-zinc-600 dark:text-blue-900 leading-6" dangerouslySetInnerHTML={{ __html: formatExcerpt(post.excerpt) }}></p>
+                                                </Link>
+                                            </div>
+                                        ))
+                                       }
+                                   </div>
+                                   <div className="flex justify-center mt-12">
+                                    <Link href={route('page.blog', {locale: locale})} className="bg-blue-800 text-white px-4 py-2 rounded-full">
+                                        {t('frontpage.posts.view_all')}
+                                        <ChevronRight className="inline-block ml-2" />
+                                    </Link>
+                                   </div>
+                               </div>
+                            </section>
+                        </>
+                    )
+                }
                 <section>
                     <div className="container mx-auto my-32">
                         <motion.div

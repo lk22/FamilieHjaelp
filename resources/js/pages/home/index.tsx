@@ -59,7 +59,7 @@ export default function Welcome() {
                                                         Log ind
                                                     </Link>
                                                 </Button>
-                                            </div>
+                                            </div>$
                                         </>
                                     ) : (
                                         <>
