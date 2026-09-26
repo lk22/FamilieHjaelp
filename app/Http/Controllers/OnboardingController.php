@@ -108,7 +108,7 @@ class OnboardingController extends Controller
      */
     public function showStep(Request $request, string $scenario, string $step): Response|RedirectResponse
     {
-        $allowedScenarios = ['family'];
+        $allowedScenarios = ['abortion', 'stillbirth', 'parenting', 'family'];
 
         if (! in_array($scenario, $allowedScenarios)) {
             abort(404, 'Scenario not found.');
@@ -170,9 +170,11 @@ class OnboardingController extends Controller
         ]);
     }
 
-    public function showCompleted(): Response
+    public function showCompleted(Request $request): Response
     {
-        return inertia('home/onboarding/onboarding-completed');
+        return inertia('home/onboarding/onboarding-completed', [
+            'onboardingSessionToken' => $request->cookie('onboarding_session_token'),
+        ]);
     }
 
     /**

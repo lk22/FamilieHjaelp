@@ -95,4 +95,27 @@ class FamilyOnboardingTest extends TestCase
         $this->assertSame('completed', $session->current_step);
         $this->assertNotNull($session->completed_at);
     }
+
+    public function test_completing_onboarding_requires_session_token(): void
+    {
+        $response = $this->from(route('app.getting-started'))->post(route('onboarding.completed'), [
+            'data' => [],
+        ]);
+
+        $response->assertRedirect(route('app.getting-started'));
+        $response->assertSessionHasErrors(['data.session_token']);
+    }
+
+    public function test_completing_onboarding_with_invalid_token_returns_not_found(): void
+    {
+        OnboardingSession::factory()->create();
+
+        $response = $this->post(route('onboarding.completed'), [
+            'data' => [
+                'session_token' => 'invalid-token',
+            ],
+        ]);
+
+        $response->assertNotFound();
+    }
 }

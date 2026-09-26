@@ -66,9 +66,9 @@ class SubmitStepRequest extends FormRequest
                 'data.partnerName' => 'required_if:data.hasPartner,true|nullable|string|max:255',
                 'data.partnerAge' => 'required_if:data.hasPartner,true|nullable|integer|min:0|max:120',
                 'data.partnerFamilyTitle' => 'required_if:data.hasPartner,true|nullable|string|max:255',
-                'data.partnerNeedsUser' => 'nullable|boolean',
-                'data.partnerUserName' => 'required_if:data.partnerNeedsUser,true|nullable|string|max:255',
-                'data.partnerUserEmail' => 'required_if:data.partnerNeedsUser,true|nullable|email|max:255',
+                'data.partnerNeedsUser' => 'exclude_unless:data.hasPartner,true|nullable|boolean',
+                'data.partnerUserName' => 'exclude_unless:data.hasPartner,true|required_if:data.partnerNeedsUser,true|nullable|string|max:255',
+                'data.partnerUserEmail' => 'exclude_unless:data.hasPartner,true|required_if:data.partnerNeedsUser,true|nullable|email|max:255',
             ],
             'three' => [
                 'data.kids' => 'required|array|min:1',

@@ -17,7 +17,7 @@ interface OnboardingSessionProps {
 
 export default function GettingStarted({ onboardingSession }: OnboardingSessionProps) {
     const { name } = usePage<SharedData>().props;
-    const hasActiveSession = onboardingSession.nextStep !== null;
+    const hasActiveSession = onboardingSession.nextStep !== null && !onboardingSession.completed;
 
     return (
         <>
@@ -39,13 +39,15 @@ export default function GettingStarted({ onboardingSession }: OnboardingSessionP
                         </ul>
 
                         <div className="mt-8 flex flex-wrap gap-3">
-                            <Button asChild>
-                                <Link href={route('onboarding.scenario.step', { scenario: 'family', step: 'one' })}>Start onboarding</Link>
-                            </Button>
+                            {!hasActiveSession ? (
+                                <Button asChild>
+                                    <Link href={route('onboarding.scenario.step', { scenario: 'family', step: 'one' })}>Start onboarding</Link>
+                                </Button>
+                            ) : null}
 
                             {hasActiveSession ? (
                                 <>
-                                    <Button asChild variant="secondary">
+                                    <Button asChild>
                                         <Link
                                             href={route('onboarding.scenario.step', {
                                                 scenario: 'family',

@@ -3,7 +3,7 @@ import { Head, Link, usePage } from '@inertiajs/react';
 import { type SharedData } from '@/types';
 
 export default function OnboardingCompleted() {
-    const { auth } = usePage<SharedData>().props;
+    const { auth, onboardingSessionToken } = usePage<SharedData & { onboardingSessionToken?: string | null }>().props;
 
     return (
         <>
@@ -21,10 +21,28 @@ export default function OnboardingCompleted() {
                             </Link>
                         ) : (
                             <div className="flex flex-wrap justify-center gap-3">
-                                <Link className="inline-block rounded bg-white px-6 py-3 font-semibold text-[#004EA7]" href={route('register')}>
+                                <Link
+                                    className="inline-block rounded bg-white px-6 py-3 font-semibold text-[#004EA7]"
+                                    href={route('register', {
+                                        _query: {
+                                            onboarding_completed: true,
+                                            redirect_to: 'onboarding.complete',
+                                            session_token: onboardingSessionToken,
+                                        },
+                                    })}
+                                >
                                     Opret bruger
                                 </Link>
-                                <Link className="inline-block rounded border border-white px-6 py-3 font-semibold text-white" href={route('login')}>
+                                <Link
+                                    className="inline-block rounded border border-white px-6 py-3 font-semibold text-white"
+                                    href={route('login', {
+                                        _query: {
+                                            onboarding_completed: true,
+                                            redirect_to: 'onboarding.complete',
+                                            session_token: onboardingSessionToken,
+                                        },
+                                    })}
+                                >
                                     Log ind
                                 </Link>
                             </div>

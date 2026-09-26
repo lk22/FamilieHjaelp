@@ -1,4 +1,5 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,8 +9,8 @@ import { type SharedData } from '@/types';
 type Kid = {
     gender: 'male' | 'female' | 'other';
     name: string;
-    ageYears: number;
-    ageMonths: number;
+    ageYears: string;
+    ageMonths: string;
 };
 
 interface SessionProps extends SharedData {
@@ -18,32 +19,76 @@ interface SessionProps extends SharedData {
     onboardingSession: {
         token: string | null;
         currentStep: string | null;
-        stepsData: Record<string, unknown>;
+        stepsData: {
+            one?: FamilyNameStepData;
+            two?: ParentStepData;
+            three?: KidsStepData;
+        };
         formData: Record<string, unknown>;
         completed: boolean;
     };
 }
 
+type FamilyNameStepData = {
+    familyName: string;
+};
+
+type ParentStepData = {
+    name: string;
+    age: string;
+    familyTitle: string;
+    hasPartner: boolean;
+    partnerName: string;
+    partnerAge: string;
+    partnerFamilyTitle: string;
+    partnerNeedsUser: boolean;
+    partnerUserName: string;
+    partnerUserEmail: string;
+};
+
+type KidsStepData = {
+    kids: Kid[];
+};
+
 export default function FamilyOnboardingStep() {
     const { currentStep, onboardingSession } = usePage<SessionProps>().props;
 
-    const one = (onboardingSession.stepsData?.one as Record<string, unknown> | undefined) ?? {};
-    const two = (onboardingSession.stepsData?.two as Record<string, unknown> | undefined) ?? {};
-    const three = (onboardingSession.stepsData?.three as Record<string, unknown> | undefined) ?? {};
+    const one: FamilyNameStepData = {
+        familyName: String(onboardingSession.stepsData.one?.familyName ?? ''),
+    };
+    const two: ParentStepData = {
+        name: String(onboardingSession.stepsData.two?.name ?? ''),
+        age: String(onboardingSession.stepsData.two?.age ?? ''),
+        familyTitle: String(onboardingSession.stepsData.two?.familyTitle ?? ''),
+        hasPartner: Boolean(onboardingSession.stepsData.two?.hasPartner ?? false),
+        partnerName: String(onboardingSession.stepsData.two?.partnerName ?? ''),
+        partnerAge: String(onboardingSession.stepsData.two?.partnerAge ?? ''),
+        partnerFamilyTitle: String(onboardingSession.stepsData.two?.partnerFamilyTitle ?? ''),
+        partnerNeedsUser: Boolean(onboardingSession.stepsData.two?.partnerNeedsUser ?? false),
+        partnerUserName: String(onboardingSession.stepsData.two?.partnerUserName ?? ''),
+        partnerUserEmail: String(onboardingSession.stepsData.two?.partnerUserEmail ?? ''),
+    };
+    const three: KidsStepData = onboardingSession.stepsData.three ?? { kids: [] };
+    const stepNumberByName: Record<string, string> = {
+        one: '1',
+        two: '2',
+        three: '3',
+        complete: '4',
+    };
 
     return (
         <main className="bg-[#004EA7] py-10 text-white">
             <Head title="Familie onboarding" />
             <div className="mx-auto w-full max-w-3xl px-6">
                 <h1 className="text-3xl font-bold">Familie onboarding</h1>
-                <p className="mt-2 text-lg">Trin {currentStep === 'complete' ? '4' : currentStep === 'three' ? '3' : currentStep === 'two' ? '2' : '1'} af 4</p>
+                <p className="mt-2 text-lg">Trin {stepNumberByName[currentStep] ?? '1'} af 4</p>
 
                 <div className="mt-8 rounded-lg bg-white p-6 text-black shadow">
                     {currentStep === 'one' ? <FamilyNameStep defaultFamilyName={String(one.familyName ?? '')} /> : null}
                     {currentStep === 'two' ? <ParentStep defaultData={two} /> : null}
                     {currentStep === 'three' ? <KidsStep defaultData={three} /> : null}
                     {currentStep === 'complete' ? (
-                        <CompleteStep token={onboardingSession.token} familyName={String(one.familyName ?? '')} parentData={two} kidsData={three} />
+                        <CompleteStep token={onboardingSession.token} familyName={one.familyName} parentData={two} kidsData={three} />
                     ) : null}
                 </div>
             </div>
@@ -80,32 +125,10 @@ function FamilyNameStep({ defaultFamilyName }: { defaultFamilyName: string }) {
     );
 }
 
-function ParentStep({ defaultData }: { defaultData: Record<string, unknown> }) {
-    const { data, setData, post, processing, errors } = useForm<{
+function ParentStep({ defaultData }: { defaultData: ParentStepData }) {
+    const { data, setData, post, processing, errors } = useForm<{ data: ParentStepData }>({
         data: {
-            name: string;
-            age: number;
-            familyTitle: string;
-            hasPartner: boolean;
-            partnerName: string;
-            partnerAge: number;
-            partnerFamilyTitle: string;
-            partnerNeedsUser: boolean;
-            partnerUserName: string;
-            partnerUserEmail: string;
-        };
-    }>({
-        data: {
-            name: String(defaultData.name ?? ''),
-            age: Number(defaultData.age ?? 0),
-            familyTitle: String(defaultData.familyTitle ?? ''),
-            hasPartner: Boolean(defaultData.hasPartner ?? false),
-            partnerName: String(defaultData.partnerName ?? ''),
-            partnerAge: Number(defaultData.partnerAge ?? 0),
-            partnerFamilyTitle: String(defaultData.partnerFamilyTitle ?? ''),
-            partnerNeedsUser: Boolean(defaultData.partnerNeedsUser ?? false),
-            partnerUserName: String(defaultData.partnerUserName ?? ''),
-            partnerUserEmail: String(defaultData.partnerUserEmail ?? ''),
+            ...defaultData,
         },
     });
 
@@ -120,20 +143,22 @@ function ParentStep({ defaultData }: { defaultData: Record<string, unknown> }) {
             <h2 className="text-2xl font-semibold">Hvem udfylder onboarding?</h2>
 
             <div className="grid gap-4 md:grid-cols-2">
-                <Field label="Navn" name="name" error={errors['data.name']}>
-                    <Input value={data.data.name} onChange={(event) => setData('data', { ...data.data, name: event.target.value })} />
+                <Field label="Navn" inputId="name" error={errors['data.name']}>
+                    <Input id="name" value={data.data.name} onChange={(event) => setData('data', { ...data.data, name: event.target.value })} />
                 </Field>
 
-                <Field label="Alder" name="age" error={errors['data.age']}>
+                <Field label="Alder" inputId="age" error={errors['data.age']}>
                     <Input
+                        id="age"
                         type="number"
                         value={data.data.age}
-                        onChange={(event) => setData('data', { ...data.data, age: Number(event.target.value) })}
+                        onChange={(event) => setData('data', { ...data.data, age: event.target.value })}
                     />
                 </Field>
 
-                <Field label="Familietitel" name="familyTitle" error={errors['data.familyTitle']}>
+                <Field label="Familietitel" inputId="familyTitle" error={errors['data.familyTitle']}>
                     <Input
+                        id="familyTitle"
                         value={data.data.familyTitle}
                         onChange={(event) => setData('data', { ...data.data, familyTitle: event.target.value })}
                         placeholder="Fx Mor, Far, Omsorgsfar"
@@ -160,7 +185,7 @@ function ParentStep({ defaultData }: { defaultData: Record<string, unknown> }) {
                                 hasPartner: false,
                                 partnerNeedsUser: false,
                                 partnerName: '',
-                                partnerAge: 0,
+                                partnerAge: '',
                                 partnerFamilyTitle: '',
                                 partnerUserName: '',
                                 partnerUserEmail: '',
@@ -177,23 +202,26 @@ function ParentStep({ defaultData }: { defaultData: Record<string, unknown> }) {
                 <div className="space-y-4 rounded border p-4">
                     <h3 className="text-lg font-semibold">Partner information</h3>
                     <div className="grid gap-4 md:grid-cols-2">
-                        <Field label="Partner navn" name="partnerName" error={errors['data.partnerName']}>
+                        <Field label="Partner navn" inputId="partnerName" error={errors['data.partnerName']}>
                             <Input
+                                id="partnerName"
                                 value={data.data.partnerName}
                                 onChange={(event) => setData('data', { ...data.data, partnerName: event.target.value })}
                             />
                         </Field>
 
-                        <Field label="Partner alder" name="partnerAge" error={errors['data.partnerAge']}>
+                        <Field label="Partner alder" inputId="partnerAge" error={errors['data.partnerAge']}>
                             <Input
+                                id="partnerAge"
                                 type="number"
                                 value={data.data.partnerAge}
-                                onChange={(event) => setData('data', { ...data.data, partnerAge: Number(event.target.value) })}
+                                onChange={(event) => setData('data', { ...data.data, partnerAge: event.target.value })}
                             />
                         </Field>
 
-                        <Field label="Partner familietitel" name="partnerFamilyTitle" error={errors['data.partnerFamilyTitle']}>
+                        <Field label="Partner familietitel" inputId="partnerFamilyTitle" error={errors['data.partnerFamilyTitle']}>
                             <Input
+                                id="partnerFamilyTitle"
                                 value={data.data.partnerFamilyTitle}
                                 onChange={(event) => setData('data', { ...data.data, partnerFamilyTitle: event.target.value })}
                             />
@@ -222,15 +250,17 @@ function ParentStep({ defaultData }: { defaultData: Record<string, unknown> }) {
 
                     {data.data.partnerNeedsUser ? (
                         <div className="grid gap-4 md:grid-cols-2">
-                            <Field label="Partner bruger navn" name="partnerUserName" error={errors['data.partnerUserName']}>
+                            <Field label="Partner bruger navn" inputId="partnerUserName" error={errors['data.partnerUserName']}>
                                 <Input
+                                    id="partnerUserName"
                                     value={data.data.partnerUserName}
                                     onChange={(event) => setData('data', { ...data.data, partnerUserName: event.target.value })}
                                 />
                             </Field>
 
-                            <Field label="Partner email" name="partnerUserEmail" error={errors['data.partnerUserEmail']}>
+                            <Field label="Partner email" inputId="partnerUserEmail" error={errors['data.partnerUserEmail']}>
                                 <Input
+                                    id="partnerUserEmail"
                                     type="email"
                                     value={data.data.partnerUserEmail}
                                     onChange={(event) => setData('data', { ...data.data, partnerUserEmail: event.target.value })}
@@ -253,28 +283,32 @@ function ParentStep({ defaultData }: { defaultData: Record<string, unknown> }) {
     );
 }
 
-function KidsStep({ defaultData }: { defaultData: Record<string, unknown> }) {
-    const defaultKids: Kid[] = Array.isArray(defaultData.kids)
-        ? (defaultData.kids as Record<string, unknown>[]).map((kid) => ({
-              gender: kid.gender === 'male' || kid.gender === 'other' ? kid.gender : 'female',
-              name: String(kid.name ?? ''),
-              ageYears: Number(kid.ageYears ?? 0),
-              ageMonths: Number(kid.ageMonths ?? 0),
-          }))
-        : [
-              {
-                  gender: 'female',
-                  name: '',
-                  ageYears: 0,
-                  ageMonths: 0,
-              },
-          ];
+function KidsStep({ defaultData }: { defaultData: KidsStepData }) {
+    const normalizedKids = defaultData.kids.map((kid) => ({
+        gender: kid.gender,
+        name: kid.name,
+        ageYears: String(kid.ageYears ?? ''),
+        ageMonths: String(kid.ageMonths ?? ''),
+    }));
+
+    const defaultKids: Kid[] =
+        normalizedKids.length > 0
+            ? normalizedKids
+            : [
+                  {
+                      gender: 'female',
+                      name: '',
+                      ageYears: '',
+                      ageMonths: '',
+                  },
+              ];
 
     const { data, setData, post, processing, errors } = useForm<{ data: { kids: Kid[] } }>({
         data: {
             kids: defaultKids,
         },
     });
+    const [kidKeys, setKidKeys] = useState<string[]>(() => defaultKids.map(() => crypto.randomUUID()));
 
     const updateKid = (index: number, kidData: Partial<Kid>) => {
         const updatedKids = [...data.data.kids];
@@ -286,14 +320,15 @@ function KidsStep({ defaultData }: { defaultData: Record<string, unknown> }) {
     };
 
     const addKid = () => {
+        setKidKeys((previousKeys) => [...previousKeys, crypto.randomUUID()]);
         setData('data', {
             kids: [
                 ...data.data.kids,
                 {
                     gender: 'female',
                     name: '',
-                    ageYears: 0,
-                    ageMonths: 0,
+                    ageYears: '',
+                    ageMonths: '',
                 },
             ],
         });
@@ -304,6 +339,7 @@ function KidsStep({ defaultData }: { defaultData: Record<string, unknown> }) {
             return;
         }
 
+        setKidKeys((previousKeys) => previousKeys.filter((_, keyIndex) => keyIndex !== index));
         setData('data', {
             kids: data.data.kids.filter((_, kidIndex) => kidIndex !== index),
         });
@@ -321,18 +357,25 @@ function KidsStep({ defaultData }: { defaultData: Record<string, unknown> }) {
             <p className="text-sm text-gray-600">Du kan tilføje et eller flere børn.</p>
 
             {data.data.kids.map((kid, index) => (
-                <div className="space-y-3 rounded border p-4" key={index}>
+                <div className="space-y-3 rounded border p-4" key={kidKeys[index]}>
                     <div className="flex items-center justify-between">
                         <h3 className="font-semibold">Barn {index + 1}</h3>
-                        <Button disabled={data.data.kids.length === 1} onClick={() => removeKid(index)} type="button" variant="outline">
+                        <Button
+                            aria-label={`Fjern barn ${index + 1}`}
+                            disabled={data.data.kids.length === 1}
+                            onClick={() => removeKid(index)}
+                            type="button"
+                            variant="outline"
+                        >
                             Fjern
                         </Button>
                     </div>
 
                     <div className="grid gap-4 md:grid-cols-2">
-                        <Field label="Køn" name={`kid-${index}-gender`} error={errors[`data.kids.${index}.gender`]}>
+                        <Field label="Køn" inputId={`kid-${index}-gender`} error={errors[`data.kids.${index}.gender`]}>
                             <select
-                                className="h-10 rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+                                id={`kid-${index}-gender`}
+                                className="h-10 rounded-md border border-input bg-white px-3 py-2 text-sm text-black"
                                 value={kid.gender}
                                 onChange={(event) => updateKid(index, { gender: event.target.value as Kid['gender'] })}
                             >
@@ -342,23 +385,25 @@ function KidsStep({ defaultData }: { defaultData: Record<string, unknown> }) {
                             </select>
                         </Field>
 
-                        <Field label="Navn" name={`kid-${index}-name`} error={errors[`data.kids.${index}.name`]}>
-                            <Input value={kid.name} onChange={(event) => updateKid(index, { name: event.target.value })} />
+                        <Field label="Navn" inputId={`kid-${index}-name`} error={errors[`data.kids.${index}.name`]}>
+                            <Input id={`kid-${index}-name`} value={kid.name} onChange={(event) => updateKid(index, { name: event.target.value })} />
                         </Field>
 
-                        <Field label="Alder (år)" name={`kid-${index}-ageYears`} error={errors[`data.kids.${index}.ageYears`]}>
+                        <Field label="Alder (år)" inputId={`kid-${index}-ageYears`} error={errors[`data.kids.${index}.ageYears`]}>
                             <Input
+                                id={`kid-${index}-ageYears`}
                                 type="number"
                                 value={kid.ageYears}
-                                onChange={(event) => updateKid(index, { ageYears: Number(event.target.value) })}
+                                onChange={(event) => updateKid(index, { ageYears: event.target.value })}
                             />
                         </Field>
 
-                        <Field label="Alder (måneder)" name={`kid-${index}-ageMonths`} error={errors[`data.kids.${index}.ageMonths`]}>
+                        <Field label="Alder (måneder)" inputId={`kid-${index}-ageMonths`} error={errors[`data.kids.${index}.ageMonths`]}>
                             <Input
+                                id={`kid-${index}-ageMonths`}
                                 type="number"
                                 value={kid.ageMonths}
-                                onChange={(event) => updateKid(index, { ageMonths: Number(event.target.value) })}
+                                onChange={(event) => updateKid(index, { ageMonths: event.target.value })}
                             />
                         </Field>
                     </div>
@@ -392,11 +437,11 @@ function CompleteStep({
 }: {
     token: string | null;
     familyName: string;
-    parentData: Record<string, unknown>;
-    kidsData: Record<string, unknown>;
+    parentData: ParentStepData;
+    kidsData: KidsStepData;
 }) {
-    const kids = Array.isArray(kidsData.kids) ? (kidsData.kids as Kid[]) : [];
-    const { data, setData, post, processing } = useForm<{ data: { session_token: string | null } }>({
+    const kids = kidsData.kids;
+    const { post, processing } = useForm<{ data: { session_token: string | null } }>({
         data: {
             session_token: token,
         },
@@ -441,13 +486,6 @@ function CompleteStep({
                 ))}
             </div>
 
-            <input
-                name="data.session_token"
-                type="hidden"
-                value={data.data.session_token ?? ''}
-                onChange={(event) => setData('data', { session_token: event.target.value })}
-            />
-
             <div className="flex flex-wrap gap-3">
                 <Button asChild type="button" variant="outline">
                     <Link href={route('onboarding.scenario.step', { scenario: 'family', step: 'three' })}>Tilbage</Link>
@@ -456,6 +494,7 @@ function CompleteStep({
                     Fuldfør onboarding
                 </Button>
             </div>
+            {!token ? <p className="text-sm text-red-600">Sessionen mangler. Start onboarding forfra for at fuldføre.</p> : null}
         </form>
     );
 }
@@ -463,17 +502,17 @@ function CompleteStep({
 function Field({
     children,
     error,
+    inputId,
     label,
-    name,
 }: {
     children: React.ReactNode;
     error?: string;
+    inputId: string;
     label: string;
-    name: string;
 }) {
     return (
         <div className="space-y-2">
-            <Label htmlFor={name}>{label}</Label>
+            <Label htmlFor={inputId}>{label}</Label>
             {children}
             {error ? <p className="text-sm text-red-600">{error}</p> : null}
         </div>
