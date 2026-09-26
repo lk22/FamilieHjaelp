@@ -22,8 +22,6 @@ import {
 import {type PostItem} from '@/types/blog';
 import {type TestimonialItem} from '../types/Testimonial';
 
-import { formatExcerpt } from '@/lib/Blog';
-
 interface WelcomeProps {
     posts: Array<PostItem>
     testimonials: Array<TestimonialItem>
