@@ -108,7 +108,7 @@ class OnboardingController extends Controller
      */
     public function showStep(Request $request, string $scenario, string $step): Response|RedirectResponse
     {
-        $allowedScenarios = ['abortion', 'stillbirth', 'parenting'];
+        $allowedScenarios = ['family'];
 
         if (! in_array($scenario, $allowedScenarios)) {
             abort(404, 'Scenario not found.');
@@ -120,7 +120,7 @@ class OnboardingController extends Controller
             ?? $request->cookie('onboarding_session_token');
 
         if (! $token) {
-            return redirect()->route('getting-started')
+            return redirect()->route('app.getting-started')
                 ->with('error', 'Onboarding session token mangler.');
         }
 
@@ -217,6 +217,6 @@ class OnboardingController extends Controller
 
         cookie()->queue(cookie()->forget('onboarding_session_token'));
 
-        return redirect()->route('getting-started')->with('success', 'Onboarding has been reset successfully!');
+        return redirect()->route('app.getting-started')->with('success', 'Onboarding has been reset successfully!');
     }
 }
