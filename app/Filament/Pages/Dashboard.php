@@ -14,8 +14,8 @@ class Dashboard extends BaseDashboard
     {
       return [
         UsersCountDashboardWidget::class,
-        OngoingOnboardingSessionsWidget::class,
         LatestRegisteredUsersCountWidget::class,
+        OngoingOnboardingSessionsWidget::class,
       ];
     }
 
