@@ -6,6 +6,7 @@ use Filament\Pages\Dashboard as BaseDashboard;
 
 use App\Filament\Widgets\UsersCountDashboardWidget;
 use App\Filament\Widgets\OngoingOnboardingSessionsWidget;
+use App\Filament\Widgets\LatestRegisteredUsersCountWidget;
 
 class Dashboard extends BaseDashboard
 {
@@ -13,12 +14,13 @@ class Dashboard extends BaseDashboard
     {
       return [
         UsersCountDashboardWidget::class,
+        LatestRegisteredUsersCountWidget::class,
         OngoingOnboardingSessionsWidget::class,
       ];
     }
 
     public function getColumns(): int|array
     {
-        return 2;
+        return 1;
     }
 }
