@@ -417,5 +417,8 @@
   "blog_post_item": {
     "published_at": "Published at",
     "go_back": "Go back"
+  },
+  "featured_blog_item": {
+    "published_string": "Published at "
   }
 }

@@ -1,5 +1,7 @@
 import { Link } from '@inertiajs/react';
 
+import { useTranslation } from 'react-i18next';
+
 import {
   type FeaturedItem
 } from "@/types/blog";
@@ -11,6 +13,8 @@ interface FeaturedBlogItemProps {
 }
 
 export default function FeaturedBlogItem({ featured, locale }: FeaturedBlogItemProps) {
+  const {t} = useTranslation();
+
   return (
     <div className="featured-blog-item-container relative max-w-[1200px] mx-auto mb-8">
       <Link href={route('page.blog.article', {post: featured.slug, locale: locale})} className="text-blue-700 text-primary font-bold text-lg">
@@ -35,7 +39,7 @@ export default function FeaturedBlogItem({ featured, locale }: FeaturedBlogItemP
           </picture>
           <div className="flex gap-4 mt-8">
             <p>
-              Offentliggjort D. {new Date(featured.published_at).toLocaleDateString()}
+              {t('featured_blog_item.published_string')} {new Date(featured.published_at).toLocaleDateString()}
             </p>
           </div>
             <h3>{featured.title}</h3>

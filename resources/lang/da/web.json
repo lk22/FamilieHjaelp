@@ -429,5 +429,8 @@
   "blog_post_item": {
     "published_at": "Udgivet den",
     "go_back": "Gå tilbage"
+  },
+  "featured_blog_item": {
+    "published_string": "Skrevet D. "
   }
 }

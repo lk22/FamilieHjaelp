@@ -8,19 +8,20 @@ import { type SharedData } from '@/types';
 
 // Utility imports
 import { localizeRoute } from "@/util/localizeRoute";
+import { formatExcerpt } from '../lib/Blog/index';
 
 // Layouts
 import WebLayout from '@/layouts/web-layout';
 
 // Component imports
 import GettingStartedCta from '@/components/WebLayout/GettingStartedCta';
-
 import {
     ChevronRight
 } from 'lucide-react';
 
 import {type PostItem} from '@/types/blog';
 import {type TestimonialItem} from '../types/Testimonial';
+
 
 interface WelcomeProps {
     posts: Array<PostItem>
@@ -145,20 +146,6 @@ export default function Welcome({ posts, testimonials }: WelcomeProps) {
                                 </Link>
                             </motion.div>
                         </div>
-                        {/* <div className="w-full xl:w-6/12 p-16 flex xl:justify-center xl:items-center">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                transition={{ duration: 0.8, delay: 1 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                            >
-                                <img
-                                    src="images/mockups/app.png"
-                                    width={400}
-                                    height={400}
-                                    alt="App image"
-                                />
-                            </motion.div>
-                        </div> */}
                     </div>
                 </section>
                 <section className="bg-blue-300">
