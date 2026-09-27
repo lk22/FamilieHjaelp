@@ -8,6 +8,7 @@ import { type SharedData } from '@/types';
 
 // Utility imports
 import { localizeRoute } from "@/util/localizeRoute";
+import { formatExcerpt } from '@/lib/Blog';
 
 // Layouts
 import WebLayout from '@/layouts/web-layout';

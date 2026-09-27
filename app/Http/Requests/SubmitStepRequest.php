@@ -45,8 +45,6 @@ class SubmitStepRequest extends FormRequest
     {
         return match("{$scenario}") {
             'family' => $this->familyRules($step),
-            'abortion' => $this->abortionRules($step),
-            'stillbirth' => $this->stillbirthRules($step),
             'parenting' => $this->parentingRules($step),
             default => []
         };
@@ -78,86 +76,6 @@ class SubmitStepRequest extends FormRequest
                 'data.kids.*.ageMonths' => 'required|integer|min:0|max:11',
             ],
             default => [],
-        };
-    }
-
-    private function abortionRules(string $step): array
-    {
-        return match($step) {
-            "one" => [
-                "data.name" => "required|string",
-                "data.age" => "required|integer",
-                "data.ageOfPartner" => "nullable|integer",
-                "data.gender" => "required|string"
-            ],
-            "two" => [
-                "data.abortionWeeks" => "required|integer",
-                "data.abortionMethod" => "required|string",
-                "data.hasBeenConsultedByDoctor" => "required|boolean",
-                "data.hasDoctorsPermit" => "required|boolean"
-            ],
-            "three" => [
-                "data.needsInterpreter" => "required|boolean",
-            ],
-            "four" => [
-                "data.wantsSupportConversation" => "required|boolean",
-            ],
-            "five" => [
-                "data.knowsConfidentialityRights" => "required|boolean",
-            ],
-            "six" => [
-                "data.wantsContraceptionInfo" => "required|boolean",
-            ],
-            "seven" => [
-                "data.needsPostpartumSupportInfo" => "required|boolean",
-            ],
-            "eight" => [
-                "data.wantsToBeContacted" => "required|boolean",
-                "data.contactEmail" => "required_if:data.wantsToBeContacted,true|email",
-            ],
-            default => []
-        };
-    }
-
-    private function stillbirthRules(string $step): array
-    {
-        return match($step) {
-            "one" => [
-                "data.name" => "required|string",
-                "data.age" => "required|integer",
-                "data.ageOfPartner" => "nullable|integer",
-                "data.gender" => "required|string"
-            ],
-            "two" => [
-                "data.weekNumber" => "required|integer",
-                "data.hasDoctorsPermit" => "required|boolean",
-                "data.hasBeenConsultedByDoctor" => "required|boolean",
-            ],
-            "three" => [
-                "data.needsToPlanFuneral" => "required|boolean",
-            ],
-            "four" => [
-                "data.hasReceivedDeathCertificate" => "required|boolean",
-            ],
-            "five" => [
-                "data.hasReceivedDeathCertificate" => "required|boolean",
-            ],
-            "six" => [
-                "data.wantsInformationAboutAutopsy" => "required|boolean",
-            ],
-            "seven" => [
-                "data.hasOtherChildrenAtHome" => "required|boolean",
-            ],
-            "eight" => [
-                "data.knowsSupportOptions" => "required|boolean",
-            ],
-            "nine" => [
-                "data.informedAboutBereavementLeave" => "required|boolean",
-            ],
-            "ten" => [
-                "data.needsHelpApplyingForBereavementLeave" => "required|boolean",
-            ],
-            default => []
         };
     }
 

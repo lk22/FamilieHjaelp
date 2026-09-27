@@ -169,6 +169,10 @@
     }
 }
 
+#app main#onboarding{
+    height: 100dvh;
+}
+
 /*
 * Animation keyframes
 */

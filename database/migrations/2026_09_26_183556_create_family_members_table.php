@@ -17,7 +17,7 @@ return new class extends Migration
             $table->boolean('has_account')->default(false);
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->enum('Child', [ 'Mom', 'Dad', 'Care dad', 'Care mom']);
+            $table->enum('family_role', [ 'Mom', 'Dad', 'Care dad', 'Care mom']);
             $table->integer('age');
             $table->string('email')->unique(); // this is used as unique email that the users is created by
             $table->string('attached_email'); // adds support for using same email for multiple family members

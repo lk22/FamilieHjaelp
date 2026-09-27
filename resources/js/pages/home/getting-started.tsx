@@ -23,7 +23,7 @@ export default function GettingStarted({ onboardingSession }: OnboardingSessionP
         <>
             <Head title={`Kom i gang | ${name}`} />
 
-            <main className="bg-[#004EA7] py-16 text-white">
+            <main className="bg-[#004EA7] py-16 text-white h-[100dvh]" id="onboarding">
                 <div className="mx-auto w-full max-w-3xl px-6">
                     <h1 className="text-3xl font-bold">Opret din familie</h1>
                     <p className="mt-4 text-lg">

@@ -11,6 +11,7 @@ type Kid = {
     name: string;
     ageYears: string;
     ageMonths: string;
+    ageWeeks: string;
 };
 
 interface SessionProps extends SharedData {
@@ -77,7 +78,7 @@ export default function FamilyOnboardingStep() {
     };
 
     return (
-        <main className="bg-[#004EA7] py-10 text-white">
+        <main className="flex items-center bg-[#004EA7] py-10 text-white" id="onboarding">
             <Head title="Familie onboarding" />
             <div className="mx-auto w-full max-w-3xl px-6">
                 <h1 className="text-3xl font-bold">Familie onboarding</h1>
@@ -142,18 +143,13 @@ function ParentStep({ defaultData }: { defaultData: ParentStepData }) {
         <form className="space-y-4" onSubmit={handleSubmit}>
             <h2 className="text-2xl font-semibold">Hvem udfylder onboarding?</h2>
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-1">
                 <Field label="Navn" inputId="name" error={errors['data.name']}>
                     <Input id="name" value={data.data.name} onChange={(event) => setData('data', { ...data.data, name: event.target.value })} />
                 </Field>
 
                 <Field label="Alder" inputId="age" error={errors['data.age']}>
-                    <Input
-                        id="age"
-                        type="number"
-                        value={data.data.age}
-                        onChange={(event) => setData('data', { ...data.data, age: event.target.value })}
-                    />
+                    <Input id="age" value={data.data.age} onChange={(event) => setData('data', { ...data.data, age: event.target.value })} />
                 </Field>
 
                 <Field label="Familietitel" inputId="familyTitle" error={errors['data.familyTitle']}>
@@ -173,12 +169,14 @@ function ParentStep({ defaultData }: { defaultData: ParentStepData }) {
                         type="button"
                         variant={data.data.hasPartner ? 'default' : 'outline'}
                         onClick={() => setData('data', { ...data.data, hasPartner: true })}
+                        className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white"
                     >
                         Ja
                     </Button>
                     <Button
                         type="button"
                         variant={!data.data.hasPartner ? 'default' : 'outline'}
+                        className="bg-red-900 text-white hover:bg-red-800 hover:text-white"
                         onClick={() =>
                             setData('data', {
                                 ...data.data,
@@ -201,7 +199,7 @@ function ParentStep({ defaultData }: { defaultData: ParentStepData }) {
             {data.data.hasPartner ? (
                 <div className="space-y-4 rounded border p-4">
                     <h3 className="text-lg font-semibold">Partner information</h3>
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <div className="grid gap-4 md:grid-cols-1">
                         <Field label="Partner navn" inputId="partnerName" error={errors['data.partnerName']}>
                             <Input
                                 id="partnerName"
@@ -213,7 +211,6 @@ function ParentStep({ defaultData }: { defaultData: ParentStepData }) {
                         <Field label="Partner alder" inputId="partnerAge" error={errors['data.partnerAge']}>
                             <Input
                                 id="partnerAge"
-                                type="number"
                                 value={data.data.partnerAge}
                                 onChange={(event) => setData('data', { ...data.data, partnerAge: event.target.value })}
                             />
@@ -235,6 +232,7 @@ function ParentStep({ defaultData }: { defaultData: ParentStepData }) {
                                 type="button"
                                 variant={data.data.partnerNeedsUser ? 'default' : 'outline'}
                                 onClick={() => setData('data', { ...data.data, partnerNeedsUser: true })}
+                                className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white"
                             >
                                 Ja
                             </Button>
@@ -242,6 +240,7 @@ function ParentStep({ defaultData }: { defaultData: ParentStepData }) {
                                 type="button"
                                 variant={!data.data.partnerNeedsUser ? 'default' : 'outline'}
                                 onClick={() => setData('data', { ...data.data, partnerNeedsUser: false, partnerUserName: '', partnerUserEmail: '' })}
+                                className="bg-red-900 text-white hover:bg-red-800 hover:text-white"
                             >
                                 Nej
                             </Button>
@@ -262,6 +261,7 @@ function ParentStep({ defaultData }: { defaultData: ParentStepData }) {
                                 <Input
                                     id="partnerUserEmail"
                                     type="email"
+                                    className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white"
                                     value={data.data.partnerUserEmail}
                                     onChange={(event) => setData('data', { ...data.data, partnerUserEmail: event.target.value })}
                                 />
@@ -272,10 +272,10 @@ function ParentStep({ defaultData }: { defaultData: ParentStepData }) {
             ) : null}
 
             <div className="flex flex-wrap gap-3">
-                <Button asChild type="button" variant="outline">
+                <Button asChild type="button" variant="outline" className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white">
                     <Link href={route('onboarding.scenario.step', { scenario: 'family', step: 'one' })}>Tilbage</Link>
                 </Button>
-                <Button disabled={processing} type="submit">
+                <Button disabled={processing} type="submit" className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white">
                     Næste
                 </Button>
             </div>
@@ -289,6 +289,7 @@ function KidsStep({ defaultData }: { defaultData: KidsStepData }) {
         name: kid.name,
         ageYears: String(kid.ageYears ?? ''),
         ageMonths: String(kid.ageMonths ?? ''),
+        ageWeeks: String(kid.ageWeeks ?? ''),
     }));
 
     const defaultKids: Kid[] =
@@ -300,6 +301,7 @@ function KidsStep({ defaultData }: { defaultData: KidsStepData }) {
                       name: '',
                       ageYears: '',
                       ageMonths: '',
+                      ageWeeks: '',
                   },
               ];
 
@@ -309,6 +311,7 @@ function KidsStep({ defaultData }: { defaultData: KidsStepData }) {
         },
     });
     const [kidKeys, setKidKeys] = useState<string[]>(() => defaultKids.map(() => crypto.randomUUID()));
+    const [openKidKeys, setOpenKidKeys] = useState<Set<string>>(() => new Set([kidKeys[0]]));
 
     const updateKid = (index: number, kidData: Partial<Kid>) => {
         const updatedKids = [...data.data.kids];
@@ -320,7 +323,10 @@ function KidsStep({ defaultData }: { defaultData: KidsStepData }) {
     };
 
     const addKid = () => {
-        setKidKeys((previousKeys) => [...previousKeys, crypto.randomUUID()]);
+        const newKidKey = crypto.randomUUID();
+
+        setKidKeys((previousKeys) => [...previousKeys, newKidKey]);
+        setOpenKidKeys((previousKeys) => new Set(previousKeys).add(newKidKey));
         setData('data', {
             kids: [
                 ...data.data.kids,
@@ -329,6 +335,7 @@ function KidsStep({ defaultData }: { defaultData: KidsStepData }) {
                     name: '',
                     ageYears: '',
                     ageMonths: '',
+                    ageWeeks: '',
                 },
             ],
         });
@@ -339,7 +346,15 @@ function KidsStep({ defaultData }: { defaultData: KidsStepData }) {
             return;
         }
 
+        const removedKidKey = kidKeys[index];
+
         setKidKeys((previousKeys) => previousKeys.filter((_, keyIndex) => keyIndex !== index));
+        setOpenKidKeys((previousKeys) => {
+            const nextKeys = new Set(previousKeys);
+            nextKeys.delete(removedKidKey);
+
+            return nextKeys;
+        });
         setData('data', {
             kids: data.data.kids.filter((_, kidIndex) => kidIndex !== index),
         });
@@ -357,9 +372,84 @@ function KidsStep({ defaultData }: { defaultData: KidsStepData }) {
             <p className="text-sm text-gray-600">Du kan tilføje et eller flere børn.</p>
 
             {data.data.kids.map((kid, index) => (
-                <div className="space-y-3 rounded border p-4" key={kidKeys[index]}>
-                    <div className="flex items-center justify-between">
-                        <h3 className="font-semibold">Barn {index + 1}</h3>
+                <details
+                    className="group rounded border"
+                    key={kidKeys[index]}
+                    open={openKidKeys.has(kidKeys[index])}
+                    onToggle={(event) => {
+                        const key = kidKeys[index];
+                        const isOpen = event.currentTarget.open;
+
+                        setOpenKidKeys((previousKeys) => {
+                            const nextKeys = new Set(previousKeys);
+
+                            if (isOpen) {
+                                nextKeys.add(key);
+                            } else {
+                                nextKeys.delete(key);
+                            }
+
+                            return nextKeys;
+                        });
+                    }}
+                >
+                    <summary className="flex cursor-pointer list-none items-center justify-between p-4 font-semibold [&::-webkit-details-marker]:hidden">
+                        <span>{kid.name || `Barn ${index + 1}`}</span>
+                        <span aria-hidden="true" className="text-xl leading-none transition-transform group-open:rotate-180">
+                            ↓
+                        </span>
+                    </summary>
+
+                    <div className="space-y-3 border-t p-4">
+                        <div className="grid gap-4 md:grid-cols-1">
+                            <Field label="Køn" inputId={`kid-${index}-gender`} error={errors[`data.kids.${index}.gender`]}>
+                                <select
+                                    id={`kid-${index}-gender`}
+                                    className="h-6 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-black"
+                                    value={kid.gender}
+                                    onChange={(event) => updateKid(index, { gender: event.target.value as Kid['gender'] })}
+                                >
+                                    <option value="female">Pige</option>
+                                    <option value="male">Dreng</option>
+                                    <option value="other">Andet</option>
+                                </select>
+                            </Field>
+
+                            <Field label="Navn" inputId={`kid-${index}-name`} error={errors[`data.kids.${index}.name`]}>
+                                <Input
+                                    id={`kid-${index}-name`}
+                                    value={kid.name}
+                                    onChange={(event) => updateKid(index, { name: event.target.value })}
+                                />
+                            </Field>
+
+                            <Field label="Alder (år)" inputId={`kid-${index}-ageYears`} error={errors[`data.kids.${index}.ageYears`]}>
+                                <Input
+                                    id={`kid-${index}-ageYears`}
+                                    type="number"
+                                    value={kid.ageYears}
+                                    onChange={(event) => updateKid(index, { ageYears: event.target.value })}
+                                />
+                            </Field>
+
+                            <Field label="Alder (måneder)" inputId={`kid-${index}-ageMonths`} error={errors[`data.kids.${index}.ageMonths`]}>
+                                <Input
+                                    id={`kid-${index}-ageMonths`}
+                                    type="number"
+                                    value={kid.ageMonths}
+                                    onChange={(event) => updateKid(index, { ageMonths: event.target.value })}
+                                />
+                            </Field>
+                            <Field label="Alder (uger)" inputId={`kid-${index}-ageWeeks`} error={errors[`data.kids.${index}.ageWeeks`]}>
+                                <Input
+                                    id={`kid-${index}-ageWeeks`}
+                                    type="number"
+                                    value={kid.ageWeeks}
+                                    onChange={(event) => updateKid(index, { ageWeeks: event.target.value })}
+                                />
+                            </Field>
+                        </div>
+
                         <Button
                             aria-label={`Fjern barn ${index + 1}`}
                             disabled={data.data.kids.length === 1}
@@ -370,58 +460,21 @@ function KidsStep({ defaultData }: { defaultData: KidsStepData }) {
                             Fjern
                         </Button>
                     </div>
-
-                    <div className="grid gap-4 md:grid-cols-2">
-                        <Field label="Køn" inputId={`kid-${index}-gender`} error={errors[`data.kids.${index}.gender`]}>
-                            <select
-                                id={`kid-${index}-gender`}
-                                className="h-10 rounded-md border border-input bg-white px-3 py-2 text-sm text-black"
-                                value={kid.gender}
-                                onChange={(event) => updateKid(index, { gender: event.target.value as Kid['gender'] })}
-                            >
-                                <option value="female">Pige</option>
-                                <option value="male">Dreng</option>
-                                <option value="other">Andet</option>
-                            </select>
-                        </Field>
-
-                        <Field label="Navn" inputId={`kid-${index}-name`} error={errors[`data.kids.${index}.name`]}>
-                            <Input id={`kid-${index}-name`} value={kid.name} onChange={(event) => updateKid(index, { name: event.target.value })} />
-                        </Field>
-
-                        <Field label="Alder (år)" inputId={`kid-${index}-ageYears`} error={errors[`data.kids.${index}.ageYears`]}>
-                            <Input
-                                id={`kid-${index}-ageYears`}
-                                type="number"
-                                value={kid.ageYears}
-                                onChange={(event) => updateKid(index, { ageYears: event.target.value })}
-                            />
-                        </Field>
-
-                        <Field label="Alder (måneder)" inputId={`kid-${index}-ageMonths`} error={errors[`data.kids.${index}.ageMonths`]}>
-                            <Input
-                                id={`kid-${index}-ageMonths`}
-                                type="number"
-                                value={kid.ageMonths}
-                                onChange={(event) => updateKid(index, { ageMonths: event.target.value })}
-                            />
-                        </Field>
-                    </div>
-                </div>
+                </details>
             ))}
 
             {errors['data.kids'] ? <p className="text-sm text-red-600">{errors['data.kids']}</p> : null}
 
             <div className="flex flex-wrap gap-3">
-                <Button onClick={addKid} type="button" variant="outline">
+                <Button onClick={addKid} type="button" variant="outline" className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white">
                     Tilføj barn
                 </Button>
 
-                <Button asChild type="button" variant="outline">
+                <Button asChild type="button" variant="outline" className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white">
                     <Link href={route('onboarding.scenario.step', { scenario: 'family', step: 'two' })}>Tilbage</Link>
                 </Button>
 
-                <Button disabled={processing} type="submit">
+                <Button disabled={processing} type="submit" className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white">
                     Gennemse svar
                 </Button>
             </div>
@@ -490,7 +543,7 @@ function CompleteStep({
                 <Button asChild type="button" variant="outline">
                     <Link href={route('onboarding.scenario.step', { scenario: 'family', step: 'three' })}>Tilbage</Link>
                 </Button>
-                <Button disabled={processing || !token} type="submit">
+                <Button disabled={processing || !token} type="submit" className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white">
                     Fuldfør onboarding
                 </Button>
             </div>
@@ -499,17 +552,7 @@ function CompleteStep({
     );
 }
 
-function Field({
-    children,
-    error,
-    inputId,
-    label,
-}: {
-    children: React.ReactNode;
-    error?: string;
-    inputId: string;
-    label: string;
-}) {
+function Field({ children, error, inputId, label }: { children: React.ReactNode; error?: string; inputId: string; label: string }) {
     return (
         <div className="space-y-2">
             <Label htmlFor={inputId}>{label}</Label>
