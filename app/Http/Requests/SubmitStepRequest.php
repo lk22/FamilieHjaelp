@@ -44,10 +44,40 @@ class SubmitStepRequest extends FormRequest
     protected function stepRules(string $scenario, string $step): array
     {
         return match("{$scenario}") {
+            'family' => $this->familyRules($step),
             'abortion' => $this->abortionRules($step),
             'stillbirth' => $this->stillbirthRules($step),
             'parenting' => $this->parentingRules($step),
             default => []
+        };
+    }
+
+    private function familyRules(string $step): array
+    {
+        return match ($step) {
+            'one' => [
+                'data.familyName' => 'required|string|max:255',
+            ],
+            'two' => [
+                'data.name' => 'required|string|max:255',
+                'data.age' => 'required|integer|min:0|max:120',
+                'data.familyTitle' => 'required|string|max:255',
+                'data.hasPartner' => 'required|boolean',
+                'data.partnerName' => 'required_if:data.hasPartner,true|nullable|string|max:255',
+                'data.partnerAge' => 'required_if:data.hasPartner,true|nullable|integer|min:0|max:120',
+                'data.partnerFamilyTitle' => 'required_if:data.hasPartner,true|nullable|string|max:255',
+                'data.partnerNeedsUser' => 'exclude_unless:data.hasPartner,true|nullable|boolean',
+                'data.partnerUserName' => 'exclude_unless:data.hasPartner,true|required_if:data.partnerNeedsUser,true|nullable|string|max:255',
+                'data.partnerUserEmail' => 'exclude_unless:data.hasPartner,true|required_if:data.partnerNeedsUser,true|nullable|email|max:255',
+            ],
+            'three' => [
+                'data.kids' => 'required|array|min:1',
+                'data.kids.*.gender' => 'required|string|in:male,female,other',
+                'data.kids.*.name' => 'required|string|max:255',
+                'data.kids.*.ageYears' => 'required|integer|min:0|max:25',
+                'data.kids.*.ageMonths' => 'required|integer|min:0|max:11',
+            ],
+            default => [],
         };
     }
 
