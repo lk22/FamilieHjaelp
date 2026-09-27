@@ -108,9 +108,7 @@ class OnboardingController extends Controller
      */
     public function showStep(Request $request, string $scenario, string $step): Response|RedirectResponse
     {
-        $allowedScenarios = ['abortion', 'stillbirth', 'parenting', 'family'];
-
-        if (! in_array($scenario, $allowedScenarios)) {
+        if ($scenario !== 'family') {
             abort(404, 'Scenario not found.');
         }
 

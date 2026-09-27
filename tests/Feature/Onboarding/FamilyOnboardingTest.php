@@ -118,4 +118,14 @@ class FamilyOnboardingTest extends TestCase
 
         $response->assertNotFound();
     }
+
+    public function test_show_step_returns_not_found_for_non_family_scenario(): void
+    {
+        $response = $this->get(route('onboarding.scenario.step', [
+            'scenario' => 'parenting',
+            'step' => 'one',
+        ]));
+
+        $response->assertNotFound();
+    }
 }
