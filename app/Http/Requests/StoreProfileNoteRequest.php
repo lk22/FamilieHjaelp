@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProfileNoteRequest extends FormRequest
@@ -26,14 +27,14 @@ class StoreProfileNoteRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            "noteContent" => ["required", "string", "max:1000"], // ← Fixed max length to match frontend
-            "user_id" => ["nullable", "integer"],
-            "child_id" => ["nullable", "integer"],
+            'noteContent' => ['required', 'string', 'max:1000'], // ← Fixed max length to match frontend
+            'user_id' => ['nullable', 'integer'],
+            'child_id' => ['nullable', 'integer'],
         ];
     }
 }

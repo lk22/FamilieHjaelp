@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-use App\Models\User;
-use App\Models\Note;
-
 class Profile extends Model
 {
     /**
@@ -22,7 +19,7 @@ class Profile extends Model
         'preferences',
         'meta_data',
         'onboarding_completed',
-        'onboarding_completed_at'
+        'onboarding_completed_at',
     ];
 
     /**
@@ -35,7 +32,7 @@ class Profile extends Model
         'preferences' => 'array',
         'meta_data' => 'array',
         'onboarding_completed' => 'boolean',
-        'onboarding_completed_at' => 'datetime'
+        'onboarding_completed_at' => 'datetime',
     ];
 
     /**
@@ -71,7 +68,7 @@ class Profile extends Model
     /**
      * Get the specific onboarding step
      *
-     * @param $step int
+     * @param  $step  int
      * @return ?array<string, mixed>
      */
     public function getOnboardingStep($step): ?array
@@ -82,9 +79,8 @@ class Profile extends Model
     /**
      * Set onboarding step
      *
-     * @param $step int
-     * @param $data array
-     * @return void
+     * @param  $step  int
+     * @param  $data  array
      */
     public function setOnboardingStep($step, $data): void
     {

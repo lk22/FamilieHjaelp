@@ -45,14 +45,14 @@ class AuthenticatedSessionController extends Controller
         $authenticatedUser = auth()->user();
 
         // if the authenticated user is not onboarded, redirect to the getting started page
-        if ( ! $is_onboarded && $authenticatedUser->has_completed_onboarding === false ) {
+        if (! $is_onboarded && $authenticatedUser->has_completed_onboarding === false) {
             return redirect()->intended(route(
                 RedirectRoute::GETTING_STARTED_REDIRECT_ROUTE,
                 absolute: false
             ));
         }
 
-        if ( $request->redirect_to ) {
+        if ($request->redirect_to) {
             return redirect()->intended(route($request->redirect_to, absolute: false));
         }
 

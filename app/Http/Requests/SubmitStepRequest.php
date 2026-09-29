@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SubmitStepRequest extends FormRequest
@@ -17,7 +18,7 @@ class SubmitStepRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -26,24 +27,24 @@ class SubmitStepRequest extends FormRequest
 
         return [
             'data' => ['required', 'array'],
-            ...$this->stepRules($scenario, $step)
+            ...$this->stepRules($scenario, $step),
         ];
     }
 
     public function messages(): array
     {
         return [
-            "data.*" => "Please provide valid input for all fields.",
-            "data.*.required" => "The :attribute field is required.",
-            "data.*.string" => "The :attribute field must be a string.",
-            "data.*.required_if" => "The :attribute field is required when :other is :value.",
-            "data.*.email" => "The :attribute field must be a valid email address"
+            'data.*' => 'Please provide valid input for all fields.',
+            'data.*.required' => 'The :attribute field is required.',
+            'data.*.string' => 'The :attribute field must be a string.',
+            'data.*.required_if' => 'The :attribute field is required when :other is :value.',
+            'data.*.email' => 'The :attribute field must be a valid email address',
         ];
     }
 
     protected function stepRules(string $scenario, string $step): array
     {
-        return match("{$scenario}") {
+        return match ("{$scenario}") {
             'family' => $this->familyRules($step),
             'parenting' => $this->parentingRules($step),
             default => []
@@ -81,45 +82,45 @@ class SubmitStepRequest extends FormRequest
 
     private function parentingRules(string $step): array
     {
-        return match($step) {
-            "one" => [
-                "data.birthDate" => "required|date",
+        return match ($step) {
+            'one' => [
+                'data.birthDate' => 'required|date',
             ],
-            "two" => [
-                "data.hasReturnedHome" => "required|boolean",
+            'two' => [
+                'data.hasReturnedHome' => 'required|boolean',
             ],
-            "three" => [
-                "data.isFirstChild" => "required|boolean",
+            'three' => [
+                'data.isFirstChild' => 'required|boolean',
             ],
-            "fourth" => [
-                "data.contactedByMidwifeOrHealthVisitor" => "required|boolean",
+            'fourth' => [
+                'data.contactedByMidwifeOrHealthVisitor' => 'required|boolean',
             ],
-            "five" => [
-                "data.childTestProcessPlanned" => "required|boolean",
+            'five' => [
+                'data.childTestProcessPlanned' => 'required|boolean',
             ],
-            "six" => [
-                "data.needsInfoOnParentalLeave" => "required|boolean",
+            'six' => [
+                'data.needsInfoOnParentalLeave' => 'required|boolean',
             ],
-            "seven" => [
-                "data.knowsChildBenefitsAndCheckups" => "required|boolean",
+            'seven' => [
+                'data.knowsChildBenefitsAndCheckups' => 'required|boolean',
             ],
-            "eight" => [
-                "data.wellbeingChallenges" => "required|boolean",
+            'eight' => [
+                'data.wellbeingChallenges' => 'required|boolean',
             ],
-            "nine" => [
-                "data.needsSupportForPostpartumIssues" => "required|boolean",
+            'nine' => [
+                'data.needsSupportForPostpartumIssues' => 'required|boolean',
             ],
-            "ten" => [
-                "data.wantsToJoinParentGroups" => "required|boolean",
+            'ten' => [
+                'data.wantsToJoinParentGroups' => 'required|boolean',
             ],
-            "eleven" => [
-                "data.hasPlannedDaycare" => "required|boolean",
+            'eleven' => [
+                'data.hasPlannedDaycare' => 'required|boolean',
             ],
-            "twelve" => [
-                "data.knowsHealthVisitorSchedule" => "required|boolean",
+            'twelve' => [
+                'data.knowsHealthVisitorSchedule' => 'required|boolean',
             ],
-            "thirteen" => [
-                "data.hasHealthConcerns" => "required|boolean",
+            'thirteen' => [
+                'data.hasHealthConcerns' => 'required|boolean',
             ],
             default => []
         };

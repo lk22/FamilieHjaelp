@@ -2,20 +2,19 @@
 
 namespace App\Filament\Resources\Users\Pages;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-
 use App\Filament\Resources\Users\UserResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
 
 class EditUser extends EditRecord
 {
     protected static string $resource = UserResource::class;
 
     protected string $notification_title = 'User updated';
+
     protected string $notification_body = 'The user has been updated successfully';
 
     protected function getHeaderActions(): array
@@ -34,6 +33,7 @@ class EditUser extends EditRecord
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
         $record->update($data);
+
         return $record;
     }
 

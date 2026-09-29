@@ -2,13 +2,12 @@
 
 namespace App\Filament\Resources\Posts\Pages;
 
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
-
 use App\Filament\Resources\Posts\PostResource;
-use Filament\Resources\Pages\CreateRecord;
 use Filament\Notifications\Notification;
+use Filament\Resources\Pages\CreateRecord;
 use Filament\Support\Exceptions\Halt;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Throwable;
 
 class CreatePost extends CreateRecord
@@ -18,9 +17,10 @@ class CreatePost extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['user_id'] = auth()->id;
-        $data["slug"] = Str::slug($data['title']);
+        $data['slug'] = Str::slug($data['title']);
         $locale = $data['locale'] ?? 'da';
-        $data['url'] = url($locale . '/blog/articles/' . $data['slug']);
+        $data['url'] = url($locale.'/blog/articles/'.$data['slug']);
+
         return $data;
     }
 
@@ -36,7 +36,7 @@ class CreatePost extends CreateRecord
                 ->danger()
                 ->send();
 
-            throw new Halt();
+            throw new Halt;
         }
     }
 }

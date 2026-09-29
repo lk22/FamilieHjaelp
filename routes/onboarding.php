@@ -1,11 +1,12 @@
 <?php
+
 use App\Http\Controllers\CompleteOnboardingController;
 use App\Http\Controllers\OnboardingController;
 use Illuminate\Support\Facades\Route;
 
 /**
  * Onboarding routes
-*/
+ */
 Route::get('/app/onboarding', [OnboardingController::class, 'show'])->name('onboarding.step');
 Route::get('/app/getting-started', [OnboardingController::class, 'show'])->middleware('guest')->name('app.getting-started');
 Route::get('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'showStep'])->name('onboarding.scenario.step');

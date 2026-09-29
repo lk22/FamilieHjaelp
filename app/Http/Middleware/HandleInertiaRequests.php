@@ -2,12 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\OnboardingSession;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
-
-use App\Models\OnboardingSession;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -32,8 +31,6 @@ class HandleInertiaRequests extends Middleware
 
     /**
      * Sharing current locale string
-     *
-     * @return string
      */
     public function shareCurrentLocale(): string
     {
@@ -42,36 +39,32 @@ class HandleInertiaRequests extends Middleware
 
     /**
      * Share a random background image from the public/images/background directory.
-     *
-     * @return string|null
      */
-    public function shareRandomBackgroundImage(): string|null
+    public function shareRandomBackgroundImage(): ?string
     {
         $images = public_path('images/background');
 
         // get all image files in the directory check if the directory exists and make a image extension filter and exclude .. and . directories
         $files = array_filter(scandir($images, SCANDIR_SORT_NONE), function ($file) use ($images) {
-            return !is_dir($images . '/' . $file) && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file);
+            return ! is_dir($images.'/'.$file) && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file);
         });
 
-        return $files ? asset('/images/background/' . $files[array_rand($files)]) : null;
+        return $files ? asset('/images/background/'.$files[array_rand($files)]) : null;
     }
 
     /**
      * Getting onboarding session
-     *
-     * @return array
      */
-    public function getOnboardingSession(Request $request) : array
+    public function getOnboardingSession(Request $request): array
     {
         $userId = $request->user()?->id;
         $sessionToken = $request->cookie('onboarding_session_token');
         $session = null;
 
-        if ( $sessionToken ) {
+        if ($sessionToken) {
             $session = OnboardingSession::findByToken($sessionToken);
 
-            if ( $session && $userId && !$session->user_id ) {
+            if ($session && $userId && ! $session->user_id) {
                 $session->user_id = $userId;
                 $session->save();
             }
@@ -82,10 +75,10 @@ class HandleInertiaRequests extends Middleware
         }
 
         return [
-            'token' => $session->session_token ?? "",
-            'currentStep' => $session->current_step ?? "",
-            'nextStep' => $session->next_step ?? "",
-            'currentScenario' => $session->scenario ?? "",
+            'token' => $session->session_token ?? '',
+            'currentStep' => $session->current_step ?? '',
+            'nextStep' => $session->next_step ?? '',
+            'currentScenario' => $session->scenario ?? '',
             'stepsData' => $session->steps_data ?? [],
             'formData' => $session->form_data ?? [],
             'completed' => $session->completed ?? false,
@@ -111,7 +104,7 @@ class HandleInertiaRequests extends Middleware
             'background_image' => $this->shareRandomBackgroundImage(),
             'auth' => [
                 'user' => $request->user(),
-                'isOnboarded' => $request->user() ? $request->user()->isOnboarded() : false
+                'isOnboarded' => $request->user() ? $request->user()->isOnboarded() : false,
             ],
             'locale' => $this->shareCurrentLocale(),
             'ziggy' => fn (): array => [

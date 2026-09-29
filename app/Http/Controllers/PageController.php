@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\Testimonial;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -12,8 +12,6 @@ class PageController extends Controller
 {
     /**
      * Render the home page
-     *
-     * @return Response
      */
     public function home(): Response
     {
@@ -30,8 +28,6 @@ class PageController extends Controller
 
     /**
      * Render Helping resources page
-     *
-     * @return Response
      */
     public function helpResources(): Response
     {
@@ -42,8 +38,6 @@ class PageController extends Controller
 
     /**
      * Render Mission specific page
-     *
-     * @return Response
      */
     public function ourMission(): Response
     {
@@ -54,8 +48,6 @@ class PageController extends Controller
 
     /**
      * Render experiences landing page
-     *
-     * @return Response
      */
     public function experiences(): Response
     {
@@ -64,8 +56,6 @@ class PageController extends Controller
 
     /**
      * Render abort experience page
-     *
-     * @return Response
      */
     public function abortionExperience(): Response
     {
@@ -74,8 +64,6 @@ class PageController extends Controller
 
     /**
      * Render stillbirth specific page
-     *
-     * @return Response
      */
     public function stillbirthExperience(): Response
     {
@@ -84,8 +72,6 @@ class PageController extends Controller
 
     /**
      * Render new parents specific experience page
-     *
-     * @return Response
      */
     public function newParentsExperience(): Response
     {
@@ -94,8 +80,6 @@ class PageController extends Controller
 
     /**
      * Render lost family member specific experience page
-     *
-     * @return Response
      */
     public function lostFamilyMemberExperience(): Response
     {
@@ -104,8 +88,6 @@ class PageController extends Controller
 
     /**
      * Render getting started page
-     *
-     * @return Response
      */
     public function gettingStarted(): Response
     {
@@ -114,8 +96,6 @@ class PageController extends Controller
 
     /**
      * Render functions page
-     *
-     * @return Response
      */
     public function ourFunctions(): Response
     {
@@ -124,8 +104,6 @@ class PageController extends Controller
 
     /**
      * Render calendar function page
-     *
-     * @return Response
      */
     public function calendarFunction(): Response
     {
@@ -134,8 +112,6 @@ class PageController extends Controller
 
     /**
      * Render Notes function page
-     *
-     * @return Response
      */
     public function notesFunction(): Response
     {
@@ -144,8 +120,6 @@ class PageController extends Controller
 
     /**
      * Render planning function page
-     *
-     * @return Response
      */
     public function planningFunction(): Response
     {
@@ -154,8 +128,6 @@ class PageController extends Controller
 
     /**
      * Render SMS function page
-     *
-     * @return Response
      */
     public function smsFunction(): Response
     {
@@ -164,8 +136,6 @@ class PageController extends Controller
 
     /**
      * Render tasks fuction page
-     *
-     * @return Response
      */
     public function tasksFunction(): Response
     {
@@ -174,8 +144,6 @@ class PageController extends Controller
 
     /**
      * Render Healt function page
-     *
-     * @return Response
      */
     public function healthFunction(): Response
     {
@@ -184,8 +152,6 @@ class PageController extends Controller
 
     /**
      * Render baby tracker function page
-     *
-     * @return Response
      */
     public function babyTrackerFunction(): Response
     {
@@ -194,8 +160,6 @@ class PageController extends Controller
 
     /**
      * Render Typs and Tricks function
-     *
-     * @return Response
      */
     public function tipsAndTricksFunction(): Response
     {
@@ -204,8 +168,6 @@ class PageController extends Controller
 
     /**
      * Render milestones function
-     *
-     * @return Response
      */
     public function milestoneFunction(): Response
     {
@@ -214,8 +176,6 @@ class PageController extends Controller
 
     /**
      * Render stories page
-     *
-     * @return Response
      */
     public function stories(): Response
     {
@@ -224,8 +184,6 @@ class PageController extends Controller
 
     /**
      * Render blog page with featured and regular blog posts
-     *
-     * @return Response
      */
     public function blog(string $locale, $category = null): Response
     {
@@ -236,7 +194,7 @@ class PageController extends Controller
         $posts = Post::where('locale', $locale)
             ->where('is_published', true);
 
-        if ( $category ) {
+        if ($category) {
             $posts = $posts->whereHas('categories', function ($query) use ($category) {
                 $query->where('slug', $category);
             });
@@ -255,10 +213,6 @@ class PageController extends Controller
 
     /**
      * Render a single blog post page
-     *
-     * @param string $locale
-     * @param Post $post
-     * @return Response
      */
     public function blogPost(string $locale, Post $post): Response
     {

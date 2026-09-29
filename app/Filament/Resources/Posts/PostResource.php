@@ -9,6 +9,7 @@ use App\Filament\Resources\Posts\Pages\ViewPost;
 use App\Filament\Resources\Posts\Schemas\PostForm;
 use App\Filament\Resources\Posts\Schemas\PostInfolist;
 use App\Filament\Resources\Posts\Tables\PostsTable;
+use App\Filament\Resources\Posts\Widgets\PostOverviewWidget;
 use App\Models\Post;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -19,13 +20,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use UnitEnum;
 
-use App\Filament\Resources\Posts\Widgets\PostOverviewWidget;
-
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static string | UnitEnum | null $navigationGroup = 'Content';
+    protected static string|UnitEnum|null $navigationGroup = 'Content';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
@@ -81,11 +80,11 @@ class PostResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            PostOverviewWidget::class
+            PostOverviewWidget::class,
         ];
     }
 
-    public function getColumns(): int | array
+    public function getColumns(): int|array
     {
         return 2;
     }

@@ -2,8 +2,6 @@
 
 namespace App\Filament\Pages;
 
-use Filament\Pages\Page;
-
 class Settings
 {
     // protected string $view = 'filament.pages.settings';

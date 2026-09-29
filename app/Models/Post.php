@@ -2,23 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Builder;
-
-
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Models\Category;
-use App\Models\Tag;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
-
     use HasFactory;
     use SoftDeletes;
+
     protected $fillable = [
         'title',
         'excerpt',
@@ -37,10 +32,10 @@ class Post extends Model
     protected $appends = ['featured_image_url'];
 
     /**
-     *
      * @return array{content: string, excerpt: string}
      */
-    protected function casts(): array {
+    protected function casts(): array
+    {
         return [
             'is_published' => 'boolean',
             'published_at' => 'datetime',
@@ -53,8 +48,6 @@ class Post extends Model
 
     /**
      * Getting post by slug field
-     *
-     * @return string
      */
     public function getRouteKeyName(): string
     {

@@ -2,21 +2,20 @@
 
 namespace App\Filament\Resources\Testimonials\Schemas;
 
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
 
 class TestimonialsForm
 {
-
     protected static array $toolbar = [
         ['bold', 'italic', 'underline', 'strike', 'link', 'blockquote', 'code'],
         ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
         ['alignStart', 'alignCenter', 'alignEnd'],
         ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
         ['table', 'attachFiles'],
-        ['undo', 'redo']
+        ['undo', 'redo'],
     ];
 
     public static function configure(Schema $schema): Schema
@@ -68,7 +67,7 @@ class TestimonialsForm
             ->imageEditorAspectRatioOptions([
                 '16:9',
                 '4:3',
-                '1:1'
+                '1:1',
             ]);
     }
 

@@ -2,14 +2,13 @@
 
 namespace App\Contracts;
 
-interface PageContentContract {
+interface PageContentContract
+{
     /**
      * Handle method for the service
      *
-     * @param $subject string
-     * @param $context mixed
-     *
-     * @return void
+     * @param  $subject  string
+     * @param  $context  mixed
      */
     public function handle(string $subject, mixed $context): void;
 }

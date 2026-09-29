@@ -2,7 +2,6 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Post;
 use Filament\Widgets\Widget;
 
 class DashboardWidget extends Widget

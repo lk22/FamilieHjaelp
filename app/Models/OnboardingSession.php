@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
-use App\Models\User;
-
 
 class OnboardingSession extends Model
 {
-
     use HasFactory;
 
     protected $fillable = [
@@ -25,6 +22,7 @@ class OnboardingSession extends Model
         'form_data',
         'completed',
         'next_step',
+        'locale',
     ];
 
     protected $casts = [
@@ -47,8 +45,6 @@ class OnboardingSession extends Model
 
     /**
      * Generating a unique session token for a onboarding process
-     *
-     * @return string
      */
     public static function generateToken(): string
     {
@@ -57,12 +53,8 @@ class OnboardingSession extends Model
 
     /**
      * find or create session for guest or authenticated user
-     *
-     * @param int|null $userId
-     * @param string|null $token
-     * @return self
      */
-    public static function findOrCreateSession(?int $userId = null, ?string $token = null): self
+    public static function findOrCreateSession(?int $userId = null, ?string $locale = null, ?string $token = null): self
     {
         $session = self::where('session_token', $token)->first();
 
@@ -78,13 +70,12 @@ class OnboardingSession extends Model
             'form_data' => [],
             'current_step' => 'welcome',
             'next_step' => null,
+            'locale' => $locale,
         ]);
     }
 
     /**
      * link session to authenticated user
-     *
-     * @return void
      */
     public function linkToUser(int $userId): void
     {
@@ -94,36 +85,29 @@ class OnboardingSession extends Model
     /**
      * Find session by user ID and token
      *
-     * @param int|null $userId
-     * @param string|null $token
-     * @return self
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws ModelNotFoundException
      */
     public static function findWhen(?int $userId, ?string $token): self
     {
         return self::where('session_token', $token)
-            ->when($userId, fn($q) => $q->where('user_id', $userId))
+            ->when($userId, fn ($q) => $q->where('user_id', $userId))
             ->firstOrFail();
     }
 
     /**
      * find session by session token
-     *
-     * @param string $token
-     * @return OnboardingSession
      */
-    public static function findByToken(string $token): self {
+    public static function findByToken(string $token): self
+    {
         return self::where('session_token', $token)->firstOrFail();
     }
 
     /**
      * mark onboarding as completed
-     *
-     * @return void
      */
     public function markAsCompleted(): void
     {
-        $this->current_step = "completed";
+        $this->current_step = 'completed';
         $this->completed = true;
         $this->completed_at = now();
         $this->next_step = null;

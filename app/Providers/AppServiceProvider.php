@@ -2,11 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL;
-
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,11 +29,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (config('app.env') !== 'local') {
-            \Illuminate\Support\Facades\URL::forceScheme('https');
+            URL::forceScheme('https');
         }
 
         if ($this->app->environment('local') && isset($_SERVER['HTTP_HOST'])) {
-            URL::forceRootUrl('http://' . $_SERVER['HTTP_HOST']);
+            URL::forceRootUrl('http://'.$_SERVER['HTTP_HOST']);
         }
     }
 }

@@ -2,18 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-use App\Models\Family;
-use App\Models\User;
-
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FamilyMember extends Model
 {
-    use SoftDeletes, HasFactory; // enables soft deleting for family members and factory support
+    use HasFactory, SoftDeletes; // enables soft deleting for family members and factory support
 
     protected $fillable = [
         'family_id',
@@ -23,7 +19,7 @@ class FamilyMember extends Model
         'family_role',
         'email',
         'attached_email',
-        'age'
+        'age',
     ];
 
     public function family(): BelongsTo

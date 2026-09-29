@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-
 use App\Http\Requests\StoreProfileNoteRequest;
-
 use App\Models\Note;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class ProfileNoteController extends Controller
 {
     public function storeNote(StoreProfileNoteRequest $request)
-    {   
+    {
         $user = $request->user();
 
         $notesCount = $user->notes()->count();
 
         $user->update(['notes_count' => $notesCount + 1]);
-        
+
         $user->notes()->create([
             'note_content' => $request->input('noteContent'),
             'child_id' => $request->input('child_id'),
@@ -30,10 +28,6 @@ class ProfileNoteController extends Controller
 
     /**
      * Delete a specific note.
-     * 
-     * @param  Request  $request
-     * @param  Note  $note
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, Note $note): RedirectResponse
     {

@@ -10,20 +10,20 @@ class ProfileNotification extends Model
         'user_id',
         'message',
         'is_read',
-        'notification_type'
+        'notification_type',
     ];
 
     protected $casts = [
         'is_read' => 'boolean',
-        'notification_type' => 'string'
+        'notification_type' => 'string',
     ];
 
     protected $hidden = [
-        'user_id'
+        'user_id',
     ];
 
     protected $guarded = [
-        'user_id'
+        'user_id',
     ];
 
     public function profile()

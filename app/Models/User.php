@@ -3,20 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-use App\Models\Todo;
-use App\Models\Profile;
-use App\Models\Page;
-use App\Models\Note;
-
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -31,7 +29,7 @@ class User extends Authenticatable
         'is_admin',
         'has_completed_onboarding',
         'is_verified',
-        'notes_count'
+        'notes_count',
     ];
 
     /**
@@ -54,13 +52,21 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
     }
 
     /**
+     * Determine whether the user can access the given Filament panel.
+     * Only administrators may access the admin panel.
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->is_admin;
+    }
+
+    /**
      * Check if the user has completed onboarding.
-     *
-     * @return boolean
      */
     public function isOnboarded(): bool
     {
@@ -70,7 +76,7 @@ class User extends Authenticatable
     /**
      * Get todos associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Todo>
+     * @return HasMany<Todo>
      */
     public function todos(): HasMany
     {
@@ -80,7 +86,7 @@ class User extends Authenticatable
     /**
      * Get the pages associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Page>
+     * @return HasMany<Page>
      */
     public function pages()
     {
@@ -90,7 +96,7 @@ class User extends Authenticatable
     /**
      * get the profile associated with the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Profile>
+     * @return HasOne<Profile>
      */
     public function profile()
     {
@@ -100,7 +106,7 @@ class User extends Authenticatable
     /**
      * Get the notifications associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ProfileNotification>
+     * @return HasMany<ProfileNotification>
      */
     public function notifications(): HasMany
     {
@@ -109,8 +115,6 @@ class User extends Authenticatable
 
     /**
      * Get the count of unread notifications for the user.
-     *
-     * @return int
      */
     public function unreadNotificationsCount(): int
     {
@@ -120,7 +124,7 @@ class User extends Authenticatable
     /**
      * Get the read notifications associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ProfileNotification>
+     * @return HasMany<ProfileNotification>
      */
     public function readNotifications(): HasMany
     {
@@ -130,7 +134,7 @@ class User extends Authenticatable
     /**
      * Get the notes associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Note>
+     * @return HasMany<Note>
      */
     public function notes(): HasMany
     {
@@ -140,7 +144,7 @@ class User extends Authenticatable
     /**
      * Get the onboarding session associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<OnboardingSession>
+     * @return HasOne<OnboardingSession>
      */
     public function onboardingSession(): HasOne
     {

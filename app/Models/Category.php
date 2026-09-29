@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Post;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
@@ -14,9 +13,11 @@ class Category extends Model
     protected $fillable = [
         'name',
         'slug',
-        'locale'
+        'locale',
     ];
+
     protected $guarded = ['id'];
+
     protected $hidden = ['created_at', 'updated_at'];
 
     public function posts(): BelongsToMany

@@ -9,10 +9,7 @@ class NoteObserver
     /**
      * Handle the Note "created" event.
      */
-    public function created(Note $note): void
-    {
-        
-    }
+    public function created(Note $note): void {}
 
     /**
      * Handle the Note "updated" event.

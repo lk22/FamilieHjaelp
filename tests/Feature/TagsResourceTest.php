@@ -12,7 +12,7 @@ class TagsResourceTest extends TestCase
 
     public function test_authenticated_users_can_visit_the_tags_resource(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['is_admin' => true]);
 
         $this->actingAs($user)
             ->get('/admin/tags')

@@ -2,27 +2,24 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Support\Str;
-use Filament\Forms\Components\RichEditor;
-
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class PostForm
 {
-
     protected static array $toolbar = [
         ['bold', 'italic', 'underline', 'strike', 'link', 'blockquote', 'code'],
         ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
         ['alignStart', 'alignCenter', 'alignEnd'],
         ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
         ['table', 'attachFiles'],
-        ['undo', 'redo']
+        ['undo', 'redo'],
     ];
 
     public static function configure(Schema $schema): Schema
@@ -50,7 +47,7 @@ class PostForm
                 $set('slug', Str::slug($state));
                 self::updateUrl($get, $set);
             })
-            ->afterStateUpdated(function(Get $get, Set $set, ?string $state) {
+            ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
                 self::updateUrl($get, $set);
             })
             ->columnSpanFull();
@@ -127,7 +124,7 @@ class PostForm
                 TextInput::make('slug')
                     ->required()
                     ->unique()
-                    ->dehydrated(fn($state) => !empty($state))
+                    ->dehydrated(fn ($state) => ! empty($state)),
             ])
             ->relationship('tags', 'name')
             ->columnSpanFull();
@@ -141,8 +138,8 @@ class PostForm
             ->createOptionForm([
                 TextInput::make('name')->required(),
                 TextInput::make('slug')->required()->unique()->dehydrated(
-                    fn($state) => !empty($state)
-                )
+                    fn ($state) => ! empty($state)
+                ),
             ])
             ->relationship('categories', 'name')
             ->columnSpanFull();
@@ -153,6 +150,6 @@ class PostForm
         $locale = $get('locale');
         $slug = Str::slug($get('title'));
 
-        $set('url', $locale ? url($locale . '/blog/articles/' . $slug) : null);
+        $set('url', $locale ? url($locale.'/blog/articles/'.$slug) : null);
     }
 }

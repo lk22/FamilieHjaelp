@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
-use Filament\Schemas\Schema;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\ImageEntry;
-use Illuminate\Support\HtmlString;
-
+use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 
 class PostInfolist
 {
@@ -25,7 +25,7 @@ class PostInfolist
                 Section::make()->description('Article information')
                     ->schema([
                         Grid::make([
-                            'default' => 2
+                            'default' => 2,
                         ])->schema([
                             Section::make()->schema([
                                 TextEntry::make('title')
@@ -54,12 +54,12 @@ class PostInfolist
 
                 Section::make()->description('Article Content')
                     ->schema([
-                       TextEntry::make('excerpt')
-                                ->columnSpanFull()
-                                ->formatStateUsing(fn ($state) => new HtmlString(\Illuminate\Support\Str::limit($state, 100))),
+                        TextEntry::make('excerpt')
+                            ->columnSpanFull()
+                            ->formatStateUsing(fn ($state) => new HtmlString(Str::limit($state, 100))),
                         TextEntry::make('content')
                             ->columnSpanFull()
-                            ->formatStateUsing(fn ($state) => new HtmlString(\Illuminate\Support\Str::limit($state, 100))),
+                            ->formatStateUsing(fn ($state) => new HtmlString(Str::limit($state, 100))),
                     ])->columnSpanFull(),
             ]);
     }

@@ -2,11 +2,10 @@
 
 namespace Tests\Feature\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-
 use App\Models\OnboardingSession;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
@@ -29,7 +28,7 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('app.getting-started', absolute: false));
+        $response->assertRedirect(route('app.getting-started', ['locale' => 'en'], absolute: false));
     }
 
     public function test_can_register_with_onboarding_completed_true_url_parameter()
@@ -37,7 +36,7 @@ class RegistrationTest extends TestCase
         $token = fake()->uuid();
         $onboardingSession = OnboardingSession::factory()->create([
             'session_token' => $token,
-            'completed' => true
+            'completed' => true,
         ]);
 
         $response = $this->withCookie('onboarding_session_token', $token)->post('/register', [
@@ -45,7 +44,7 @@ class RegistrationTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
-            'onboarding_completed' => true
+            'onboarding_completed' => true,
         ]);
 
         $user = User::where('email', 'test@example.com')->first();
@@ -56,6 +55,6 @@ class RegistrationTest extends TestCase
         $onboardingSession->refresh();
         $this->assertEquals($user->id, $onboardingSession->user_id);
 
-        $response->assertRedirect(route('app.getting-started', absolute: false));
+        $response->assertRedirect(route('app.getting-started', ['locale' => 'en'], absolute: false));
     }
 }

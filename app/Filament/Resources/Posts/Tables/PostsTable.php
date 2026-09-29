@@ -1,19 +1,18 @@
 <?php
 
 namespace App\Filament\Resources\Posts\Tables;
-use Filament\Actions\DeleteAction;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
+
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
-
-use App\Filament\Resources\Posts\Actions\PublishPostAction;
 
 class PostsTable
 {
@@ -35,7 +34,7 @@ class PostsTable
                     ->limit(50),
                 TextColumn::make('excerpt')
                     ->limit(50)
-                    ->html()
+                    ->html(),
             ])
             ->filters([
                 TrashedFilter::make(),

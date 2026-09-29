@@ -2,15 +2,13 @@
 
 namespace App\Filament\Resources\Posts\Widgets;
 
-use Filament\Widgets\Widget;
-use \Illuminate\View\View;
-
 use App\Models\Post;
+use Filament\Widgets\Widget;
+use Illuminate\View\View;
 
 class PostOverviewWidget extends Widget
 {
     protected string $view = 'filament.resources.posts.widgets.post-overview-widget';
-
 
     public function getPost(): ?Post
     {

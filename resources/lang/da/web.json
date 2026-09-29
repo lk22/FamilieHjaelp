@@ -429,5 +429,27 @@
   "blog_post_item": {
     "published_at": "Udgivet den",
     "go_back": "Gå tilbage"
+  },
+  "app": {
+    "getting_started": {
+      "create_family": "Opret din familie",
+      "create_family_description": "Vi guider dig gennem en kort onboarding, hvor du opretter din familie med forældre og børn.",
+      "descripted_steps": {
+        "label": "Onboarding trin",
+        "step_one": "Indtast familienavn",
+        "step_two": "Indtast information om dig og eventuel partner",
+        "step_three": "Tilføj et eller flere børn med køn, navn og alder"
+      },
+      "getting_started_button": {
+        "label": "Start onboarding"
+      },
+      "family_name": {
+        "heading": "Indtast familienavn",
+        "form_field": {
+          "label": "Familienavn",
+          "next_step_label": "Næste"
+        }
+      }
+    }
   }
 }

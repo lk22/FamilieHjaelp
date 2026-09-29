@@ -2,12 +2,11 @@
 
 namespace App\Notifications;
 
+use App\Models\Note;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
-use App\Models\Note;
 
 class FirstNoteCreated extends Notification implements ShouldQueue
 {
@@ -19,8 +18,7 @@ class FirstNoteCreated extends Notification implements ShouldQueue
     public function __construct(
         public Note $note,
         public int $totalNotesCount
-    )
-    {
+    ) {
         //
     }
 
@@ -42,7 +40,7 @@ class FirstNoteCreated extends Notification implements ShouldQueue
 
         return (new MailMessage)
             ->subject('Dit første notat er oprettet!')
-            ->greeting('Hej ' . $notifiable->name . '!')
+            ->greeting('Hej '.$notifiable->name.'!')
             ->line('Tillykke med at have oprettet dit første notat på din profil.')
             ->line('Vi håber, at du finder denne funktion nyttig til at holde styr på vigtige oplysninger.')
             ->action('Gå til din profil', url('/profile'));

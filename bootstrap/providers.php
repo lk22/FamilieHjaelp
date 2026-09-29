@@ -1,9 +1,15 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+use App\Providers\EventServiceProvider;
+use App\Providers\Filament\AdminPanelProvider;
+use App\Providers\TelescopeServiceProvider;
+use Barryvdh\Debugbar\ServiceProvider;
+
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\EventServiceProvider::class,
-    App\Providers\Filament\AdminPanelProvider::class,
-    App\Providers\TelescopeServiceProvider::class,
-    Barryvdh\Debugbar\ServiceProvider::class,
+    AppServiceProvider::class,
+    EventServiceProvider::class,
+    AdminPanelProvider::class,
+    TelescopeServiceProvider::class,
+    ServiceProvider::class,
 ];

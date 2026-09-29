@@ -382,15 +382,15 @@
     "quicklinks": "Quick links",
     "functions_list": {
       "calendar": {
-        "label": "Kalender",
+        "label": "Calendar",
         "href": "page.functions.calendar"
       },
       "notes": {
-        "label": "Noter",
+        "label": "Notes",
         "href": "page.functions.notes"
       },
       "health": {
-        "label": "Sundhedsfunktionen",
+        "label": "Health",
         "href": "page.functions.health"
       },
       "babytracker": {
@@ -417,5 +417,20 @@
   "blog_post_item": {
     "published_at": "Published at",
     "go_back": "Go back"
+  },
+  "app": {
+    "getting_started": {
+      "create_family": "Create your family",
+      "create_family_description": "We guide you through a short onboarding process where you create your family with parents and children.",
+      "descripted_steps": {
+        "label": "Onboarding steps",
+        "step_one": "fill out your family name",
+        "step_two": "Enter information about yourself and any partner",
+        "step_three": "Add one or more children with gender, name, and age"
+      },
+      "getting_started_button": {
+        "label": "Start onboarding"
+      }
+    }
   }
 }

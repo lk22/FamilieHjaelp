@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
-
-use Illuminate\Http\Request;
-use App\Http\Requests\CompleteOnboardingRequest;
-
 use App\Events\StoreUserPages;
 use App\Events\StoreUserTodos;
+use App\Http\Requests\CompleteOnboardingRequest;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CompleteOnboardingController extends Controller
 {
     /**
      * Handle the incoming request.
-     * @param  \App\Http\Requests\CompleteOnboardingRequest  $request
-     * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(CompleteOnboardingRequest $request): JsonResponse
     {
@@ -25,42 +21,42 @@ class CompleteOnboardingController extends Controller
         $pregnancy_week = $request->input('steps.4.data.stepFive.pregnancy_week_number', null);
         $situation_date = $request->input('steps.3.data.stepFour.situation_date');
 
-        if ( ! $user ) {
+        if (! $user) {
             return response()->json([
-                'message' => 'Unauthorized, please log in to complete onboarding.'
+                'message' => 'Unauthorized, please log in to complete onboarding.',
             ], 401);
         }
-        
+
         foreach ($steps as $step) {
             $isCompleted = $step['progress']['completed'] ?? false;
             $stepName = $step['name'] ?? 'unknown';
-            
+
             // if the step is not completed and it is in the completed steps, return an error
-            if ( in_array($stepName, $completedSteps) && ! $isCompleted ) {
+            if (in_array($stepName, $completedSteps) && ! $isCompleted) {
                 return response()->json([
                     'message' => 'Onboarding incomplete, please complete all steps.',
-                    'missing_step' => $stepName
+                    'missing_step' => $stepName,
                 ]);
             }
         }
-        
+
         $todos = $user->todos()->get();
         $pages = $user->pages()->get();
 
         // If todos or pages already exist, return a message indicating that onboarding is already completed
-        if ( ! $todos->isEmpty() || ! $pages->isEmpty() ) {
+        if (! $todos->isEmpty() || ! $pages->isEmpty()) {
             return response()->json([
                 'message' => 'Onboarding already completed.',
                 'todos' => $todos,
-                'pages' => $pages
+                'pages' => $pages,
             ]);
         }
 
-        if ( $todos->isEmpty() || $pages->isEmpty() ) {
+        if ($todos->isEmpty() || $pages->isEmpty()) {
             return response()->json([
                 'message' => 'Onboarding incomplete, something went wrong.',
                 'todos' => $todos,
-                'pages' => $pages
+                'pages' => $pages,
             ])->setStatusCode(400, 'Onboarding incomplete.')->withHeaders([
                 'Content-Type' => 'application/json',
                 'Cache-Control' => 'no-cache, no-store, must-revalidate',
@@ -68,35 +64,30 @@ class CompleteOnboardingController extends Controller
         }
 
         return response()->json([
-            'message' => 'Onboarding completed successfully.'
+            'message' => 'Onboarding completed successfully.',
         ]);
     }
+
     /**
      * Check if the user is authenticated.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function checkAuthenticated(Request $request): JsonResponse
     {
-        if ( ! $request->user() ) {
+        if (! $request->user()) {
             return response()->json([
                 'message' => 'Not authenticated',
-                'status' => false
+                'status' => false,
             ], 401);
         }
 
         return response()->json([
             'message' => 'Authenticated',
-            "status" => true
+            'status' => true,
         ], 200);
     }
 
     /**
      * Store todos for the user.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function storeTodos(Request $request): JsonResponse
     {
@@ -105,18 +96,18 @@ class CompleteOnboardingController extends Controller
         $pregnancy_week = $request->input('steps.4.data.stepFive.pregnancy_week_number', null);
         $situation_date = $request->input('steps.3.data.stepFour.situation_date');
 
-        if ( ! $user ) {
+        if (! $user) {
             return response()->json([
-                'message' => 'Unauthorized, please log in to store todos.'
+                'message' => 'Unauthorized, please log in to store todos.',
             ], 401);
         }
 
         $existingTodos = $user->todos()->get();
 
-        if ( ! $existingTodos->isEmpty() ) {
+        if (! $existingTodos->isEmpty()) {
             return response()->json([
                 'message' => 'Todos already exist for this user.',
-                'todos' => $existingTodos
+                'todos' => $existingTodos,
             ])->setStatusCode(200, 'Todos already exist.')->withHeaders([
                 'Content-Type' => 'application/json',
                 'Cache-Control' => 'no-cache, no-store, must-revalidate',
@@ -127,7 +118,7 @@ class CompleteOnboardingController extends Controller
 
         return response()->json([
             'message' => 'Todos initialized successfully.',
-            'todos' => $user->todos()->get()
+            'todos' => $user->todos()->get(),
         ])->setStatusCode(201, 'Todos created successfully.')->withHeaders([
             'Content-Type' => 'application/json',
             'Cache-Control' => 'no-cache, no-store, must-revalidate',
@@ -136,9 +127,6 @@ class CompleteOnboardingController extends Controller
 
     /**
      * Store pages for the user.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function storePages(Request $request): JsonResponse
     {
@@ -147,10 +135,10 @@ class CompleteOnboardingController extends Controller
 
         $existingPages = $user->pages()->get();
 
-        if ( $existingPages->isNotEmpty() ) {
+        if ($existingPages->isNotEmpty()) {
             return response()->json([
                 'message' => 'Pages already exist for this user.',
-                'pages' => $existingPages
+                'pages' => $existingPages,
             ])->setStatusCode(200, 'Pages already exist.')->withHeaders([
                 'Content-Type' => 'application/json',
                 'Cache-Control' => 'no-cache, no-store, must-revalidate',
@@ -162,7 +150,7 @@ class CompleteOnboardingController extends Controller
         // default pages to be created
         return response()->json([
             'message' => 'Pages stored successfully.',
-            'pages' => $user->pages()->get()
+            'pages' => $user->pages()->get(),
         ])->setStatusCode(201, 'Pages created successfully.')->withHeaders([
             'Content-Type' => 'application/json',
             'Cache-Control' => 'no-cache, no-store, must-revalidate',

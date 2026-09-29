@@ -7,18 +7,20 @@ use Filament\Widgets\Widget;
 
 class LatestRegisteredUsersCountWidget extends Widget
 {
-  protected string $view = 'filament.widgets.latest-registered-users-widget';
-  public int $latestRegisteredUsersCount;
-  public $latestRegisteredUsers;
+    protected string $view = 'filament.widgets.latest-registered-users-widget';
 
-  public function mount()
-  {
-      $startDateOfMonth = now()->startOfMonth();
-      $endDateOfMonth = now()->endOfMonth();
+    public int $latestRegisteredUsersCount;
 
-      $this->latestRegisteredUsers = User::whereBetween('created_at', [$startDateOfMonth, $endDateOfMonth])
-        ->take(5)
-        ->get();
-      $this->latestRegisteredUsersCount = $this->latestRegisteredUsers->count();
-  }
+    public $latestRegisteredUsers;
+
+    public function mount()
+    {
+        $startDateOfMonth = now()->startOfMonth();
+        $endDateOfMonth = now()->endOfMonth();
+
+        $this->latestRegisteredUsers = User::whereBetween('created_at', [$startDateOfMonth, $endDateOfMonth])
+            ->take(5)
+            ->get();
+        $this->latestRegisteredUsersCount = $this->latestRegisteredUsers->count();
+    }
 }

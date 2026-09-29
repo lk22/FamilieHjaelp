@@ -1,13 +1,11 @@
 <?php
 
+use App\Http\Controllers\CompleteOnboardingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\CompleteOnboardingController;
-use App\Http\Controllers\TodoApiController;
-
 Route::get('/health/auth', function () {
-    if ( ! auth()->check() ) {
+    if (! auth()->check()) {
         return response()->json(['message' => 'Not authenticated'], 401);
     }
 

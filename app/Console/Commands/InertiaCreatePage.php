@@ -18,10 +18,10 @@ class InertiaCreatePage extends Command
                             {--arg=* : Additional arguments for the page, e.g., props or context}';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Create a new Inertia.js page with a specified template and arguments';
 
     /**
@@ -35,15 +35,15 @@ class InertiaCreatePage extends Command
      * definition of supported templates and their paths
      *
      * @var array<string, string>
-     * This allows for different templates like 'layout', 'component', hooks, etc.
-     * The keys are the template names, and the values are the corresponding folder paths.
+     *                            This allows for different templates like 'layout', 'component', hooks, etc.
+     *                            The keys are the template names, and the values are the corresponding folder paths.
      */
     protected $templatePaths = [
         'page' => 'Pages',
         'component' => 'components',
         'hook' => 'hooks',
         'context' => 'contexts',
-        'layout' => 'layouts'
+        'layout' => 'layouts',
     ];
 
     /**
@@ -67,25 +67,27 @@ class InertiaCreatePage extends Command
         $templateFolder = $this->templatePaths[$template] ?? 'Pages';
 
         // determine the file name based on the template type
-        $fileName = $name . '.tsx';
+        $fileName = $name.'.tsx';
 
-        if ( $template === "hook" ) {
-            $fileName = 'use' . $this->splitCapitalizedWords($name) . '.ts';
+        if ($template === 'hook') {
+            $fileName = 'use'.$this->splitCapitalizedWords($name).'.ts';
         }
 
-        if ( ! $template === "hook" ) {
-            $this->info("Creating Inertia.js {$template}: {$name} at {$fileName}" . PHP_EOL);
+        if (! $template === 'hook') {
+            $this->info("Creating Inertia.js {$template}: {$name} at {$fileName}".PHP_EOL);
         } else {
-            $this->info("Creating Inertia.js hook: use{$name} at {$fileName}" . PHP_EOL);
+            $this->info("Creating Inertia.js hook: use{$name} at {$fileName}".PHP_EOL);
         }
 
-        if ( empty($name) ) {
-            $this->error("You must provide a name for the {$template}." . PHP_EOL . "Usage: " . $this->usage);
+        if (empty($name)) {
+            $this->error("You must provide a name for the {$template}.".PHP_EOL.'Usage: '.$this->usage);
+
             return;
         }
 
-        if (!array_key_exists($template, $this->templatePaths)) {
-            $this->error("Unsupported template type: {$template}. Supported types are: " . implode(', ', array_keys($this->templatePaths)));
+        if (! array_key_exists($template, $this->templatePaths)) {
+            $this->error("Unsupported template type: {$template}. Supported types are: ".implode(', ', array_keys($this->templatePaths)));
+
             return;
         }
         // Create the new Inertia.js page
@@ -93,30 +95,32 @@ class InertiaCreatePage extends Command
         $folderPath = resource_path("js/{$templateFolder}");
 
         // if the page already exists, we will not overwrite it
-        if (!is_dir($folderPath)) {
+        if (! is_dir($folderPath)) {
             mkdir($folderPath, 0755, true);
         }
 
-        $completePath = $folderPath . "/{$fileName}";
+        $completePath = $folderPath."/{$fileName}";
 
-        if ( file_exists($completePath) ) {
-            if ( ! $template === "hook" ) {
-                $this->error($template . " already exists: {$name}, see full path: {$completePath}" . PHP_EOL);
+        if (file_exists($completePath)) {
+            if (! $template === 'hook') {
+                $this->error($template." already exists: {$name}, see full path: {$completePath}".PHP_EOL);
             } else {
-                $this->error("Hook already exists: use{$name}, see full path: {$completePath}" . PHP_EOL);
+                $this->error("Hook already exists: use{$name}, see full path: {$completePath}".PHP_EOL);
             }
+
             return;
         }
 
-        $this->info("Creating Inertia.js {$template}: {$name} at {$completePath}, Full path: {$completePath}" . PHP_EOL);
+        $this->info("Creating Inertia.js {$template}: {$name} at {$completePath}, Full path: {$completePath}".PHP_EOL);
 
         // Create the new page file
         file_put_contents($completePath, $this->getReactTemplateStub($name, $template, $parsedArgs));
 
-        if ( $framework === 'react' ) {
+        if ($framework === 'react') {
             $this->info("React Inertia.js {$template} created: {$name}");
         } else {
             $this->error("Unsupported framework: {$framework}. Only 'react' is supported at this time.");
+
             return;
         }
 
@@ -125,24 +129,18 @@ class InertiaCreatePage extends Command
 
     /**
      * Split the name into words based on capital letters and convert to lowercase with hyphens
-     *
-     * @param  string $name
-     * @return string
      */
     private function splitCapitalizedWords(string $name): string
     {
         // Split the name into words based on capital letters
         $words = preg_split('/(?=[A-Z])/', $name);
+
         // Join the words with a hyphen and convert to lowercase
         return strtolower(implode('-', $words));
     }
 
     /**
      * Definition of the stub for a page template
-     *
-     * @param string $name
-     * @param array ...$args
-     * @return string
      */
     protected function getReactPageStub(string $name, array $args): string
     {
@@ -156,9 +154,9 @@ class InertiaCreatePage extends Command
             $functionArguments = '{}';
         }
 
-        $functionArguments = (!empty($interfaceDefinition['interfaceName']) || !empty($interfaceDefinition['interfaceDefinition']))
+        $functionArguments = (! empty($interfaceDefinition['interfaceName']) || ! empty($interfaceDefinition['interfaceDefinition']))
             ? "{$componentArguments}: {$interfaceDefinition['interfaceName']}"
-            : "";
+            : '';
 
         $stub = "
 import { type SharedData } from '@/types';
@@ -186,9 +184,7 @@ export default function {$name}({$functionArguments}) {
     /**
      * getting component stub template
      *
-     * @param string $name
-     * @param array $args): string
-     * @return string
+     * @param  array  $args):  string
      */
     protected function getReactComponentStub(string $name, array $args): string
     {
@@ -204,7 +200,7 @@ export default function {$name}({$functionArguments}) {
  */
 import React from 'react';
 
-". $interfaceDefinition['interfaceDefinition'] . "
+".$interfaceDefinition['interfaceDefinition']."
 
 export default function {$name}({$componentArguments}): {$interfaceDefinition['interfaceName']} {
     return (
@@ -220,9 +216,7 @@ export default function {$name}({$componentArguments}): {$interfaceDefinition['i
     /**
      * Getting the stub template for a custom hook
      *
-     * @param string $name
-     * @param array $args): string
-     * @return string
+     * @param  array  $args):  string
      */
     protected function getReactHookStub(string $name, array $args): string
     {
@@ -247,9 +241,7 @@ export default function use{$name}() {
     /**
      * getting the stub template for a context provider
      *
-     * @param string $name
-     * @param array $args): string
-     * @return string
+     * @param  array  $args):  string
      */
     protected function getReactContextStub(string $name, array $args): string
     {
@@ -265,7 +257,7 @@ export default function use{$name}() {
  */
 import React, { createContext, useContext } from 'react';
 
-". $interfaceDefinition . "
+".$interfaceDefinition."
 
 const {$name}Context = createContext({} as {$interfaceDefinition});
 
@@ -284,17 +276,14 @@ export function use{$name}() {
         return $stub;
     }
 
-        /**
+    /**
      * getting a stub template for the specified Inertia.js page
      *
-     * @param string $name
-     * @param string $template
-     * @param array $args): string
-     * @return string
+     * @param  array  $args):  string
      */
     protected function getReactTemplateStub(string $name, string $template, array $args): string
     {
-        return match($template) {
+        return match ($template) {
             'page' => $this->getReactPageStub($name, $args),
             'component' => $this->getReactComponentStub($name, $args),
             'hook' => $this->getReactHookStub($name, $args),
@@ -306,10 +295,6 @@ export function use{$name}() {
 
     /**
      * Building property parameters string for the stub template to include in the function parameters
-     *
-     * @param string $name
-     * @param array $args
-     * @return string
      */
     private function buildPropertyParametersString(string $name, array $args): string
     {
@@ -321,15 +306,13 @@ export function use{$name}() {
         $params = array_keys($args);
 
         return (isset($args))
-            ? '{' . implode(', ', $params) . ' }'
+            ? '{'.implode(', ', $params).' }'
             : '';
     }
 
     /**
      * Building property parameters interface for the stub template
      *
-     * @param string $name
-     * @param array $args
      * @return string
      */
     private function buildPropertyParametersInterface(string $name, ?array $args = []): array
@@ -347,14 +330,14 @@ export function use{$name}() {
          *     propTwo: number;
          * }
          */
-        foreach($args as $akey => $arg) {
+        foreach ($args as $akey => $arg) {
             $isType = $this->mapToTypeScriptType($arg);
-            $params[] = PHP_EOL . "  {$akey}: {$isType}";
+            $params[] = PHP_EOL."  {$akey}: {$isType}";
         }
 
         $returnArguments = (isset($args)) ? [
             'interfaceName' => "{$name}Props",
-            'interfaceDefinition' => "interface {$name}Props { " . implode('; ', $params) . "; " . PHP_EOL ."}"
+            'interfaceDefinition' => "interface {$name}Props { ".implode('; ', $params).'; '.PHP_EOL.'}',
         ] : [];
 
         return $returnArguments;
@@ -362,13 +345,10 @@ export function use{$name}() {
 
     /**
      * Mapping property types to TypeScript types
-     *
-     * @param  string $type
-     * @return string
      */
     private function mapToTypeScriptType(string $type): string
     {
-        return match($type) {
+        return match ($type) {
             'string' => 'string',
             'number' => 'number',
             'boolean' => 'boolean',

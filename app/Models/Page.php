@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 class Page extends Model
 {
     /**
@@ -38,7 +36,7 @@ class Page extends Model
      */
     protected $guarded = [
         'id',
-        'user_id'
+        'user_id',
     ];
 
     /**
@@ -47,7 +45,7 @@ class Page extends Model
      * @var array<string>
      */
     protected $hidden = [
-        'user_id'
+        'user_id',
     ];
 
     /**

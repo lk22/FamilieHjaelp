@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Inertia\Response;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\JsonResponse;
-
-use App\Models\OnboardingSession;
-
 use App\Http\Requests\CompleteOnboardingRequest;
 use App\Http\Requests\SubmitStepRequest;
+use App\Models\OnboardingSession;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Inertia\Response;
 
 class OnboardingController extends Controller
 {
     /**
      * Render getting started view and handle onboarding session.
      *
-     * @param Request $request
      * @return Response
      */
     public function show(Request $request): Response|RedirectResponse
@@ -44,18 +41,17 @@ class OnboardingController extends Controller
                 'stepsData' => $session->steps_data,
                 'formData' => $session->form_data,
                 'completed' => $session->completed,
-            ]
+                'locale' => $session->locale,
+            ],
         ]);
     }
 
     /**
      * Submitting step from onboarding
-     * @param SubmitStepRequest $request
-     * @param string $scenario
-     * @param string $step
+     *
      * @return JsonResponse
      */
-    public function submitStep(SubmitStepRequest $request, string $scenario, string $step): JsonResponse|RedirectResponse
+    public function submitStep(SubmitStepRequest $request, string $locale, string $scenario, string $step): JsonResponse|RedirectResponse
     {
         $nextStep = $request->input('nextStep');
         // Step 1: validation logic (to be implemented)
@@ -71,15 +67,15 @@ class OnboardingController extends Controller
         }
 
         $existingSession->update([
-            "scenario" => $scenario,
-            "current_step" => $step,
-            "steps_data" => array_merge($existingSession->steps_data, [
-                $step => $request->input('data')
+            'scenario' => $scenario,
+            'current_step' => $step,
+            'steps_data' => array_merge($existingSession->steps_data, [
+                $step => $request->input('data'),
             ]),
-            "next_step" => $nextStep,
+            'next_step' => $nextStep,
         ]);
 
-        if ( $step === 'complete' ) {
+        if ($step === 'complete') {
             $existingSession->markAsCompleted();
         }
 
@@ -90,23 +86,16 @@ class OnboardingController extends Controller
 
     /**
      * Update the current onboarding step data.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function updateStep(Request $request, string $scenario, string $step) {
+    public function updateStep(Request $request, string $locale, string $scenario, string $step): JsonResponse
+    {
         return response()->json(['error' => 'Not implemented'], 501);
     }
 
     /**
      * Show a specific onboarding step.
-     *
-     * @param Request $request
-     * @param string $scenario
-     * @param string $step
-     * @return Response|RedirectResponse
      */
-    public function showStep(Request $request, string $scenario, string $step): Response|RedirectResponse
+    public function showStep(Request $request, string $locale, string $scenario, string $step): Response|RedirectResponse
     {
         if ($scenario !== 'family') {
             abort(404, 'Scenario not found.');
@@ -124,7 +113,7 @@ class OnboardingController extends Controller
 
         $session = OnboardingSession::findByToken($token);
 
-        if (! $session ) {
+        if (! $session) {
             abort(404, 'Onboarding session not found. Please start the onboarding process again.');
         }
 
@@ -143,21 +132,18 @@ class OnboardingController extends Controller
 
     /**
      * Show the confirmation page after completing onboarding steps.
-     *
-     * @param Request $request
-     * @return Response
      */
     public function showConfirmation(Request $request): Response
     {
         $token = $request->cookie('onboarding_session_token');
 
-        if( is_null($token) ) {
+        if (is_null($token)) {
             abort(400, 'Onboarding session token is missing.');
         }
 
         $session = OnboardingSession::findByToken($token);
 
-        return inertia("home/onboarding/confirmation", [
+        return inertia('home/onboarding/confirmation', [
             'onboardingSession' => [
                 'token' => $session->session_token,
                 'currentStep' => $session->current_step,
@@ -178,7 +164,7 @@ class OnboardingController extends Controller
     /**
      * complete the onboarding process.
      *
-     * @param CompleteOnboardingRequest $request
+     * @param  CompleteOnboardingRequest  $request
      * @return RedirectResponse
      */
     public function complete(Request $request)
@@ -201,8 +187,6 @@ class OnboardingController extends Controller
 
     /**
      * Reset the onboarding process.
-     *
-     * @return RedirectResponse
      */
     public function reset(): RedirectResponse
     {

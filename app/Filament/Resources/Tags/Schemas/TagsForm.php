@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources\Tags\Schemas;
 
-use Filament\Schemas\Schema;
-
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
 
 class TagsForm
 {
@@ -28,6 +27,7 @@ class TagsForm
     {
         return TextInput::make('slug')->label('slug')->required();
     }
+
     public static function getLocaleField(): Select
     {
         return Select::make('locale')

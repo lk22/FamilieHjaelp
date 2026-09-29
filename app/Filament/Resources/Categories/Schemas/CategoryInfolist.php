@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Categories\Schemas;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
-
 class CategoryInfolist
 {
     public static function configure(Schema $schema): Schema
@@ -46,12 +45,13 @@ class CategoryInfolist
 
     public static function getLocaleEntry(): TextEntry
     {
-        return TextEntry::make('locale')->formatStateUsing(function($state) {
-            if ( $state === 'da' ) {
+        return TextEntry::make('locale')->formatStateUsing(function ($state) {
+            if ($state === 'da') {
                 return 'Danish';
-            } else if ($state === 'en') {
+            } elseif ($state === 'en') {
                 return 'English';
             }
+
             return $state; // fallback to the original state if no match
         });
     }

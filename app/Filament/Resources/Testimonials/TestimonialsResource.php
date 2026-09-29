@@ -11,13 +11,13 @@ use App\Filament\Resources\Testimonials\Schemas\TestimonialsInfolist;
 use App\Filament\Resources\Testimonials\Tables\TestimonialsTable;
 use App\Models\Testimonial;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class TestimonialsResource extends Resource
 {
@@ -29,7 +29,7 @@ class TestimonialsResource extends Resource
 
     protected static ?string $navigationLabel = 'Testimonials';
 
-    protected static string | UnitEnum | null $navigationGroup = 'Content';
+    protected static string|UnitEnum|null $navigationGroup = 'Content';
 
     public static function form(Schema $schema): Schema
     {

@@ -12,7 +12,7 @@ class FamilyOnboardingTest extends TestCase
 
     public function test_getting_started_creates_onboarding_session(): void
     {
-        $response = $this->get(route('app.getting-started'));
+        $response = $this->get(route('app.getting-started', ['locale' => 'da']));
 
         $response->assertOk();
         $response->assertCookie('onboarding_session_token');
@@ -30,6 +30,7 @@ class FamilyOnboardingTest extends TestCase
 
         $response = $this->withCookie('onboarding_session_token', $session->session_token)->post(
             route('onboarding.scenario.step.submit', [
+                'locale' => 'da',
                 'scenario' => 'family',
                 'step' => 'one',
                 'nextStep' => 'two',
@@ -42,6 +43,7 @@ class FamilyOnboardingTest extends TestCase
         );
 
         $response->assertRedirect(route('onboarding.scenario.step', [
+            'locale' => 'da',
             'scenario' => 'family',
             'step' => 'two',
         ]));
@@ -58,9 +60,10 @@ class FamilyOnboardingTest extends TestCase
     {
         $session = OnboardingSession::factory()->create();
 
-        $response = $this->from(route('onboarding.scenario.step', ['scenario' => 'family', 'step' => 'three']))
+        $response = $this->from(route('onboarding.scenario.step', ['locale' => 'da', 'scenario' => 'family', 'step' => 'three']))
             ->withCookie('onboarding_session_token', $session->session_token)
             ->post(route('onboarding.scenario.step.submit', [
+                'locale' => 'da',
                 'scenario' => 'family',
                 'step' => 'three',
                 'nextStep' => 'complete',
@@ -70,7 +73,7 @@ class FamilyOnboardingTest extends TestCase
                 ],
             ]);
 
-        $response->assertRedirect(route('onboarding.scenario.step', ['scenario' => 'family', 'step' => 'three']));
+        $response->assertRedirect(route('onboarding.scenario.step', ['locale' => 'da', 'scenario' => 'family', 'step' => 'three']));
         $response->assertSessionHasErrors(['data.kids']);
     }
 
@@ -81,13 +84,13 @@ class FamilyOnboardingTest extends TestCase
             'current_step' => 'three',
         ]);
 
-        $response = $this->post(route('onboarding.completed'), [
+        $response = $this->post(route('onboarding.completed', ['locale' => 'da']), [
             'data' => [
                 'session_token' => $session->session_token,
             ],
         ]);
 
-        $response->assertRedirect(route('onboarding.completed.view'));
+        $response->assertRedirect(route('onboarding.completed.view', ['locale' => 'da']));
 
         $session->refresh();
 
@@ -98,11 +101,11 @@ class FamilyOnboardingTest extends TestCase
 
     public function test_completing_onboarding_requires_session_token(): void
     {
-        $response = $this->from(route('app.getting-started'))->post(route('onboarding.completed'), [
+        $response = $this->from(route('app.getting-started', ['locale' => 'da']))->post(route('onboarding.completed', ['locale' => 'da']), [
             'data' => [],
         ]);
 
-        $response->assertRedirect(route('app.getting-started'));
+        $response->assertRedirect(route('app.getting-started', ['locale' => 'da']));
         $response->assertSessionHasErrors(['data.session_token']);
     }
 
@@ -110,7 +113,7 @@ class FamilyOnboardingTest extends TestCase
     {
         OnboardingSession::factory()->create();
 
-        $response = $this->post(route('onboarding.completed'), [
+        $response = $this->post(route('onboarding.completed', ['locale' => 'da']), [
             'data' => [
                 'session_token' => 'invalid-token',
             ],
@@ -122,6 +125,7 @@ class FamilyOnboardingTest extends TestCase
     public function test_show_step_returns_not_found_for_non_family_scenario(): void
     {
         $response = $this->get(route('onboarding.scenario.step', [
+            'locale' => 'da',
             'scenario' => 'parenting',
             'step' => 'one',
         ]));

@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\Testimonials\Schemas;
 
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 use Illuminate\Support\HtmlString;
-
-use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Components\ImageEntry;
+use Illuminate\Support\Str;
 
 class TestimonialsInfolist
 {
@@ -21,7 +21,7 @@ class TestimonialsInfolist
                 TextEntry::make('content')
                     ->columnSpanFull()
                     ->formatStateUsing(fn ($state) => new HtmlString(
-                        \Illuminate\Support\Str::limit($state, 100)
+                        Str::limit($state, 100)
                     ))
                     ->limit(50),
             ]);

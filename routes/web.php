@@ -1,22 +1,23 @@
 <?php
 
+use App\Http\Controllers\AppController;
+use App\Http\Controllers\CompleteOnboardingController;
+use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileNoteController;
+use App\Http\Controllers\ProfileOverviewController;
+use App\Http\Controllers\ProfileTodoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\AppController;
-use App\Http\Controllers\OnboardingController;
-use App\Http\Controllers\CompleteOnboardingController;
-use App\Http\Controllers\ProfileOverviewController;
-use App\Http\Controllers\ProfileNoteController;
-use App\Http\Controllers\ProfileTodoController;
-
 use Inertia\Inertia;
 
 /**
  * Public routes
  *
  * These routes are accessible to all users, including those who are not authenticated. They include the home page, informational pages, and the onboarding process for new users.
+ *
  * @routes - Home page: GET /
+ *
  * @route - Functions main page: GET /funktioner
  * @route - Functions calendar page: GET /funktioner/kalender
  * @route - Functions notes page: GET /funktioner/noter
@@ -31,6 +32,7 @@ use Inertia\Inertia;
  * @route - experience page for being a new set of parents page: GET /har-du-oplevet/foraeldre
  * @route - experience page for losing a family member page: GET /har-du-oplevet/mistet-familie-medlem
  * @route - Blog page: GET /blog
+ *
  * @routes - Help resources: GET /hjaelpemidler
  * @routes - Our mission: GET /vores-mission
  * @routes - Getting started guide: GET /kom-igang
@@ -38,14 +40,14 @@ use Inertia\Inertia;
 Route::group([
     'middleware' => ['web'],
     'prefix' => '/{locale?}',
-    'where' => ['locale' => '[a-zA-Z]{2}']
+    'where' => ['locale' => '[a-zA-Z]{2}'],
 ], function () {
     // Home route
     Route::get('/', [PageController::class, 'home'])->name('home');
 
     /**
      * Functions routes
-    */
+     */
     Route::get('/funktioner', [PageController::class, 'ourFunctions'])->name('page.functions');
     Route::get('/funktioner/kalender', [PageController::class, 'calendarFunction'])->name('page.functions.calendar');
     Route::get('/funktioner/noter', [PageController::class, 'notesFunction'])->name('page.functions.notes');
@@ -61,7 +63,7 @@ Route::group([
 
     /**
      * Experience routes
-    */
+     */
     Route::get('/har-du-oplevet/abort', [PageController::class, 'abortionExperience'])->name('page.experiences.abortion');
     Route::get('/har-du-oplevet/doedfoedsel', [PageController::class, 'stillbirthExperience'])->name('page.experiences.stillbirth');
     Route::get('/har-du-oplevet/foraeldre', [PageController::class, 'newParentsExperience'])->name('page.experiences.new-parents');
@@ -79,17 +81,28 @@ Route::group([
 
 /**
  * Onboarding routes
-*/
-Route::get('/app/onboarding', [OnboardingController::class, 'show'])->name('onboarding.step');
-Route::get('/app/getting-started', [OnboardingController::class, 'show'])->middleware('guest')->name('app.getting-started');
-Route::get('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'showStep'])->name('onboarding.scenario.step');
-Route::post('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'submitStep'])->name('onboarding.scenario.step.submit');
-Route::get('/app/onboarding/confirmation', [OnboardingController::class, 'showConfirmation'])->name('onboarding.confirmation');
-Route::get('/app/onboarding/completed', [OnboardingController::class, 'showCompleted'])->name('onboarding.completed.view');
-Route::post('/app/onboarding/{scenario}/update-step/{step}', [OnboardingController::class, 'updateStep'])->name('onboarding.scenario.update-step');
-
-Route::get('/app/onboarding/reset', [OnboardingController::class, 'reset'])->name('onboarding.reset');
-Route::post('/app/onboarding/completed', [OnboardingController::class, 'complete'])->name('onboarding.completed');
+ *
+ * The onboarding flow is always entered via an explicit locale segment
+ * (e.g. /da/app/getting-started or /en/app/getting-started), so unlike the
+ * public page routes above, the locale prefix here is required rather than
+ * optional. An optional route parameter must be the last URI segment in
+ * Laravel, so it cannot be used as a prefix followed by further segments.
+ */
+Route::group([
+    'middleware' => ['web'],
+    'prefix' => '/{locale}',
+    'where' => ['locale' => '[a-zA-Z]{2}'],
+], function () {
+    Route::get('/app/onboarding', [OnboardingController::class, 'show'])->name('onboarding.step');
+    Route::get('/app/getting-started', [OnboardingController::class, 'show'])->middleware('guest')->name('app.getting-started');
+    Route::get('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'showStep'])->name('onboarding.scenario.step');
+    Route::post('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'submitStep'])->name('onboarding.scenario.step.submit');
+    Route::get('/app/onboarding/confirmation', [OnboardingController::class, 'showConfirmation'])->name('onboarding.confirmation');
+    Route::get('/app/onboarding/completed', [OnboardingController::class, 'showCompleted'])->name('onboarding.completed.view');
+    Route::post('/app/onboarding/{scenario}/update-step/{step}', [OnboardingController::class, 'updateStep'])->name('onboarding.scenario.update-step');
+    Route::get('/app/onboarding/reset', [OnboardingController::class, 'reset'])->name('onboarding.reset');
+    Route::post('/app/onboarding/completed', [OnboardingController::class, 'complete'])->name('onboarding.completed');
+});
 
 /**
  * Completing onboarding process routes
@@ -119,7 +132,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/auth/check', function () {
     return response()->json([
         'authenticated' => Auth::check(),
-        'user' => Auth::user()
+        'user' => Auth::user(),
     ])->setStatusCode(Auth::check() ? 200 : 401);
 })->name('auth.check');
 

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Tags;
 
+use App\Filament\Resources\Posts\PostResource;
 use App\Filament\Resources\Tags\Pages\CreateTags;
 use App\Filament\Resources\Tags\Pages\EditTags;
 use App\Filament\Resources\Tags\Pages\ListTags;
@@ -11,13 +12,11 @@ use App\Filament\Resources\Tags\Schemas\TagsInfolist;
 use App\Filament\Resources\Tags\Tables\TagsTable;
 use App\Models\Tag;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-
-use App\Filament\Resources\Posts\PostResource;
+use UnitEnum;
 
 class TagsResource extends Resource
 {
@@ -25,7 +24,7 @@ class TagsResource extends Resource
 
     protected static ?string $navigationParentItem = PostResource::class;
 
-    protected static string | UnitEnum | null $navigationGroup = 'Content';
+    protected static string|UnitEnum|null $navigationGroup = 'Content';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
