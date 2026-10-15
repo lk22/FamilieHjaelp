@@ -16,7 +16,7 @@ class CreateFamilyParentsController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(CreateFamilyParentsRequest $request)
+    public function __invoke(Request $request)
     {
         $parent = $request->input('mainParent');
         $partner = $request->input('partner');
@@ -36,9 +36,9 @@ class CreateFamilyParentsController extends Controller
             return response()->json(['error' => 'Partner is required'], 400);
         }
 
-        if ( ! $request->validated() ) {
-            return response()->json(['error' => 'Validation failed'], 400);
-        }
+        // if ( ! $request->validated() ) {
+        //     return response()->json(['error' => 'Validation failed'], 400);
+        // }
 
         $action = new CreateFamilyParents(
             app(FamilyServiceContract::class)

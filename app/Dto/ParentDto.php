@@ -9,7 +9,7 @@ class ParentDto {
     public string $middleName,
     public string $lastName,
     public string $age,
-    public string $familyRole,
+    public string $familyTitle,
     public bool $needsUser,
     public string $parentEmail,
     public ?bool $hasPartner,
@@ -19,7 +19,7 @@ class ParentDto {
     $this->middleName = $middleName;
     $this->lastName = $lastName;
     $this->age = $age;
-    $this->familyRole = $familyRole;
+    $this->familyTitle = $familyTitle;
     $this->needsUser = $needsUser;
     $this->parentEmail = $parentEmail;
     $this->hasPartner = $hasPartner;

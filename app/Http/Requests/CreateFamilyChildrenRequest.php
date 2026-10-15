@@ -23,9 +23,9 @@ class CreateFamilyChildrenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'children' => ['required', 'array'],
-            'children.*.name' => ['required', 'string', 'max:255'],
-            'children.*.age' => ['required', 'integer', 'min:0'],
+            // 'children' => ['required', 'array'],
+            // 'children.*.name' => ['required', 'string', 'max:255'],
+            // 'children.*.age' => ['required', 'integer', 'min:0'],
         ];
     }
 }

@@ -16,25 +16,25 @@ class CreateFamilyParents
     ): void {
       $mainParent = new FamilyParent(
         familyId: $familyId,
-        firstName: $parents["parent"]["firstname"],
-        middleName: $parents["parent"]["middlename"],
-        lastName: $parents["parent"]["lastname"],
+        firstName: $parents["parent"]["firstName"],
+        middleName: $parents["parent"]["middleName"],
+        lastName: $parents["parent"]["lastName"],
         age: $parents["parent"]["age"],
-        familyRole: $parents["parent"]["familyRole"],
-        needsUser: $parents["parent"]["needs_user"],
-        parentEmail: $parents["parent"]["parent_email"],
-        hasPartner: $parents["parent"]["needs_partner"] ?? false
+        familyTitle: $parents["parent"]["familyTitle"],
+        needsUser: false,
+        parentEmail: "",
+        hasPartner: $parents["parent"]["hasPartner"] ?? false
       );
 
       $partner = new FamilyParent(
         familyId: $familyId,
-        firstName: $parents["partner"]["firstname"],
-        middleName: $parents["partner"]["middlename"],
-        lastName: $parents["partner"]["lastname"],
-        age: $parents["partner"]["age"],
-        familyRole: $parents["partner"]["familyRole"],
-        needsUser: $parents["partner"]["needs_user"],
-        parentEmail: $parents["partner"]["parent_email"],
+        firstName: $parents["partner"]["partnerFirstName"],
+        middleName: $parents["partner"]["partnerMiddleName"],
+        lastName: $parents["partner"]["partnerLastName"],
+        age: $parents["partner"]["partnerAge"],
+        familyTitle: $parents["partner"]["partnerFamilyTitle"],
+        needsUser: $parents["partner"]["partnerNeedsUser"],
+        parentEmail: $parents["partner"]["partnerUserEmail"],
         hasPartner: false,
       );
 

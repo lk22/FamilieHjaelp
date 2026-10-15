@@ -25,14 +25,30 @@ type FamilyInformation = {
     middleName: string;
     lastName: string;
     hasPartner: boolean;
+    age: string;
+    familyTitle: string;
     partnerFirstName: string;
     partnerMiddleName: string;
     partnerLastName: string;
+    partnerAge: string;
+    partnerFamilyTitle: string;
     partnerNeedsUser?: boolean;
     partnerUserEmail?: string | null;
 }
 
-type Partner = Pick<FamilyInformation, "partnerFirstName" | "partnerMiddleName" | "partnerLastName" | "partnerNeedsUser" | "partnerUserEmail">;
+type Child = {
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    age: string;
+    gender: string;
+    needsUserLogin: boolean;
+    userEmail: string | null;
+}
+
+type Parent = Omit<FamilyInformation, "partnerFirstName" | "partnerMiddleName" | "partnerLastName" | "partnerAge" | "partnerFamilyTitle" | "partnerNeedsUser" | "partnerUserEmail">;
+
+type Partner = Pick<FamilyInformation, "partnerFirstName" | "partnerMiddleName" | "partnerLastName" | "partnerAge" | "partnerFamilyTitle" | "partnerNeedsUser" | "partnerUserEmail">;
 
 type StepData = {
     one: {
@@ -50,6 +66,8 @@ export default function OnboardingCompleted() {
     const [responseError, setResponseError] = useState<string | null>(null);
 
     const [stepData] = useState<Record<string, any>>(stepsData ?? null);
+
+    console.log(stepData);
 
     // TODO complete the onboarding steps by verifying the session token and updating the user's onboarding status
     // TODO step one verify the session token
@@ -137,16 +155,13 @@ export default function OnboardingCompleted() {
                 "progressPercent": progressPercent + 33,
                 "callback": async () => {
                     const familyInformation = stepData.two;
-                    const onboarder: FamilyInformation = {
+                    const parent: Parent = {
                         firstName: familyInformation.firstName,
                         middleName: familyInformation.middleName,
                         lastName: familyInformation.lastName,
-                        hasPartner: familyInformation.hasPartner,
-                        partnerFirstName: familyInformation.partnerFirstName,
-                        partnerMiddleName: familyInformation.partnerMiddleName,
-                        partnerLastName: familyInformation.partnerLastName,
-                        partnerNeedsUser: familyInformation.partnerNeedsUser,
-                        partnerUserEmail: familyInformation.partnerUserEmail,
+                        age: familyInformation.age,
+                        familyTitle: familyInformation.familyTitle,
+                        hasPartner: familyInformation.hasPartner
                     }
 
                     const partner: Partner = {
@@ -155,9 +170,9 @@ export default function OnboardingCompleted() {
                         partnerLastName: familyInformation.partnerLastName,
                         partnerNeedsUser: familyInformation.partnerNeedsUser,
                         partnerUserEmail: familyInformation.partnerUserEmail,
+                        partnerAge: familyInformation.partnerAge,
+                        partnerFamilyTitle: familyInformation.partnerFamilyTitle,
                     };
-
-                    console.log(familyId);
 
                     const response = await fetch('/api/onboarding/family/create/parents', {
                         method: 'POST',
@@ -168,13 +183,13 @@ export default function OnboardingCompleted() {
                         },
                         body: JSON.stringify({
                             familyId: familyId,
-                            mainParent: onboarder,
-                            partner: onboarder.hasPartner ? partner : null
+                            mainParent: parent,
+                            partner: parent.hasPartner ? partner : null
                         })
                     });
 
                     const responseData = await response.json();
-                    if (! responseData.success) {
+                    if ( ! responseData.success ) {
                         setResponseError("Something went wrong, could not add parents");
                         return;
                     }
@@ -187,6 +202,9 @@ export default function OnboardingCompleted() {
                 "progressStep": progressStep + 2,
                 "progressPercent": progressPercent + 40,
                 "callback": async () => {
+                    const children: Child[] = stepData.three.kids;
+                    console.log(children);
+
                     // implement the creation of the family children here
                     console.log("Family children created successfully");
                 }

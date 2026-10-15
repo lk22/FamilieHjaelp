@@ -48,13 +48,13 @@ class FamilyRepository implements FamilyRepositoryContract {
 
       $mainParentFullName = $mainParent->firstName . ' ' . $mainParent->middleName . ' ' . $mainParent->lastName;
       $partnerFullName = $partner->firstName . ' ' . $partner->middleName . ' ' . $partner->lastName;
-      $family->familyMembers()->createMany([
+      $family->members()->createMany([
         [
           'family_id' => $familyId,
           "has_account" => 0,
           "user_id" => 0,
           "name" => $mainParentFullName,
-          "family_role" => $mainParent->familyRole,
+          "family_role" => $mainParent->familyTitle,
           "email" => $mainParent->parentEmail,
           "attached_email" => $mainParent->hasPartner ? $partner->parentEmail : null,
           "age" => $mainParent->age
@@ -64,7 +64,7 @@ class FamilyRepository implements FamilyRepositoryContract {
           "has_account" => 0,
           "user_id" => 0,
           "name" => $partnerFullName,
-          "family_role" => $partner->familyRole,
+          "family_role" => $partner->familyTitle,
           "email" => $partner->parentEmail,
           "attached_email" => $partner->hasPartner ? $mainParent->parentEmail : null,
           "age" => $partner->age

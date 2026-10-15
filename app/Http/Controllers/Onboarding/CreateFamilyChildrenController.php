@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\CreateFamilyChildrenRequest;
 
+use App\Actions\Onboarding\CreateFamilyChildren;
+use App\Contracts\FamilyServiceContract;
+
 class CreateFamilyChildrenController extends Controller
 {
     /**
@@ -23,8 +26,8 @@ class CreateFamilyChildrenController extends Controller
             return response()->json(['message' => 'Invalid children data'], 400);
         }
 
-        $action = new \App\Actions\Onboarding\CreateFamilyChildren(
-            app(\App\Contracts\FamilyServiceContract::class)
+        $action = new CreateFamilyChildren(
+            app(FamilyServiceContract::class)
         );
 
         $action->handle($children);

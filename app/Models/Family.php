@@ -29,4 +29,9 @@ class Family extends Model
     {
         return $this->hasMany(FamilyMember::class, 'family_id');
     }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(FamilyMember::class, 'family_id')->where('family_role', 'child');
+    }
 }
