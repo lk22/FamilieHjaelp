@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompleteOnboardingController;
 use App\Http\Controllers\Onboarding\CreateFamilyController;
 use App\Http\Controllers\Onboarding\CreateFamilyParentsController;
+use App\Http\Controllers\Onboarding\CreateFamilyChildrenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,8 +24,8 @@ Route::post('/onboarding/family/create', [CreateFamilyController::class, '__invo
 Route::post('/onboarding/family/create/parents', [CreateFamilyParentsController::class, '__invoke'])
     ->name('api.onboarding.family.create.parents');
 
-// Route::post('/onboarding/family/create/children', [CreateFamilyChildrenController::class, '__invoke'])
-//     ->name('api.onboarding.family.create.children');
+Route::post('/onboarding/family/create/children', [CreateFamilyChildrenController::class, '__invoke'])
+    ->name('api.onboarding.family.create.children');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/onboarding/process/complete/todos', [CompleteOnboardingController::class, 'storeTodos'])

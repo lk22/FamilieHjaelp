@@ -67,8 +67,8 @@ export default function OnboardingCompleted() {
     const [familyCreated, setFamilyCreated] = useState<boolean>(false);
     const [familyParentsCreated, setFamilyParentsCreated] = useState<boolean>(false);
     const [familyChildrenCreated, setFamilyChildrenCreated] = useState<boolean>(false);
-    const [stepFourCompleted, setStepFourCompleted] = useState<boolean>(false);
-    const [stepFiveCompleted, setStepFiveCompleted] = useState<boolean>(false);
+    const [parentUserMailsSend, setParentUserMailsSend] = useState<boolean>(false);
+    const [childrenUserMailsSend, setChildrenUserMailsSend] = useState<boolean>(false);
 
     const [stepData] = useState<Record<string, any>>(stepsData ?? null);
 
@@ -214,6 +214,24 @@ export default function OnboardingCompleted() {
                     const children: Child[] = stepData.three.kids;
                     console.log(children);
 
+                    const response = await fetch('/api/onboarding/family/create/children', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: JSON.stringify({
+                            familyId: familyId,
+                            children: children
+                        })
+                    });
+
+                    const responseData = await response.json();
+                    if ( ! responseData.success ) {
+                        setResponseError("Something went wrong, could not add children");
+                        return;
+                    }
 
                     setFamilyChildrenCreated(true);
                     // implement the creation of the family children here
@@ -225,6 +243,7 @@ export default function OnboardingCompleted() {
                 "progressStep": progressStep + 3,
                 "progressPercent": progressPercent + 60,
                 "callback": async () => {
+                    setParentUserMailsSend(true);
                     // implement the completion of the onboarding process here
                     console.log("Onboarding completed successfully");
                 }
@@ -234,6 +253,7 @@ export default function OnboardingCompleted() {
                 "progressStep": progressStep + 4,
                 "progressPercent": progressPercent + 80,
                 "callback": async () => {
+                    setChildrenUserMailsSend(true);
                     // implement the sending of user request mails to family children emails here
                     console.log("User request mails sent to family children emails successfully");
                 }
