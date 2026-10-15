@@ -5,9 +5,25 @@ import { Button } from '@/components/ui/button';
 
 import { type CompleteStepProps } from '@/types/onboarding';
 
-export default function CompleteStep({ token, familyName, parentData, kidsData }: CompleteStepProps) {
+interface TranslateCompleteStepProps extends CompleteStepProps {
+    translate: (key: string) => string;
+    locale: string;
+}
+
+export default function CompleteStep({
+    token,
+    familyName,
+    parentData,
+    kidsData,
+    translate,
+    locale
+}: TranslateCompleteStepProps) {
   const kids = kidsData.kids;
-  const { post, processing } = useForm<{ data: { session_token: string | null } }>({
+  const { post, processing } = useForm<{
+    data: {
+        session_token: string | null
+    }
+}>({
     data: {
       session_token: token,
     },
@@ -18,35 +34,63 @@ export default function CompleteStep({ token, familyName, parentData, kidsData }
     post(route('onboarding.completed'));
   };
 
+  const hasPartner = parentData.hasPartner;
+  console.log({parentData})
+
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-semibold">Bekræft familien</h2>
+        <h2 className="text-2xl font-semibold">{translate('app.getting_started.confirmation_step.heading')}</h2>
 
-        <div className="rounded border p-4">
+        <h3>Familienavn</h3>
+        <div className="rounded border border-1 border-blue-900 p-4">
             <p>
-                <strong>Familienavn:</strong> {familyName}
-            </p>
-            <p>
-                <strong>Onboarder:</strong> {String(parentData.name ?? '')} ({String(parentData.familyTitle ?? '')})
-            </p>
-            <p>
-                <strong>Partner:</strong> {parentData.hasPartner ? 'Ja' : 'Nej'}
-            </p>
-            {parentData.hasPartner ? (
-                <p>
-                    <strong>Partner navn:</strong> {String(parentData.partnerName ?? '')}
-                </p>
-            ) : null}
-            <p>
-                <strong>Antal børn:</strong> {kids.length}
+                <strong>{translate('app.getting_started.confirmation_step.family_name_label')}:</strong> {familyName}
             </p>
         </div>
+        <h3>Onboarder</h3>
+        <div className="rounded border border-1 border-blue-900 p-4">
+            <div className="grid grid-cols-2 gap-4">
+                <div className="onboarder-name">
+                    <p>
+                        <strong>{translate('app.getting_started.confirmation_step.onboarder_name_label')}:</strong> {String(parentData.firstName ?? '')} {String(parentData.middleName ?? '')} {String(parentData.lastName ?? '')} ({String(parentData.familyTitle ?? '')})
+                    </p>
+                </div>
+                <div className="onboarder-age">
+                    <p>
+                        <strong>{translate('app.getting_started.confirmation_step.onboarder_age_label')}:</strong> {String(parentData.age ?? '')}
+                    </p>
+                </div>
+                <p>
+                    <strong>{translate('app.getting_started.confirmation_step.has_partner_label')}:</strong> {parentData.hasPartner ? translate('app.getting_started.confirmation_step.has_partner_yes') : translate('app.getting_started.confirmation_step.has_partner_no')}
+                </p>
+            </div>
+        </div>
+        <h3>Partner</h3>
+            {parentData.hasPartner ? (
+                <div className="rounded border border-1 border-blue-900 p-4">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="partner-name">
+                            <p>
+                                <strong>{translate('app.getting_started.confirmation_step.partner_name_label')}:</strong> {String(parentData.partnerFirstName ?? '') + ' ' + String(parentData.partnerMiddleName ?? '') + ' ' + String(parentData.partnerLastName ?? '')}
+                            </p>
+                        </div>
+                        <div className="partner-age">
+                            <p>
+                                <strong>{translate('app.getting_started.confirmation_step.partner_age_label')}:</strong> {String(parentData.partnerAge ?? '')}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            ) : null}
 
         <div className="space-y-2">
+            <p>
+                <strong>{translate('app.getting_started.confirmation_step.number_of_children_label')}:</strong> {kids.length}
+            </p>
             {kids.map((kid, index) => (
-                <div className="rounded border p-3" key={index}>
+                <div className="rounded border border-1 border-blue-900 p-3" key={index}>
                     <p>
-                        <strong>{kid.name}</strong> ({kid.gender}) - {kid.ageYears} år og {kid.ageMonths} måneder
+                        <strong>{kid.name}</strong> ({translate(kid.gender)}) - {kid.ageYears} {translate('app.getting_started.confirmation_step.child_age_years')}, {kid.ageMonths} {translate('app.getting_started.confirmation_step.child_age_months')} {`${locale === 'da' ? 'og' : 'and'}`} {kid.ageWeeks} {translate('app.getting_started.confirmation_step.child_age_weeks')}
                     </p>
                 </div>
             ))}
@@ -54,13 +98,13 @@ export default function CompleteStep({ token, familyName, parentData, kidsData }
 
         <div className="flex flex-wrap gap-3">
             <Button asChild type="button" variant="outline">
-                <Link href={route('onboarding.scenario.step', { scenario: 'family', step: 'three' })}>Tilbage</Link>
+                <Link href={route('onboarding.scenario.step', { scenario: 'family', step: 'three' })}>{translate('app.back')}</Link>
             </Button>
             <Button disabled={processing || !token} type="submit" className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white">
-                Fuldfør onboarding
+                {translate('app.complete_onboarding')}
             </Button>
         </div>
-        {!token ? <p className="text-sm text-red-600">Sessionen mangler. Start onboarding forfra for at fuldføre.</p> : null}
+        {!token ? <p className="text-sm text-red-600">{translate('app.session_missing')}</p> : null}
     </form>
   );
 }

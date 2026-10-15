@@ -8,11 +8,18 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    protected $defer = false;
+
     /**
      * Register any application services.
      */
     public function register(): void
     {
+        app()->bind(\App\Contracts\OnboardingServiceContract::class, \App\Services\OnboardingService::class);
+        app()->bind(\App\Contracts\FamilyServiceContract::class, \App\Services\FamilyService::class);
+        app()->bind(\App\Contracts\FamilyRepositoryContract::class, \App\Repositories\FamilyRepository::class);
+        app()->bind(\App\Contracts\OnboardingSessionRepositoryContract::class, \App\Repositories\OnboardingSessionRepository::class);
+
         Model::preventLazyLoading(! app()->isProduction());
         Model::shouldBeStrict(! app()->isProduction());
         // allow HTTPS on all environments, since the app is behind a reverse proxy that handles SSL termination

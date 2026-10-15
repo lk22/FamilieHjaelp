@@ -26,7 +26,7 @@ export default function GettingStarted({ onboardingSession }: OnboardingSessionP
     return (
         <>
             <Head title={`Kom i gang | ${name}`} />
-            <main className="bg-[#004EA7] py-16 text-white h-[100dvh] flex items-center justify-center" id="onboarding">
+            <main className="py-16 text-blue-900 h-[100dvh] flex items-center justify-center" id="onboarding">
                 <div className="mx-auto w-full max-w-3xl px-6">
                     <img
                         src="/images/logo.svg"
@@ -34,7 +34,7 @@ export default function GettingStarted({ onboardingSession }: OnboardingSessionP
                         width={75}
                         alt="Onboarding illustration" className="mb-4"
                     />
-                    <h1 className="text-3xl font-bold">{t("app.getting_started.create_family")}</h1>
+                    <h1 className="text-3xl font-bold">{t("app.getting_started.onboarding_title_label")}</h1>
                     <p className="mt-4 text-lg">
                         {t("app.getting_started.create_family_description")}
                     </p>
@@ -54,7 +54,7 @@ export default function GettingStarted({ onboardingSession }: OnboardingSessionP
                                         href={localizedRoute('onboarding.scenario.step', { scenario: 'family', step: 'one', locale: locale })}
                                         className="bg-blue-700 text-white hover:bg-blue-600"
                                     >
-                                        Start onboarding
+                                        {t("app.getting_started.getting_started_button.label")}
                                     </Link>
                                 </Button>
                             ) : null}
@@ -70,12 +70,12 @@ export default function GettingStarted({ onboardingSession }: OnboardingSessionP
                                             })}
                                             className="bg-blue-700 text-white hover:bg-blue-600"
                                         >
-                                            Fortsæt hvor du slap
+                                            {t("app.getting_started.continue_where_you_left_off_button_label")}
                                         </Link>
                                     </Button>
 
                                     <Button asChild variant="outline" className="bg-blue-900 text-white hover:bg-blue-800 hover:text-white">
-                                        <Link href={route('onboarding.reset')}>Start forfra</Link>
+                                        <Link href={route('onboarding.reset')}>{t("app.getting_started.start_over_button_label")}</Link>
                                     </Button>
                                 </>
                             ) : null}

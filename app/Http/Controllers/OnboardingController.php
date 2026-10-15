@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\OnboardingServiceContract;
 use App\Http\Requests\CompleteOnboardingRequest;
 use App\Http\Requests\SubmitStepRequest;
 use App\Models\OnboardingSession;
@@ -10,8 +11,15 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
 
+use App\Repositories\OnboardingSessionRepository;
+
 class OnboardingController extends Controller
 {
+    public function __construct(
+        private OnboardingServiceContract $onboardingSessionService,
+    ) {
+    }
+
     /**
      * Render getting started view and handle onboarding session.
      *
@@ -25,7 +33,14 @@ class OnboardingController extends Controller
         $token = $request->session()->get('onboarding_session_token')
             ?? $request->cookie('onboarding_session_token');
 
-        $session = OnboardingSession::findOrCreateSession($userId, $token);
+        $session = $this->onboardingSessionService->findBySessionToken($token);
+
+        // $session = OnboardingSession::findOrCreateSession($userId, $token);
+        $session = $this->onboardingSessionService->findOrCreateSession($userId, $token);
+
+        // if ($session->current_step === "completed") {
+        //     return redirect()->route('onboarding.completed.view');
+        // }
 
         // Keep token available immediately server-side in the current request lifecycle.
         $request->session()->put('onboarding_session_token', $session->session_token);
@@ -54,29 +69,16 @@ class OnboardingController extends Controller
     public function submitStep(SubmitStepRequest $request, string $locale, string $scenario, string $step): JsonResponse|RedirectResponse
     {
         $nextStep = $request->input('nextStep');
-        // Step 1: validation logic (to be implemented)
-        if (! $request->validated()) {
+        $data = $request->input('data');
+
+        if ( ! $request->validated() ) {
             return response()->json(['message' => 'Validation failed. Please check your input and try again.'], 422);
         }
 
-        // step 2: update the onboarding session with the submitted data (to be implemented)
-        $existingSession = OnboardingSession::findByToken($request->cookie('onboarding_session_token'));
+        $stepSubmitted = $this->onboardingSessionService->submitStep($data, $nextStep, $scenario, $step);
 
-        if (! $existingSession) {
-            return response()->json(['message' => 'Onboarding session not found. Please start the onboarding process again.'], 404);
-        }
-
-        $existingSession->update([
-            'scenario' => $scenario,
-            'current_step' => $step,
-            'steps_data' => array_merge($existingSession->steps_data, [
-                $step => $request->input('data'),
-            ]),
-            'next_step' => $nextStep,
-        ]);
-
-        if ($step === 'complete') {
-            $existingSession->markAsCompleted();
+        if ( ! $stepSubmitted ) {
+            return response()->json(['message' => 'Failed to submit step. Please try again.'], 500);
         }
 
         // return a redirect response to the next step or a success message (to be implemented)
@@ -106,14 +108,14 @@ class OnboardingController extends Controller
         $token = $request->session()->get('onboarding_session_token')
             ?? $request->cookie('onboarding_session_token');
 
-        if (! $token) {
+        if (!$token) {
             return redirect()->route('app.getting-started')
                 ->with('error', 'Onboarding session token mangler.');
         }
 
-        $session = OnboardingSession::findByToken($token);
+        $session = $this->onboardingSessionService->findBySessionToken($token);
 
-        if (! $session) {
+        if (!$session) {
             abort(404, 'Onboarding session not found. Please start the onboarding process again.');
         }
 
@@ -141,7 +143,7 @@ class OnboardingController extends Controller
             abort(400, 'Onboarding session token is missing.');
         }
 
-        $session = OnboardingSession::findByToken($token);
+        $session = $this->onboardingSessionService->findBySessionToken($token);
 
         return inertia('home/onboarding/confirmation', [
             'onboardingSession' => [
@@ -156,8 +158,17 @@ class OnboardingController extends Controller
 
     public function showCompleted(Request $request): Response
     {
+        $token = $request->cookie('onboarding_session_token');
+
+        if (is_null($token)) {
+            abort(400, 'Onboarding session token is missing.');
+        }
+
+        $session = $this->onboardingSessionService->findBySessionToken($token);
+
         return inertia('home/onboarding/onboarding-completed', [
             'onboardingSessionToken' => $request->cookie('onboarding_session_token'),
+            'stepsData' => $session->steps_data,
         ]);
     }
 
@@ -174,9 +185,9 @@ class OnboardingController extends Controller
         ]);
 
         $userId = $request->user()?->id;
-        $session = OnboardingSession::findWhen($userId, $validated['data']['session_token']);
+        $session = $this->onboardingSessionService->findBySessionToken($validated['data']['session_token']);
 
-        if (! $session) {
+        if (!$session) {
             abort(404, 'Onboarding session not found.');
         }
 
@@ -202,5 +213,24 @@ class OnboardingController extends Controller
         cookie()->queue(cookie()->forget('onboarding_session_token'));
 
         return redirect()->route('app.getting-started')->with('success', 'Onboarding has been reset successfully!');
+    }
+
+    public function verifyToken(Request $request): JsonResponse
+    {
+
+        return response()->json(['success' => true, 'message' => 'Session token verified successfully.']);
+        $token = $request->cookie('onboarding_session_token');
+
+        if (is_null($token)) {
+            return response()->json(['success' => false, 'message' => 'Onboarding session token is missing.']);
+        }
+
+        $session = $this->onboardingSessionService->findBySessionToken($token);
+
+        if (!$session) {
+            return response()->json(['success' => false, 'message' => 'Onboarding session not found.']);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Session token verified successfully.']);
     }
 }

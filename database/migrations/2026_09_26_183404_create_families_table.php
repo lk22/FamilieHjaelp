@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('families', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
-            $table->integer('family_members')->default(0);
-            $table->string('address');
+            $table->integer('family_size')->default(0);
             $table->timestamps();
         });
     }

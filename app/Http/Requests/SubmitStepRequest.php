@@ -58,71 +58,30 @@ class SubmitStepRequest extends FormRequest
                 'data.familyName' => 'required|string|max:255',
             ],
             'two' => [
-                'data.name' => 'required|string|max:255',
+                'data.firstName' => 'required|string|max:255',
+                'data.middleName' => 'required|string|max:255',
+                'data.lastName' => 'required|string|max:255',
                 'data.age' => 'required|integer|min:0|max:120',
                 'data.familyTitle' => 'required|string|max:255',
                 'data.hasPartner' => 'required|boolean',
-                'data.partnerName' => 'required_if:data.hasPartner,true|nullable|string|max:255',
+                'data.partnerFirstName' => 'required_if:data.hasPartner,true|nullable|string|max:255',
+                'data.partnerLastName' => 'required_if:data.hasPartner,true|nullable|string|max:255',
                 'data.partnerAge' => 'required_if:data.hasPartner,true|nullable|integer|min:0|max:120',
                 'data.partnerFamilyTitle' => 'required_if:data.hasPartner,true|nullable|string|max:255',
                 'data.partnerNeedsUser' => 'exclude_unless:data.hasPartner,true|nullable|boolean',
-                'data.partnerUserName' => 'exclude_unless:data.hasPartner,true|required_if:data.partnerNeedsUser,true|nullable|string|max:255',
                 'data.partnerUserEmail' => 'exclude_unless:data.hasPartner,true|required_if:data.partnerNeedsUser,true|nullable|email|max:255',
             ],
             'three' => [
                 'data.kids' => 'required|array|min:1',
                 'data.kids.*.gender' => 'required|string|in:male,female,other',
-                'data.kids.*.name' => 'required|string|max:255',
+                'data.kids.*.firstName' => 'required|string|max:255',
+                'data.kids.*.middleName' => 'required|string|max:255',
+                'data.kids.*.lastName' => 'required|string|max:255',
                 'data.kids.*.ageYears' => 'required|integer|min:0|max:25',
-                'data.kids.*.ageMonths' => 'required|integer|min:0|max:11',
+                'data.kids.*.ageMonths' => 'nullable|integer|min:0|max:11',
+                'data.kids.*.ageWeeks' => 'nullable|integer|min:0|max:3',
             ],
             default => [],
-        };
-    }
-
-    private function parentingRules(string $step): array
-    {
-        return match ($step) {
-            'one' => [
-                'data.birthDate' => 'required|date',
-            ],
-            'two' => [
-                'data.hasReturnedHome' => 'required|boolean',
-            ],
-            'three' => [
-                'data.isFirstChild' => 'required|boolean',
-            ],
-            'fourth' => [
-                'data.contactedByMidwifeOrHealthVisitor' => 'required|boolean',
-            ],
-            'five' => [
-                'data.childTestProcessPlanned' => 'required|boolean',
-            ],
-            'six' => [
-                'data.needsInfoOnParentalLeave' => 'required|boolean',
-            ],
-            'seven' => [
-                'data.knowsChildBenefitsAndCheckups' => 'required|boolean',
-            ],
-            'eight' => [
-                'data.wellbeingChallenges' => 'required|boolean',
-            ],
-            'nine' => [
-                'data.needsSupportForPostpartumIssues' => 'required|boolean',
-            ],
-            'ten' => [
-                'data.wantsToJoinParentGroups' => 'required|boolean',
-            ],
-            'eleven' => [
-                'data.hasPlannedDaycare' => 'required|boolean',
-            ],
-            'twelve' => [
-                'data.knowsHealthVisitorSchedule' => 'required|boolean',
-            ],
-            'thirteen' => [
-                'data.hasHealthConcerns' => 'required|boolean',
-            ],
-            default => []
         };
     }
 }

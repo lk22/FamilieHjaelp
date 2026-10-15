@@ -431,7 +431,11 @@
     "go_back": "Gå tilbage"
   },
   "app": {
+    "session_missing": "Din session er ugyldig eller udløbet",
+    "complete_onboarding": "Fuldfør onboarding",
+    "back": "Tilbage",
     "getting_started": {
+      "onboarding_title_label": "Familiehjælp onboarding",
       "create_family": "Opret din familie",
       "create_family_description": "Vi guider dig gennem en kort onboarding, hvor du opretter din familie med forældre og børn.",
       "descripted_steps": {
@@ -443,11 +447,94 @@
       "getting_started_button": {
         "label": "Start onboarding"
       },
+      "start_over_button_label": "Start forfra",
+      "continue_where_you_left_off_button_label": "Fortsæt hvor du slap",
       "family_name": {
         "heading": "Indtast familienavn",
         "form_field": {
           "label": "Familienavn",
           "next_step_label": "Næste"
+        }
+      },
+      "parent_step": {
+        "heading": "Hvem udfylder onboarding?",
+        "has_partner_question": "Har du en partner?",
+        "has_partner_no": "Nej",
+        "has_partner_yes": "Ja",
+        "partner_information_label": "Partner information",
+        "firstname_label": "Fornavn",
+        "middle_name_label": "Mellemnavn",
+        "last_name_label": "Efternavn",
+        "age_label": "Alder",
+        "family_title_label": "Familietitel",
+        "family_title_placeholder": "Fx Mor, Far, Omsorgsfar",
+        "partner_first_name_label": "Partnerens fornavn",
+        "partner_middle_name_label": "Partnerens mellemnavn",
+        "partner_last_name_label": "Partnerens efternavn",
+        "partner_age_label": "Partnerens alder",
+        "partner_family_title_label": "Partnerens familietitel",
+        "partner_needs_user_login_label": "Skal din partner have en bruger?",
+        "partner_needs_user_login_yes": "Ja",
+        "partner_needs_user_login_no": "Nej",
+        "partner_username_label": "Partner bruger navn",
+        "partner_email_label": "Partner email",
+        "next_step_label": "Næste",
+        "previous_step_label": "Gå tilbage",
+        "family_title_dad": "Far",
+        "family_title_mother": "Mor"
+      },
+      "kids_step": {
+        "heading": "Tilføj børn",
+        "subheading": "Tilføj oplysninger om dine børn",
+        "add_child_button_label": "Tilføj barn",
+        "child_name_label": "Barnets navn",
+        "child_firstname_label": "Fornavn",
+        "child_middlename_label": "Mellemnavn",
+        "child_lastname_label": "Efternavn",
+        "child_age_label": "Barnets alder",
+        "child_age_label_years": "Barnets alder (år)",
+        "child_age_label_months": "Barnets alder (måneder)",
+        "child_age_label_weeks": "Barnets alder (uger)",
+        "child_gender_label": "Barnets køn",
+        "child_gender_male": "Dreng",
+        "child_gender_female": "Pige",
+        "child_gender_other": "Andet",
+        "next_step_label": "Næste",
+        "previous_step_label": "Gå tilbage",
+        "remove_child_button_label": "Fjern barn",
+        "child_needs_user_login_label": "Vil du oprette en bruger til dit barn?",
+        "child_user_login_label": "Opret brugernavn til barnet",
+        "child_user_password_label": "Opret adgangskode til barnet",
+        "child_confirm_password_label": "Bekræft adgangskode til barnet",
+        "child_confirm_password_rules": "Adgangskoden skal indeholde specialtegn såsom !@#$%^&*, store og små bogstaver samt tal.",
+        "child_confirm_password_check_label": "Bekræft adgangskode til barnet",
+        "child_confirm_password_check_rules": "Adgangskoden skal matche den tidligere indtastede adgangskode.",
+        "enter_child_user_email_message": "Indtast den email adresse brugeren skal oprettes på",
+        "child_receive_login_mail_message": "vil modtage en email med mulighed for oprettelse af bruger til platformen",
+        "child_user_email_label": "Barnets email adresse"
+      },
+      "confirmation_step": {
+        "heading": "Bekræft familieoplysninger",
+        "family_name_label": "Familienavn",
+        "onboarder_name_label": "Fulde navn",
+        "onboarder_age_label": "Alder",
+        "has_partner_label": "Har partner?",
+        "partner_name_label": "Fulde navn",
+        "partner_age_label": "Alder",
+        "partner_family_title_label": "Partnerens familietitel",
+        "number_of_children_label": "Antal børn",
+        "has_partner_no": "Nej",
+        "has_partner_yes": "Ja",
+        "child_age_years": "år",
+        "child_age_months": "måneder",
+        "child_age_weeks": "uger"
+      },
+      "completed_step": {
+        "heading": "Tak - din familie er oprettet",
+        "message": "Vi har gemt dine onboarding oplysninger.",
+        "steps": {
+          "verify": "Bekræft oplysninger",
+          "complete": "Fuldført onboarding"
         }
       }
     }

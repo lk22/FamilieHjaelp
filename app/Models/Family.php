@@ -13,6 +13,16 @@ class Family extends Model
 
     protected $fillable = [
         'name',
+        'family_size',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     public function members(): HasMany

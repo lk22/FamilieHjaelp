@@ -99,6 +99,7 @@ Route::group([
     Route::post('/app/onboarding/{scenario}/step/{step}', [OnboardingController::class, 'submitStep'])->name('onboarding.scenario.step.submit');
     Route::get('/app/onboarding/confirmation', [OnboardingController::class, 'showConfirmation'])->name('onboarding.confirmation');
     Route::get('/app/onboarding/completed', [OnboardingController::class, 'showCompleted'])->name('onboarding.completed.view');
+    Route::get('/app/onboarding/allready-completed', [OnboardingController::class, 'showCompleted'])->name('app.onboarding.allready-completed');
     Route::post('/app/onboarding/{scenario}/update-step/{step}', [OnboardingController::class, 'updateStep'])->name('onboarding.scenario.update-step');
     Route::get('/app/onboarding/reset', [OnboardingController::class, 'reset'])->name('onboarding.reset');
     Route::post('/app/onboarding/completed', [OnboardingController::class, 'complete'])->name('onboarding.completed');

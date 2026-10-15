@@ -2,10 +2,17 @@ import { type SharedData } from '@/types';
 
 export type Kid = {
     gender: 'male' | 'female' | 'other';
-    name: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
     ageYears: string;
     ageMonths: string;
     ageWeeks: string;
+    needsUserLogin: boolean;
+    userEmail: string;
+    userLogin?: string;
+    userPassword?: string;
+    confirmPassword?: string;
 };
 
 export interface SessionProps extends SharedData {
@@ -34,11 +41,15 @@ export interface FamilyNameStepProps {
 }
 
 export type ParentStepData = {
-    name: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
     age: string;
     familyTitle: string;
     hasPartner: boolean;
-    partnerName?: string;
+    partnerFirstName?: string;
+    partnerMiddleName?: string;
+    partnerLastName?: string;
     partnerAge?: string;
     partnerFamilyTitle?: string;
     partnerNeedsUser: boolean;

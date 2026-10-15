@@ -11,19 +11,23 @@ import { type FamilyNameStepData, type KidsStepData, type ParentStepData, type S
 
 export default function FamilyOnboardingStep() {
     const { t } = useTranslation();
-    const locale = usePage<SessionProps>().props.locale;
-    const translateRoute = localizeRoute(locale);
+    const { locale } = usePage<SessionProps>().props;
     const { currentStep, onboardingSession } = usePage<SessionProps>().props;
 
     const one: FamilyNameStepData = {
         familyName: String(onboardingSession.stepsData.one?.familyName ?? ''),
     };
+
     const two: ParentStepData = {
-        name: String(onboardingSession.stepsData.two?.name ?? ''),
+        firstName: String(onboardingSession.stepsData.two?.firstName ?? ''),
+        middleName: String(onboardingSession.stepsData.two?.middleName ?? ''),
+        lastName: String(onboardingSession.stepsData.two?.lastName ?? one.familyName),
         age: String(onboardingSession.stepsData.two?.age ?? ''),
         familyTitle: String(onboardingSession.stepsData.two?.familyTitle ?? ''),
         hasPartner: Boolean(onboardingSession.stepsData.two?.hasPartner ?? false),
-        partnerName: String(onboardingSession.stepsData.two?.partnerName ?? ''),
+        partnerFirstName: String(onboardingSession.stepsData.two?.partnerFirstName ?? ''),
+        partnerMiddleName: String(onboardingSession.stepsData.two?.partnerMiddleName ?? ''),
+        partnerLastName: String(onboardingSession.stepsData.two?.partnerLastName ?? ''),
         partnerAge: String(onboardingSession.stepsData.two?.partnerAge ?? ''),
         partnerFamilyTitle: String(onboardingSession.stepsData.two?.partnerFamilyTitle ?? ''),
         partnerNeedsUser: Boolean(onboardingSession.stepsData.two?.partnerNeedsUser ?? false),
@@ -38,25 +42,49 @@ export default function FamilyOnboardingStep() {
         complete: '4',
     };
 
+    const translatedStepString = locale === 'da'
+        ? 'Trin ' + stepNumberByName[currentStep] + ' af 4'
+        : 'Step ' + stepNumberByName[currentStep] + ' of 4';
+
+    // if the family name is composed of two words, split it into middle name and last name for the parents section
+    if ( one.familyName.split(' ').length > 1 ) {
+        const [middleName, lastname] = one.familyName.split(' ');
+        two.middleName = middleName;
+        two.partnerMiddleName = middleName;
+        // You might want to store the last name somewhere else or handle it as needed
+        two.lastName = lastname;
+        two.partnerLastName = lastname;
+    }
+
     return (
-        <main className="flex items-center bg-[#004EA7] py-10 text-white" id="onboarding">
+        <main className="flex items-center py-10 text-blue-900" id="onboarding">
             <Head title="Familie onboarding" />
             <div className="mx-auto w-full max-w-3xl">
                 <div className="flex justify-between">
                     <div className="step-column">
-                        <h1 className="text-3xl font-bold">Familie onboarding</h1>
-                        <p className="mt-2 text-lg">Trin {stepNumberByName[currentStep] ?? '1'} af 4</p>
+                        <h1 className="text-3xl font-bold">
+                            {t("app.getting_started.onboarding_title_label")}
+                        </h1>
+                        <p className="mt-2 text-lg">{translatedStepString}</p>
                     </div>
                     <div className="logo">
                         <img src="/images/logo.svg" height={75} width={75} alt="Onboarding illustration" className="mb-4" />
                     </div>
                 </div>
-                <div className="mt-8 rounded-lg bg-white p-6 text-black shadow">
+                <div className="mt-8 rounded-lg p-6 text-blue-900 shadow border border-4 border-blue-900">
                     {currentStep === 'one' ? <FamilyNameStep defaultFamilyName={String(one.familyName ?? '')} translate={t} /> : null}
-                    {currentStep === 'two' ? <ParentStep defaultData={two} /> : null}
-                    {currentStep === 'three' ? <KidsStep defaultData={three} /> : null}
+                    {currentStep === 'two' ? <ParentStep defaultData={two} translate={t} /> : null}
+                    {currentStep === 'three' ? <KidsStep defaultData={three} translate={t} locale={locale} /> : null}
+                    {/* {currentStep === 'four' ? <RegisterStep defaultData={four} translate={t} /> : null} */}
                     {currentStep === 'complete' ? (
-                        <CompleteStep token={onboardingSession.token} familyName={one.familyName} parentData={two} kidsData={three} />
+                        <CompleteStep
+                            token={onboardingSession.token}
+                            familyName={one.familyName}
+                            parentData={two}
+                            kidsData={three}
+                            translate={t}
+                            locale={locale}
+                        />
                     ) : null}
                 </div>
             </div>

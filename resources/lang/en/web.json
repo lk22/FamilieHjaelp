@@ -420,6 +420,7 @@
   },
   "app": {
     "getting_started": {
+      "onboarding_title_label": "Familiehjælp onboarding",
       "create_family": "Create your family",
       "create_family_description": "We guide you through a short onboarding process where you create your family with parents and children.",
       "descripted_steps": {
@@ -428,8 +429,59 @@
         "step_two": "Enter information about yourself and any partner",
         "step_three": "Add one or more children with gender, name, and age"
       },
+
       "getting_started_button": {
         "label": "Start onboarding"
+      },
+      "start_over_button_label": "Start over",
+      "continue_where_you_left_off_button_label": "Continue onboarding",
+      "family_name": {
+        "heading": "Enter family name",
+        "form_field": {
+          "label": "Family name",
+          "next_step_label": "Next"
+        }
+      },
+      "parent_step": {
+        "heading": "Parent information",
+        "has_partner_question": "Do you have a partner?",
+        "has_partner_no": "No",
+        "has_partner_yes": "Yes",
+        "partner_information_label": "Partner information",
+        "firstname_label": "First name",
+        "middle_name_label": "Middle name",
+        "last_name_label": "Last name",
+        "age_label": "Age",
+        "family_title_label": "Family title",
+        "family_title_placeholder": "Fx Mom, Dad, Guardian, Care Dad, Care Mom",
+        "partner_first_name_label": "Partner's first name",
+        "partner_middle_name_label": "Partner's middle name",
+        "partner_last_name_label": "Partner's last name",
+        "partner_age_label": "Partner's age",
+        "partner_family_title_label": "Partner's family title",
+        "partner_needs_user_login_label": "Does your partner need a user account?",
+        "partner_needs_user_login_yes": "Yes",
+        "partner_needs_user_login_no": "No",
+        "partner_username_label": "Partner username",
+        "partner_email_label": "Partner email",
+        "next_step_label": "Next",
+        "previous_step_label": "Go back"
+      },
+      "kids_step": {
+        "heading": "Add child",
+        "subheading": "Fill in information about your children",
+        "add_child_button_label": "Add child",
+        "child_name_label": "Child's name",
+        "child_age_label": "Child's age",
+        "child_age_label_years": "Child's age (years)",
+        "child_age_label_months": "Child's age (months)",
+        "child_age_label_weeks": "Child's age (weeks)",
+        "child_gender_label": "Child's gender",
+        "child_gender_male": "Male",
+        "child_gender_female": "Female",
+        "child_gender_other": "Other",
+        "next_step_label": "Next",
+        "previous_step_label": "Go back"
       }
     }
   }
