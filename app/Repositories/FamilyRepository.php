@@ -17,6 +17,10 @@ use App\Dto\ParentDto;
 use App\Exceptions\FamilyNotCreatedException;
 use App\Exceptions\CouldNotCreateFamilyParentsException;
 
+// Utils
+use Illuminate\Support\Str;
+
+
 class FamilyRepository implements FamilyRepositoryContract {
   public function createFamily(FamilyDto $data): ?Family
   {
@@ -43,32 +47,41 @@ class FamilyRepository implements FamilyRepositoryContract {
     ParentDto $partner
   ): void
   {
+
+    $familyMembers = FamilyMember::where('family_id', $familyId)->get();
+
+    if (count($familyMembers) > 0) {
+      throw new CouldNotCreateFamilyParentsException("Family already has members");
+    }
+
     try {
       $family = Family::findOrFail($familyId);
+      $familyMembers = $family->members;
 
       $mainParentFullName = $mainParent->firstName . ' ' . $mainParent->middleName . ' ' . $mainParent->lastName;
       $partnerFullName = $partner->firstName . ' ' . $partner->middleName . ' ' . $partner->lastName;
-      $family->members()->createMany([
-        [
+      $family->members()->create([
+          'id' => Str::uuid(),
           'family_id' => $familyId,
           "has_account" => 0,
           "user_id" => 0,
           "name" => $mainParentFullName,
           "family_role" => $mainParent->familyTitle,
+          "age" => $mainParent->age,
           "email" => $mainParent->parentEmail,
-          "attached_email" => $mainParent->hasPartner ? $partner->parentEmail : null,
-          "age" => $mainParent->age
-        ],
-        [
-          'family_id' => $familyId,
-          "has_account" => 0,
-          "user_id" => 0,
-          "name" => $partnerFullName,
-          "family_role" => $partner->familyTitle,
-          "email" => $partner->parentEmail,
-          "attached_email" => $partner->hasPartner ? $mainParent->parentEmail : null,
-          "age" => $partner->age
-        ]
+          "attached_email" => $mainParent->hasPartner ? $partner->parentEmail : "null",
+      ]);
+
+      $family->members()->create([
+        'id' => Str::uuid(),
+        "family_id" => $familyId,
+        "has_account" => 0,
+        "user_id" => 0,
+        "name" => $partnerFullName,
+        "family_role" => $partner->familyTitle,
+        "age" => $partner->age,
+        "email" => $partner->parentEmail,
+        "attached_email" => $partner->hasPartner ? $mainParent->parentEmail : "null",
       ]);
     } catch (CouldNotCreateFamilyParentsException $e) {
       throw new CouldNotCreateFamilyParentsException("Could not create family parents for family ID: $familyId");

@@ -64,6 +64,11 @@ export default function OnboardingCompleted() {
     const [progressResponse, setProgressResponse] = useState<string | null>(null);
     const [isCompleted, setIsCompleted] = useState<boolean>(false);
     const [responseError, setResponseError] = useState<string | null>(null);
+    const [familyCreated, setFamilyCreated] = useState<boolean>(false);
+    const [familyParentsCreated, setFamilyParentsCreated] = useState<boolean>(false);
+    const [familyChildrenCreated, setFamilyChildrenCreated] = useState<boolean>(false);
+    const [stepFourCompleted, setStepFourCompleted] = useState<boolean>(false);
+    const [stepFiveCompleted, setStepFiveCompleted] = useState<boolean>(false);
 
     const [stepData] = useState<Record<string, any>>(stepsData ?? null);
 
@@ -105,7 +110,7 @@ export default function OnboardingCompleted() {
                 "progressPercent": progressPercent + 25,
                 "callback": async () => {
                     const familyName = stepData.one.familyName;
-                    const kidsAmount = stepData.three.length
+                    const kidsAmount = stepData.three.kids.length;
                     let familySize = 1;
 
                     // increment the family size to 2 if the user has a partner
@@ -144,6 +149,8 @@ export default function OnboardingCompleted() {
                         setResponseError("Noget gik galt, vi kunne ikke oprette familien lige nu, prøv igen senere.");
                         return;
                     }
+
+                    setFamilyCreated(true);
 
                     // implement the creation of the family here
                     console.log("Family created successfully");
@@ -193,8 +200,10 @@ export default function OnboardingCompleted() {
                         setResponseError("Something went wrong, could not add parents");
                         return;
                     }
+
+                    setFamilyParentsCreated(true);
                     // implement the creation of the family associates here
-                    console.log("Family associates created successfully");
+                    console.log("Family parents created successfully");
                 }
             },
             {
@@ -205,6 +214,8 @@ export default function OnboardingCompleted() {
                     const children: Child[] = stepData.three.kids;
                     console.log(children);
 
+
+                    setFamilyChildrenCreated(true);
                     // implement the creation of the family children here
                     console.log("Family children created successfully");
                 }
