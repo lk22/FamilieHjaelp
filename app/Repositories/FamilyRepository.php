@@ -32,6 +32,7 @@ class FamilyRepository implements FamilyRepositoryContract {
     }
 
     $family = Family::create([
+      'id' => Str::uuid(),
       'name' => $data->familyName,
       'family_size' => $data->familySize,
       'created_at' => $data->createdAt,
@@ -60,6 +61,8 @@ class FamilyRepository implements FamilyRepositoryContract {
 
       $mainParentFullName = $mainParent->firstName . ' ' . $mainParent->middleName . ' ' . $mainParent->lastName;
       $partnerFullName = $partner->firstName . ' ' . $partner->middleName . ' ' . $partner->lastName;
+
+      // creating main parent - the onboarder of the family
       $family->members()->create([
           'id' => Str::uuid(),
           'family_id' => $familyId,
@@ -72,6 +75,7 @@ class FamilyRepository implements FamilyRepositoryContract {
           "attached_email" => $mainParent->hasPartner ? $partner->parentEmail : "null",
       ]);
 
+      // creating partner
       $family->members()->create([
         'id' => Str::uuid(),
         "family_id" => $familyId,
