@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Onboarding;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
@@ -20,6 +22,7 @@ class CreateFamilyChildrenController extends Controller
             return response()->json(['message' => 'Invalid JSON request'], 400);
         }
 
+        $familyId = $request->input('familyId');
         $children = $request->input('children');
 
         if (empty($children) || !is_array($children)) {
@@ -30,7 +33,7 @@ class CreateFamilyChildrenController extends Controller
             app(FamilyServiceContract::class)
         );
 
-        $action->handle($children);
+        $action->handle($familyId, $children);
 
         // Process the children data here
         return response()->json(['message' => 'Children data processed successfully', 'children' => $children], 200);

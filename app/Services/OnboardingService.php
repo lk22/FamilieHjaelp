@@ -38,7 +38,8 @@ class OnboardingService implements OnboardingServiceContract {
     /**
      * Submitting given step from the onboarding flow
      *
-     * @param mixed $request
+     * @param array $stepData
+     * @param string $nextStep
      * @param string $scenario
      * @param string $step
      * @throws OnboardingStepException
@@ -134,30 +135,3 @@ class OnboardingService implements OnboardingServiceContract {
       return $this->onboardingSessionRepository->isActiveSession($session);
     }
 }
-
-  // // step 2: update the onboarding session with the submitted data (to be implemented)
-        // $existingSession = $this->onboardingSessionService->findBySessionToken(
-        //     $request->cookie('onboarding_session_token')
-        // );
-
-        // if (! $existingSession) {
-        //     return response()->json(['message' => 'Onboarding session not found. Please start the onboarding process again.'], 404);
-        // }
-
-        // $newSessionData = $this->onboardingSessionService->excludeSensitiveFields($request->input('data'));
-
-        // dd($newSessionData);
-        // $sessionUpdated = $this->onboardingSessionService->updateExistingSession([
-        //     'scenario' => $scenario,
-        //     'current_step' => $step,
-        //     'steps_data' => array_merge($existingSession->steps_data, [$step => $newSessionData]),
-        //     'next_step' => $nextStep
-        // ]);
-
-        // if ( ! $sessionUpdated ) {
-        //     return response()->json(['message' => 'Failed to update onboarding session. Please try again.'], 500);
-        // }
-
-        // if ($step === 'complete') {
-        //     $this->onboardingSessionService->markSessionAsComplete($existingSession);
-        // }

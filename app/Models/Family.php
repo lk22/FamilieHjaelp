@@ -34,6 +34,6 @@ class Family extends Model
 
     public function children(): HasMany
     {
-        return $this->hasMany(FamilyMember::class, 'family_id')->where('family_role', 'child');
+        return $this->hasMany(CHild::class, 'family_id');
     }
 }

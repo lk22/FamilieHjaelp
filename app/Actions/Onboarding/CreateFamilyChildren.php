@@ -10,10 +10,14 @@ class CreateFamilyChildren
     public function __construct(private FamilyServiceContract $familyService) {}
 
     public function handle(
+        int $familyId,
         array $children
     ): void {
+
+        $childrenList = [];
+
         foreach ($children as $child) {
-            $childDto = new ChildDto(
+            $childrenList[] = new ChildDto(
                 firstName: $child["firstName"],
                 middleName: $child["middleName"],
                 lastName: $child["lastName"],
@@ -24,5 +28,7 @@ class CreateFamilyChildren
                 childEmail: $child["childEmail"] ?? null
             );
         }
+
+        $this->familyService->createFamilyChildren($familyId, $childrenList);
     }
 }

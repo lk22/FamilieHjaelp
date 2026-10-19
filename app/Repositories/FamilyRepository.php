@@ -16,12 +16,25 @@ use App\Dto\ParentDto;
 // Exceptions
 use App\Exceptions\FamilyNotCreatedException;
 use App\Exceptions\CouldNotCreateFamilyParentsException;
+use App\Exceptions\FamilyNotFoundException;
 
 // Utils
 use Illuminate\Support\Str;
 
 
 class FamilyRepository implements FamilyRepositoryContract {
+
+  public function hasCreatedFamilyParents(int $familyId): bool
+  {
+    $family = FamilyMember::where('family_id', $familyId)->get();
+
+    if ( ! $family->count() ) {
+      return false;
+    }
+
+    return true;
+  }
+
   public function createFamily(FamilyDto $data): ?Family
   {
     // check if the family already exists
@@ -62,8 +75,7 @@ class FamilyRepository implements FamilyRepositoryContract {
       $mainParentFullName = $mainParent->firstName . ' ' . $mainParent->middleName . ' ' . $mainParent->lastName;
       $partnerFullName = $partner->firstName . ' ' . $partner->middleName . ' ' . $partner->lastName;
 
-      // creating main parent - the onboarder of the family
-      $family->members()->create([
+      $parentOne = [
           'id' => Str::uuid(),
           'family_id' => $familyId,
           "has_account" => 0,
@@ -73,10 +85,9 @@ class FamilyRepository implements FamilyRepositoryContract {
           "age" => $mainParent->age,
           "email" => $mainParent->parentEmail,
           "attached_email" => $mainParent->hasPartner ? $partner->parentEmail : "null",
-      ]);
+      ];
 
-      // creating partner
-      $family->members()->create([
+      $parentTwo = [
         'id' => Str::uuid(),
         "family_id" => $familyId,
         "has_account" => 0,
@@ -86,9 +97,31 @@ class FamilyRepository implements FamilyRepositoryContract {
         "age" => $partner->age,
         "email" => $partner->parentEmail,
         "attached_email" => $partner->hasPartner ? $mainParent->parentEmail : "null",
-      ]);
+      ];
+
+      // creating main parent - the onboarder of the family
+      $family->members()->createMany([$parentOne, $parentTwo]);
+
     } catch (CouldNotCreateFamilyParentsException $e) {
       throw new CouldNotCreateFamilyParentsException("Could not create family parents for family ID: $familyId");
+    }
+  }
+
+  public function createFamilyChildren(int $familyId, array $children): void
+  {
+    $family = Family::where('id', $familyId)->firstOrFail();
+
+    if ( ! $family ) {
+      throw new FamilyNotFoundException('Family with family ID {$familyId} not found');
+    }
+
+    foreach ($children as $c => $child) {
+      $fullName = $child[$c]["firstName"] . ' ' . $child[$c]['middleName'] . ' ' .  $child[$c]['lastName'];
+      $childEmail = $child[$c]['child_email'];
+
+      $family->children()->create([
+        // family children arrays goes here
+      ]);
     }
   }
 }

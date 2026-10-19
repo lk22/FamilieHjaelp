@@ -10,6 +10,9 @@ use App\Listeners\HandleStoreUserPages;
 use App\Listeners\HandleStoreUserTodos;
 use Illuminate\Support\ServiceProvider;
 
+use App\Models\FamilyMember;
+use App\Observers\FamilyMemberObserver;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -39,6 +42,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // TODO add observers here
+        // FamilyMember::observe(FamilyMemberObserver::class);
     }
 }

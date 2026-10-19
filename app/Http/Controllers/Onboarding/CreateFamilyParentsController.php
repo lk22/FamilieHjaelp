@@ -13,10 +13,12 @@ use App\Http\Requests\CreateFamilyParentsRequest;
 
 class CreateFamilyParentsController extends Controller
 {
+
+    public function __construct(private \App\Repositories\FamilyRepository $familyRepository) {}
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(CreateFamilyParentsRequest $request)
     {
         $parent = $request->input('mainParent');
         $partner = $request->input('partner');
@@ -34,6 +36,10 @@ class CreateFamilyParentsController extends Controller
 
         if (! $partner ) {
             return response()->json(['error' => 'Partner is required'], 400);
+        }
+
+        if ($this->familyRepository->hasCreatedFamilyParents($familyId)) {
+            return response()->json(['message' => 'Family already has members']);
         }
 
         // if ( ! $request->validated() ) {
