@@ -3,6 +3,13 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { type SharedData } from '@/types';
 
+import {
+    createFamily,
+    createFamilyParents,
+    createFamilyChildren,
+    sendOutUserRequestMailsToFamilyMembers
+} from '@/lib/api';
+
 interface ICompletingOnboardingStep {
     action: string;
     progressStep: number;
@@ -86,6 +93,8 @@ export default function OnboardingCompleted() {
         let progressStep = 0;
         let progressPercent = 0;
         let familyId: number | null = null;
+        let statusCode: number | null = null;
+        let responseMessage: string | null = null;
 
         const steps: ICompletingOnboardingStep[] = [
             {
@@ -124,29 +133,25 @@ export default function OnboardingCompleted() {
                     }
 
                     console.log("Creating family members");
-                    const response = await fetch('/api/onboarding/family/create', {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: JSON.stringify({
-                            "familyName": familyName,
-                            "familySize": familySize,
-                            'token': sessionToken
-                        })
+
+                    const response = await createFamily({
+                        familyName: familyName,
+                        familySize: familySize,
+                        token: sessionToken
                     });
 
-                    const data = await response.json();
+                    const data = response;
+                    responseMessage = response.message;
 
                     console.log("Family creation response data:", data);
 
                     familyId = data.familyId;
 
-                    if ( data.error ) {
+                    statusCode = response.status;
+
+                    if ( statusCode !== 201 && statusCode !== 200 ) {
                         console.error("Error creating family:", data.error);
-                        setResponseError("Noget gik galt, vi kunne ikke oprette familien lige nu, prøv igen senere.");
+                        setResponseError(responseMessage ?? "");
                         return;
                     }
 
@@ -181,22 +186,22 @@ export default function OnboardingCompleted() {
                         partnerFamilyTitle: familyInformation.partnerFamilyTitle,
                     };
 
-                    const response = await fetch('/api/onboarding/family/create/parents', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: JSON.stringify({
-                            familyId: familyId,
-                            mainParent: parent,
-                            partner: parent.hasPartner ? partner : null
-                        })
+                    const response = await createFamilyParents({
+                        familyId: familyId,
+                        mainParent: parent,
+                        partner: parent.hasPartner ? partner : undefined
                     });
 
-                    const responseData = await response.json();
-                    if ( ! responseData.success ) {
+                    const responseData = response.data;
+                    statusCode = response.status;
+                    responseMessage = response.message;
+
+                    if ( statusCode !== 201 && statusCode !== 200 ) {
+                        setResponseError(responseMessage ?? "");
+                        return;
+                    }
+
+                    if ( ! responseData ) {
                         setResponseError("Something went wrong, could not add parents");
                         return;
                     }
@@ -214,21 +219,22 @@ export default function OnboardingCompleted() {
                     const children: Child[] = stepData.three.kids;
                     console.log(children);
 
-                    const response = await fetch('/api/onboarding/family/create/children', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: JSON.stringify({
-                            familyId: familyId,
-                            children: children
-                        })
-                    });
+                    const response = await createFamilyChildren({
+                        familyId: familyId,
+                        children: children
+                    })
 
-                    const responseData = await response.json();
-                    if ( ! responseData.success ) {
+
+                    const responseData = response.data;
+                    statusCode = response.status;
+                    responseMessage = response.message;
+
+                    if (statusCode !== 201 && statusCode !== 200) {
+                        setResponseError(responseMessage ?? "");
+                        return;
+                    }
+
+                    if ( ! responseData ) {
                         setResponseError("Something went wrong, could not add children");
                         return;
                     }
@@ -254,6 +260,22 @@ export default function OnboardingCompleted() {
                 "progressPercent": progressPercent + 80,
                 "callback": async () => {
                     setChildrenUserMailsSend(true);
+
+                    const response = await sendOutUserRequestMailsToFamilyMembers();
+
+                    statusCode = response.status;
+                    responseMessage = response.message;
+
+                    if (statusCode !== 201 && statusCode !== 200) {
+                        setResponseError(responseMessage ?? "");
+                        return;
+                    }
+
+                    if (!response.data) {
+                        setResponseError("Something went wrong, could not send user request mails to family children emails");
+                        return;
+                    }
+
                     // implement the sending of user request mails to family children emails here
                     console.log("User request mails sent to family children emails successfully");
                 }

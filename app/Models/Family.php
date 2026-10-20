@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\FamilyChild;
+use App\Models\FamilyMember;
+
 class Family extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'id',
@@ -20,6 +23,9 @@ class Family extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    protected $guarded = ['id'];
+    protected $hidden = ['id'];
 
     protected $dates = [
         'created_at',
@@ -34,6 +40,6 @@ class Family extends Model
 
     public function children(): HasMany
     {
-        return $this->hasMany(CHild::class, 'family_id');
+        return $this->hasMany(FamilyChild::class, 'family_id');
     }
 }

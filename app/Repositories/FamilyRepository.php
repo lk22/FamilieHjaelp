@@ -17,14 +17,21 @@ use App\Dto\ParentDto;
 use App\Exceptions\FamilyNotCreatedException;
 use App\Exceptions\CouldNotCreateFamilyParentsException;
 use App\Exceptions\FamilyNotFoundException;
+use App\Exceptions\CouldNotCreateFamilyChildrenException;
+
 
 // Utils
 use Illuminate\Support\Str;
 
 
 class FamilyRepository implements FamilyRepositoryContract {
-
-  public function hasCreatedFamilyParents(int $familyId): bool
+  /**
+   * check that family members exists in a family relation
+   *
+   * @param string $familyId
+   * @return bool
+   */
+  public function hasCreatedFamilyParents(string $familyId): bool
   {
     $family = FamilyMember::where('family_id', $familyId)->get();
 
@@ -35,17 +42,43 @@ class FamilyRepository implements FamilyRepositoryContract {
     return true;
   }
 
+  /**
+   * Check that a family has created family children
+   *
+   * @param string $familyId
+   * @return bool
+   */
+  public function hasCreatedFamilyChildren(string $familyId): bool
+  {
+    $family = Family::where('id', $familyId)->first();
+
+    if ( ! $family ) {
+      return false;
+    }
+
+    $children = $family->children;
+
+    if ( ! $children->count() ) {
+      return false;
+    }
+
+    return true;
+  }
+  /**
+   * Create a new family.
+   *
+   * @param FamilyDto $data
+   * @return Family|null
+   */
   public function createFamily(FamilyDto $data): ?Family
   {
-    // check if the family already exists
     $family = Family::where('name', $data->familyName)->first();
 
-    if ($family !== null) {
+    if ( $family !== null ) {
       return $family;
     }
 
     $family = Family::create([
-      'id' => Str::uuid(),
       'name' => $data->familyName,
       'family_size' => $data->familySize,
       'created_at' => $data->createdAt,
@@ -55,13 +88,21 @@ class FamilyRepository implements FamilyRepositoryContract {
     return $family;
   }
 
+  /**
+   * Associate family parent members
+   *
+   * @param int $familyId
+   * @param ParentDto $mainParent
+   * @param ParentDto $partner
+   * @throws CouldNotCreateFamilyParentsException
+   * @return void
+   */
   public function associateFamilyParents(
     int $familyId,
     ParentDto $mainParent,
     ParentDto $partner
   ): void
   {
-
     $familyMembers = FamilyMember::where('family_id', $familyId)->get();
 
     if (count($familyMembers) > 0) {
@@ -76,7 +117,6 @@ class FamilyRepository implements FamilyRepositoryContract {
       $partnerFullName = $partner->firstName . ' ' . $partner->middleName . ' ' . $partner->lastName;
 
       $parentOne = [
-          'id' => Str::uuid(),
           'family_id' => $familyId,
           "has_account" => 0,
           "user_id" => 0,
@@ -84,11 +124,10 @@ class FamilyRepository implements FamilyRepositoryContract {
           "family_role" => $mainParent->familyTitle,
           "age" => $mainParent->age,
           "email" => $mainParent->parentEmail,
-          "attached_email" => $mainParent->hasPartner ? $partner->parentEmail : "null",
+          "attached_email" => $mainParent->parentEmail ?? null
       ];
 
       $parentTwo = [
-        'id' => Str::uuid(),
         "family_id" => $familyId,
         "has_account" => 0,
         "user_id" => 0,
@@ -96,7 +135,7 @@ class FamilyRepository implements FamilyRepositoryContract {
         "family_role" => $partner->familyTitle,
         "age" => $partner->age,
         "email" => $partner->parentEmail,
-        "attached_email" => $partner->hasPartner ? $mainParent->parentEmail : "null",
+        "attached_email" => $partner->parentEmail ?? null,
       ];
 
       // creating main parent - the onboarder of the family
@@ -107,21 +146,47 @@ class FamilyRepository implements FamilyRepositoryContract {
     }
   }
 
+  /**
+   * Associatate children in the family
+   *
+   * @param int $familyId
+   * @param array $children
+   * @throws FamilyNotFoundException
+   * @throws CouldNotCreateFamilyChildrenException
+   * @return void
+   */
   public function createFamilyChildren(int $familyId, array $children): void
   {
+    // dd($children[0]);
     $family = Family::where('id', $familyId)->firstOrFail();
+    $familyChildren = $family->children;
 
     if ( ! $family ) {
       throw new FamilyNotFoundException('Family with family ID {$familyId} not found');
     }
 
-    foreach ($children as $c => $child) {
-      $fullName = $child[$c]["firstName"] . ' ' . $child[$c]['middleName'] . ' ' .  $child[$c]['lastName'];
-      $childEmail = $child[$c]['child_email'];
-
-      $family->children()->create([
-        // family children arrays goes here
-      ]);
+    if (count($familyChildren) > 0) {
+      throw new CouldNotCreateFamilyChildrenException("Family already has children");
     }
+
+    $childrenData = [];
+
+    foreach ($children as $c => $child) {
+      $fullName = $child->firstName . ' ' . $child->middleName . ' ' .  $child->lastName;
+      $childEmail = $child->childEmail ?? "";
+      $ageMonths = $child->ageMonths ?? 0;
+      $ageWeeks = $child->ageWeeks ?? 0;
+      $childrenData[] = [
+        "family_id" => $familyId,
+        "name" => $fullName,
+        "age_year" => $child->ageYears,
+        "age_months" => $ageMonths,
+        "age_weeks" => $ageWeeks,
+        "child_email" => $childEmail,
+        "needs_user_access" => $child->needsUserAccess ?? 0,
+      ];
+    }
+
+    $family->children()->createMany($childrenData);
   }
 }

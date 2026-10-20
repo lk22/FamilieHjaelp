@@ -21,10 +21,10 @@ class CreateFamilyChildren
                 firstName: $child["firstName"],
                 middleName: $child["middleName"],
                 lastName: $child["lastName"],
-                ageYear: $child["ageYear"],
-                ageMonth: $child["ageMonth"],
+                ageYears: $child["ageYears"],
+                ageMonths: $child["ageMonths"],
                 ageWeeks: $child["ageWeeks"],
-                needsUser: $child["needsUser"] ?? null,
+                needsUserAccess: $child["needsUserAccess"] ?? null,
                 childEmail: $child["childEmail"] ?? null
             );
         }

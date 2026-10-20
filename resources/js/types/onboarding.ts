@@ -46,6 +46,7 @@ export type ParentStepData = {
     lastName: string;
     age: string;
     familyTitle: string;
+    parentEmail: string;
     hasPartner: boolean;
     partnerFirstName?: string;
     partnerMiddleName?: string;
@@ -74,4 +75,17 @@ export interface ParentStepProps {
 
 export interface KidsStepProps {
     defaultData: KidsStepData;
+}
+
+export interface UserRegistrationStepProps {
+    defaultData: {
+        userEmail: string;
+        userLogin?: string;
+        userPassword?: string;
+        confirmPassword?: string;
+        partnerEmail?: string;
+        partnerLogin?: string;
+        partnerPassword?: string;
+        partnerConfirmPassword?: string;
+    }
 }

@@ -25,11 +25,27 @@ class FamilyService implements FamilyServiceContract
   {
     return $this->familyRepository->createFamily($family);
   }
+
+  /**
+   * Create family parents attached to the specific family as a main parent and partner if the partner exist
+   *
+   * @param mixed $familyId
+   * @param mixed $mainParent
+   * @param mixed $partner
+   * @return void
+   */
   public function createFamilyParents($familyId, $mainParent, $partner): void
   {
     $this->familyRepository->associateFamilyParents($familyId, $mainParent, $partner);
   }
 
+  /**
+   * Creating family children and attaching them to the specific family
+   *
+   * @param int $familyId
+   * @param array $children
+   * @return void
+   */
   public function createFamilyChildren(int $familyId, array $children): void
   {
     $this->familyRepository->createFamilyChildren($familyId, $children);

@@ -4,15 +4,19 @@ namespace App\Http\Controllers\Onboarding;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
-
 use App\Http\Requests\CreateFamilyChildrenRequest;
 
 use App\Actions\Onboarding\CreateFamilyChildren;
+use App\Contracts\FamilyRepositoryContract;
 use App\Contracts\FamilyServiceContract;
 
 class CreateFamilyChildrenController extends Controller
 {
+
+    public function __construct(private FamilyRepositoryContract $familyRepository)
+    {
+    }
+
     /**
      * Handle the incoming request.
      */
@@ -29,6 +33,12 @@ class CreateFamilyChildrenController extends Controller
             return response()->json(['message' => 'Invalid children data'], 400);
         }
 
+        // check if the family already has children
+        // if the family already has children, return an response to let the onboarding flow know to continue without adding more children
+        if ( $this->familyRepository->hasCreatedFamilyChildren($familyId) ) {
+            return response()->json(['message' => 'Family already has children'], 400);
+        }
+
         $action = new CreateFamilyChildren(
             app(FamilyServiceContract::class)
         );
@@ -36,6 +46,6 @@ class CreateFamilyChildrenController extends Controller
         $action->handle($familyId, $children);
 
         // Process the children data here
-        return response()->json(['message' => 'Children data processed successfully', 'children' => $children], 200);
+        return response()->json(['message' => 'Children data processed successfully', 'children' => $children], 201);
     }
 }

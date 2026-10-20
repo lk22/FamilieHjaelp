@@ -7,19 +7,19 @@ class ChildDto {
     public string $firstName,
     public string $middleName,
     public string $lastName,
-    public int $ageYear,
-    public int $ageMonth,
-    public int $ageWeeks,
-    public ?bool $needsUser,
+    public string $ageYears,
+    public ?int $ageMonths,
+    public ?int $ageWeeks,
+    public ?bool $needsUserAccess,
     public ?string $childEmail
   ){
     $this->firstName = $firstName;
     $this->middleName = $middleName;
     $this->lastName = $lastName;
-    $this->ageYear = $ageYear;
-    $this->ageMonth = $ageMonth;
+    $this->ageYears = $ageYears;
+    $this->ageMonths = $ageMonths;
     $this->ageWeeks = $ageWeeks;
-    $this->needsUser = $needsUser;
+    $this->needsUserAccess = $needsUserAccess;
     $this->childEmail = $childEmail;
   }
 }

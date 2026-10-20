@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('family_members', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->unsignedBigInteger('family_id');
+            $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
             $table->boolean('has_account')->default(false);
             $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
             $table->string('family_role');
             $table->integer('age');

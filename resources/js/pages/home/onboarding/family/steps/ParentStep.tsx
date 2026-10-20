@@ -3,7 +3,6 @@ import React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Select } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 
 import Field from './Field';
@@ -43,12 +42,11 @@ export default function ParentStep({ defaultData, translate }: ParentStepFormDat
   const partner_first_name_label = translate('app.getting_started.parent_step.partner_first_name_label');
   const partner_middle_name_label = translate('app.getting_started.parent_step.partner_middle_name_label');
   const partner_last_name_label = translate('app.getting_started.parent_step.partner_last_name_label');
-  const partner_username_label = translate('app.getting_started.parent_step.partner_username_label');
   const partner_email_label = translate('app.getting_started.parent_step.partner_email_label');
   const next_step_label = translate('app.getting_started.parent_step.next_step_label');
   const previous_step_label = translate('app.getting_started.parent_step.previous_step_label');
-  const family_title_father = translate('app.getting_started.parent_step.family_title_dad');
-  const family_title_mother = translate('app.getting_started.parent_step.family_title_mother');
+  const parent_email_label = translate('app.getting_started.parent_step.parent_email_label');
+  const parent_email_placeholder = translate('app.getting_started.parent_step.parent_email_placeholder');
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
@@ -78,13 +76,20 @@ export default function ParentStep({ defaultData, translate }: ParentStepFormDat
                 </div>
                 <span>{errors['data.age']}</span>
             </Field>
-
             <Field label={family_title_label} inputId="familyTitle" error={errors['data.familyTitle']}>
                 <Input
                     id="familyTitle"
                     value={data.data.familyTitle}
                     onChange={(event) => setData('data', { ...data.data, familyTitle: event.target.value })}
                     placeholder={family_title_placeholder}
+                />
+            </Field>
+            <Field label={parent_email_label} inputId="parentEmail" error={errors['data.parentEmail']}>
+                <Input
+                    id="parentEmail"
+                    value={data.data.parentEmail}
+                    onChange={(event) => setData('data', { ...data.data, parentEmail: event.target.value })}
+                    placeholder={parent_email_placeholder}
                 />
             </Field>
         </div>

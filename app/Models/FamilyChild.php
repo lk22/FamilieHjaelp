@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Child extends Model
+class FamilyChild extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'id',
         'family_id',
         'name',
-        'age_years',
+        'age_year',
         'age_months',
         'age_weeks',
         'needs_user_access',
@@ -47,5 +46,10 @@ class Child extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class, 'family_id');
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class, 'child_id');
     }
 }

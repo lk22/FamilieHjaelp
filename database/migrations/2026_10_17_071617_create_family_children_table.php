@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('family_children', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->unsignedBigInteger('family_id');
             $table->string('name');
             $table->integer('age_year');
-            $table->integer('age_months');
-            $table->integer('age_weeks');
+            $table->integer('age_months')->nullable();
+            $table->integer('age_weeks')->nullable();
             $table->boolean('needs_user_access');
             $table->string('child_email')->unique();
             $table->softDeletes();

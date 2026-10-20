@@ -33,7 +33,7 @@ class OnboardingController extends Controller
         $token = $request->session()->get('onboarding_session_token')
             ?? $request->cookie('onboarding_session_token');
 
-        $session = $this->onboardingSessionService->findBySessionToken($token);
+        // $session = $this->onboardingSessionService->findBySessionToken($token);
 
         // $session = OnboardingSession::findOrCreateSession($userId, $token);
         $session = $this->onboardingSessionService->findOrCreateSession($userId, $token);
@@ -70,6 +70,7 @@ class OnboardingController extends Controller
     {
         $nextStep = $request->input('nextStep');
         $data = $request->input('data');
+        $data['sessionToken'] = $request->cookie('onboarding_session_token');
 
         if ( ! $request->validated() ) {
             return response()->json(['message' => 'Validation failed. Please check your input and try again.'], 422);

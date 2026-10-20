@@ -7,7 +7,7 @@ import FamilyNameStep from './FamilyNameStep';
 import KidsStep from './KidsStep';
 import ParentStep from './ParentStep';
 
-import { type FamilyNameStepData, type KidsStepData, type ParentStepData, type SessionProps } from '@/types/onboarding';
+import { type FamilyNameStepData, type KidsStepData, type ParentStepData, type SessionProps, UserRegistrationStepProps } from '@/types/onboarding';
 
 export default function FamilyOnboardingStep() {
     const { t } = useTranslation();
@@ -25,6 +25,7 @@ export default function FamilyOnboardingStep() {
         age: String(onboardingSession.stepsData.two?.age ?? ''),
         familyTitle: String(onboardingSession.stepsData.two?.familyTitle ?? ''),
         hasPartner: Boolean(onboardingSession.stepsData.two?.hasPartner ?? false),
+        parentEmail: String(onboardingSession.stepsData.two?.parentEmail ?? ''),
         partnerFirstName: String(onboardingSession.stepsData.two?.partnerFirstName ?? ''),
         partnerMiddleName: String(onboardingSession.stepsData.two?.partnerMiddleName ?? ''),
         partnerLastName: String(onboardingSession.stepsData.two?.partnerLastName ?? ''),

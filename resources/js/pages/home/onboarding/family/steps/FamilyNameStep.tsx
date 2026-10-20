@@ -11,9 +11,12 @@ export default function FamilyNameStep({
   defaultFamilyName,
   translate,
 }: FamilyNameStepProps) {
-  const { data, setData, post, processing, errors } = useForm<{data: {familyName: string}}>({
+  // get session
+  const sessionToken = document.cookie.split('; ').find(row => row.startsWith('onboarding_session_token='))?.split('=')[1];
+  const { data, setData, post, processing, errors } = useForm<{data: {familyName: string; sessionToken: string;}}>({
     data: {
       familyName: defaultFamilyName,
+      sessionToken: sessionToken,
     }
   });
 
@@ -34,7 +37,7 @@ export default function FamilyNameStep({
               data-testid="family-name-input"
               id="familyName"
               value={data.data.familyName}
-              onChange={(event) => setData('data', { familyName: event.target.value })}
+              onChange={(event) => setData('data', { familyName: event.target.value, sessionToken: data.data.sessionToken })}
             />
             {errors['data.familyName'] ? <p className="text-sm text-red-600">{errors['data.familyName']}</p> : null}
         </div>

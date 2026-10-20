@@ -31,7 +31,9 @@ class OnboardingService implements OnboardingServiceContract {
           return $existingSession;
       }
 
-      $newSession = $this->onboardingSessionRepository->findOrCreateSession($token, $userId, $locale);
+      $newSession = $this->onboardingSessionRepository->createSession($locale);
+
+      // $newSession = $this->onboardingSessionRepository->findOrCreateSession($token, $userId, $locale);
       return $newSession;
     }
 
@@ -46,7 +48,7 @@ class OnboardingService implements OnboardingServiceContract {
      * @return bool
      */
     public function submitStep(array $stepData, string $nextStep, string $scenario, string $step): bool {
-      $existingSession = $this->onboardingSessionRepository->findBySessionToken($stepData['session_token']);
+      $existingSession = $this->onboardingSessionRepository->findBySessionToken($stepData['sessionToken']);
 
       if ( ! $existingSession) {
         throw new OnboardingStepException('Onboarding session not found.');
@@ -99,7 +101,7 @@ class OnboardingService implements OnboardingServiceContract {
      * @return bool
      */
     public function updateExistingSession(array $sessionData): bool {
-        return $this->onboardingSessionRepository->updateSession($this->findBySessionToken($sessionData['session_token']), $sessionData) ?? false;
+        return $this->onboardingSessionRepository->updateSession($this->findBySessionToken($sessionData['sessionToken']), $sessionData) ?? false;
     }
 
     /**

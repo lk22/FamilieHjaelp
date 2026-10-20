@@ -8,10 +8,19 @@ use App\Http\Requests\CompleteOnboardingRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-use App\Repositories\OnboardingSessionRepository;
+use App\Contracts\FamilyServiceContract;
+use App\Contracts\FamilyRepositoryContract;
+use App\Contracts\OnboardingServiceContract;
 
 class CompleteOnboardingController extends Controller
 {
+
+    public function __construct(
+        private FamilyServiceContract $familyService,
+        private FamilyRepositoryContract $familyRepository,
+        private OnboardingServiceContract $onboardingService
+    ) {}
+
     /**
      * Handle the incoming request.
      */
@@ -158,4 +167,5 @@ class CompleteOnboardingController extends Controller
             'Cache-Control' => 'no-cache, no-store, must-revalidate',
         ]);
     }
+
 }
