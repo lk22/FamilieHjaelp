@@ -23,9 +23,17 @@ class CreateFamilyChildrenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'children' => ['required', 'array'],
-            // 'children.*.name' => ['required', 'string', 'max:255'],
-            // 'children.*.age' => ['required', 'integer', 'min:0'],
+            'familyId' => ['required', 'integer'],
+            'children' => ['required', 'array'],
+            'children.*.gender' => ['required'],
+            'children.*.firstName' => ['required', 'string'],
+            'children.*.middleName' => ['nullable', 'string'],
+            'children.*.lastName' => ['required', 'string'],
+            'children.*.ageYears' => ['required', 'integer', 'min:0'],
+            'children.*.ageMonths' => ['nullable', 'integer', 'min:0'],
+            'children.*.ageWeeks' => ['nullable', 'integer', 'min:0'],
+            'children.*.needsUserLogin' => ['nullable', 'boolean'],
+            'children.*.userEmail' => ['nullable', 'email'],
         ];
     }
 }

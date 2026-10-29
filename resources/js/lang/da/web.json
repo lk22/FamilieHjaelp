@@ -481,7 +481,9 @@
         "next_step_label": "Næste",
         "previous_step_label": "Gå tilbage",
         "family_title_dad": "Far",
-        "family_title_mother": "Mor"
+        "family_title_mother": "Mor",
+        "parent_email_label": "Email",
+        "parent_email_placeholder": "Indtast din email"
       },
       "kids_step": {
         "heading": "Tilføj børn",

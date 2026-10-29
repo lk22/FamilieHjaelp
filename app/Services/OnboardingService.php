@@ -32,8 +32,6 @@ class OnboardingService implements OnboardingServiceContract {
       }
 
       $newSession = $this->onboardingSessionRepository->createSession($locale);
-
-      // $newSession = $this->onboardingSessionRepository->findOrCreateSession($token, $userId, $locale);
       return $newSession;
     }
 

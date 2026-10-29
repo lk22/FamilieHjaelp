@@ -5,8 +5,11 @@ namespace Tests\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\TestCase;
 use App\Services\OnboardingService;
+use App\Repositories\OnboardingSessionRepository;
 use App\Models\OnboardingSession;
 use Mockery;
+
+use App\Exceptions\OnboardingStepException;
 
 class OnboardingSessionServiceTest extends TestCase
 {
@@ -43,15 +46,36 @@ class OnboardingSessionServiceTest extends TestCase
     $userId = null;
     $locale = null;
 
-    $service = Mockery::mock(OnboardingService::class);
+    $repository = Mockery::mock(OnboardingSessionRepository::class);
+    $repository->shouldReceive('findBySessionToken')
+        ->once()
+        ->with($token)
+        ->andReturn(null);
 
-    // this should create a new onboarding session if one does not exist
-    $service->shouldAllowMockingMethod('findOrCreateSession');
-    $service->shouldReceive('findOrCreateSession')
-      ->with(null, null, null)
-      ->andReturn(OnboardingSession::create());
+    $repository->shouldReceive('createSession')
+        ->once()
+        ->with($locale)
+        ->andReturn($newSession = new OnboardingSession);
 
-    $this->assertInstanceOf(OnboardingSession::class, $service->findOrCreateSession(null, null, null));
+    $service = new OnboardingService($repository);
+
+    $this->assertInstanceOf(OnboardingSession::class, $service->findOrCreateSession($userId, $token, $locale));
+  }
+
+  public function test_service_returns_existing_session_if_it_exists()
+  {
+    $token = "giepkgpoewkgew-kgoepkgpewkpgew";
+    $existingSession = new OnboardingSession();
+
+    $repository = Mockery::mock(OnboardingSessionRepository::class);
+    $repository->shouldReceive('findBySessionToken')
+        ->once()
+        ->with($token)
+        ->andReturn($existingSession);
+
+    $service = new OnboardingService($repository);
+    $result = $service->findOrCreateSession(null, $token, null);
+    $this->assertEquals($existingSession, $result);
   }
 
   public function test_service_can_submit_given_step()
@@ -68,25 +92,32 @@ class OnboardingSessionServiceTest extends TestCase
     $this->assertTrue($service->submitStep(['session_token' => $session], "next_step", "scenario", $step));
   }
 
-  public function test_service_does_not_submit_step_if_session_is_invalid()
-  {
-    $session = "null";
+  public function test_service_does_not_submit_step_if_session_is_invalid(): void
+{
+    $session = 'gkoew032-gjioewgoe0-ngoiejgew';
     $step = 'some_step';
 
-    // this expect an Illuminate\Http\Request to be passed to the submitStep method
-    $request = Mockery::mock(\Illuminate\Http\Request::class);
-    $request->shouldReceive('input')
-      ->with('data')
-      ->andReturn(['session_token' => $session]);
-    $request->shouldReceive('input')
-      ->with('nextStep')
-      ->andReturn('next_step');
+    $repository = Mockery::mock(OnboardingSessionRepository::class);
 
-    $service = new OnboardingService(new \App\Repositories\OnboardingSessionRepository());
-    $submitted = $service->submitStep(['session_token' => $session], "next_step", "scenario", $step);
+    $repository->shouldReceive('findBySessionToken')
+        ->once()
+        ->with($session)
+        ->andReturn(null);
 
-    $this->assertFalse($submitted);
-  }
+    $repository->shouldNotReceive('updateSession');
+
+    $service = new OnboardingService($repository);
+
+    $this->expectException(OnboardingStepException::class);
+    $this->expectExceptionMessage('Onboarding session not found.');
+
+    $service->submitStep(
+        ['sessionToken' => $session],
+        'next_step',
+        'scenario',
+        $step
+    );
+}
 
   public function test_service_can_update_session()
   {
