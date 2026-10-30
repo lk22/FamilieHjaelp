@@ -103,6 +103,7 @@ Route::group([
     Route::post('/app/onboarding/{scenario}/update-step/{step}', [OnboardingController::class, 'updateStep'])->name('onboarding.scenario.update-step');
     Route::get('/app/onboarding/reset', [OnboardingController::class, 'reset'])->name('onboarding.reset');
     Route::post('/app/onboarding/completed', [OnboardingController::class, 'complete'])->name('onboarding.completed');
+    Route::get('/app/onboarding/complete', [OnboardingController::class, 'complete'])->name('onboarding.complete');
 });
 
 /**

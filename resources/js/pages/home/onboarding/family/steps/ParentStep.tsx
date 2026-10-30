@@ -20,6 +20,8 @@ export default function ParentStep({ defaultData, translate }: ParentStepFormDat
     },
   });
 
+  console.log({ translate });
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 

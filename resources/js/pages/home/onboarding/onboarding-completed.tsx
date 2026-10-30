@@ -81,8 +81,6 @@ export default function OnboardingCompleted() {
 
     const [stepData] = useState<Record<string, any>>(stepsData ?? null);
 
-    console.log(stepData);
-
     // TODO complete the onboarding steps by verifying the session token and updating the user's onboarding status
     // TODO step one verify the session token
     // TODO step two update the user's onboarding status
@@ -300,8 +298,9 @@ export default function OnboardingCompleted() {
                     <div className="bg-white p-4 rounded">
                     {isCompleted && (
                         <>
-                            <h1 className="text-3xl font-bold text-blue-900">Tak - din familie er oprettet</h1>
-                            <p className="mt-4 text-lg text-blue-900" id="onboarding-completed-message">Vi har gemt dine onboarding oplysninger.</p>
+                            <h1 className="text-3xl font-bold text-blue-900">Din familie er blevet oprettet.</h1>
+                            <p className="mt-4 text-lg text-blue-900" id="onboarding-completed-message">Vi har oprettet din familie, vi glæder os til du kommer igang med platformen.</p>
+                            <p className="text-blue-900">Opnå den bedste planlægning og familie håndtering</p>
                         </>
                     )}
                     {hasError && (
@@ -309,32 +308,6 @@ export default function OnboardingCompleted() {
                             <p className="text-blue-900 font-bold text-2xl">Der opstod en fejl under oprettelsen af familien.</p>
                             <p className="mt-4 text-lg text-red-500" id="onboarding-error-message">{responseError}</p>
                             <p className="mt-2 text-md text-blue-900">Forsøg at log ind på din konto, hvis din konto ikke allerede er oprettet. kan du forsøge og kontakte vores support</p>
-                            <div className="flex flex-wrap gap-3 pt-8">
-                                <Link
-                                    className="inline-block rounded bg-blue-900 px-6 py-2 flex items-center font-semibold text-white"
-                                    href={route('register', {
-                                        _query: {
-                                            onboarding_completed: true,
-                                            redirect_to: 'onboarding.complete',
-                                            session_token: onboardingSessionToken,
-                                        },
-                                    })}
-                                >
-                                    Opret bruger
-                                </Link>
-                                <Link
-                                    className="inline-block rounded border border-blue-900 bg-blue-900 px-6 py-2 flex font-semibold text-white"
-                                    href={route('login', {
-                                        _query: {
-                                            onboarding_completed: true,
-                                            redirect_to: 'onboarding.complete',
-                                            session_token: onboardingSessionToken,
-                                        },
-                                    })}
-                                >
-                                    Log ind
-                                </Link>
-                            </div>
                         </>
                     )}
                     {isLoading && (
@@ -387,21 +360,16 @@ export default function OnboardingCompleted() {
                                     </Link>
                                 ) : (
                                     <div className="flex flex-wrap gap-3">
+
                                         <Link
-                                            className="inline-block rounded bg-blue-900 px-6 py-3 font-semibold text-white"
-                                            href={route('register', {
-                                                _query: {
-                                                    onboarding_completed: true,
-                                                    redirect_to: 'onboarding.complete',
-                                                    session_token: onboardingSessionToken,
-                                                },
-                                            })}
+                                            className="inline-block rounded border bg-blue-900 border-blue-900 px-6 py-3 font-semibold text-white"
+                                            href={route('profile.home')}
                                         >
-                                            Opret bruger
+                                            Gå til profil
                                         </Link>
                                         <Link
                                             className="inline-block rounded border bg-blue-900 border-blue-900 px-6 py-3 font-semibold text-white"
-                                            href={route('login', {
+                                            href={route('onboarding.complete', {
                                                 _query: {
                                                     onboarding_completed: true,
                                                     redirect_to: 'onboarding.complete',

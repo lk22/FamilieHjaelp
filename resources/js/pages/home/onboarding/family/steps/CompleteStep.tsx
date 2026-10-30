@@ -35,7 +35,6 @@ export default function CompleteStep({
   };
 
   const hasPartner = parentData.hasPartner;
-  console.log({parentData})
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
