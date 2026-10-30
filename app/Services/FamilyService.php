@@ -6,6 +6,7 @@ use App\Contracts\FamilyServiceContract;
 use App\Contracts\FamilyRepositoryContract;
 
 use App\Dto\FamilyDto;
+use App\Dto\ParentDto;
 
 class FamilyService implements FamilyServiceContract
 {
@@ -19,7 +20,7 @@ class FamilyService implements FamilyServiceContract
   /**
    * Creating a new family resource through the repository
    *
-   * @param FamilyDto $data
+   * @param FamilyDto $family
    */
   public function createFamily(FamilyDto $family): ?\App\Models\Family
   {
@@ -29,14 +30,15 @@ class FamilyService implements FamilyServiceContract
   /**
    * Create family parents attached to the specific family as a main parent and partner if the partner exist
    *
-   * @param mixed $familyId
-   * @param mixed $mainParent
-   * @param mixed $partner
-   * @return void
+   * @param int $familyId
+   * @param ParentDto $mainParent
+   * @param ParentDto|null $partner
+   * @return bool
    */
-  public function createFamilyParents($familyId, $mainParent, $partner): void
+  public function createFamilyParents(int $familyId, ParentDto $mainParent, ?ParentDto $partner = null): bool
   {
     $this->familyRepository->associateFamilyParents($familyId, $mainParent, $partner);
+    return true;
   }
 
   /**

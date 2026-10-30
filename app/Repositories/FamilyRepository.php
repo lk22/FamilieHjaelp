@@ -22,6 +22,7 @@ use App\Exceptions\CouldNotCreateFamilyChildrenException;
 
 // Utils
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 
 class FamilyRepository implements FamilyRepositoryContract {
@@ -78,12 +79,20 @@ class FamilyRepository implements FamilyRepositoryContract {
       return $family;
     }
 
-    $family = Family::create([
-      'name' => $data->familyName,
-      'family_size' => $data->familySize,
-      'created_at' => $data->createdAt,
-      'updated_at' => $data->updatedAt,
-    ]);
+    DB::beginTransaction();
+
+    try {
+      $family = Family::create([
+        'name' => $data->familyName,
+        'family_size' => $data->familySize,
+        'created_at' => $data->createdAt,
+        'updated_at' => $data->updatedAt,
+      ]);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollBack();
+      throw new FamilyNotCreatedException("Could not create family");
+    }
 
     return $family;
   }
@@ -100,50 +109,55 @@ class FamilyRepository implements FamilyRepositoryContract {
   public function associateFamilyParents(
     int $familyId,
     ParentDto $mainParent,
-    ParentDto $partner
+    ?ParentDto $partner = null
   ): void
   {
-    $familyMembers = FamilyMember::where('family_id', $familyId)->get();
+    $family = Family::findOrFail($familyId);
 
-    if (count($familyMembers) > 0) {
+    if ($family->members->exists()) {
       throw new CouldNotCreateFamilyParentsException("Family already has members");
     }
 
-    try {
-      $family = Family::findOrFail($familyId);
-      $familyMembers = $family->members;
+    $mainParentFullName = implode(' ', array_filter([
+      $mainParent->firstName,
+      $mainParent->middleName,
+      $mainParent->lastName
+    ]));
 
-      $mainParentFullName = $mainParent->firstName . ' ' . $mainParent->middleName . ' ' . $mainParent->lastName;
-      $partnerFullName = $partner->firstName . ' ' . $partner->middleName . ' ' . $partner->lastName;
-
-      $parentOne = [
+    $parents = [
+      [
         'family_id' => $familyId,
-        "has_account" => 0,
-        "user_id" => 0,
-        "name" => $mainParentFullName,
-        "family_role" => $mainParent->familyTitle,
-        "age" => $mainParent->age,
-        "email" => $mainParent->parentEmail,
-        "attached_email" => $mainParent->parentEmail ?? null
+        'has_account' => 0,
+        'user_id' => 0,
+        'name' => $mainParentFullName,
+        'family_role' => $mainParent->familyTitle,
+        'age' => $mainParent->age,
+        'email' => $mainParent->parentEmail,
+        'attached_email' => $mainParent->parentEmail ?? null
+      ]
+    ];
+
+    if ($partner) {
+      $partnerFullName = implode(' ', array_filter([
+        $partner->firstName,
+        $partner->middleName,
+        $partner->lastName
+      ]));
+      $parents[] = [
+        'family_id' => $familyId,
+        'has_account' => 0,
+        'user_id' => 0,
+        'name' => $partnerFullName,
+        'family_role' => $partner->familyTitle,
+        'age' => $partner->age,
+        'email' => $partner->parentEmail,
+        'attached_email' => $partner->parentEmail ?? null
       ];
-
-      $parentTwo = [
-        "family_id" => $familyId,
-        "has_account" => 0,
-        "user_id" => 0,
-        "name" => $partnerFullName,
-        "family_role" => $partner->familyTitle,
-        "age" => $partner->age,
-        "email" => $partner->parentEmail,
-        "attached_email" => $partner->parentEmail ?? null,
-      ];
-
-      // creating main parent - the onboarder of the family
-      $family->members()->createMany([$parentOne, $parentTwo]);
-
-    } catch (CouldNotCreateFamilyParentsException $e) {
-      throw new CouldNotCreateFamilyParentsException("Could not create family parents for family ID: $familyId");
     }
+
+    DB::transaction(function() use ($family, $parents) {
+      $family->members->createMany($parents);
+    });
   }
 
   /**
@@ -187,6 +201,8 @@ class FamilyRepository implements FamilyRepositoryContract {
       ];
     }
 
-    $family->children()->createMany($childrenData);
+    DB::transaction(function() use ($family, $childrenData) {
+      $family->children()->createMany($childrenData);
+    });
   }
 }

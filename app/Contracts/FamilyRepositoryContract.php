@@ -3,6 +3,7 @@
 namespace App\Contracts;
 
 use App\Dto\FamilyDto;
+use App\Dto\ParentDto;
 interface FamilyRepositoryContract {
 
   public function hasCreatedFamilyParents(string $familyId): bool;
@@ -10,8 +11,8 @@ interface FamilyRepositoryContract {
   public function createFamily(FamilyDto $data): ?\App\Models\Family;
   public function associateFamilyParents(
     int $familyId,
-    \App\Dto\ParentDto $mainParent,
-    \App\Dto\ParentDto $partner
+    ParentDto $mainParent,
+    ?ParentDto $partner
   ): void;
 
   public function createFamilyChildren(int $familyId, array $children): void;
