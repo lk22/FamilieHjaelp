@@ -117,14 +117,14 @@ class FamilyRepository implements FamilyRepositoryContract {
       $partnerFullName = $partner->firstName . ' ' . $partner->middleName . ' ' . $partner->lastName;
 
       $parentOne = [
-          'family_id' => $familyId,
-          "has_account" => 0,
-          "user_id" => 0,
-          "name" => $mainParentFullName,
-          "family_role" => $mainParent->familyTitle,
-          "age" => $mainParent->age,
-          "email" => $mainParent->parentEmail,
-          "attached_email" => $mainParent->parentEmail ?? null
+        'family_id' => $familyId,
+        "has_account" => 0,
+        "user_id" => 0,
+        "name" => $mainParentFullName,
+        "family_role" => $mainParent->familyTitle,
+        "age" => $mainParent->age,
+        "email" => $mainParent->parentEmail,
+        "attached_email" => $mainParent->parentEmail ?? null
       ];
 
       $parentTwo = [

@@ -30,7 +30,7 @@ class CreateFamilyChildrenController extends Controller
         // check if the family already has children
         // if the family already has children, return an response to let the onboarding flow know to continue without adding more children
         if ( $this->familyRepository->hasCreatedFamilyChildren($familyId) ) {
-            return response()->json(['message' => 'Family already has children'], 400);
+            return response()->json(['code' => 200, 'message' => 'Family already has children'], 200);
         }
 
         $action = new CreateFamilyChildren(
@@ -40,6 +40,6 @@ class CreateFamilyChildrenController extends Controller
         $action->handle($familyId, $children);
 
         // Process the children data here
-        return response()->json(['message' => 'Children data processed successfully', 'children' => $children], 201);
+        return response()->json(['code' => 201, 'message' => 'Children data processed successfully', 'children' => $children], 201);
     }
 }

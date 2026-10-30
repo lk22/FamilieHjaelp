@@ -27,12 +27,15 @@ Route::post('/onboarding/family/create/parents', [CreateFamilyParentsController:
 Route::post('/onboarding/family/create/children', [CreateFamilyChildrenController::class, '__invoke'])
     ->name('api.onboarding.family.create.children');
 
+Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])
+    ->name('api.onboarding.process.complete');
+
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/onboarding/process/complete/todos', [CompleteOnboardingController::class, 'storeTodos'])
-        ->name('api.onboarding.process.complete.todos');
-    Route::post('/onboarding/process/complete/pages', [CompleteOnboardingController::class, 'storePages'])
-        ->name('api.onboarding.process.complete.pages');
-    Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('api.onboarding.process.complete');
+    // Route::post('/onboarding/process/complete/todos', [CompleteOnboardingController::class, 'storeTodos'])
+    //     ->name('api.onboarding.process.complete.todos');
+    // Route::post('/onboarding/process/complete/pages', [CompleteOnboardingController::class, 'storePages'])
+    //     ->name('api.onboarding.process.complete.pages');
+    // Route::post('/onboarding/process/complete', [CompleteOnboardingController::class, '__invoke'])->name('api.onboarding.process.complete');
 });
 
 Route::get('/user', function (Request $request) {

@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 use App\Contracts\OnboardingSessionRepositoryContract;
 
 class OnboardingSessionRepository implements OnboardingSessionRepositoryContract {
-
   /**
    * Find an existing onboarding session by its token or create a new one if it doesn't exist.
    *
@@ -41,7 +40,7 @@ class OnboardingSessionRepository implements OnboardingSessionRepositoryContract
    * Find an onboarding session by its token.
    *
    * @param string|null $token
-   * @return OnboardingSession|\stdClass|null
+   * @return OnboardingSession|null
    */
   public function findBySessionToken(?string $token = null): ?OnboardingSession {
       return OnboardingSession::where('session_token', $token)->first() ?? null;
@@ -55,14 +54,14 @@ class OnboardingSessionRepository implements OnboardingSessionRepositoryContract
    * @return bool
    */
   public function updateSession(OnboardingSession $session, array $data): bool {
-      if (! $session->exists() ) {
+      if (! $session->exists ) {
           return false;
       }
 
       return $session->update($data);
   }
 
-  /**
+  /** er
    * Create a new onboarding session.
    *
    * @param string|null $locale
@@ -104,6 +103,6 @@ class OnboardingSessionRepository implements OnboardingSessionRepositoryContract
    */
   public function isActiveSession(string $sessionToken): bool {
     $session = $this->findBySessionToken($sessionToken);
-    return $session !== null && ! $session->isCompleted();
+    return $session !== null && ! $session->completed;
   }
 }

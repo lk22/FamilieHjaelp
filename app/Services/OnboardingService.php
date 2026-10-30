@@ -77,9 +77,7 @@ class OnboardingService implements OnboardingServiceContract {
      * @return bool
      */
     public function verifyOnboardingSessionToken(string $token): bool {
-        $session = $this->onboardingSessionRepository->findBySessionToken($token);
-
-        return $session !== null;
+        return $this->onboardingSessionRepository->findBySessionToken($token) !== null;
     }
 
     /**
@@ -99,7 +97,10 @@ class OnboardingService implements OnboardingServiceContract {
      * @return bool
      */
     public function updateExistingSession(array $sessionData): bool {
-        return $this->onboardingSessionRepository->updateSession($this->findBySessionToken($sessionData['sessionToken']), $sessionData) ?? false;
+        return $this->onboardingSessionRepository->updateSession(
+          $this->findBySessionToken($sessionData['sessionToken']),
+          $sessionData
+       ) ?? false;
     }
 
     /**

@@ -3,7 +3,7 @@ type ApiResponse<T> = {
   error?: string;
   familyId?: number;
   message?: string;
-  status: number;
+  code: number;
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
@@ -70,6 +70,10 @@ type CreateFamilyParentsRequest = {
   partner?: Pick<FamilyInformation, 'partnerFirstName' | 'partnerMiddleName' | 'partnerLastName' | 'partnerAge' | 'partnerFamilyTitle' | 'partnerNeedsUser' | 'partnerUserEmail'>;
 }
 
+type CompleteOnboardingProcessResponse = {
+  familyId: number;
+}
+
 export const createFamily = async (familyData: Record<string, any>): Promise<ApiResponse<Family>> => {
   return request<ApiResponse<Family>>('/api/onboarding/family/create', {
     method: 'POST',
@@ -94,5 +98,12 @@ export const createFamilyChildren = async (requestData: { familyId: number; chil
 export const sendOutUserRequestMailsToFamilyMembers = async (): Promise<ApiResponse<null>> => {
   return request<ApiResponse<null>>('/api/onboarding/family/emails/send', {
     method: 'POST'
+  });
+}
+
+export const sendCompleteOnboardingProcess = async (requestData: {familyId: number}): Promise<ApiResponse<CompleteOnboardingProcessResponse>> => {
+  return request<ApiResponse<CompleteOnboardingProcessResponse>>('/api/onboarding/process/complete', {
+    method: 'POST',
+    body: JSON.stringify(requestData)
   });
 }

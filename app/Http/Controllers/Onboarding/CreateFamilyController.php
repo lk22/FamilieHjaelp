@@ -22,11 +22,13 @@ class CreateFamilyController extends Controller
     ) : JsonResponse
     {
         if (! $request->json()) {
-            return response()->json(['error' => 'Invalid JSON request'], 400);
+            return response()->json([
+                'code' => 400,
+                'error' => 'Invalid JSON request'], 400);
         }
 
         if ( ! $request->validated() ) {
-            return response()->json(['error' => 'Validation failed'], 422);
+            return response()->json(['code' => 422, 'error' => 'Validation failed'], 422);
         }
 
         $token = $request->input('token');
@@ -34,7 +36,7 @@ class CreateFamilyController extends Controller
         $verified = $this->onboardingSessionService->verifyOnboardingSessionToken($token);
 
         if ( ! $verified ) {
-            return response()->json(['error' => 'Invalid token, cannot proceed'], 401);
+            return response()->json(['code' => 401, 'error' => 'Invalid token, cannot proceed'], 401);
         }
 
         $action = new CreateFamily();
@@ -46,6 +48,7 @@ class CreateFamilyController extends Controller
         $familyId = $response?->id;
 
         return response()->json([
+            "code" => 201,
             "message" => "Family creation event dispatched successfully",
             "familyId" => $familyId
         ], 201);

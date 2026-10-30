@@ -27,11 +27,11 @@ class CreateFamilyParentsController extends Controller
         $familyId = $request->input('familyId');
 
         if (!$parent || ! $partner || ! $familyId) {
-            return response()->json(['error' => 'could not find parent, partner, or family ID'], 400);
+            return response()->json(['code' => 400, 'error' => 'could not find parent, partner, or family ID'], 400);
         }
 
         if (! $parent ) {
-            return response()->json(['error' => 'Parent is required'], 400);
+            return response()->json(['code' => 400, 'error' => 'Parent is required'], 400);
         }
 
         if (! $partner ) {
@@ -39,12 +39,8 @@ class CreateFamilyParentsController extends Controller
         }
 
         if ($this->familyRepository->hasCreatedFamilyParents($familyId)) {
-            return response()->json(['message' => 'Family already has members']);
+            return response()->json(['code' => 200,'message' => 'Familien har allerede forældre tilknyttet'], 200);
         }
-
-        // if ( ! $request->validated() ) {
-        //     return response()->json(['error' => 'Validation failed'], 400);
-        // }
 
         $action = new CreateFamilyParents(
             app(FamilyServiceContract::class)
@@ -55,6 +51,6 @@ class CreateFamilyParentsController extends Controller
             'partner' => $partner,
         ]);
 
-        return response()->json(['message' => 'Family associates created successfully'], 200);
+        return response()->json(['code' => 200, 'message' => 'Family associates created successfully'], 200);
     }
 }
