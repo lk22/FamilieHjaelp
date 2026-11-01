@@ -28,13 +28,13 @@ interface WelcomeProps {
     testimonials: Array<TestimonialItem>
 }
 
-export default function Welcome({ posts, testimonials }: WelcomeProps) {
+export default function Welcome({ posts }: WelcomeProps) {
     const { locale } = usePage<SharedData>().props;
     const { t } = useTranslation('web');
     const localized = localizeRoute(locale);
 
-    const testimonialsCount = testimonials.length;
-    const hasTestimonials = testimonialsCount > 0;
+    // const testimonialsCount = testimonials.length;
+    // const hasTestimonials = testimonialsCount > 0;
     const postsCount = posts.length;
     const hasPosts = postsCount > 0;
 

@@ -95,12 +95,6 @@ export const createFamilyChildren = async (requestData: { familyId: number; chil
   });
 }
 
-export const sendOutUserRequestMailsToFamilyMembers = async (): Promise<ApiResponse<null>> => {
-  return request<ApiResponse<null>>('/api/onboarding/family/emails/send', {
-    method: 'POST'
-  });
-}
-
 export const sendCompleteOnboardingProcess = async (requestData: {familyId: number}): Promise<ApiResponse<CompleteOnboardingProcessResponse>> => {
   return request<ApiResponse<CompleteOnboardingProcessResponse>>('/api/onboarding/process/complete', {
     method: 'POST',

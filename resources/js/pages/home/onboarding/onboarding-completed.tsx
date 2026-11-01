@@ -7,26 +7,25 @@ import {
     createFamily,
     createFamilyParents,
     createFamilyChildren,
-    sendOutUserRequestMailsToFamilyMembers,
     sendCompleteOnboardingProcess
 } from '@/lib/api';
 
-interface ICompletingOnboardingStep {
-    action: string;
-    progressStep: number;
-    progressPercent: number;
-    callback: () => Promise<void>;
-}
+// interface ICompletingOnboardingStep {
+//     action: string;
+//     progressStep: number;
+//     progressPercent: number;
+//     callback: () => Promise<void>;
+// }
 
-type kidData = {
-    ageMonths: string,
-    ageWeeks: string;
-    ageYears: string;
-    gender: string;
-    name: string;
-    needsUserLogin: boolean;
-    userEmail: string | null;
-}
+// type kidData = {
+//     ageMonths: string,
+//     ageWeeks: string;
+//     ageYears: string;
+//     gender: string;
+//     name: string;
+//     needsUserLogin: boolean;
+//     userEmail: string | null;
+// }
 
 type FamilyInformation = {
     firstName: string;
@@ -57,13 +56,13 @@ type Child = {
 type Parent = Omit<FamilyInformation, "partnerFirstName" | "partnerMiddleName" | "partnerLastName" | "partnerAge" | "partnerFamilyTitle" | "partnerNeedsUser" | "partnerUserEmail">;
 type Partner = Pick<FamilyInformation, "partnerFirstName" | "partnerMiddleName" | "partnerLastName" | "partnerAge" | "partnerFamilyTitle" | "partnerNeedsUser" | "partnerUserEmail">;
 
-type StepData = {
-    one: {
-        familyName: string;
-    };
-    two: FamilyInformation;
-    three: kidData[];
-}
+// type StepData = {
+//     one: {
+//         familyName: string;
+//     };
+//     two: FamilyInformation;
+//     three: kidData[];
+// }
 
 type StepStatus = 'pending' | 'active' | 'done' | 'error';
 
@@ -81,15 +80,10 @@ type StepKey = typeof stepDefinitions[number]['key'];
 
 export default function OnboardingCompleted() {
     const { auth, onboardingSessionToken, stepsData } = usePage<SharedData & { onboardingSessionToken?: string | null }>().props;
-    const [loadingProgressPercentage, setLoadingProgressPercentage] = useState<number>(0);
-    const [progressResponse, setProgressResponse] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [progressCompleted, setProgressCompleted] = useState<boolean>(false)
-    const [progress, setProgress] = useState<number>(0);
+    const [, setProgress] = useState<number>(0);
     const [hasError, setHasError] = useState<boolean>(false);
     const [responseError, setResponseError] = useState<string | null>(null);
-    const [parentUserMailsSend, setParentUserMailsSend] = useState<boolean>(false);
-    const [childrenUserMailsSend, setChildrenUserMailsSend] = useState<boolean>(false);
 
     const [stepData] = useState<Record<string, any>>(stepsData ?? null);
 
@@ -104,21 +98,11 @@ export default function OnboardingCompleted() {
         Object.fromEntries(stepDefinitions.map(s => [s.key, 'pending'])) as Record<StepKey, StepStatus>
     )
 
-    const familyCreated = statuses['creating-family'] === 'done';
-    const familyParentsCreated = statuses['parents'] === 'done';
-    const familyChildrenCreated = statuses['children'] === 'done';
-    const isCompleted = statuses['completed'] === 'done';
-
     const hasStarted = useRef(false);
 
     const setStatus = (key: StepKey, status: StepStatus) => setStatuses(prev => ({...prev, [key]: status}))
 
     const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
-    async function withMinDuration<T>(work: Promise<T>, minMs = 800): Promise<T> {
-        const [result] = await Promise.all([work, sleep(minMs)]);
-        return result;
-    }
 
     const assertSuccess = (response: { code: number; message?: string } | null | undefined, fallback: string): void => {
         if (!response) {
@@ -176,7 +160,7 @@ export default function OnboardingCompleted() {
                     }
 
                     const response = await createFamily({
-                        familyName: stepData.one.familyName,
+                        familyName,
                         familySize,
                         token: sessionToken
                     });

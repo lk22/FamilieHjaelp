@@ -34,8 +34,6 @@ export default function CompleteStep({
     post(route('onboarding.completed'));
   };
 
-  const hasPartner = parentData.hasPartner;
-
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
         <h2 className="text-2xl font-semibold">{translate('app.getting_started.confirmation_step.heading')}</h2>

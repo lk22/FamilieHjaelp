@@ -14,9 +14,6 @@ interface KidsStepState extends KidsStepProps {
 }
 
 export default function KidsStep({ defaultData, translate, locale }: KidsStepState) {
-    const [childUserLoginMessage, setChildUserLoginMessage] = useState<string | null>(null);
-    const [childConfirmPasswordCheckMessage, setChildConfirmPasswordCheckMessage] = useState<string | null>(null);
-
     const translatedHeading = translate('app.getting_started.kids_step.heading');
     const translatedSubheading = translate('app.getting_started.kids_step.subheading');
     const translatedAddChildButtonLabel = translate('app.getting_started.kids_step.add_child_button_label');
@@ -130,24 +127,6 @@ export default function KidsStep({ defaultData, translate, locale }: KidsStepSta
         post(route('onboarding.scenario.step.submit', { scenario: 'family', step: 'three', nextStep: 'complete' }));
     };
 
-    const handleChildUserConfirmedPasswordChech = (kid: Kid) => {
-        return kid.userPassword === kid.confirmPassword;
-    };
-
-    const handleCHildUserPasswordCheck = (kid: Kid) => {
-        if (
-            kid.userPassword.length < 1 ||
-            kid.userPassword.match(/[0-9]/) === null ||
-            kid.userPassword.match(/[A-Z]/) === null ||
-            kid.userPassword.match(/[a-z]/) === null ||
-            kid.userPassword.match(/[^a-zA-Z0-9]/) === null // check for special characters
-        ) {
-            return false;
-        }
-
-        return true;
-    };
-
     const translatedChildCountLabel = locale === 'da' ? `Antal børn: ${data.data.kids.length}` : `Number of children: ${data.data.kids.length}`;
 
     return (
@@ -158,11 +137,7 @@ export default function KidsStep({ defaultData, translate, locale }: KidsStepSta
             <p className="text-sm font-bold">{translatedAddChildButtonLabel}</p>
 
             {data.data.kids.map((kid, index) => {
-                const handleChildUserLoginCheck = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
-                    const kid = data.data.kids[index];
-                };
-
-                let childAdded = kid.firstName || kid.middleName || kid.lastName ? true : false;
+                const childAdded = kid.firstName || kid.middleName || kid.lastName ? true : false;
 
                 const ageYearsLabel = locale === 'da' ? `${kid.ageYears ?? ''} år` : `${kid.ageYears ?? ''} Years`;
                 const ageMonthsLabel = locale === 'da' ? `${kid.ageMonths ?? ''} mdr.` : `${kid.ageMonths ?? ''} Months`;

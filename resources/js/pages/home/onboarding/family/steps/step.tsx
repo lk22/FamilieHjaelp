@@ -1,4 +1,3 @@
-import { localizeRoute } from '@/util/localizeRoute';
 import { Head, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +6,7 @@ import FamilyNameStep from './FamilyNameStep';
 import KidsStep from './KidsStep';
 import ParentStep from './ParentStep';
 
-import { type FamilyNameStepData, type KidsStepData, type ParentStepData, type SessionProps, UserRegistrationStepProps } from '@/types/onboarding';
+import { type FamilyNameStepData, type KidsStepData, type ParentStepData, type SessionProps } from '@/types/onboarding';
 
 export default function FamilyOnboardingStep() {
     const { t } = useTranslation();
@@ -76,7 +75,6 @@ export default function FamilyOnboardingStep() {
                     {currentStep === 'one' ? <FamilyNameStep defaultFamilyName={String(one.familyName ?? '')} translate={t} /> : null}
                     {currentStep === 'two' ? <ParentStep defaultData={two} translate={t} /> : null}
                     {currentStep === 'three' ? <KidsStep defaultData={three} translate={t} locale={locale} /> : null}
-                    {/* {currentStep === 'four' ? <RegisterStep defaultData={four} translate={t} /> : null} */}
                     {currentStep === 'complete' ? (
                         <CompleteStep
                             token={onboardingSession.token}
