@@ -40,11 +40,11 @@ jobs:
           mkdir -p resources/js/state
           touch resources/js/state/OnboardingState.ts
 
-      - name: Build Assets
-        run: npm run build
-
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Build Assets
+        run: npm run build
 
       - name: Copy Environment File
         run: cp .env.example .env
