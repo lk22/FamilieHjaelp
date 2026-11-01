@@ -12,18 +12,42 @@ vi.mock('@inertiajs/react', async () => {
 });
 
 import KidsStep from '@/pages/home/onboarding/family/steps/KidsStep';
-import { type KidsStepData } from '@/types/onboarding';
+import { type Kid, type KidsStepData } from '@/types/onboarding';
 
-const oneKid: KidsStepData = {
-  kids: [{ gender: 'female', name: 'Ida', ageYears: '4', ageMonths: '2', ageWeeks: '1' }],
+const translate = (key: string) => key;
+const prefix = 'app.getting_started.kids_step';
+const label = (name: string) => `${prefix}.${name}`;
+
+const ida: Kid = {
+  gender: 'female',
+  firstName: 'Ida',
+  middleName: '',
+  lastName: '',
+  ageYears: '4',
+  ageMonths: '2',
+  ageWeeks: '1',
+  needsUserLogin: false,
+  userEmail: '',
 };
 
-const twoKids: KidsStepData = {
-  kids: [
-    { gender: 'female', name: 'Ida', ageYears: '4', ageMonths: '2', ageWeeks: '1' },
-    { gender: 'male', name: 'Emil', ageYears: '1', ageMonths: '6', ageWeeks: '0' },
-  ],
+const emil: Kid = {
+  gender: 'male',
+  firstName: 'Emil',
+  middleName: '',
+  lastName: '',
+  ageYears: '1',
+  ageMonths: '6',
+  ageWeeks: '0',
+  needsUserLogin: false,
+  userEmail: '',
 };
+
+const oneKid: KidsStepData = { kids: [ida] };
+const twoKids: KidsStepData = { kids: [ida, emil] };
+
+function renderStep(defaultData: KidsStepData) {
+  return render(<KidsStep defaultData={defaultData} translate={translate} locale="da" />);
+}
 
 describe('KidsStep', () => {
   let routeSpy: ReturnType<typeof vi.fn>;
@@ -38,121 +62,114 @@ describe('KidsStep', () => {
   });
 
   test('renders a single empty kid by default when there is no default data', () => {
-    render(<KidsStep defaultData={{ kids: [] }} />);
+    renderStep({ kids: [] });
 
-    expect(screen.getByText('Barn 1')).toBeInTheDocument();
-    expect(screen.getByLabelText('Navn')).toHaveValue('');
-    expect(screen.getByLabelText('Køn')).toHaveValue('female');
+    expect(screen.getByText('Antal børn: 1')).toBeInTheDocument();
+    expect(screen.getByLabelText(label('child_firstname_label'))).toHaveValue('');
+    expect(screen.getByLabelText(label('child_gender_label'))).toHaveValue('female');
   });
 
   test('renders each default kid pre-filled with its data', () => {
-    render(<KidsStep defaultData={twoKids} />);
+    renderStep(twoKids);
 
-    expect(screen.getByText('Ida')).toBeInTheDocument();
-    expect(screen.getByText('Emil')).toBeInTheDocument();
+    expect(screen.getByText(/Ida/)).toBeInTheDocument();
+    expect(screen.getByText(/Emil/)).toBeInTheDocument();
 
-    const nameInputs = screen.getAllByLabelText('Navn');
-    expect(nameInputs[0]).toHaveValue('Ida');
-    expect(nameInputs[1]).toHaveValue('Emil');
+    const firstNameInputs = screen.getAllByLabelText(label('child_firstname_label'));
+    expect(firstNameInputs[0]).toHaveValue('Ida');
+    expect(firstNameInputs[1]).toHaveValue('Emil');
 
-    const genderSelects = screen.getAllByLabelText('Køn');
+    const genderSelects = screen.getAllByLabelText(label('child_gender_label'));
     expect(genderSelects[0]).toHaveValue('female');
     expect(genderSelects[1]).toHaveValue('male');
 
-    expect(screen.getAllByLabelText('Alder (år)')[1]).toHaveValue(1);
-    expect(screen.getAllByLabelText('Alder (måneder)')[1]).toHaveValue(6);
+    expect(screen.getAllByLabelText(label('child_age_label_years'))[1]).toHaveValue(1);
+    expect(screen.getAllByLabelText(label('child_age_label_months'))[1]).toHaveValue(6);
   });
 
   test('falls back to an empty string for missing kid age fields', () => {
-    render(
-      <KidsStep
-        defaultData={{
-          kids: [{ gender: 'other', name: 'Alex', ageYears: undefined as unknown as string, ageMonths: '0', ageWeeks: '0' }],
-        }}
-      />,
-    );
+    renderStep({
+      kids: [{ ...ida, gender: 'other', firstName: 'Alex', ageYears: undefined as unknown as string, ageMonths: '0', ageWeeks: '0' }],
+    });
 
-    expect(screen.getByLabelText('Alder (år)')).toHaveValue(null);
+    expect(screen.getByLabelText(label('child_age_label_years'))).toHaveValue(null);
   });
 
-  test('typing into a kid field updates its value', () => {
-    render(<KidsStep defaultData={oneKid} />);
+  test('typing into a kid field updates its value and summary', () => {
+    renderStep(oneKid);
 
-    const nameInput = screen.getByLabelText('Navn');
-    fireEvent.change(nameInput, { target: { value: 'Ida Marie' } });
+    const firstNameInput = screen.getByLabelText(label('child_firstname_label'));
+    fireEvent.change(firstNameInput, { target: { value: 'Ida Marie' } });
 
-    expect(nameInput).toHaveValue('Ida Marie');
-    expect(screen.getByText('Ida Marie')).toBeInTheDocument();
+    expect(firstNameInput).toHaveValue('Ida Marie');
+    expect(screen.getByText(/Ida Marie/)).toBeInTheDocument();
   });
 
   test('changing the gender select updates its value', () => {
-    render(<KidsStep defaultData={oneKid} />);
+    renderStep(oneKid);
 
-    fireEvent.change(screen.getByLabelText('Køn'), { target: { value: 'other' } });
+    fireEvent.change(screen.getByLabelText(label('child_gender_label')), { target: { value: 'other' } });
 
-    expect(screen.getByLabelText('Køn')).toHaveValue('other');
+    expect(screen.getByLabelText(label('child_gender_label'))).toHaveValue('other');
   });
 
-  test('shows a placeholder label for a kid with no name yet', () => {
-    render(<KidsStep defaultData={{ kids: [] }} />);
+  test('shows only the gender in the summary for a kid with no name yet', () => {
+    renderStep({ kids: [] });
 
-    expect(screen.getByText('Barn 1')).toBeInTheDocument();
+    expect(screen.getByText('Pige - -')).toBeInTheDocument();
   });
 
-  test('adding a kid appends a new, expanded entry', () => {
-    render(<KidsStep defaultData={oneKid} />);
+  test('adding a kid appends a new entry', () => {
+    renderStep(oneKid);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Tilføj barn' }));
+    fireEvent.click(screen.getByRole('button', { name: label('add_child_button_label') }));
 
-    expect(screen.getByText('Barn 2')).toBeInTheDocument();
-    expect(screen.getAllByLabelText('Navn')).toHaveLength(2);
+    expect(screen.getByText('Antal børn: 2')).toBeInTheDocument();
+    expect(screen.getAllByLabelText(label('child_firstname_label'))).toHaveLength(2);
   });
 
   test('the remove button is disabled when only one kid remains', () => {
-    render(<KidsStep defaultData={oneKid} />);
+    renderStep(oneKid);
 
     expect(screen.getByRole('button', { name: 'Fjern barn 1' })).toBeDisabled();
   });
 
   test('removing a kid removes it from the list', () => {
-    render(<KidsStep defaultData={twoKids} />);
+    renderStep(twoKids);
 
     fireEvent.click(screen.getByRole('button', { name: 'Fjern barn 1' }));
 
-    expect(screen.queryByText('Ida')).not.toBeInTheDocument();
-    expect(screen.getByText('Emil')).toBeInTheDocument();
-    expect(screen.getAllByLabelText('Navn')).toHaveLength(1);
+    expect(screen.queryByText(/Ida/)).not.toBeInTheDocument();
+    expect(screen.getByText(/Emil/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(label('child_firstname_label'))).toHaveLength(1);
   });
 
   test('clicking a kid summary toggles its accordion open state', () => {
-    render(<KidsStep defaultData={twoKids} />);
+    renderStep(twoKids);
 
     const detailsElements = document.querySelectorAll('details');
     expect(detailsElements[0].open).toBe(true);
     expect(detailsElements[1].open).toBe(false);
 
-    fireEvent.click(screen.getByText('Emil'));
+    fireEvent.click(screen.getByText(/Emil/));
 
     expect(detailsElements[1].open).toBe(true);
   });
 
-  test('displays a general kids validation error', async () => {
-    vi.resetModules();
-    vi.doMock('@inertiajs/react', async () => {
-      const actual = await vi.importActual('@inertiajs/react');
-      return {
-        ...actual,
-        useForm: createStatefulUseForm({ 'data.kids': 'Tilføj mindst et barn' }),
-      };
-    });
+  test('shows the email field only for kids aged 15 or older who need a login', () => {
+    renderStep({ kids: [{ ...ida, ageYears: '16' }] });
 
-    const { default: KidsStepWithErrors } = await import('@/pages/home/onboarding/family/steps/KidsStep');
+    expect(screen.queryByLabelText(label('child_user_email_label'))).not.toBeInTheDocument();
 
-    render(<KidsStepWithErrors defaultData={{ kids: [] }} />);
+    fireEvent.click(screen.getByLabelText(label('child_needs_user_login_label')));
 
-    expect(screen.getByText('Tilføj mindst et barn')).toBeInTheDocument();
+    expect(screen.getByLabelText(label('child_user_email_label'))).toBeInTheDocument();
+  });
 
-    vi.doUnmock('@inertiajs/react');
+  test('does not offer a login to kids younger than 15', () => {
+    renderStep(oneKid);
+
+    expect(screen.queryByLabelText(label('child_needs_user_login_label'))).not.toBeInTheDocument();
   });
 
   test('displays per-field kid validation errors', async () => {
@@ -161,30 +178,30 @@ describe('KidsStep', () => {
       const actual = await vi.importActual('@inertiajs/react');
       return {
         ...actual,
-        useForm: createStatefulUseForm({ 'data.kids.0.name': 'Navn er påkrævet' }),
+        useForm: createStatefulUseForm({ 'data.kids.0.firstName': 'Fornavn er påkrævet' }),
       };
     });
 
     const { default: KidsStepWithErrors } = await import('@/pages/home/onboarding/family/steps/KidsStep');
 
-    render(<KidsStepWithErrors defaultData={oneKid} />);
+    render(<KidsStepWithErrors defaultData={oneKid} translate={translate} locale="da" />);
 
-    expect(screen.getByText('Navn er påkrævet')).toBeInTheDocument();
+    expect(screen.getByText('Fornavn er påkrævet')).toBeInTheDocument();
 
     vi.doUnmock('@inertiajs/react');
   });
 
   test('links back to the parent step', () => {
-    render(<KidsStep defaultData={oneKid} />);
+    renderStep(oneKid);
 
-    expect(screen.getByRole('link', { name: 'Tilbage' })).toHaveAttribute('href', '/onboarding.scenario.step');
+    expect(screen.getByRole('link', { name: label('previous_step_label') })).toHaveAttribute('href', '/onboarding.scenario.step');
     expect(routeSpy).toHaveBeenCalledWith('onboarding.scenario.step', { scenario: 'family', step: 'two' });
   });
 
   test('submits the form and requests the complete step route', () => {
-    render(<KidsStep defaultData={oneKid} />);
+    renderStep(oneKid);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Gennemse svar' }));
+    fireEvent.click(screen.getByRole('button', { name: label('next_step_label') }));
 
     expect(routeSpy).toHaveBeenCalledWith('onboarding.scenario.step.submit', { scenario: 'family', step: 'three', nextStep: 'complete' });
   });

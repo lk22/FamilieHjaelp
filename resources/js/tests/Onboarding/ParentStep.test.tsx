@@ -14,12 +14,35 @@ vi.mock('@inertiajs/react', async () => {
 import ParentStep from '@/pages/home/onboarding/family/steps/ParentStep';
 import { type ParentStepData } from '@/types/onboarding';
 
+const translate = (key: string) => key;
+const prefix = 'app.getting_started.parent_step';
+const label = (name: string) => `${prefix}.${name}`;
+
 const baseData: ParentStepData = {
-  name: '',
+  firstName: '',
+  middleName: '',
+  lastName: '',
   age: '',
   familyTitle: '',
+  parentEmail: '',
   hasPartner: false,
+  partnerFirstName: '',
+  partnerMiddleName: '',
+  partnerLastName: '',
+  partnerAge: '',
+  partnerFamilyTitle: '',
   partnerNeedsUser: false,
+  partnerUserName: '',
+  partnerUserEmail: '',
+};
+
+const partnerData: ParentStepData = {
+  ...baseData,
+  hasPartner: true,
+  partnerFirstName: 'Bo',
+  partnerLastName: 'Hansen',
+  partnerAge: '36',
+  partnerFamilyTitle: 'Far',
 };
 
 describe('ParentStep', () => {
@@ -35,133 +58,111 @@ describe('ParentStep', () => {
   });
 
   test('renders the base fields pre-filled with the default data', () => {
-    render(<ParentStep defaultData={{ ...baseData, name: 'Anna Hansen', age: '34', familyTitle: 'Mor' }} />);
+    render(
+      <ParentStep
+        defaultData={{ ...baseData, firstName: 'Anna', lastName: 'Hansen', age: '34', familyTitle: 'Mor' }}
+        translate={translate}
+      />,
+    );
 
-    expect(screen.getByLabelText('Navn')).toHaveValue('Anna Hansen');
-    expect(screen.getByLabelText('Alder')).toHaveValue('34');
-    expect(screen.getByLabelText('Familietitel')).toHaveValue('Mor');
+    expect(screen.getByLabelText(label('firstname_label'))).toHaveValue('Anna');
+    expect(screen.getByLabelText(label('last_name_label'))).toHaveValue('Hansen');
+    expect(screen.getByLabelText(label('age_label'))).toHaveValue('34');
+    expect(screen.getByLabelText(label('family_title_label'))).toHaveValue('Mor');
   });
 
   test('typing into a field updates its value', () => {
-    render(<ParentStep defaultData={baseData} />);
+    render(<ParentStep defaultData={baseData} translate={translate} />);
 
-    const nameInput = screen.getByLabelText('Navn');
-    fireEvent.change(nameInput, { target: { value: 'Bo Hansen' } });
+    const firstNameInput = screen.getByLabelText(label('firstname_label'));
+    fireEvent.change(firstNameInput, { target: { value: 'Bo' } });
 
-    expect(nameInput).toHaveValue('Bo Hansen');
+    expect(firstNameInput).toHaveValue('Bo');
   });
 
   test('does not render the partner section when the family has no partner by default', () => {
-    render(<ParentStep defaultData={baseData} />);
+    render(<ParentStep defaultData={baseData} translate={translate} />);
 
     expect(screen.queryByText('Partner information')).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Nej' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: label('has_partner_no') })).toBeInTheDocument();
   });
 
-  test('shows the partner section when clicking Ja', () => {
-    render(<ParentStep defaultData={baseData} />);
+  test('shows the partner section when clicking yes', () => {
+    render(<ParentStep defaultData={baseData} translate={translate} />);
 
-    fireEvent.click(screen.getAllByRole('button', { name: 'Ja' })[0]);
+    fireEvent.click(screen.getByRole('button', { name: label('has_partner_yes') }));
 
     expect(screen.getByText('Partner information')).toBeInTheDocument();
-    expect(screen.getByLabelText('Partner navn')).toHaveValue('');
+    expect(screen.getByLabelText(label('partner_first_name_label'))).toHaveValue('');
   });
 
   test('renders pre-filled partner fields when the default data already has a partner', () => {
-    render(
-      <ParentStep
-        defaultData={{
-          ...baseData,
-          hasPartner: true,
-          partnerName: 'Bo Hansen',
-          partnerAge: '36',
-          partnerFamilyTitle: 'Far',
-        }}
-      />,
-    );
+    render(<ParentStep defaultData={partnerData} translate={translate} />);
 
-    expect(screen.getByLabelText('Partner navn')).toHaveValue('Bo Hansen');
-    expect(screen.getByLabelText('Partner alder')).toHaveValue('36');
-    expect(screen.getByLabelText('Partner familietitel')).toHaveValue('Far');
+    expect(screen.getByLabelText(label('partner_first_name_label'))).toHaveValue('Bo');
+    expect(screen.getByLabelText(label('partner_last_name_label'))).toHaveValue('Hansen');
+    expect(screen.getByLabelText(label('partner_age_label'))).toHaveValue('36');
+    expect(screen.getByLabelText(label('partner_family_title_label'))).toHaveValue('Far');
   });
 
-  test('clicking Nej hides the partner section and clears the partner fields', () => {
-    render(
-      <ParentStep
-        defaultData={{
-          ...baseData,
-          hasPartner: true,
-          partnerName: 'Bo Hansen',
-          partnerAge: '36',
-          partnerFamilyTitle: 'Far',
-        }}
-      />,
-    );
+  test('clicking no hides the partner section and clears the partner fields', () => {
+    render(<ParentStep defaultData={partnerData} translate={translate} />);
 
-    fireEvent.click(screen.getAllByRole('button', { name: 'Nej' })[0]);
+    fireEvent.click(screen.getByRole('button', { name: label('has_partner_no') }));
 
     expect(screen.queryByText('Partner information')).not.toBeInTheDocument();
 
-    // Re-opening the partner section should show cleared fields, proving the reset happened.
+    fireEvent.click(screen.getByRole('button', { name: label('has_partner_yes') }));
+
+    expect(screen.getByLabelText(label('partner_first_name_label'))).toHaveValue('');
+    expect(screen.getByLabelText(label('partner_age_label'))).toHaveValue('');
+    expect(screen.getByLabelText(label('partner_family_title_label'))).toHaveValue('');
+  });
+
+  test('does not render the partner email field when the partner does not need a user by default', () => {
+    render(<ParentStep defaultData={{ ...partnerData }} translate={translate} />);
+
+    expect(screen.queryByLabelText(label('partner_email_label'))).not.toBeInTheDocument();
+  });
+
+  test('shows the partner email field when the partner needs a user', () => {
+    render(<ParentStep defaultData={partnerData} translate={translate} />);
+
     fireEvent.click(screen.getAllByRole('button', { name: 'Ja' })[0]);
 
-    expect(screen.getByLabelText('Partner navn')).toHaveValue('');
-    expect(screen.getByLabelText('Partner alder')).toHaveValue('');
-    expect(screen.getByLabelText('Partner familietitel')).toHaveValue('');
+    expect(screen.getByLabelText(label('partner_email_label'))).toBeInTheDocument();
   });
 
-  test('does not render the partner user fields when the partner does not need a user by default', () => {
-    render(<ParentStep defaultData={{ ...baseData, hasPartner: true }} />);
-
-    expect(screen.queryByLabelText('Partner bruger navn')).not.toBeInTheDocument();
-    expect(screen.queryByLabelText('Partner email')).not.toBeInTheDocument();
-  });
-
-  test('shows the partner user fields when clicking Ja under "Skal din partner have en bruger?"', () => {
-    render(<ParentStep defaultData={{ ...baseData, hasPartner: true }} />);
-
-    fireEvent.click(screen.getAllByRole('button', { name: 'Ja' })[1]);
-
-    expect(screen.getByLabelText('Partner bruger navn')).toBeInTheDocument();
-    expect(screen.getByLabelText('Partner email')).toBeInTheDocument();
-  });
-
-  test('clicking Nej under "Skal din partner have en bruger?" hides and clears the partner user fields', () => {
+  test('clicking no under the partner user question hides and clears the partner email', () => {
     render(
       <ParentStep
-        defaultData={{
-          ...baseData,
-          hasPartner: true,
-          partnerNeedsUser: true,
-          partnerUserName: 'Bo bruger',
-          partnerUserEmail: 'bo@example.com',
-        }}
+        defaultData={{ ...partnerData, partnerNeedsUser: true, partnerUserEmail: 'bo@example.com' }}
+        translate={translate}
       />,
     );
 
-    expect(screen.getByLabelText('Partner bruger navn')).toHaveValue('Bo bruger');
+    expect(screen.getByLabelText(label('partner_email_label'))).toHaveValue('bo@example.com');
 
-    fireEvent.click(screen.getAllByRole('button', { name: 'Nej' })[1]);
+    fireEvent.click(screen.getByRole('button', { name: 'Nej' }));
 
-    expect(screen.queryByLabelText('Partner bruger navn')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText(label('partner_email_label'))).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getAllByRole('button', { name: 'Ja' })[1]);
+    fireEvent.click(screen.getByRole('button', { name: 'Ja' }));
 
-    expect(screen.getByLabelText('Partner bruger navn')).toHaveValue('');
-    expect(screen.getByLabelText('Partner email')).toHaveValue('');
+    expect(screen.getByLabelText(label('partner_email_label'))).toHaveValue('');
   });
 
   test('links back to the family name step', () => {
-    render(<ParentStep defaultData={baseData} />);
+    render(<ParentStep defaultData={baseData} translate={translate} />);
 
-    expect(screen.getByRole('link', { name: 'Tilbage' })).toHaveAttribute('href', '/onboarding.scenario.step');
+    expect(screen.getByRole('link', { name: label('previous_step_label') })).toHaveAttribute('href', '/onboarding.scenario.step');
     expect(routeSpy).toHaveBeenCalledWith('onboarding.scenario.step', { scenario: 'family', step: 'one' });
   });
 
   test('submits the form and requests the next step route', () => {
-    render(<ParentStep defaultData={baseData} />);
+    render(<ParentStep defaultData={baseData} translate={translate} />);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Næste' }));
+    fireEvent.click(screen.getByRole('button', { name: label('next_step_label') }));
 
     expect(routeSpy).toHaveBeenCalledWith('onboarding.scenario.step.submit', { scenario: 'family', step: 'two', nextStep: 'three' });
   });
@@ -183,7 +184,7 @@ describe('ParentStep validation errors', () => {
       return {
         ...actual,
         useForm: createStatefulUseForm({
-          'data.name': 'Navn er påkrævet',
+          'data.firstName': 'Fornavn er påkrævet',
           'data.age': 'Alder er påkrævet',
           'data.familyTitle': 'Familietitel er påkrævet',
           'data.hasPartner': 'Vælg om du har en partner',
@@ -193,10 +194,10 @@ describe('ParentStep validation errors', () => {
 
     const { default: ParentStepWithErrors } = await import('@/pages/home/onboarding/family/steps/ParentStep');
 
-    render(<ParentStepWithErrors defaultData={baseData} />);
+    render(<ParentStepWithErrors defaultData={baseData} translate={translate} />);
 
-    expect(screen.getByText('Navn er påkrævet')).toBeInTheDocument();
-    expect(screen.getByText('Alder er påkrævet')).toBeInTheDocument();
+    expect(screen.getByText('Fornavn er påkrævet')).toBeInTheDocument();
+    expect(screen.getAllByText('Alder er påkrævet').length).toBeGreaterThan(0);
     expect(screen.getByText('Familietitel er påkrævet')).toBeInTheDocument();
     expect(screen.getByText('Vælg om du har en partner')).toBeInTheDocument();
 

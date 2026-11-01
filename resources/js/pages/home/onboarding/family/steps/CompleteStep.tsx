@@ -89,7 +89,7 @@ export default function CompleteStep({
             {kids.map((kid, index) => (
                 <div className="rounded border border-1 border-blue-900 p-3" key={index}>
                     <p>
-                        <strong>{kid.name}</strong> ({translate(kid.gender)}) - {kid.ageYears} {translate('app.getting_started.confirmation_step.child_age_years')}, {kid.ageMonths} {translate('app.getting_started.confirmation_step.child_age_months')} {`${locale === 'da' ? 'og' : 'and'}`} {kid.ageWeeks} {translate('app.getting_started.confirmation_step.child_age_weeks')}
+                        <strong>{[kid.firstName, kid.middleName, kid.lastName].filter(Boolean).join(' ')}</strong> ({translate(kid.gender)}) - {kid.ageYears} {translate('app.getting_started.confirmation_step.child_age_years')}, {kid.ageMonths} {translate('app.getting_started.confirmation_step.child_age_months')} {`${locale === 'da' ? 'og' : 'and'}`} {kid.ageWeeks} {translate('app.getting_started.confirmation_step.child_age_weeks')}
                     </p>
                 </div>
             ))}

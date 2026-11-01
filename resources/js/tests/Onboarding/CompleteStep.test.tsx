@@ -4,33 +4,72 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import CompleteStep from '@/pages/home/onboarding/family/steps/CompleteStep';
 import { type KidsStepData, type ParentStepData } from '@/types/onboarding';
 
+const translate = (key: string) => key;
+const prefix = 'app.getting_started.confirmation_step';
+
 const parentWithoutPartner: ParentStepData = {
-  name: 'Anna Hansen',
+  firstName: 'Anna',
+  middleName: '',
+  lastName: 'Nielsen',
   age: '34',
   familyTitle: 'Mor',
+  parentEmail: 'anna@example.com',
   hasPartner: false,
   partnerNeedsUser: false,
 };
 
 const parentWithPartner: ParentStepData = {
-  name: 'Anna Hansen',
-  age: '34',
-  familyTitle: 'Mor',
+  ...parentWithoutPartner,
   hasPartner: true,
-  partnerName: 'Bo Hansen',
+  partnerFirstName: 'Bo',
+  partnerMiddleName: '',
+  partnerLastName: 'Jensen',
   partnerAge: '36',
   partnerFamilyTitle: 'Far',
-  partnerNeedsUser: false,
 };
 
 const noKids: KidsStepData = { kids: [] };
 
 const twoKids: KidsStepData = {
   kids: [
-    { gender: 'female', name: 'Ida', ageYears: '4', ageMonths: '2', ageWeeks: '1' },
-    { gender: 'male', name: 'Emil', ageYears: '1', ageMonths: '6', ageWeeks: '0' },
+    {
+      gender: 'female',
+      firstName: 'Ida',
+      middleName: '',
+      lastName: 'Nielsen',
+      ageYears: '4',
+      ageMonths: '2',
+      ageWeeks: '1',
+      needsUserLogin: false,
+      userEmail: '',
+    },
+    {
+      gender: 'male',
+      firstName: 'Emil',
+      middleName: '',
+      lastName: 'Nielsen',
+      ageYears: '1',
+      ageMonths: '6',
+      ageWeeks: '0',
+      needsUserLogin: false,
+      userEmail: '',
+    },
   ],
 };
+
+function renderStep(overrides: Partial<React.ComponentProps<typeof CompleteStep>> = {}) {
+  return render(
+    <CompleteStep
+      token="session-token"
+      familyName="Hansen"
+      parentData={parentWithoutPartner}
+      kidsData={noKids}
+      translate={translate}
+      locale="da"
+      {...overrides}
+    />,
+  );
+}
 
 describe('CompleteStep', () => {
   let routeSpy: ReturnType<typeof vi.fn>;
@@ -45,84 +84,84 @@ describe('CompleteStep', () => {
   });
 
   test('renders the family name, onboarder and partner summary', () => {
-    render(<CompleteStep token="session-token" familyName="Hansen" parentData={parentWithoutPartner} kidsData={noKids} />);
+    renderStep();
 
-    expect(screen.getByText('Bekræft familien')).toBeInTheDocument();
+    expect(screen.getByText(`${prefix}.heading`)).toBeInTheDocument();
     expect(screen.getByText('Hansen')).toBeInTheDocument();
-    expect(screen.getByText(/Anna Hansen/)).toBeInTheDocument();
-    expect(screen.getByText(/Mor/)).toBeInTheDocument();
-    expect(screen.getByText('Nej')).toBeInTheDocument();
+    expect(screen.getByText(/Anna.*Nielsen.*\(Mor\)/)).toBeInTheDocument();
+    expect(screen.getByText('34')).toBeInTheDocument();
+    expect(screen.getByText(`${prefix}.has_partner_no`)).toBeInTheDocument();
   });
 
-  test('does not render partner name when the family has no partner', () => {
-    render(<CompleteStep token="session-token" familyName="Hansen" parentData={parentWithoutPartner} kidsData={noKids} />);
+  test('does not render partner details when the family has no partner', () => {
+    renderStep();
 
-    expect(screen.queryByText('Partner navn:')).not.toBeInTheDocument();
+    expect(screen.queryByText(`${prefix}.partner_name_label:`)).not.toBeInTheDocument();
   });
 
-  test('renders partner name when the family has a partner', () => {
-    render(<CompleteStep token="session-token" familyName="Hansen" parentData={parentWithPartner} kidsData={noKids} />);
+  test('renders partner details when the family has a partner', () => {
+    renderStep({ parentData: parentWithPartner });
 
-    expect(screen.getByText('Ja')).toBeInTheDocument();
-    expect(screen.getByText('Partner navn:')).toBeInTheDocument();
-    expect(screen.getByText('Bo Hansen')).toBeInTheDocument();
+    expect(screen.getByText(`${prefix}.has_partner_yes`)).toBeInTheDocument();
+    expect(screen.getByText(`${prefix}.partner_name_label:`)).toBeInTheDocument();
+    expect(screen.getByText('Bo Jensen')).toBeInTheDocument();
+    expect(screen.getByText('36')).toBeInTheDocument();
   });
 
   test('renders the kid count and each kid summary', () => {
-    render(<CompleteStep token="session-token" familyName="Hansen" parentData={parentWithoutPartner} kidsData={twoKids} />);
+    renderStep({ kidsData: twoKids });
 
     expect(screen.getByText('2')).toBeInTheDocument();
-    expect(screen.getByText(/Ida/)).toBeInTheDocument();
+    expect(screen.getByText('Ida Nielsen')).toBeInTheDocument();
     expect(screen.getByText(/\(female\)/)).toBeInTheDocument();
-    expect(screen.getByText(/Emil/)).toBeInTheDocument();
+    expect(screen.getByText('Emil Nielsen')).toBeInTheDocument();
     expect(screen.getByText(/\(male\)/)).toBeInTheDocument();
   });
 
   test('renders a zero kid count when there are no kids', () => {
-    render(<CompleteStep token="session-token" familyName="Hansen" parentData={parentWithoutPartner} kidsData={noKids} />);
+    renderStep();
 
     expect(screen.getByText('0')).toBeInTheDocument();
   });
 
   test('falls back to empty strings when optional parent fields are missing', () => {
     const parentWithMissingFields = {
-      name: undefined as unknown as string,
-      age: '34',
+      ...parentWithoutPartner,
+      firstName: undefined as unknown as string,
+      lastName: undefined as unknown as string,
       familyTitle: undefined as unknown as string,
-      hasPartner: false,
-      partnerNeedsUser: false,
     } as ParentStepData;
 
-    render(<CompleteStep token="session-token" familyName="Hansen" parentData={parentWithMissingFields} kidsData={noKids} />);
+    renderStep({ parentData: parentWithMissingFields });
 
-    expect(screen.getByText(/Onboarder:/)).toBeInTheDocument();
+    expect(screen.getByText(`${prefix}.onboarder_name_label:`)).toBeInTheDocument();
   });
 
   test('enables the submit button when a session token is present', () => {
-    render(<CompleteStep token="session-token" familyName="Hansen" parentData={parentWithoutPartner} kidsData={noKids} />);
+    renderStep();
 
-    expect(screen.getByRole('button', { name: 'Fuldfør onboarding' })).toBeEnabled();
-    expect(screen.queryByText('Sessionen mangler. Start onboarding forfra for at fuldføre.')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'app.complete_onboarding' })).toBeEnabled();
+    expect(screen.queryByText('app.session_missing')).not.toBeInTheDocument();
   });
 
   test('disables the submit button and shows a warning when the session token is missing', () => {
-    render(<CompleteStep token={null} familyName="Hansen" parentData={parentWithoutPartner} kidsData={noKids} />);
+    renderStep({ token: null });
 
-    expect(screen.getByRole('button', { name: 'Fuldfør onboarding' })).toBeDisabled();
-    expect(screen.getByText('Sessionen mangler. Start onboarding forfra for at fuldføre.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'app.complete_onboarding' })).toBeDisabled();
+    expect(screen.getByText('app.session_missing')).toBeInTheDocument();
   });
 
   test('links back to the kids step', () => {
-    render(<CompleteStep token="session-token" familyName="Hansen" parentData={parentWithoutPartner} kidsData={noKids} />);
+    renderStep();
 
     expect(routeSpy).toHaveBeenCalledWith('onboarding.scenario.step', { scenario: 'family', step: 'three' });
-    expect(screen.getByRole('link', { name: 'Tilbage' })).toHaveAttribute('href', '/onboarding.scenario.step');
+    expect(screen.getByRole('link', { name: 'app.back' })).toHaveAttribute('href', '/onboarding.scenario.step');
   });
 
   test('submits the form and requests the onboarding.completed route', () => {
-    render(<CompleteStep token="session-token" familyName="Hansen" parentData={parentWithoutPartner} kidsData={noKids} />);
+    renderStep();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Fuldfør onboarding' }));
+    fireEvent.click(screen.getByRole('button', { name: 'app.complete_onboarding' }));
 
     expect(routeSpy).toHaveBeenCalledWith('onboarding.completed');
   });

@@ -246,7 +246,7 @@ export default function KidsStep({ defaultData, translate, locale }: KidsStepSta
                                         <Field label={translatedChildFirstNameLabel} inputId={`kid-${index}-firstName`} error={errors[`data.kids.${index}.firstName`]}>
                                             <Input
                                                 type="text"
-                                                id={`kid-${index}-name`}
+                                                id={`kid-${index}-firstName`}
                                                 value={kid.firstName}
                                                 onChange={(event) => updateKid(index, { firstName: event.target.value })}
                                             />
@@ -340,7 +340,7 @@ export default function KidsStep({ defaultData, translate, locale }: KidsStepSta
                                                     className="my-0 h-[10px] text-blue-900"
                                                 />
                                                 <span>{enterChildUserEmailMessage}</span>
-                                                <p>{kid.name} {childReceiveLoginMailMessage}</p>
+                                                <p>{kid.firstName} {childReceiveLoginMailMessage}</p>
                                             </Field>
                                             {/* <Field label={translatedChildUserLoginLabel} inputId={`kid-${index}-userLogin`} error={errors[`data.kids.${index}.userLogin`]}>
                                                 <input
