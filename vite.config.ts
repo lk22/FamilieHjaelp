@@ -10,7 +10,7 @@ import laravelI18nextPlugin from 'vite-plugin-laravel-i18next';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.tsx'],
+            input: ['resources/css/app.css', 'resources/css/filament/admin.css', 'resources/js/app.tsx'],
             ssr: 'resources/js/ssr.tsx',
             refresh: true,
         }),
@@ -23,6 +23,8 @@ export default defineConfig({
             ),
             outputPath: path.resolve(__dirname, "resources/js/lang/"),
         }),
+        // add filament admin.css here
+
     ],
     esbuild: {
         jsx: 'automatic',
