@@ -13,7 +13,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.tsx',
-                'resources/css/filament/admin.css',
+                'resources/css/filament/admin/theme.css',
             ],
             ssr: 'resources/js/ssr.tsx',
             refresh: true,
