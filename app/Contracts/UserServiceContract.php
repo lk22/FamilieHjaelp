@@ -2,6 +2,8 @@
 
 namespace App\Contracts;
 
+use App\Models\User;
+
 interface UserServiceContract {
-  public function createUserLoginWithTemporaryPassword(string $email): bool;
+  public function createUserLoginWithTemporaryPassword(string $email): User;
 }
