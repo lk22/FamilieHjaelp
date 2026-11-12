@@ -6,11 +6,7 @@ use App\Contracts\UserServiceContract;
 
 use App\Models\User;
 
-use Illuminate\Auth\Events\Registered;
-
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserService implements UserServiceContract
 {
