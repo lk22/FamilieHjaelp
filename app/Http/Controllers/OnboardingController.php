@@ -165,9 +165,16 @@ class OnboardingController extends Controller
 
         $session = $this->onboardingSessionService->findBySessionToken($token);
 
+        if (!$session) {
+            abort(404, 'Onboarding session not found.');
+        }
+
+        $isCompleted = $session->completed;
+
         return inertia('home/onboarding/onboarding-completed', [
             'onboardingSessionToken' => $request->cookie('onboarding_session_token'),
             'stepsData' => $session->steps_data,
+            'isCompleted' => $isCompleted,
         ]);
     }
 
@@ -217,12 +224,13 @@ class OnboardingController extends Controller
     public function verifyToken(Request $request): JsonResponse
     {
 
-        return response()->json(['success' => true, 'message' => 'Session token verified successfully.']);
         $token = $request->cookie('onboarding_session_token');
 
         if (is_null($token)) {
             return response()->json(['success' => false, 'message' => 'Onboarding session token is missing.']);
         }
+
+        return response()->json(['success' => true, 'message' => 'Session token verified successfully.']);
 
         $session = $this->onboardingSessionService->findBySessionToken($token);
 

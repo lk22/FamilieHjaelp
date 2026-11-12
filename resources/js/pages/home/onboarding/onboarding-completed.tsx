@@ -79,7 +79,7 @@ const stepDefinitions = [
 type StepKey = typeof stepDefinitions[number]['key'];
 
 export default function OnboardingCompleted() {
-    const { auth, onboardingSessionToken, stepsData } = usePage<SharedData & { onboardingSessionToken?: string | null }>().props;
+    const { auth, onboardingSessionToken, stepsData, isCompleted } = usePage<SharedData & { onboardingSessionToken?: string | null; isCompleted: boolean }>().props;
     const [progressCompleted, setProgressCompleted] = useState<boolean>(false)
     const [, setProgress] = useState<number>(0);
     const [hasError, setHasError] = useState<boolean>(false);
@@ -138,6 +138,12 @@ export default function OnboardingCompleted() {
                 callback: async () => {
                     if (!sessionToken) {
                         throw new Error("Session token not found");
+                    }
+
+                    if (isCompleted) {
+                        setProgressCompleted(true);
+                        setHasError(false);
+                        throw new Error("Onboarding already completed");
                     }
                 }
             },
@@ -283,7 +289,7 @@ export default function OnboardingCompleted() {
             <main className="bg-white py-16 text-white h-screen flex items-center justify-center">
                 <div className="mx-auto w-full max-w-3xl px-6">
                     <div className="bg-white p-8 rounded border boder-2 border-blue-900">
-                    {progressCompleted && (
+                    {progressCompleted && !hasError && (
                         <>
                             <h1 className="text-3xl font-bold text-blue-900">Din familie er blevet oprettet.</h1>
                             <p className="mt-4 text-lg text-blue-900 font-bold mb-4" id="onboarding-completed-message">Vi har oprettet din familie, vi glæder os til du kommer igang med platformen.</p>
@@ -293,7 +299,7 @@ export default function OnboardingCompleted() {
                     )}
                     {hasError && (
                         <>
-                            <p className="text-blue-900 font-bold text-2xl">Der opstod en fejl under oprettelsen af familien.</p>
+                            <p className="text-blue-900 font-bold text-2xl">Noget gik galt</p>
                             <p className="mt-4 text-lg text-red-500" id="onboarding-error-message">{responseError}</p>
                             <p className="mt-2 text-md text-blue-900">Forsøg at log ind på din konto, hvis din konto ikke allerede er oprettet. kan du forsøge og kontakte vores support</p>
                         </>
