@@ -35,6 +35,7 @@ class UserFactory extends Factory
             'is_admin' => rand(0, 1) === 1,
             'family_id' => rand(1, 10),
             'family_member_id' => rand(1, 10),
+            'family_child_id' => rand(1, 10),
         ];
     }
 

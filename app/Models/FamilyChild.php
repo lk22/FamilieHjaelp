@@ -20,6 +20,7 @@ class FamilyChild extends Model
         'age_months',
         'age_weeks',
         'needs_user_access',
+        'use_attached_parent_email',
         'child_email',
         'created_at',
         'updated_at',

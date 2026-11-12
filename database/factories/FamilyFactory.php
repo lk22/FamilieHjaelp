@@ -39,7 +39,11 @@ class FamilyFactory extends Factory
     {
         return [
             'name' => fake()->randomElement($this->familyNames),
-            'family_size' => rand(1, 10)
+            'family_size' => rand(1, 10),
+            'children_count' => rand(0, 5),
+            'created_at' => now(),
+            'updated_at' => now(),
+            'deleted_at' => null
         ];
     }
 }
