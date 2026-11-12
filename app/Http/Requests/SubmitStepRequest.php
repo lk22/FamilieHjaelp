@@ -59,7 +59,7 @@ class SubmitStepRequest extends FormRequest
             ],
             'two' => [
                 'data.firstName' => 'required|string|max:255',
-                'data.middleName' => 'required|string|max:255',
+                'data.middleName' => 'nullable|string|max:255',
                 'data.lastName' => 'required|string|max:255',
                 'data.age' => 'required|integer|min:0|max:120',
                 'data.familyTitle' => 'required|string|max:255',
@@ -75,7 +75,7 @@ class SubmitStepRequest extends FormRequest
                 'data.kids' => 'required|array|min:1',
                 'data.kids.*.gender' => 'required|string|in:male,female,other',
                 'data.kids.*.firstName' => 'required|string|max:255',
-                'data.kids.*.middleName' => 'required|string|max:255',
+                'data.kids.*.middleName' => 'nullable|string|max:255',
                 'data.kids.*.lastName' => 'required|string|max:255',
                 'data.kids.*.ageYears' => 'required|integer|min:0|max:25',
                 'data.kids.*.ageMonths' => 'nullable|integer|min:0|max:11',
