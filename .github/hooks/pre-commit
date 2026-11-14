@@ -1,5 +1,27 @@
 #!/bin/bash
 
+# run backend tests before committing
+php artisan test
+if [ $? -ne 0 ]; then
+  echo "Backend tests failed. Please fix the issues before committing."
+  exit 1
+fi
+
+# run frontend tests before committing
+npm run test
+if [ $? -ne 0 ]; then
+  echo "Frontend tests failed. Please fix the issues before committing."
+  exit 1
+fi
+
+# run linting quality checks before committing
+npm run lint
+if [ $? -ne 0 ]; then
+  echo "Linting checks failed. Please fix the issues before committing."
+  exit 1
+fi
+
+
 # This is a pre-commit hook that runs before a commit is made.
 if git diff --cached | xargs grep -E -i "password|secret|api[_-]?key|token|credential" 2>/dev/null; then
   echo "Security warning: Potential secrets detected in staged changes. Please remove any sensitive information before committing.";
