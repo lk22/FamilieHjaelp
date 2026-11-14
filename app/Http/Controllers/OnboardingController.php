@@ -28,18 +28,18 @@ class OnboardingController extends Controller
         $userId = $request->user()?->id;
 
         // Read session token first, then fall back to persisted browser cookie.
-        $token = $request->session()->get('onboarding_session_token')
-            ?? $request->cookie('onboarding_session_token');
-
+        
         // $session = $this->onboardingSessionService->findBySessionToken($token);
-
+        
         // $session = OnboardingSession::findOrCreateSession($userId, $token);
         $session = $this->onboardingSessionService->findOrCreateSession($userId, $token);
-
+        
         // if ($session->current_step === "completed") {
-        //     return redirect()->route('onboarding.completed.view');
-        // }
-
+            //     return redirect()->route('onboarding.completed.view');
+            // }
+            
+        $token = $request->session()->get('onboarding_session_token')
+            ?? $request->cookie('onboarding_session_token');
         // Keep token available immediately server-side in the current request lifecycle.
         $request->session()->put('onboarding_session_token', $session->session_token);
 

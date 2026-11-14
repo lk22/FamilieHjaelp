@@ -26,18 +26,22 @@ class CreateFamilyParents
         hasPartner: $parents["parent"]["hasPartner"] ?? false
       );
 
-      $partner = new FamilyParent(
-        familyId: $familyId,
-        firstName: $parents["partner"]["partnerFirstName"],
-        middleName: $parents["partner"]["partnerMiddleName"],
-        lastName: $parents["partner"]["partnerLastName"],
-        age: $parents["partner"]["partnerAge"],
-        familyTitle: $parents["partner"]["partnerFamilyTitle"],
-        needsUser: $parents["partner"]["partnerNeedsUser"],
-        parentEmail: $parents["partner"]["partnerUserEmail"],
-        hasPartner: false,
-      );
+      if ($parents["partner"] ?? false) {
+          $partner = new FamilyParent(
+            familyId: $familyId,
+            firstName: $parents["partner"]["partnerFirstName"],
+            middleName: $parents["partner"]["partnerMiddleName"],
+            lastName: $parents["partner"]["partnerLastName"],
+            age: $parents["partner"]["partnerAge"],
+            familyTitle: $parents["partner"]["partnerFamilyTitle"],
+            needsUser: $parents["partner"]["partnerNeedsUser"],
+            parentEmail: $parents["partner"]["partnerUserEmail"],
+            hasPartner: false,
+          );
 
-      $this->familyService->createFamilyParents($familyId, $mainParent, $partner);
+          $this->familyService->createFamilyParents($familyId, $mainParent, $partner);
+      } else {
+          $this->familyService->createFamilyParents($familyId, $mainParent, null);
+      }
     }
 }

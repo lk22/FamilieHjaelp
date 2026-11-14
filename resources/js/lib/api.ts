@@ -64,6 +64,13 @@ type ChildResponse = {
   familyId: number;
 }
 
+type VerifySessionResponse = {
+  active: boolean;
+  completed: boolean;
+  message: string;
+  status: boolean;
+}
+
 type CreateFamilyParentsRequest = {
   familyId: number;
   mainParent: Omit<FamilyInformation, 'partnerFirstName' | 'partnerMiddleName' | 'partnerLastName' | 'partnerAge' | 'partnerFamilyTitle' | 'partnerNeedsUser' | 'partnerUserEmail'>;
@@ -72,6 +79,15 @@ type CreateFamilyParentsRequest = {
 
 type CompleteOnboardingProcessResponse = {
   familyId: number;
+}
+
+export const verifySession = async (token: string): Promise<ApiResponse<VerifySessionResponse>> => {
+  return request<ApiResponse<VerifySessionResponse>>(`/api/onboarding/session/verify?token=${encodeURIComponent(token)}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
 }
 
 export const createFamily = async (familyData: Record<string, any>): Promise<ApiResponse<Family>> => {

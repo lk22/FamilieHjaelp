@@ -535,8 +535,19 @@
         "heading": "Tak - din familie er oprettet",
         "message": "Vi har gemt dine onboarding oplysninger.",
         "steps": {
-          "verify": "Bekræft oplysninger",
-          "complete": "Fuldført onboarding"
+          "verify": "Verificere udfyldning",
+          "family": "Opretter familie",
+          "parents": "Opretter forældre profiler",
+          "children": "Opretter børneprofiler",
+          "completed": "Onboarding fuldført"
+        },
+        "process_completed": {
+          "completed_heading": "Familien er oprettet",
+          "onboarding_completed_message": "Vi har oprettet din familie, vi glæder os til du kommer igang med platformen.",
+          "onboarding_completed_sub_message": "Du og din partner vil modtage en email med yderligere instruktioner. og kan følge med i processen her på platformen.",
+          "processing": "Opretter familien...",
+          "go_to_overview": "Gå til oversigt",
+          "log_in_here": "Log ind her"
         }
       }
     }

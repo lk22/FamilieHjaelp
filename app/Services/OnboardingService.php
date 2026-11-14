@@ -135,4 +135,8 @@ class OnboardingService implements OnboardingServiceContract {
     public function checkActiveSession(string $session): bool {
       return $this->onboardingSessionRepository->isActiveSession($session);
     }
+
+    public function checkCompleteSession(string $session): bool {
+      return $this->onboardingSessionRepository->isSessionComplete($session);
+    }
 }

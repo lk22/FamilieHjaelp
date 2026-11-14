@@ -5,7 +5,7 @@ namespace App\Dto;
 class ChildDto {
   public function __construct(
     public string $firstName,
-    public string $middleName,
+    public ?string $middleName,
     public string $lastName,
     public string $ageYears,
     public ?int $ageMonths,

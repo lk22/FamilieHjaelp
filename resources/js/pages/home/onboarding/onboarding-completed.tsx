@@ -1,5 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useCallback, useEffect, useState, useRef } from 'react';
+import { useTranslation } from "react-i18next";
 
 import { type SharedData } from '@/types';
 
@@ -7,7 +8,8 @@ import {
     createFamily,
     createFamilyParents,
     createFamilyChildren,
-    sendCompleteOnboardingProcess
+    sendCompleteOnboardingProcess,
+    verifySession
 } from '@/lib/api';
 
 // interface ICompletingOnboardingStep {
@@ -56,34 +58,31 @@ type Child = {
 type Parent = Omit<FamilyInformation, "partnerFirstName" | "partnerMiddleName" | "partnerLastName" | "partnerAge" | "partnerFamilyTitle" | "partnerNeedsUser" | "partnerUserEmail">;
 type Partner = Pick<FamilyInformation, "partnerFirstName" | "partnerMiddleName" | "partnerLastName" | "partnerAge" | "partnerFamilyTitle" | "partnerNeedsUser" | "partnerUserEmail">;
 
-// type StepData = {
-//     one: {
-//         familyName: string;
-//     };
-//     two: FamilyInformation;
-//     three: kidData[];
-// }
-
 type StepStatus = 'pending' | 'active' | 'done' | 'error';
 
 const MIN_STEP_DURATION = 700;
 
-const stepDefinitions = [
+// TODO find a way to dynamically generate step labels from translations
+let stepDefinitions = [
     {key: 'verify-session-token', label: 'Verificere udfyldning'},
     {key: 'creating-family', label: 'Opretter ny familie'},
     {key: 'parents', label: 'Opretter forældre profiler'},
     {key: 'children', label: 'Opretter børne profiler'},
     {key: 'completed', label: 'Færdiggører processen'}
-] as const;
+];
 
 type StepKey = typeof stepDefinitions[number]['key'];
 
 export default function OnboardingCompleted() {
     const { auth, onboardingSessionToken, stepsData, isCompleted } = usePage<SharedData & { onboardingSessionToken?: string | null; isCompleted: boolean }>().props;
+    console.log(onboardingSessionToken)
     const [progressCompleted, setProgressCompleted] = useState<boolean>(false)
     const [, setProgress] = useState<number>(0);
     const [hasError, setHasError] = useState<boolean>(false);
     const [responseError, setResponseError] = useState<string | null>(null);
+    const [stepsState, setStepState] = useState<Record<StepKey, StepStatus>>(
+        Object.fromEntries(stepDefinitions.map(s => [s.key, 'pending'])) as Record<StepKey, StepStatus>
+    );
 
     const [stepData] = useState<Record<string, any>>(stepsData ?? null);
     // TODO step five redirect the user to the app platform
@@ -93,10 +92,29 @@ export default function OnboardingCompleted() {
     )
 
     const hasStarted = useRef(false);
-
     const setStatus = (key: StepKey, status: StepStatus) => setStatuses(prev => ({...prev, [key]: status}))
-
     const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    const { t } = useTranslation();
+    const translations = {
+        steps: {
+            verify: t('app.getting_started.completed_step.steps.verify'),
+            creating_family: t('app.getting_started.completed_step.steps.creating_family'),
+            parents: t('app.getting_started.completed_step.steps.parents'),
+            children: t('app.getting_started.completed_step.steps.children'),
+            completed: t('app.getting_started.completed_step.steps.completed'),
+        },
+        completedHeading: t('app.getting_started.completed_step.process_completed.completed_heading'),
+        completedText: t('app.getting_started.completed_step.process_completed.onboarding_completed_message'),
+        completedSubText: t('app.getting_started.completed_step.process_completed.onboarding_completed_sub_message'),
+        processing: t('app.getting_started.completed_step.process_completed.processing'),
+        goToOverview: t('app.getting_started.completed_step.process_completed.go_to_overview'),
+        logInHere: t('app.getting_started.completed_step.process_completed.log_in_here')
+    }
+
+    stepDefinitions.forEach(step => {
+        step.label = translations[step.key.replace(/-/g, '') as keyof typeof translations.steps] || step.label;
+    });
 
     const assertSuccess = (response: { code: number; message?: string } | null | undefined, fallback: string): void => {
         if (!response) {
@@ -130,15 +148,22 @@ export default function OnboardingCompleted() {
                 action: 'verify-session-token',
                 progressPercent: 15,
                 callback: async () => {
+                    console.log(sessionToken)
+
                     if (!sessionToken) {
                         throw new Error("Session token not found");
                     }
 
-                    if (isCompleted) {
+                    const response = await verifySession(sessionToken);
+                    assertSuccess(response, 'Failed to verify session token');
+
+                    if (response.data?.completed) {
                         setProgressCompleted(true);
                         setHasError(false);
-                        throw new Error("Du har allerede gennemført oprettelsen af din familie konto");
+                        throw new Error("Din familie er allerede oprettet.");
                     }
+
+                    setStepState(prev => ({ ...prev, 'verify-session-token': 'completed' }));
                 }
             },
             {
@@ -167,6 +192,8 @@ export default function OnboardingCompleted() {
 
                     assertSuccess(response, 'Could not create family');
                     familyId = response.familyId ?? null;
+
+                    setStepState(prev => ({ ...prev, 'creating-family': 'completed' }));
                 }
             },
             {
@@ -201,6 +228,7 @@ export default function OnboardingCompleted() {
                     });
 
                     assertSuccess(response, 'Could not create family parents');
+                    setStepState(prev => ({ ...prev, 'parents': 'completed' }));
                 }
             },
             {
@@ -215,6 +243,7 @@ export default function OnboardingCompleted() {
                     });
 
                     assertSuccess(response, 'Could not create family children');
+                    setStepState(prev => ({ ...prev, 'children': 'completed' }));
                 }
             },
             {
@@ -226,6 +255,7 @@ export default function OnboardingCompleted() {
                     });
 
                     assertSuccess(response, 'Could not complete onboarding');
+                    setStepState(prev => ({ ...prev, 'completed': 'completed' }));
                 }
             }
         ];
@@ -249,6 +279,7 @@ export default function OnboardingCompleted() {
         }
 
         await sleep(500);
+        setStepState(prev => ({ ...prev, 'progress-completed': 'completed' }));
         setProgressCompleted(true);
     }, [onboardingSessionToken, stepData]);
 
@@ -283,22 +314,35 @@ export default function OnboardingCompleted() {
                     <div className="bg-white p-8 rounded border boder-2 border-blue-900">
                         {progressCompleted && !hasError && (
                             <>
-                                <h1 className="text-3xl font-bold text-blue-900">Din familie er blevet oprettet.</h1>
-                                <p className="mt-4 text-lg text-blue-900 font-bold mb-4" id="onboarding-completed-message">Vi har oprettet din familie, vi glæder os til du kommer igang med platformen.</p>
-                                <p className="text-blue-900">Du og din partner vil modtage en email med yderligere instruktioner. og kan følge med i processen her på platformen.</p>
-                                <p className="text-blue-900">Opnå den bedste planlægning og familie håndtering</p>
+                                <h1 className="text-3xl font-bold text-blue-900">{translations.completedHeading}</h1>
+                                <p className="mt-4 text-lg text-blue-900 font-bold mb-4" id="onboarding-completed-message">{translations.completedText}</p>
+                                <p className="text-blue-900">{translations.completedSubText}</p>
                             </>
                         )}
                         {hasError && (
                             <>
                                 <p className="text-blue-900 font-bold text-2xl">Du er klar til at fortsætte</p>
                                 <p className="mt-4 text-lg text-red-500" id="onboarding-error-message">{responseError}</p>
-                                <p className="mt-2 text-md text-blue-900">Du har modtaget en velkomst email med konto oplysninger, for at fortsætte, tryk på knappen nedenfor for at logge ind på din familie konto</p>
+                                <p className="mt-2 text-md text-blue-900">Din familie er allerede oprettet, se om du har modtaget en mail fra os med login oplysninger for at fortsætte.</p>
+                                {auth?.user ? (
+                                    <Link className="mt-4 inline-block rounded bg-blue-900 px-6 py-3 font-semibold text-white" href={route('profile.home')}>
+                                        {translations.goToOverview}
+                                    </Link>
+                                ) : (
+                                    <div className="flex flex-wrap gap-3">
+                                        <Link
+                                            className="inline-block rounded border bg-blue-900 border-blue-900 px-6 py-3 font-semibold text-white"
+                                            href={route('profile.home')}
+                                        >
+                                            {translations.logInHere}
+                                        </Link>
+                                    </div>
+                                )}
                             </>
                         )}
                         {! hasError && !progressCompleted && (
                             <>
-                                <p className="mt-4 text-3xl text-blue-900 text-center" id="onboarding-loading-message">Opretter familien...</p>
+                                <p className="mt-4 text-3xl text-blue-900 text-center" id="onboarding-loading-message">{translations.processing}</p>
                                 <ul className="mt-4 text-left flex flex-col gap-4 items-center">
                                     {stepDefinitions.map(({ key, label }) => {
                                         const status = statuses[key];
@@ -323,7 +367,7 @@ export default function OnboardingCompleted() {
                                 <div className="mt-8">
                                     {auth?.user ? (
                                         <Link className="inline-block rounded bg-blue-900 px-6 py-3 font-semibold text-[#004EA7]" href={route('profile.home')}>
-                                            Gå til overblik
+                                            {translations.goToOverview}
                                         </Link>
                                     ) : (
                                         <div className="flex flex-wrap gap-3">
@@ -331,7 +375,7 @@ export default function OnboardingCompleted() {
                                                 className="inline-block rounded border bg-blue-900 border-blue-900 px-6 py-3 font-semibold text-white"
                                                 href={route('profile.home')}
                                             >
-                                                Log ind her
+                                                {translations.logInHere}
                                             </Link>
                                         </div>
                                     )}

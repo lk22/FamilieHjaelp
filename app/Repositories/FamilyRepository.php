@@ -114,7 +114,7 @@ class FamilyRepository implements FamilyRepositoryContract {
   {
     $family = Family::findOrFail($familyId);
 
-    if ($family->members->exists()) {
+    if ($family->members->count()) {
       throw new CouldNotCreateFamilyParentsException("Family already has members");
     }
 
@@ -156,7 +156,9 @@ class FamilyRepository implements FamilyRepositoryContract {
     }
 
     DB::transaction(function() use ($family, $parents) {
-      $family->members->createMany($parents);
+      foreach($parents as $parent) {
+        $family->members()->create($parent);
+      }
     });
   }
 

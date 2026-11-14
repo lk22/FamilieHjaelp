@@ -9,4 +9,5 @@ interface OnboardingSessionRepositoryContract {
   public function createSession(): \App\Models\OnboardingSession;
   public function markSessionAsComplete(\App\Models\OnboardingSession $session): bool;
   public function isActiveSession(string $sessionToken): bool;
+  public function isSessionComplete(string $sessionToken): bool;
 }

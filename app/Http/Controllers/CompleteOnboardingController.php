@@ -20,7 +20,6 @@ use App\Models\FamilyChildren;
 
 class CompleteOnboardingController extends Controller
 {
-
     public function __construct(
         private FamilyServiceContract $familyService,
         private FamilyRepositoryContract $familyRepository,

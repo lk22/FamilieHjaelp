@@ -18,24 +18,18 @@ class CreateFamilyParentsController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(CreateFamilyParentsRequest $request)
+    public function __invoke(CreateFamilyParentsRequest $request): JsonResponse
     {
         $parent = $request->input('mainParent');
         $partner = $request->input('partner');
-        $partnerNeedsUser = $request->input('partnerNeedsUser');
-        $partnerUserEmail = $request->input('partnerUserEmail');
         $familyId = $request->input('familyId');
 
-        if (!$parent || ! $partner || ! $familyId) {
+        if (!$parent || ! $familyId) {
             return response()->json(['code' => 400, 'error' => 'could not find parent, partner, or family ID'], 400);
         }
 
         if (! $parent ) {
             return response()->json(['code' => 400, 'error' => 'Parent is required'], 400);
-        }
-
-        if (! $partner ) {
-            return response()->json(['error' => 'Partner is required'], 400);
         }
 
         if ($this->familyRepository->hasCreatedFamilyParents($familyId)) {

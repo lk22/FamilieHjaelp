@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\CompleteOnboardingController;
 use App\Http\Controllers\Onboarding\CreateFamilyController;
 use App\Http\Controllers\Onboarding\CreateFamilyParentsController;
 use App\Http\Controllers\Onboarding\CreateFamilyChildrenController;
+use App\Http\Controllers\Onboarding\VerifyOnboardingSessionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +15,9 @@ Route::get('/health/auth', function () {
     return response()->json(['message' => 'Authenticated'], 200);
 })->name('api.auth.check')->middleware('auth');
 
-Route::get('/onboarding/token/verify', [CompleteOnboardingController::class, 'verifyToken'])
-    ->name('api.onboarding.process.complete.token.verify');
 
+Route::get('/onboarding/session/verify', [VerifyOnboardingSessionController::class, '__invoke'])
+    ->name('api.onboarding.process.complete.token.verify');
 Route::post('/onboarding/family/create', [CreateFamilyController::class, '__invoke'])
     ->name('api.onboarding.family.create');
 

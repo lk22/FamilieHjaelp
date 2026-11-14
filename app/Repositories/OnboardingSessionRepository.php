@@ -103,6 +103,11 @@ class OnboardingSessionRepository implements OnboardingSessionRepositoryContract
    */
   public function isActiveSession(string $sessionToken): bool {
     $session = $this->findBySessionToken($sessionToken);
-    return $session !== null && ! $session->completed;
+    return $session !== null ? true : false;
+  }
+
+  public function isSessionComplete(string $sessionToken): bool {
+    $session = $this->findBySessionToken($sessionToken);
+    return $session !== null && $session->completed;
   }
 }

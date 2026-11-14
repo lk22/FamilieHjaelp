@@ -19,4 +19,7 @@ interface OnboardingServiceContract
   public function updateExistingSession(
     array $sessionData
   ): bool;
+
+  public function checkActiveSession(string $session): bool;
+  public function checkCompleteSession(string $session): bool;
 }

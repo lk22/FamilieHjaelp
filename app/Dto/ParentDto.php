@@ -6,7 +6,7 @@ class ParentDto {
   public function __construct(
     public int $familyId,
     public string $firstName,
-    public string $middleName,
+    public ?string $middleName,
     public string $lastName,
     public string $age,
     public string $familyTitle,
