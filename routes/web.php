@@ -77,6 +77,7 @@ Route::group([
 
     // App related routes
     Route::get('/app', [AppController::class, 'home'])->name('app.home');
+    echo "test";
 });
 
 /**
