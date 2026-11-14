@@ -46,7 +46,7 @@ type StepStatus = 'pending' | 'active' | 'done' | 'error';
 const MIN_STEP_DURATION = 700;
 
 // TODO find a way to dynamically generate step labels from translations
-let stepDefinitions = [
+const stepDefinitions = [
     {key: 'verify-session-token', label: 'Verificere udfyldning'},
     {key: 'creating-family', label: 'Opretter ny familie'},
     {key: 'parents', label: 'Opretter forældre profiler'},
