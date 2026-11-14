@@ -6,15 +6,21 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     icon?: JSX.Element;
 }
 
-export default function Card({ 
-    className = '', 
-    children, 
-    title, 
-    description, 
-    icon 
+export default function Card({
+    className = '',
+    children,
+    title,
+    description,
+    icon
 }: CardProps) {
+    const hasIcon = !!icon;
     return (
         <div className={`bg-white rounded-lg shadow-md border-t-2 border-blue-800 p-6 ${className}`}>
+            {hasIcon && (
+                <div className="mb-4">
+                    {icon}
+                </div>
+            )}
             {title && (
                 <h3 className="text-xl font-bold mb-4 text-blue-900">
                     {title}

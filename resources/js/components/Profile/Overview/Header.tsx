@@ -1,4 +1,3 @@
-import {JSX} from 'react';
 import { Link } from '@inertiajs/react';
 
 interface ProfileOverviewHeaderProps {
@@ -16,38 +15,43 @@ const mockTopics = [
 
 export default function ProfileOverviewHeader({ user, onHelpTopic }: ProfileOverviewHeaderProps) {
     const isMobile = false; // Use useIsMobile() in real implementation
-    
+    const userName = user.name;
     return (
         <section className="mt-8 pl-8 py-8 bg-white rounded-lg shadow-md flex flex-row gap-8 border-t-2 border-blue-800 inset">
             {/* Left column - Help text */}
             <div className={`${isMobile ? 'w-full' : 'w-6/12'} max-w-md`}>
                 <h1 className="text-4xl text-blue-800 font-bold mb-2">Hjælp til at komme videre</h1>
                 <p className="mb-10 text-sm text-gray-700 leading-relaxed">
-                    Vi er kede af jeres situation, det kan være svært at komme videre alene. 
+                    Vi er kede af jeres situation, det kan være svært at komme videre alene.
                     Vi kan dirigere dig hurtigt videre til den nødvendige hjælp men vi skal bruge din hjælp.
                 </p>
+                {userName && (
+                    <p className="mb-4 text-sm text-gray-700 leading-relaxed">
+                        {userName}
+                    </p>
+                )}
                 {onHelpTopic ? (
-                    <Link 
-                        href={onHelpTopic} 
+                    <Link
+                        href={onHelpTopic}
                         className="inline-flex items-center gap-2 px-5 py-3 bg-blue-900 rounded-lg text-white hover:bg-blue-800 transition-colors duration-200 font-medium"
                     >
                         Spørgsmål: {onHelpTopic}
                     </Link>
                 ) : (
-                    <Link 
-                        href="#" 
+                    <Link
+                        href="#"
                         className="inline-flex items-center gap-2 px-5 py-3 bg-blue-900 rounded-lg text-white hover:bg-blue-800 transition-colors duration-200 font-medium"
                     >
                         Se mere information
                     </Link>
                 )}
             </div>
-            
+
             {/* Right column - Quick access cards */}
             <div className={`flex flex-col gap-4 ${isMobile ? 'w-full' : 'w-6/12'}`}>
                 {mockTopics.map((topic, index) => (
-                    <a 
-                        key={index} 
+                    <a
+                        key={index}
                         href={topic.link}
                         target="_blank"
                         rel="noopener noreferrer"
