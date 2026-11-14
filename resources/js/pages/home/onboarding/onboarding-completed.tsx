@@ -12,23 +12,6 @@ import {
     verifySession
 } from '@/lib/api';
 
-// interface ICompletingOnboardingStep {
-//     action: string;
-//     progressStep: number;
-//     progressPercent: number;
-//     callback: () => Promise<void>;
-// }
-
-// type kidData = {
-//     ageMonths: string,
-//     ageWeeks: string;
-//     ageYears: string;
-//     gender: string;
-//     name: string;
-//     needsUserLogin: boolean;
-//     userEmail: string | null;
-// }
-
 type FamilyInformation = {
     firstName: string;
     middleName: string;
@@ -80,9 +63,6 @@ export default function OnboardingCompleted() {
     const [, setProgress] = useState<number>(0);
     const [hasError, setHasError] = useState<boolean>(false);
     const [responseError, setResponseError] = useState<string | null>(null);
-    const [stepsState, setStepState] = useState<Record<StepKey, StepStatus>>(
-        Object.fromEntries(stepDefinitions.map(s => [s.key, 'pending'])) as Record<StepKey, StepStatus>
-    );
 
     const [stepData] = useState<Record<string, any>>(stepsData ?? null);
     // TODO step five redirect the user to the app platform
@@ -163,7 +143,6 @@ export default function OnboardingCompleted() {
                         throw new Error("Din familie er allerede oprettet.");
                     }
 
-                    setStepState(prev => ({ ...prev, 'verify-session-token': 'completed' }));
                 }
             },
             {
@@ -192,8 +171,6 @@ export default function OnboardingCompleted() {
 
                     assertSuccess(response, 'Could not create family');
                     familyId = response.familyId ?? null;
-
-                    setStepState(prev => ({ ...prev, 'creating-family': 'completed' }));
                 }
             },
             {
@@ -228,7 +205,6 @@ export default function OnboardingCompleted() {
                     });
 
                     assertSuccess(response, 'Could not create family parents');
-                    setStepState(prev => ({ ...prev, 'parents': 'completed' }));
                 }
             },
             {
@@ -243,7 +219,6 @@ export default function OnboardingCompleted() {
                     });
 
                     assertSuccess(response, 'Could not create family children');
-                    setStepState(prev => ({ ...prev, 'children': 'completed' }));
                 }
             },
             {
@@ -255,7 +230,6 @@ export default function OnboardingCompleted() {
                     });
 
                     assertSuccess(response, 'Could not complete onboarding');
-                    setStepState(prev => ({ ...prev, 'completed': 'completed' }));
                 }
             }
         ];
@@ -279,7 +253,6 @@ export default function OnboardingCompleted() {
         }
 
         await sleep(500);
-        setStepState(prev => ({ ...prev, 'progress-completed': 'completed' }));
         setProgressCompleted(true);
     }, [onboardingSessionToken, stepData]);
 
