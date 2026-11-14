@@ -30,6 +30,9 @@ class User extends Authenticatable implements FilamentUser
         'has_completed_onboarding',
         'is_verified',
         'notes_count',
+        'family_id',
+        'family_member_id',
+        'family_child_id'
     ];
 
     /**

@@ -86,12 +86,6 @@ export default function OnboardingCompleted() {
     const [responseError, setResponseError] = useState<string | null>(null);
 
     const [stepData] = useState<Record<string, any>>(stepsData ?? null);
-
-    // TODO complete the onboarding steps by verifying the session token and updating the user's onboarding status
-    // TODO step one verify the session token
-    // TODO step two update the user's onboarding status
-    // TODO step three create the user in the database
-    // TODO step four after creating the user, create the family and associates records in the database
     // TODO step five redirect the user to the app platform
 
     const [statuses, setStatuses] = useState<Record<StepKey, StepStatus>>(
@@ -143,7 +137,7 @@ export default function OnboardingCompleted() {
                     if (isCompleted) {
                         setProgressCompleted(true);
                         setHasError(false);
-                        throw new Error("Onboarding already completed");
+                        throw new Error("Du har allerede gennemført oprettelsen af din familie konto");
                     }
                 }
             },
@@ -258,7 +252,6 @@ export default function OnboardingCompleted() {
         setProgressCompleted(true);
     }, [onboardingSessionToken, stepData]);
 
-
     useEffect(() => {
         if (hasStarted.current) return;
         hasStarted.current = true;
@@ -285,68 +278,66 @@ export default function OnboardingCompleted() {
     return (
         <>
             <Head title="Onboarding fuldført" />
-
             <main className="bg-white py-16 text-white h-screen flex items-center justify-center">
                 <div className="mx-auto w-full max-w-3xl px-6">
                     <div className="bg-white p-8 rounded border boder-2 border-blue-900">
-                    {progressCompleted && !hasError && (
-                        <>
-                            <h1 className="text-3xl font-bold text-blue-900">Din familie er blevet oprettet.</h1>
-                            <p className="mt-4 text-lg text-blue-900 font-bold mb-4" id="onboarding-completed-message">Vi har oprettet din familie, vi glæder os til du kommer igang med platformen.</p>
-                            <p className="text-blue-900">Du og din partner vil modtage en email med yderligere instruktioner. og kan følge med i processen her på platformen.</p>
-                            <p className="text-blue-900">Opnå den bedste planlægning og familie håndtering</p>
-                        </>
-                    )}
-                    {hasError && (
-                        <>
-                            <p className="text-blue-900 font-bold text-2xl">Noget gik galt</p>
-                            <p className="mt-4 text-lg text-red-500" id="onboarding-error-message">{responseError}</p>
-                            <p className="mt-2 text-md text-blue-900">Forsøg at log ind på din konto, hvis din konto ikke allerede er oprettet. kan du forsøge og kontakte vores support</p>
-                        </>
-                    )}
-                    {! hasError && !progressCompleted && (
-                        <>
-                            <p className="mt-4 text-3xl text-blue-900 text-center" id="onboarding-loading-message">Opretter familien...</p>
-                            <ul className="mt-4 text-left flex flex-col gap-4 items-center">
-                            {stepDefinitions.map(({ key, label }) => {
-                                const status = statuses[key];
-                                return (
-                                    <li key={key} className="flex items-center gap-4">
-                                        <StepIcon status={status} />
-                                        <span className={
-                                            status === 'done'   ? 'font-bold text-blue-900' :
-                                            status === 'active' ? 'font-semibold text-blue-900 animate-pulse' :
-                                            status === 'error'  ? 'text-red-500' :
-                                                                'text-gray-400'
-                                        } >
-                                            {label}
-                                        </span>
-                                    </li>
-                                );
-                            })}
-                            </ul>
-                        </>
-                    )}
-                    {progressCompleted && (
-                            <div className="mt-8">
-                                {auth?.user ? (
-                                    <Link className="inline-block rounded bg-blue-900 px-6 py-3 font-semibold text-[#004EA7]" href={route('profile.home')}>
-                                        Gå til overblik
-                                    </Link>
-                                ) : (
-                                    <div className="flex flex-wrap gap-3">
-
-                                        <Link
-                                            className="inline-block rounded border bg-blue-900 border-blue-900 px-6 py-3 font-semibold text-white"
-                                            href={route('profile.home')}
-                                        >
-                                            Gå til profil
+                        {progressCompleted && !hasError && (
+                            <>
+                                <h1 className="text-3xl font-bold text-blue-900">Din familie er blevet oprettet.</h1>
+                                <p className="mt-4 text-lg text-blue-900 font-bold mb-4" id="onboarding-completed-message">Vi har oprettet din familie, vi glæder os til du kommer igang med platformen.</p>
+                                <p className="text-blue-900">Du og din partner vil modtage en email med yderligere instruktioner. og kan følge med i processen her på platformen.</p>
+                                <p className="text-blue-900">Opnå den bedste planlægning og familie håndtering</p>
+                            </>
+                        )}
+                        {hasError && (
+                            <>
+                                <p className="text-blue-900 font-bold text-2xl">Du er klar til at fortsætte</p>
+                                <p className="mt-4 text-lg text-red-500" id="onboarding-error-message">{responseError}</p>
+                                <p className="mt-2 text-md text-blue-900">Du har modtaget en velkomst email med konto oplysninger, for at fortsætte, tryk på knappen nedenfor for at logge ind på din familie konto</p>
+                            </>
+                        )}
+                        {! hasError && !progressCompleted && (
+                            <>
+                                <p className="mt-4 text-3xl text-blue-900 text-center" id="onboarding-loading-message">Opretter familien...</p>
+                                <ul className="mt-4 text-left flex flex-col gap-4 items-center">
+                                    {stepDefinitions.map(({ key, label }) => {
+                                        const status = statuses[key];
+                                        return (
+                                            <li key={key} className="flex items-center gap-4">
+                                                <StepIcon status={status} />
+                                                <span className={
+                                                    status === 'done'   ? 'font-bold text-blue-900' :
+                                                    status === 'active' ? 'font-semibold text-blue-900 animate-pulse' :
+                                                    status === 'error'  ? 'text-red-500' :
+                                                                        'text-gray-400'
+                                                } >
+                                                    {label}
+                                                </span>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </>
+                        )}
+                        {progressCompleted && (
+                                <div className="mt-8">
+                                    {auth?.user ? (
+                                        <Link className="inline-block rounded bg-blue-900 px-6 py-3 font-semibold text-[#004EA7]" href={route('profile.home')}>
+                                            Gå til overblik
                                         </Link>
-                                    </div>
-                                )}
-                            </div>
-                        )
-                    }
+                                    ) : (
+                                        <div className="flex flex-wrap gap-3">
+                                            <Link
+                                                className="inline-block rounded border bg-blue-900 border-blue-900 px-6 py-3 font-semibold text-white"
+                                                href={route('profile.home')}
+                                            >
+                                                Log ind her
+                                            </Link>
+                                        </div>
+                                    )}
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </main>
