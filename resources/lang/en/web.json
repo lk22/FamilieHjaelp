@@ -482,6 +482,23 @@
         "child_gender_other": "Other",
         "next_step_label": "Next",
         "previous_step_label": "Go back"
+      },
+      "completed_step": {
+        "heading": "Thank you for choosing FamilieHjælp",
+        "message": "Thank you for choosing FamilieHjælp, your family is now set up and ready to be managed",
+        "steps": {
+          "verify": "Verifying your family information",
+          "family": "Setting up your family information",
+          "parents": "Setting up parent profiles",
+          "children": "Setting up child profiles",
+          "completed": "Completing onboarding process."
+        },
+        "completed_heading": "Your family is set up",
+        "onboarding_completed_message": "You have successfully completed the onboarding process.",
+        "onboarding_completed_sub_message": "You can now proceed to your family overview.",
+        "processing": "Setting up your family...",
+        "go_to_overview": "Go to family overview",
+        "log_in_here": "Log in here"
       }
     }
   }
