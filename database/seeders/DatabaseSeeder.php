@@ -25,6 +25,80 @@ class DatabaseSeeder extends Seeder
         // Disable foreign key checks to allow truncating and seeding tables without constraint issues
         $this->disableForeignKeyChecks();
 
+        $family = \App\Models\Family::factory()->create(
+            [
+                'name' => 'Laursen Knudsen',
+                'family_size' => 3,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'deleted_at' => null,
+                'children_count' => 1
+            ]
+        );
+
+        $mainParentUser = \App\Models\User::factory()->create([
+            'email' => 'leoknudsen30@example.com',
+            'password' => bcrypt('password'),
+            'name' => 'Leo Knudsen',
+            'has_completed_onboarding' => true,
+            'family_id' => $family->id,
+            'family_child_id' => null,
+            'is_admin' => false
+        ]);
+
+        $partnerUser = \App\Models\User::factory()->create([
+            'email' => 'partner@familiehjælp.com',
+            'password' => bcrypt('password'),
+            'name' => 'Partner Name',
+            'has_completed_onboarding' => true,
+            'family_id' => $family->id,
+            'family_member_id' => null,
+            'family_child_id' => null,
+            'is_admin' => false
+        ]);
+
+        $family->members()->createMany([
+            [
+                'family_id' => $family->id,
+                'name' => 'Leo Knudsen',
+                'family_role' => 'Far',
+                'age' => 33,
+                'email' => 'leoknudsen30@example.com',
+                'attached_email' => 'leoknudsen30@example.com',
+                'user_id' => $mainParentUser->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'deleted_at' => null
+            ],
+            [
+                'family_id' => $family->id,
+                'name' => 'Partner Name',
+                'family_role' => 'Mor',
+                'age' => 30,
+                'email' => 'partner@example.com',
+                'attached_email' => 'partner@example.com',
+                'user_id' => $partnerUser->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'deleted_at' => null
+            ]
+        ]);
+
+        $child = $family->children()->create([
+            'family_id' => $family->id,
+            'name' => 'Olivia Laursen Knudsen.',
+            'age_year' => 5,
+            'age_months' => 6,
+            'age_weeks' => 2,
+            'needs_user_access' => false,
+            'use_attached_parent_email' => true,
+            'attached_parent_email' => 'leoknudsen30@example.com',
+            'child_email' => 'leoknudsen30jr@example.com',
+            'created_at' => now(),
+            'updated_at' => now(),
+            'deleted_at' => null
+        ]);
+
         $families = \App\Models\Family::factory(10)->create();
 
         foreach ($families as $family) {
@@ -63,9 +137,15 @@ class DatabaseSeeder extends Seeder
         }
     }
 
+    /**
+     *
+     *
+     * @return void
+     */
     private function disableForeignKeyChecks(): void {
         DB::statement('TRUNCATE TABLE families RESTART IDENTITY CASCADE');
         DB::statement('TRUNCATE TABLE family_members RESTART IDENTITY CASCADE');
         DB::statement('TRUNCATE TABLE family_children RESTART IDENTITY CASCADE');
+        DB::statement('TRUNCATE TABLE users RESTART IDENTITY CASCADE');
     }
 }

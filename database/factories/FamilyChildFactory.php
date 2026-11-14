@@ -24,6 +24,7 @@ class FamilyChildFactory extends Factory
             'age_months' => rand(0, 12),
             'age_weeks' => rand(0, 52),
             'needs_user_access' => rand(0, 1) === 1,
+            'use_attached_parent_email' => rand(0, 1) === 1,
             'child_email' => fake()->email(),
             'created_at' => now(),
             'updated_at' => now(),
