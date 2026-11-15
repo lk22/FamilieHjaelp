@@ -42,7 +42,6 @@ class OnboardingController extends Controller
 
         // Keep token available immediately server-side in the current request lifecycle.
         $request->session()->put('onboarding_session_token', $session->session_token);
-        echo "test";
 
         // Persist token to browser for subsequent requests.
         cookie()->queue('onboarding_session_token', $session->session_token, 60 * 24 * 30);
