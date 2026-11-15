@@ -14,7 +14,7 @@ use Inertia\Response;
 enum RedirectRoute: string
 {
     case DEFAULT_REDIRECT_ROUTE = 'profile.home';
-    case GETTING_STARTED_REDIRECT_ROUTE = 'getting-started';
+    case GETTING_STARTED_REDIRECT_ROUTE = 'app.getting-started';
     case LOGGED_OUT_REDIRECT_ROUTE = 'logged-out';
 }
 
@@ -45,14 +45,14 @@ class AuthenticatedSessionController extends Controller
         $authenticatedUser = auth()->user();
 
         // if the authenticated user is not onboarded, redirect to the getting started page
-        if ( ! $is_onboarded && $authenticatedUser->has_completed_onboarding === false ) {
+        if (! $is_onboarded && $authenticatedUser->has_completed_onboarding === false) {
             return redirect()->intended(route(
                 RedirectRoute::GETTING_STARTED_REDIRECT_ROUTE,
                 absolute: false
             ));
         }
 
-        if ( $request->redirect_to ) {
+        if ($request->redirect_to) {
             return redirect()->intended(route($request->redirect_to, absolute: false));
         }
 

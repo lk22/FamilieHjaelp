@@ -2,22 +2,22 @@
 
 namespace App\Providers;
 
+use App\Events\StoreUserPages;
+// Events
+use App\Events\StoreUserTodos;
+use App\Listeners\HandleStoreUserPages;
+// Listeners
+use App\Listeners\HandleStoreUserTodos;
 use Illuminate\Support\ServiceProvider;
 
-// Events
-use App\Events\StoreUserPages;
-use App\Events\StoreUserTodos;
-
-// Listeners
-use App\Listeners\HandleStoreUserPages;
-use App\Listeners\HandleStoreUserTodos;
+use App\Models\FamilyMember;
+use App\Observers\FamilyMemberObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
-
     /**
      * The event listener mappings for the application.
-     * 
+     *
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
@@ -42,6 +42,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // TODO add observers here
+        // FamilyMember::observe(FamilyMemberObserver::class);
     }
 }

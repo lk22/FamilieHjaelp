@@ -2,13 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Events\StoreUserTodos;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-
-use App\Events\StoreUserPages;
-
 use App\Actions\Onboarding\GenerateProfileTodos;
+use App\Events\StoreUserTodos;
 
 class HandleStoreUserTodos
 {
@@ -33,12 +28,11 @@ class HandleStoreUserTodos
         $formattedDate = $situationDate ? date('Y-m-d', strtotime($situationDate)) : null;
 
         $preparedTodos = GenerateProfileTodos::run(
-            $steps, 
-            $situationChecks, 
-            $pregnancyWeek, 
+            $steps,
+            $situationChecks,
+            $pregnancyWeek,
             $formattedDate
         );
-
 
         $user->todos()->createMany($preparedTodos);
     }

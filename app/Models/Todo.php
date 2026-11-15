@@ -2,20 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\User;
 use App\Policies\TodoPolicy;
-
 use Illuminate\Database\Eloquent\Attributes\UsePolicy;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[UsePolicy(TodoPolicy::class)]
 class Todo extends Model
 {
     /**
      * The attributes that are mass assignable.
-     * 
+     *
      * @var array<string>
      */
     protected $fillable = [
@@ -28,7 +25,7 @@ class Todo extends Model
         'completed_at',
         'user_id',
     ];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -57,15 +54,13 @@ class Todo extends Model
      * @var array<string>
      */
     protected $hidden = [
-        'user_id'
+        'user_id',
     ];
 
     /**
      * Get the user that owns the todo.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo 
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

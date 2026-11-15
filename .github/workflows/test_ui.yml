@@ -3,16 +3,11 @@ name: tests
 on:
   push:
     branches:
-      - develop
+      - staging
       - main
-      - test-*
-      - feature-*
-      - hotfix-*
-      - release-*
-      - prototype-*
   pull_request:
     branches:
-      - develop
+      - staging
       - main
 
 jobs:

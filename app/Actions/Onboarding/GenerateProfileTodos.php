@@ -10,21 +10,18 @@ class GenerateProfileTodos
 
     /**
      * Generate the todos for the user based on the completed onboarding steps.
-     *
-     * @return array
      */
     public function handle(
         array $steps,
         ?array $situationChecks,
         ?int $pregnancyWeek,
         ?string $formattedDate
-    ): array
-    {
+    ): array {
         $todos = [];
 
         if (in_array('deathborn', $situationChecks) || in_array('abort', $situationChecks)) {
             $todos = $this->prepareDeathbornAbortionTodos($pregnancyWeek, $formattedDate);
-        } else if (in_array('is_parents', $situationChecks)) {
+        } elseif (in_array('is_parents', $situationChecks)) {
             $todos = $this->prepareParentingTodos();
         }
 
@@ -46,10 +43,9 @@ class GenerateProfileTodos
     private function prepareDeathbornAbortionTodos(
         $pregnancyWeek,
         $formattedDate
-    ): array
-    {
-        $deathbornDueDate = $formattedDate ? date('Y-m-d', strtotime($formattedDate . ' + 30 days')) : null;
-        $registerFathershipDueDate = $formattedDate ? date('Y-m-d', strtotime($formattedDate . ' + 4 weeks')) : null;
+    ): array {
+        $deathbornDueDate = $formattedDate ? date('Y-m-d', strtotime($formattedDate.' + 30 days')) : null;
+        $registerFathershipDueDate = $formattedDate ? date('Y-m-d', strtotime($formattedDate.' + 4 weeks')) : null;
 
         return [
             [
@@ -58,7 +54,7 @@ class GenerateProfileTodos
                 'is_completed' => false,
                 'due_date' => $deathbornDueDate ?? null,
                 'link' => 'https://www.borger.dk/borger/boern-og-unge/boern-og-unge/boern-og-unge/boern-og-unge/dodfodsel',
-                'completed_at' => null
+                'completed_at' => null,
             ],
             [
                 'title' => 'Registrering af forældreskab',
@@ -66,7 +62,7 @@ class GenerateProfileTodos
                 'is_completed' => false,
                 'due_date' => $registerFathershipDueDate ?? null,
                 'link' => 'https://www.borger.dk/borger/boern-og-unge/boern-og-unge/boern-og-unge/boern-og-unge/forældreskab',
-                'completed_at' => null
+                'completed_at' => null,
             ],
             [
                 'title' => 'Planlæg begravelse eller bisættelse',
@@ -74,7 +70,7 @@ class GenerateProfileTodos
                 'is_completed' => false,
                 'due_date' => null,
                 'link' => '',
-                'complted_at' => null
+                'complted_at' => null,
             ],
             [
                 'title' => 'Søg begravelseshjælp',
@@ -82,8 +78,8 @@ class GenerateProfileTodos
                 'is_completed' => false,
                 'due_date' => $deathbornDueDate ?? null,
                 'link' => route('profile.info.page', ['page' => 'begravelse-eller-bisaettelse']),
-                'completed_at' => null
-            ]
+                'completed_at' => null,
+            ],
         ];
     }
 }

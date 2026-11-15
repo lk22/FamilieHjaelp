@@ -17,6 +17,11 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->timestamps();
         });
+
+        Schema::create('category_post', function (Blueprint $table) {
+            $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('category_id');
+        });
     }
 
     /**
@@ -24,6 +29,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('category_post', function (Blueprint $table) {
+            $table->dropForeign(['post_id']);
+            $table->dropForeign(['category_id']);
+        });
+        Schema::dropIfExists('category_post');
         Schema::dropIfExists('categories');
     }
 };

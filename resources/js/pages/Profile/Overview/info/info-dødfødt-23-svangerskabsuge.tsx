@@ -8,10 +8,10 @@ import ExternalLink from '@/components/Blocks/ExternalLink';
 export default function DødfødtInfoPage() {
     return (
         <ProfileOverviewLayout
-            title="Familiehjælp - Dødfødt 23 Svangerskabsuge"
+            title="Familiehjælp - Dødfødt 22 Svangerskabsuge"
             headline="Praktisk information om dødfødt 22 svangerskabsuge"
         >
-            <div className="bg-white rounded-lg p-8 shadow-md">
+            <div className="bg-white rounded-lg p-16 shadow-md">
                 <Heading level={2}>Praktisk information om dødfødt 22 svangerskabsuge</Heading>
                 <section className="mb-6">
                     <Paragraph>

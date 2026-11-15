@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveOnboardingRequest extends FormRequest
@@ -17,29 +18,29 @@ class SaveOnboardingRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "step.one.name.required" => "Dit navn er påkrævet",
-            "step.two.situation.required" => "du skal angive en situation du er i",
-            "step.two.otherDescription.required" => "Beskriv den situation du er i",
-            "step.three.situation_date.required" => "Dato for situationen er påkrævet"
+            'step.one.name.required' => 'Dit navn er påkrævet',
+            'step.two.situation.required' => 'du skal angive en situation du er i',
+            'step.two.otherDescription.required' => 'Beskriv den situation du er i',
+            'step.three.situation_date.required' => 'Dato for situationen er påkrævet',
         ];
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            "step" => [
-                "one" => ["name" => "required"],
-                "thwo" => [
-                    "situation" => "required",
-                    "otherDescription" => "required_if:situation,other"
+            'step' => [
+                'one' => ['name' => 'required'],
+                'thwo' => [
+                    'situation' => 'required',
+                    'otherDescription' => 'required_if:situation,other',
                 ],
-                "three" => [
-                    "situation_date" => "required"
+                'three' => [
+                    'situation_date' => 'required',
                 ],
             ],
         ];

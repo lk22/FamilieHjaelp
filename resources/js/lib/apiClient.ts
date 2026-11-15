@@ -7,9 +7,24 @@ interface ApiClientInterface {
 }
 
 // how to implement generic API client
-export class ApiClient implements ApiClientInterface {
+export class APIClient implements ApiClientInterface {
+    headers: Record<string, string>;
+    data: Record<string, unknown>;
+
+    constructor(headers: Record<string, string> = {}, data: Record<string, unknown> = {}) {
+        this.headers = headers;
+        this.data = data;
+    }
+
     async get<T>(url: string): Promise<T> {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'same-origin',
+            headers: {
+                ...this.headers,
+                'Content-Type': 'application/json',
+            },
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -19,7 +34,9 @@ export class ApiClient implements ApiClientInterface {
     async post<T>(url: string, data: Record<string, unknown>): Promise<T> {
         const response = await fetch(url, {
             method: 'POST',
+            credentials: 'same-origin',
             headers: {
+                ...this.headers,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -33,7 +50,9 @@ export class ApiClient implements ApiClientInterface {
     async put<T>(url: string, data: Record<string, unknown>): Promise<T> {
         const response = await fetch(url, {
             method: 'PUT',
+            credentials: 'same-origin',
             headers: {
+                ...this.headers,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -47,6 +66,11 @@ export class ApiClient implements ApiClientInterface {
     async delete<T>(url: string): Promise<T> {
         const response = await fetch(url, {
             method: 'DELETE',
+            credentials: 'same-origin',
+            headers: {
+                ...this.headers,
+                'Content-Type': 'application/json',
+            }
         });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -57,8 +81,10 @@ export class ApiClient implements ApiClientInterface {
     async patch<T>(url: string, data: Record<string, unknown>): Promise<T> {
         const response = await fetch(url, {
             method: 'PATCH',
+            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
+                ...this.headers,
             },
             body: JSON.stringify(data),
         });

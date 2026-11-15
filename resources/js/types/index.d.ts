@@ -27,6 +27,7 @@ export interface SharedData {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
+    locale: string;
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
     [key: string]: unknown;
@@ -44,7 +45,7 @@ export interface User {
 }
 
 /**
- * interface for Todo items 
+ * interface for Todo items
  */
 export interface TodoItem {
     id: number;
@@ -53,3 +54,26 @@ export interface TodoItem {
     completed: boolean;
     due_date?: string;
 }
+
+export type PayloadProps = Record<string, unknown>;
+
+export type AuthenticationStep = 'login' | 'register' | 'forgot-password';
+
+export type RegisterFormDataProps = {
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+}
+
+export type LoginFormDataProps = {
+    email: string;
+    password: string;
+}
+
+export interface AccordionItemData {
+  title: string;
+  body: string | React.ReactNode | React.ReactNode[];
+}
+
+export type LocalizedRoute = (route: string, params?: Record<string, any>) => string;

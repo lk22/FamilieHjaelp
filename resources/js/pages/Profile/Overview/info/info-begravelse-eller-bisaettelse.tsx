@@ -10,7 +10,7 @@ export default function SorgoverlovInfoPage() {
             title="Familiehjælp - Sorgoverlov"
             headline="Praktisk information om sorgoverlov"
         >
-            <div className="bg-white rounded-lg p-8 shadow-md">
+            <div className="bg-white rounded-lg p-16 shadow-md">
                 <Heading level={2}>Begravelse eller bisættelse af dødfødt barn</Heading>
                 <section className="mb-6">
                     <Paragraph>

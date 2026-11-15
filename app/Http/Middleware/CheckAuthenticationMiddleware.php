@@ -11,12 +11,12 @@ class CheckAuthenticationMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         // check if current route requires authentication
-        if ( ! $request->user() || $request->route()->middleware('auth') ) {
+        if (! $request->user() || $request->route()->middleware('auth')) {
             // if user is not authenticated, redirect to home page
             return redirect()->route('home')->with('error', 'You must be logged in to access this page.');
         }

@@ -30,16 +30,16 @@ export default function ProfileOverviewLayout({
 
     const handlePageTitle = (): JSX.Element => {
         if (headline) {
-            return <h1 className="text-4xl font-bold mb-4 text-blue-900 border-b-2 pb-2">{headline}</h1>;
+            return <h1 className="text-5xl font-bold mb-4 text-blue-900 pb-2 mx-16">{headline}</h1>;
         }
         
-        return <h1 className="text-4xl font-bold mb-4 text-blue-900">Velkommen {auth.user.name}</h1>;
+        return <h1 className="text-5xl mx-16 font-bold mb-4 text-blue-900">Velkommen {auth.user.name}</h1>;
     }
 
     return (
         <div className="bg-slate-100 text-gray-900 min-h-screen">
             <Head title={title} />
-            <header className="w-full p-4 flex items-center justify-between bg-blue-600 text-white">
+            <header className="w-full p-4 flex items-center justify-between bg-blue-600 text-white fixed top-0 left-0 z-50 shadow-md">
                 <div className="container w-full mx-auto flex justify-between items-center">
                     <div className="logo">
                         <Link href={route('profile.home')} className="flex items-center gap-2">
@@ -64,7 +64,7 @@ export default function ProfileOverviewLayout({
                     </nav>
                 </div>
             </header>
-            <main className="container mx-auto px-4 py-16">
+            <main className="container mx-auto px-4 py-32">
                 {headline && handlePageTitle()}
                 {children}
             </main>

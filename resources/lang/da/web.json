@@ -1,0 +1,555 @@
+{
+  "frontpage": {
+    "meta": {
+      "title": "FamilieHjælp - Din digitale forælder assistent",
+      "description": "FamilieHjælp er din digitale forælder assistent, der tilbyder nem adgang til ressourcer og støtte for at hjælpe dig med at navigere forældreskabet. Vi er her for at støtte dig gennem de udfordringer, du måtte stå overfor, og give dig de værktøjer, du har brug for, lige ved hånden."
+     },
+    "title": "Din digitale forælder assistent",
+    "title.highlight": "lige ved hånden",
+    "description": "Assistenten der hjælper dig som forældre",
+    "cta": "Kom igang",
+    "functions": {
+      "cta": "Udforsk funktionerne"
+    },
+    "selling_points": {
+      "families_helped": {
+        "count": "100+",
+        "title": "familier hjulpet"
+      },
+      "satisfaction_rate": {
+        "count": "95%",
+        "title": "tilfredshedsrate"
+      },
+      "average_startup_time": {
+        "count": "5 Minutters",
+        "title": "opstartstid"
+      }
+    },
+    "about_section": {
+      "title": "Assistenten der hjælper dig som forældre",
+      "description": "Familiehjælp er dedikeret til at gøre en forskel for familier i nød. Vi forstår de udfordringer, som mange familier står overfor, og vi er her for at tilbyde støtte og ressourcer, der kan hjælpe dem med at navigere gennem svære tider. Vores platform er designet til at være brugervenlig og tilgængelig, så alle kan finde den hjælp, de har brug for, når de har brug for det.",
+      "button": "Læs mere om vores mission"
+    },
+    "frontpage_functions": {
+      "title": "Oplev funktionerne der kan hjælpe jeres familie",
+      "sections": {
+        "health": {
+          "title": "Fælles sundhed",
+          "description": "Hold styr på familiens sundhed og trivsel med vores sundhedsfunktion.",
+          "button": "Læs mere"
+        },
+        "calendar": {
+          "title": "Fælles kalender",
+          "description": "Med en fælleskalender kan hele familien følge med i familie foretagende",
+          "button": "Læs mere"
+        },
+        "milestones": {
+          "title": "Familie milepæle",
+          "description": "Hold styr på milepæle i familien for enten dig, dine børn eller et andet familiemedlem.",
+          "button": "Læs mere"
+        },
+        "babytracker": {
+          "title": "Baby tracker",
+          "description": "Track forskellige mønstre for dine børn i en lav alder, alt fra søvn og spisemønstre",
+          "button": "Læs mere"
+        }
+      },
+      "cta": "Se alle funktioner"
+    },
+    "resources_functions": {
+      "title": "Ressourcer og funktioner",
+      "hightlight": "Familiehjælp tilbyder en række funktioner designet til at støtte dig og din familie i svære tider. Vores platform inkluderer bland andet:",
+      "features": {
+        "feature_one": "- Et omfattende bibliotek af ressourcer og hjælpemidler",
+        "feature_two": "- Brugervenlige værktøjer til at finde den rette hjælp",
+        "feature_three": "- Mulighed for at kontakte vores supportteam for personlig assistance",
+        "feature_four": "- Regelmæssige opdateringer og nye ressourcer baseret på brugernes behov"
+      },
+      "button": "Udforsk vores ressourcer"
+    },
+    "recommended": {
+      "title": "Vi bliver anbefalet af mange familier",
+      "subtitle": "Læs nogle af de success historier fra dem vi har hjulpet",
+      "story": {
+        "title": "Familiehjælp har været en uvurderlig ressource for mig og min familie",
+        "desc_one": "Vi kom ud for en svær situation, vi var usikre på, hvordan vi skulle håndtere en dødfødsel.",
+        "desc_two": "Familiehjælp appen hjalp os med at finde de rette ressourcer og støtte, og det gjorde en enorm forskel for os i en meget svær tid. Vi kunne ikke have klaret det uden dem.",
+        "author": "Maria, mor til en dødfødt søn"
+      },
+      "want_to_read_more": "Vil du læse flere success historier som denne?",
+      "button": "Læs flere historier"
+    },
+      "helping_resources": {
+      "cta": "Se hjælpemidler"
+    },
+    "posts": {
+      "title": "Læs vores blog for flere historier og læring",
+      "subtitle": "Hold dig opdateret med de nyeste historier og læring fra vores blog",
+      "view_all": "Se alle indlæg"
+    }
+  },
+  "helpingResources": {
+    "meta": {
+      "title": "Vores hjælpemidler | FamilieHjælp",
+      "description": "Hos FamilieHjælp giver vi adgang til en række midler som er genveje til hurtig hjælp og støtte og ressourcer for forældre i svære situationer. Vores hjælpemidler er designet til at gøre det nemt for dig at finde den støtte, du har brug for, når du har brug for det mest. Uanset om du søger information, professionel vejledning eller et fællesskab af ligesindede, er vores platform her for at hjælpe dig gennem dine udfordringer som forælder. Vi forstår, hvor vigtigt det er at have hurtig adgang til pålidelige ressourcer, især i svære tider, og vores mål er at gøre denne adgang så enkel og effektiv som muligt."
+    },
+    "headline": "Vores hjælpemidler",
+    "description": "Hos FamilieHjælp giver vi adgang til en række midler som er genveje til hurtig hjælp og støtte og ressourcer for forældre i svære situationer. Vores hjælpemidler er designet til at gøre det nemt for dig at finde den støtte, du har brug for, når du har brug for det mest. Uanset om du søger information, professionel vejledning eller et fællesskab af ligesindede, er vores platform her for at hjælpe dig gennem dine udfordringer som forælder. Vi forstår, hvor vigtigt det er at have hurtig adgang til pålidelige ressourcer, især i svære tider, og vores mål er at gøre denne adgang så enkel og effektiv som muligt.",
+    "list_resources": {
+      "title": "Hvilke hjælpemidler tilbyder vi",
+      "description": "Vi giver adgang til en række hjælpemidler, der er genveje til hurtig hjælp og støtte for forældre i svære situationer. Nogle af de hjælpemidler, vi tilbyder, inkluderer:"
+    }
+  },
+  "ourMission": {
+    "meta": {
+      "title": "Vores mission og vision | FamilieHjælp",
+      "description": "Lær om vores mission og vision hos FamilieHjælp, hvor vi stræber efter at skabe en sikker og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vores mål er at give nem adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forældre skal føle sig alene i svære tider. Gennem innovative digitale løsninger sigter vi mod at gøre en positiv forskel i familiernes liv i hele Danmark."
+    },
+    "title": "Vores mission og vision",
+    "description": "Lær om vores mission og vision hos FamilieHjælp, hvor vi stræber efter at skabe en sikker og støttende platform for forældre, der står over for udfordringer som abort og dødfødsel. Vores mål er at give nem adgang til pålidelige ressourcer, professionel vejledning og et fællesskab af støtte, så ingen forældre skal føle sig alene i svære tider. Gennem innovative digitale løsninger sigter vi mod at gøre en positiv forskel i familiernes liv i hele Danmark.",
+    "vision_mission_foraeldrehjaelp": {
+      "title": "Vores vision og mission for FamilieHjælp",
+      "description": "Hos FamilieHjælp er vores vision at skabe en verden, hvor hver forælder har adgang til de rigtige redskaber og information, de har brug for, for at navigere i forældreskabets udfordringer, især i svære tider som abort og dødfødsel. Vores mission er at tilbyde en sikker og støttende platform, der giver nem adgang til pålidelig information, professionel vejledning og et fællesskab af støtte. Vi er forpligtet til at gøre en positiv forskel i familiernes liv i hele Danmark ved at tilbyde innovative digitale løsninger, der giver forældre mulighed for at finde den hjælp, de har brug for, når de har brug for det mest."
+    },
+    "behind_the_story": {
+      "title": "Historien bag FamilieHjælp",
+      "description": "Ideen til FamilieHjælp blev født ud af en personlig oplevelse med udfordringerne ved forældreskab. Vores grundlægger, som stod over for den svære oplevelse af dødfødsel, indså manglen på tilgængelige ressourcer og støtte til forældre, der gennemgår lignende situationer. Dette inspirerede oprettelsen af FamilieHjælp, en platform dedikeret til at tilbyde støtte, ressourcer og et fællesskab for forældre, der står over for udfordringer som abort og dødfødsel. Vores mål er at sikre, at ingen forældre skal føle sig alene i disse svære tider og at gøre en positiv forskel i familiernes liv i hele Danmark."
+    },
+    "our_values": {
+      "title": "Vores kerneværdier",
+      "description": "Hos FamilieHjælp er vores kerneværdier centreret omkring medfølelse, tilgængelighed, pålidelighed og fællesskab. Vi tror på at tilbyde medfølende støtte til forældre, der står over for udfordringer, sikre at vores platform er tilgængelig for alle, der har brug for det, tilbyde pålidelige ressourcer og information og fremme et støttende fællesskab, hvor forældre kan forbinde og dele deres oplevelser. Disse værdier guider alt, hvad vi gør, mens vi stræber efter at gøre en positiv forskel i familiernes liv i hele Danmark."
+    }
+  },
+  "abortion": {
+    "meta": {
+      "title": "Har du oplevet en abort? | FamilieHjælp",
+      "description": "At miste et barn gennem abort er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. FamilieHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab."
+    },
+    "headline": "Har du oplevet en abort?",
+    "description": "At miste et barn gennem abort er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. FamilieHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab.",
+    "recomendations": {
+      "title": "Vi anbefaler",
+      "description": "Vi anbefaler at du søger professionel hjælp og støtte gennem vores platform, hvor du kan finde rådgivere specialiseret i sorgbearbejdning efter dødfødsel. Derudover kan deltagelse i støttegrupper med andre forældre, der har oplevet lignende tab, være en værdifuld måde at dele dine følelser og finde trøst. Vores ressourcer er designet til at hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på, mens du begynder helingsprocessen."
+    }
+  },
+  "stillbirth": {
+    "meta": {
+      "title": "Har du oplevet en dødfødsel? | FamilieHjælp",
+      "description": "At miste et barn gennem dødfødsel er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. FamilieHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab."
+    },
+    "headline": "Har du oplevet en dødfødsel?",
+    "description": "At miste et barn gennem dødfødsel er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. FamilieHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab.",
+    "recomendations": {
+      "title": "Vi anbefaler",
+      "description": "Vi anbefaler at du søger professionel hjælp og støtte gennem vores platform, hvor du kan finde rådgivere specialiseret i sorgbearbejdning efter dødfødsel. Derudover kan deltagelse i støttegrupper med andre forældre, der har oplevet lignende tab, være en værdifuld måde at dele dine følelser og finde trøst. Vores ressourcer er designet til at hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på, mens du begynder helingsprocessen.",
+      "recomendation_contact": {
+          "title": "Kontakt Center for Familie og Sorg",
+          "link": "https://familierogsorg.dk/",
+          "description": "Vi anbefaler at evt kontakte Center for Familie og Sorg, som tilbyder støtte og rådgivning til forældre, der har oplevet dødfødsel. De har erfarne rådgivere, der kan hjælpe dig med at bearbejde sorgen og finde måder at mindes dit barn på."
+      }
+    }
+  },
+  "parents": {
+    "meta": {
+      "title": "At være blevet nybagte forældre | FamilieHjælp",
+      "description": "At blive nybagte forældre er en livsændrende oplevelse fyldt med glæde, men også udfordringer og usikkerheder. FamilieHjælp er her for at støtte jer gennem denne spændende tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, informative artikler og støttegrupper, der kan hjælpe jer med at navigere i de mange aspekter af forældreskabet. Uanset om det handler om søvnvaner, amning, eller følelsesmæssige udfordringer, er vi her for at hjælpe jer med at finde svar og støtte på jeres rejse som nye forældre."
+    },
+    "headline": "At være blevet nybagte forældre",
+    "description": "At blive nybagte forældre er en livsændrende oplevelse fyldt med glæde, men også udfordringer og usikkerheder. FamilieHjælp er her for at støtte jer gennem denne spændende tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, informative artikler og støttegrupper, der kan hjælpe jer med at navigere i de mange aspekter af forældreskabet. Uanset om det handler om søvnvaner, amning, eller følelsesmæssige udfordringer, er vi her for at hjælpe jer med at finde svar og støtte på jeres rejse som nye forældre.",
+    "recomendations": {
+      "title": "Vi anbefaler",
+      "description": "Vi anbefaler at I som nye forældre søger professionel vejledning og støtte gennem vores platform, hvor I kan finde rådgivere specialiseret i nybagt forældreskab. Derudover kan deltagelse i støttegrupper med andre nye forældre være en værdifuld måde at dele jeres oplevelser og finde trøst i fællesskabet. Vores ressourcer er designet til at hjælpe jer med at navigere i de mange aspekter af forældreskabet og finde de bedste løsninger for jer og jeres barn."
+    },
+    "lost_parents": {
+      "meta": {
+        "title": "Har du mistet et familiemedlem? | FamilieHjælp",
+        "description":"At miste et familiemedlem er en hjerteskærende oplevelse, der efterlader forældre i dyb sorg og forvirring. FamilieHjælp er her for at støtte dig gennem denne svære tid ved at tilbyde ressourcer, vejledning og et fællesskab af forståelse. Vores platform giver adgang til professionelle rådgivere, støttegrupper og informative artikler, der kan hjælpe dig med at navigere i sorgen og finde måder at mindes dit barn på. Du er ikke alene – vi er her for at hjælpe dig med at finde styrke og håb i en tid præget af tab."
+      }
+    },
+    "app": {
+      "app_title": "Vores app kan tilpasses forældre",
+      "app_description": "Vores app er designet til at imødekomme de unikke behov hos nye forældre. Med funktioner som personlige påmindelser om fodring og søvn, adgang til ekspertvejledning og et fællesskab af andre nye forældre, kan vores app hjælpe dig med at navigere de udfordringer, der følger med at være ny forælder. Kom i gang med appen i dag og oplev, hvordan den kan gøre din rejse som forældre lettere og mere støttende på samme tid.",
+      "app_feature_1": "Få et overblik over dine børn, brug værktøjet til at holde styr på, hvad du skal gøre som forælder for dit barn eller børn",
+      "app_feature_2": "Du har mulighed for at tage noter om, hvor ofte dit barn sover, eller notere særlige begivenheder",
+      "app_feature_3": "Hvis du ønsker at notere særlige aftaler eller arrangementer, som dit barn skal deltage i, kan du bruge værktøjets kalenderfunktion"
+    }
+  },
+  "getting_started_page": {
+    "meta": {
+      "title": "Kom godt i gang | FamilieHjælp",
+      "description": "Uanset om du er ny bruger eller har brugt vores platform før, er det nemt at komme i gang med Familiehjælp og begynde at få adgang til de ressourcer og hjælpemidler, du har brug for."
+    },
+    "headline": "Kom godt i gang med",
+    "description": "Uanset om du er ny bruger eller har brugt vores platform før, er det nemt at komme i gang med Familiehjælp og begynde at få adgang til de ressourcer og hjælpemidler, du har brug for.",
+    "app_title": "Vores app er tilgængelig på alle enheder.",
+    "app_description": "Vores app er designet til at være tilgængelig på alle enheder, så du kan få adgang til de ressourcer og den støtte, du har brug for, uanset hvor du er. Uanset om du bruger en smartphone, tablet eller computer, kan du nemt navigere i vores platform og finde den hjælp, du har brug for, når du har brug for det mest. Kom i gang med appen i dag og oplev, hvordan den kan gøre din rejse som forælder lettere og mere støttende på samme tid.",
+    "app_pwa_description": "Besøger du denne side på en mobil enhed? download vores app i dag og oplev, hvordan den kan gøre det lettere for dig at få adgang til hjælp og støtte, når du har mest brug for det.",
+    "functions_button": "Se vores funktioner",
+    "get_started_button": "Kom igang"
+  },
+  "functions_page": {
+    "meta": {
+      "title": "Funktioner | FamilieHjælp",
+      "description": "Læs om de vigtigste funktioner i FamilieHjælp og hvordan platformen hjælper dig med overblik, støtte og relevante ressourcer i hverdagen."
+    },
+    "hero": {
+      "title": "Funktioner, der skaber ro og overblik",
+      "description": "FamilieHjælp samler støtte, værktøjer og relevant viden i en enkel platform, så du hurtigere finder den hjælp, der passer til din situation."
+    },
+    "features": {
+      "heading": "Det får du med i platformen",
+      "cards": {
+        "1": {
+          "title": "Sundheds håndtering",
+          "description": "Håndtering af familiens fælles sundhed, i form af kost, læge besøg, vaccinationer mm.",
+          "href": "page.functions.health"
+        },
+        "2": {
+          "title": "Fælles kalender",
+          "description": "Håndtering af familiens fælles kalender for at holde styr på familiens foretagende.",
+          "href": "page.functions.calendar"
+        },
+        "3": {
+          "title": "Note håndtering",
+          "description": "Håndter vigtige notater på familiens medlemmer med vigtige noter og beskeder som kan være vigtige for alle familiemedlemmerne.",
+          "href": "page.functions.notes"
+        },
+        "4": {
+          "title": "Baby tracker",
+          "description": "få de bedste forudsætninger for at tracke de nødvendige mønstre din baby angive, såsom søvn, stimulans mm.",
+          "href": "page.functions.babytracker"
+        },
+        "5": {
+          "title": "Familiens Milepæle",
+          "description": "Angiv milepæle for et eller flere familiemedlemmer som kan følges i appen",
+          "href": "page.functions.milestones"
+        }
+      }
+    },
+    "app": {
+      "title": "Designet til hverdagen som forælder",
+      "description": "Uanset om du står midt i sorg, usikkerhed eller nye rutiner, giver appens funktioner dig struktur, støtte og et sted at samle det vigtige.",
+      "bullets": {
+        "1": "Gem tanker og observationer i noter, så du kan følge udviklingen over tid.",
+        "2": "Organiser opgaver og aftaler i en enkel arbejdsflade, der er nem at vende tilbage til.",
+        "3": "Få adgang til relevante sider og forløb, der matcher din situation."
+      },
+      "image_alt": "Skærmbillede af dashboard i FamilieHjælp appen"
+    },
+    "calendar": {
+      "meta": {
+        "title": "Familiehjælp - Hold styr på familiens fælles kalender",
+        "description": "Appen kan give dig hurtige planlægnings muligheder for dig og dine børn hvis de har registreret deres app."
+      },
+      "hero": {
+        "title": "Hold styr på familiens fælles kalender",
+        "description": "Appen kan give dig hurtige planlægnings muligheder for dig og dine børn hvis de har registreret deres app.",
+        "feature_cards": {
+          "1": {
+            "title": "Nem håndtering af kalender dag",
+            "description": "Familiekalendern kan give dig hurtigt overblik over hvad der sker for hver dag."
+          },
+          "2": {
+            "title": "Angiv lokation på en kalender begivenhed",
+            "description": "Angiv hurtigt en lokation for hvor begivenheden befinder sig"
+          },
+          "3": {
+            "title": "Udfyld vigtige notater",
+            "description": "Hver kalender begivenhed kan indeholde vigtig information omkring begivenheden med det indbyggede note system."
+          }
+        }
+      },
+      "body": {
+        "title": "Hurtig håndtering i familiens fælles kalender",
+        "description": "Med en familie fælles kalender, kan du nemt håndtere hvad familien har planlagt for hver kalender dag, alt fra familie relateret besøg til sundhedsmessige foretagende, hver begivenhed kan nemt angives med en lokation som kan spores til når man deltager i pågælende begivenhed.",
+        "bullets": {
+          "1": "Nem håndtering af familie foretagende begivenheder i alle typer",
+          "2": "Angiv ansvarlig for at foretage deltagelse i en kalender begivenhed",
+          "3": "Hurtige noter kan gemmes på en begivenhed",
+          "4": "Angiv nem lokation for begivenhed for nemmere rute for begivenheden"
+        }
+      }
+    },
+    "notes": {
+      "meta": {
+        "title": "Familiehjælp - Håndtering af de vigtigste fælles noter",
+        "description": "Appen gør det nemt og håndtere fælles noter på tværs af noter du kan lave på hele appen."
+      },
+      "hero": {
+        "title": "Håndtering af de vigtigste fælles noter",
+        "description": "Appen gør det nemt og håndtere fælles noter på tværs af noter du kan lave på hele appen."
+      },
+      "body": {
+        "title": "FamilieHjælp giver dig nem note håndtering",
+        "description": "Appens note system kan hjælpe dig med at holde et generelt overblik af de vigtigste notater med reference til hver feature appen har, det kan være synkroniseret notere fra en begivenhed i fælles kalenderen, eller i appens baby tracker, så du har alle noterne i en fælles 'Noteboks'",
+        "bullets": {
+          "1": "Gem tanker og observationer i noter, så du kan følge udviklingen over tid.",
+          "2": "Noteboksen kan indeholde flere typer noter i alle kategorier alt fra generelle noter til sundhedsmessige noter"
+        }
+      }
+    },
+    "planning": {
+      "meta": {
+        "title": "Planlægnings funktion",
+        "description": "Din guide igennem livet som forældre, med nem adgang til planlægnings værktøjer."
+      },
+      "hero": {
+        "title": "Planlægnings modul",
+        "description": "Din guide igennem livet som forældre, med nem adgang til planlægnings værktøjer."
+      }
+    },
+    "sms": {
+      "meta": {
+        "title": "SMS funktion",
+        "description": "Hold kontakten med din familie og del vigtige opdateringer hurtigt og nemt."
+      },
+      "hero": {
+        "title": "SMS modul",
+        "description": "Hold kontakten med din familie og del vigtige opdateringer hurtigt og nemt."
+      }
+    }
+  },
+  "stories_page": {
+    "meta": {
+      "title": "Historier | FamilieHjælp",
+      "description": "Læs personlige historier fra familier, der har fundet støtte og praktisk hjælp gennem FamilieHjælp."
+    },
+    "hero": {
+      "title": "Historier fra familier vi har hjulpet"
+    },
+    "description": "Hver familie har sin egen rejse. Her kan du læse historier fra mennesker, der har fundet vejledning, praktiske værktøjer og følelsesmæssig støtte gennem FamilieHjælp.",
+    "stories": {
+      "heading": "Udvalgte historier",
+      "cards": {
+        "1": {
+          "title": "Da alt føltes uoverskueligt",
+          "description": "Efter vores dødfødsel var det svært at få hverdagen til at hænge sammen. FamilieHjælp hjalp os med at dele tingene op i små skridt og gav os et roligt sted til aftaler, tanker og praktiske behov.",
+          "author": "Louise og Martin"
+        },
+        "2": {
+          "title": "En tryggere start som nye forældre",
+          "description": "Som førstegangsforældre havde vi mange spørgsmål. Platformen gav os enkle rutiner, troværdige ressourcer og en følelse af, at vi ikke stod alene med det hele.",
+          "author": "Nadia, førstegangsmor"
+        },
+        "3": {
+          "title": "Fra kaos til små fremskridt",
+          "description": "Vi brugte noter og to-do værktøjer til at skabe struktur dag for dag. Det fjernede ikke sorgen, men gav os fremdrift og gjorde svære uger mere håndterbare.",
+          "author": "Jonas, far til to"
+        },
+        "4": {
+          "title": "Støtte vi faktisk kunne bruge",
+          "description": "Det, der gjorde den største forskel, var at have praktisk vejledning samlet ét sted. Vi fandt hurtigt relevant information og følte os støttet i de beslutninger, der betød noget for vores familie.",
+          "author": "Sara og Emil"
+        }
+      }
+    }
+  },
+  "cta": {
+    "headline": "Klar til at komme i gang?",
+    "description": "Opret en konto i dag og få adgang til de ressourcer og den støtte, du har brug for for at hjælpe dig og din familie gennem svære tider.",
+    "button": "Opret en konto og kom i gang"
+  },
+  "menu": {
+    "helpresources": "Hjælpemidler",
+    "ourmission": "Vores mission",
+    "functions": "Funktioner",
+    "functions_calendar": "Kalender",
+    "functions_notes": "Noter",
+    "functions_health": "Sundheds tracking",
+    "functions_babytracker": "Baby Tracker",
+    "functions_milestones": "Milepæle tracking",
+    "experiences": "Har du oplevet?",
+    "abort": "Abort",
+    "stillbirth": "Dødfødsel",
+    "new_parents": "Nye forældre",
+    "lostFamilyMember": "Mistet et familiemedlem",
+    "dashboard": "Dashboard",
+    "getting_started": "Kom igang",
+    "login_register": "Log ind / Opret konto",
+    "blog": "Blog"
+  },
+  "authModal": {
+    "login": "Log ind på din FamilieHjælp konto",
+    "register": "Opret en ny FamilieHjælp konto",
+    "login_email": "Din E-mail",
+    "login_password": "Din Adgangskode",
+    "register_name": "Dit Navn",
+    "register_email": "Din E-mail",
+    "register_password": "Din Adgangskode",
+    "register_password_confirmation": "Bekræft din adgangskode",
+    "remember_me": "Husk min login",
+    "forgot_password": "Glemt din adgangskode?",
+    "already_have_account": "Har du allerede en konto?",
+    "dont_have_account": "Har du ikke en konto?"
+  },
+  "footer": {
+    "about": "Om os",
+    "contact_us": "Kontakt os",
+    "privacy_policy": "Privatlivspolitik",
+    "terms_of_service": "Servicevilkår",
+    "all_rights_reserved": "Alle rettigheder forbeholdes",
+    "functions": "Funktioner",
+    "quicklinks": "Genveje",
+    "functions_list": {
+      "calendar": {
+        "label": "Kalender",
+        "href": "page.functions.calendar"
+      },
+      "notes": {
+        "label": "Noter",
+        "href": "page.functions.notes"
+      },
+      "health": {
+        "label": "Sundhedsfunktionen",
+        "href": "page.functions.health"
+      },
+      "babytracker": {
+        "label": "Baby Tracker",
+        "href": "page.functions.babytracker"
+      },
+      "milestones": {
+        "label": "Milepæle",
+        "href": "page.functions.milestones"
+      }
+    },
+    "copyright_notice": "© 2026 FamilieHjælp. Alle rettigheder forbeholdes.",
+    "privacypolicy": "Privatlivspolitik",
+    "termsofservice": "Servicevilkår"
+  },
+  "language_da": "da",
+  "language_en": "en",
+  "blog_page": {
+    "headline": "Find hjælp i vores blog",
+    "category_headline": "Bliv klogere på",
+    "count_headline": "Vi fandt {{count}} artikler ",
+    "description": "Læs om de vigtigste emner der kan hjælpe jer som familie hele vejen rundt, benyt kategori vælgeren nedenfor for at læse de nødvendige artikler du har brug for",
+    "posts_not_found": "Vi fandt ingen artikler.",
+    "posts_not_found_description": "Vi kunne ikke finde nogen artikler i biblioteket"
+  },
+  "blog_post_item": {
+    "published_at": "Udgivet den",
+    "go_back": "Gå tilbage"
+  },
+  "app": {
+    "session_missing": "Din session er ugyldig eller udløbet",
+    "complete_onboarding": "Fuldfør onboarding",
+    "back": "Tilbage",
+    "getting_started": {
+      "onboarding_title_label": "Familiehjælp onboarding",
+      "create_family": "Opret din familie",
+      "create_family_description": "Vi guider dig gennem en kort onboarding, hvor du opretter din familie med forældre og børn.",
+      "descripted_steps": {
+        "label": "Onboarding trin",
+        "step_one": "Indtast familienavn",
+        "step_two": "Indtast information om dig og eventuel partner",
+        "step_three": "Tilføj et eller flere børn med køn, navn og alder"
+      },
+      "getting_started_button": {
+        "label": "Start onboarding"
+      },
+      "start_over_button_label": "Start forfra",
+      "continue_where_you_left_off_button_label": "Fortsæt hvor du slap",
+      "family_name": {
+        "heading": "Indtast familienavn",
+        "form_field": {
+          "label": "Familienavn",
+          "next_step_label": "Næste"
+        }
+      },
+      "parent_step": {
+        "heading": "Hvem udfylder onboarding?",
+        "has_partner_question": "Har du en partner?",
+        "has_partner_no": "Nej",
+        "has_partner_yes": "Ja",
+        "partner_information_label": "Partner information",
+        "firstname_label": "Fornavn",
+        "middle_name_label": "Mellemnavn",
+        "last_name_label": "Efternavn",
+        "age_label": "Alder",
+        "family_title_label": "Familietitel",
+        "family_title_placeholder": "Fx Mor, Far, Omsorgsfar",
+        "partner_first_name_label": "Partnerens fornavn",
+        "partner_middle_name_label": "Partnerens mellemnavn",
+        "partner_last_name_label": "Partnerens efternavn",
+        "partner_age_label": "Partnerens alder",
+        "partner_family_title_label": "Partnerens familietitel",
+        "partner_needs_user_login_label": "Skal din partner have en bruger?",
+        "partner_needs_user_login_yes": "Ja",
+        "partner_needs_user_login_no": "Nej",
+        "partner_username_label": "Partner bruger navn",
+        "partner_email_label": "Partner email",
+        "next_step_label": "Næste",
+        "previous_step_label": "Gå tilbage",
+        "family_title_dad": "Far",
+        "family_title_mother": "Mor",
+        "parent_email_label": "Email",
+        "parent_email_placeholder": "Indtast din email"
+      },
+      "kids_step": {
+        "heading": "Tilføj børn",
+        "subheading": "Tilføj oplysninger om dine børn",
+        "add_child_button_label": "Tilføj barn",
+        "child_name_label": "Barnets navn",
+        "child_firstname_label": "Fornavn",
+        "child_middlename_label": "Mellemnavn",
+        "child_lastname_label": "Efternavn",
+        "child_age_label": "Barnets alder",
+        "child_age_label_years": "Barnets alder (år)",
+        "child_age_label_months": "Barnets alder (måneder)",
+        "child_age_label_weeks": "Barnets alder (uger)",
+        "child_gender_label": "Barnets køn",
+        "child_gender_male": "Dreng",
+        "child_gender_female": "Pige",
+        "child_gender_other": "Andet",
+        "next_step_label": "Næste",
+        "previous_step_label": "Gå tilbage",
+        "remove_child_button_label": "Fjern barn",
+        "child_needs_user_login_label": "Vil du oprette en bruger til dit barn?",
+        "child_user_login_label": "Opret brugernavn til barnet",
+        "child_user_password_label": "Opret adgangskode til barnet",
+        "child_confirm_password_label": "Bekræft adgangskode til barnet",
+        "child_confirm_password_rules": "Adgangskoden skal indeholde specialtegn såsom !@#$%^&*, store og små bogstaver samt tal.",
+        "child_confirm_password_check_label": "Bekræft adgangskode til barnet",
+        "child_confirm_password_check_rules": "Adgangskoden skal matche den tidligere indtastede adgangskode.",
+        "enter_child_user_email_message": "Indtast den email adresse brugeren skal oprettes på",
+        "child_receive_login_mail_message": "vil modtage en email med mulighed for oprettelse af bruger til platformen",
+        "child_user_email_label": "Barnets email adresse"
+      },
+      "confirmation_step": {
+        "heading": "Bekræft familieoplysninger",
+        "family_name_label": "Familienavn",
+        "onboarder_name_label": "Fulde navn",
+        "onboarder_age_label": "Alder",
+        "has_partner_label": "Har partner?",
+        "partner_name_label": "Fulde navn",
+        "partner_age_label": "Alder",
+        "partner_family_title_label": "Partnerens familietitel",
+        "number_of_children_label": "Antal børn",
+        "has_partner_no": "Nej",
+        "has_partner_yes": "Ja",
+        "child_age_years": "år",
+        "child_age_months": "måneder",
+        "child_age_weeks": "uger"
+      },
+      "completed_step": {
+        "heading": "Tak - din familie er oprettet",
+        "message": "Vi har gemt dine onboarding oplysninger.",
+        "steps": {
+          "verify": "Verificere udfyldning",
+          "family": "Opretter familie",
+          "parents": "Opretter forældre profiler",
+          "children": "Opretter børneprofiler",
+          "completed": "Onboarding fuldført"
+        },
+        "process_completed": {
+          "completed_heading": "Familien er oprettet",
+          "onboarding_completed_message": "Vi har oprettet din familie, vi glæder os til du kommer igang med platformen.",
+          "onboarding_completed_sub_message": "Du og din partner vil modtage en email med yderligere instruktioner. og kan følge med i processen her på platformen.",
+          "processing": "Opretter familien...",
+          "go_to_overview": "Gå til oversigt",
+          "log_in_here": "Log ind her"
+        }
+      }
+    }
+  }
+}

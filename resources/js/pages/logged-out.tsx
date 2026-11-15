@@ -27,7 +27,7 @@ export default function LoggedOut() {
                         </div>
                     </div>
                     <div className="text-center text-lg text-white mt-4">
-                        Du er nu logget ud. Tak fordi du brugte Forældrehjælp!
+                        Du er nu logget ud. Tak fordi du brugte FamilieHjælp!
                     </div>
                     <div className="mt-4">
                         <Link

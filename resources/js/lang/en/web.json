@@ -1,0 +1,504 @@
+{
+  "frontpage": {
+    "meta": {
+      "title": "FamilieHjælp - Your digital parent assistant",
+      "description": "FamilieHjælp is your digital parent assistant, offering easy access to resources and support to help you navigate parenthood. We are here to support you through the challenges you may face and provide you with the tools you need, right at your fingertips."
+    },
+    "title": "Your digital parent assistant",
+    "title.highlight": "right at your fingertips",
+    "description": "The assistant that helps you as a parent",
+    "cta": "Get Started",
+    "functions": {
+      "cta": "Explore our features"
+    },
+    "selling_points": {
+      "families_helped": {
+        "count": "100+",
+        "title": "families helped"
+      },
+      "satisfaction_rate": {
+        "count": "95%",
+        "title": "satisfaction rate"
+      },
+      "average_startup_time": {
+        "count": "5 Minutes",
+        "title": "startup time"
+      }
+    },
+    "about_section": {
+      "title": "The assistant that helps you as a parent",
+      "description": "Familiehjælp is dedicated to making a difference for families in need. We understand the challenges that many families face, and we are here to provide support and resources that can help them navigate through difficult times. Our platform is designed to be user-friendly and accessible, so everyone can find the help they need when they need it.",
+      "button": "Learn more about our mission"
+    },
+    "frontpage_functions": {
+      "title": "Discover the features that can help your family",
+      "sections": {
+        "health": {
+          "title": "Shared health",
+          "description": "Keep track of your family's health and well-being with our health feature.",
+          "button": "Read more"
+        },
+        "calendar": {
+          "title": "Shared calendar",
+          "description": "With a shared calendar, the whole family can keep up with family activities",
+          "button": "Read more"
+        },
+        "milestones": {
+          "title": "Family milestones",
+          "description": "Keep track of family milestones for you, your children, or another family member.",
+          "button": "Read more"
+        },
+        "babytracker": {
+          "title": "Baby tracker",
+          "description": "Track different patterns of your children at a young age, everything from sleep to eating patterns",
+          "button": "Read more"
+        }
+      },
+      "cta": "See all features"
+    },
+    "resources_functions": {
+      "meta": {
+        "title": "Resources and Features | FamilieHjælp",
+        "description": "FamilieHjælp offers a range of features designed to support you and your family during difficult times. Our platform includes: a comprehensive library of resources and tools, user-friendly tools to find the right help, the ability to contact our support team for personalized assistance, and regular updates and new resources based on user needs."
+      },
+      "title": "Resources and Features",
+      "hightlight": "Familiehjælp offers a range of features designed to support you and your family during difficult times. Our platform includes:",
+      "features": {
+        "feature_one": "- A comprehensive library of resources and tools",
+        "feature_two": "- User-friendly tools to find the right help",
+        "feature_three": "- The ability to contact our support team for personalized assistance",
+        "feature_four": "- Regular updates and new resources based on user needs"
+      },
+      "button": "Explore our resources"
+    },
+    "recommended": {
+      "title": "We are recommended by many families",
+      "subtitle": "Read some of the success stories from those we have helped",
+      "story": {
+        "title": "Familiehjælp has been an invaluable resource for me and my family",
+        "desc_one": "We faced a difficult situation, unsure of how to handle a stillbirth.",
+        "desc_two": "The Familiehjælp app helped us find the right resources and support, and it made a huge difference for us during a very difficult time. We couldn't have managed without them.",
+        "author": "Maria, mother of a stillborn son"
+      },
+      "want_to_read_more": "Do you want to read more success stories like this?",
+      "button": "Read more stories"
+    },
+    "helping_resources": {
+      "cta": "See helping resources"
+    },
+    "posts": {
+      "title": "Read our blog for more stories and learning",
+      "subtitle": "Stay updated with the latest stories and learning from our blog",
+      "view_all": "View all posts"
+    }
+  },
+  "functions": {
+    "meta": {
+      "title": "Our Functions | FamilieHjælp",
+      "description": "Discover the range of functions we offer at FamilieHjælp, designed to support parents through difficult times. Our platform provides easy access to resources, professional guidance, and a supportive community, all aimed at helping you navigate the challenges of parenthood. Whether you're dealing with the loss of a child or adjusting to new parenthood, our functions are here to provide the support you need when you need it most."
+    },
+    "title": "Our Functions",
+    "description": "Discover the range of functions we offer at FamilieHjælp, designed to support parents through difficult times. Our platform provides easy access to resources, professional guidance, and a supportive community, all aimed at helping you navigate the challenges of parenthood. Whether you're dealing with the loss of a child or adjusting to new parenthood, our functions are here to provide the support you need when you need it most."
+  },
+  "helpingResources": {
+    "meta": {
+      "title": "Our Helping Resources | FamilieHjælp",
+      "description": "At FamilieHjælp, we provide access to a range of resources that are shortcuts to quick help and support for parents in difficult situations. Our helping resources are designed to make it easy for you to find the support you need when you need it most. Whether you are looking for information, professional guidance, or a community of like-minded individuals, our platform is here to help you through your challenges as a parent. We understand the importance of having quick access to reliable resources, especially in difficult times, and our goal is to make this access as simple and effective as possible."
+    },
+    "headline": "Our Helping Resources",
+    "description": "At FamilieHjælp, we provide access to a range of resources that are shortcuts to quick help and support for parents in difficult situations. Our helping resources are designed to make it easy for you to find the support you need when you need it most. Whether you are looking for information, professional guidance, or a community of like-minded individuals, our platform is here to help you through your challenges as a parent. We understand the importance of having quick access to reliable resources, especially in difficult times, and our goal is to make this access as simple and effective as possible.",
+    "list_resources": {
+      "title": "Which helping resources do we offer",
+      "description": "We provide access to a range of helping resources that are shortcuts to quick help and support for parents in difficult situations. Some of the helping resources we offer include:"
+    }
+  },
+  "ourMission": {
+    "meta": {
+      "title": "Our Mission and Vision | FamilieHjælp",
+      "description": "Learn about our mission and vision at FamilieHjælp, where we strive to create a safe and supportive platform for parents facing challenges such as abortion and stillbirth. Our goal is to provide easy access to reliable resources, professional guidance, and a community of support, so no parent has to feel alone in difficult times. Through innovative digital solutions, we aim to make a positive difference in the lives of families across Denmark."
+    },
+    "title": "Our Mission and Vision",
+    "description": "Learn about our mission and vision at FamilieHjælp, where we strive to create a safe and supportive platform for parents facing challenges such as abortion and stillbirth. Our goal is to provide easy access to reliable features and information, professional guidance, and a community of support, so no parent has to feel alone in difficult times. Through innovative digital solutions, we aim to make a positive difference in the lives of families across Denmark.",
+    "vision_mission_foraeldrehjaelp": {
+      "title": "Our vision and mission for FamilieHjælp",
+      "description": "At FamilieHjælp, our vision is to create a world where every parent has access to the support and resources they need to navigate the challenges of parenthood, especially during difficult times such as abortion and stillbirth. Our mission is to provide a safe and supportive platform that offers easy access to reliable information, professional guidance, and a community of support. We are committed to making a positive impact on the lives of families across Denmark by offering innovative digital solutions that empower parents to find the help they need when they need it most."
+    },
+    "behind_the_story": {
+      "title": "The story behind FamilieHjælp",
+      "description": "The idea for FamilieHjælp was born out of a personal experience with the challenges of parenthood. Our founder, who faced the difficult experience of stillbirth, realized the lack of accessible resources and support for parents going through similar situations. This inspired the creation of FamilieHjælp, a platform dedicated to providing support, resources, and a community for parents facing challenges such as abortion and stillbirth. Our goal is to ensure that no parent has to feel alone during these difficult times and to make a positive difference in the lives of families across Denmark."
+    },
+    "our_values": {
+      "title": "Our core values",
+      "description": "At FamilieHjælp, our core values are centered around compassion, accessibility, reliability, and community. We believe in providing compassionate support to parents facing challenges, ensuring that our platform is accessible to everyone who needs it, offering reliable resources and information, and fostering a supportive community where parents can connect and share their experiences. These values guide everything we do as we strive to make a positive impact on the lives of families across Denmark."
+    }
+  },
+  "abortion": {
+    "meta": {
+      "title": "Have you experienced an abortion? | FamilieHjælp",
+      "description": "Losing a child through abortion is a heartbreaking experience that leaves parents in deep grief and confusion. FamilieHjælp is here to support you through this difficult time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, support groups, and informative articles that can help you navigate your grief and find ways to remember your child. You are not alone – we are here to help you find strength and hope in a time of loss."
+    },
+    "headline": "Have you experienced an abortion?",
+    "description": "Losing a child through abortion is a heartbreaking experience that leaves parents in deep grief and confusion. FamilieHjælp is here to support you through this difficult time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, support groups, and informative articles that can help you navigate your grief and find ways to remember your child. You are not alone – we are here to help you find strength and hope in a time of loss.",
+    "recomendations": {
+      "title": "We recommend",
+      "description": "We recommend seeking professional help and support through our platform, where you can find counselors specialized in grief counseling after stillbirth. Additionally, participating in support groups with other parents who have experienced similar losses can be a valuable way to share your feelings and find comfort. Our resources are designed to help you navigate your grief and find ways to remember your child while beginning the healing process."
+    }
+  },
+  "stillbirth": {
+    "meta": {
+      "title": "Have you experienced a stillbirth? | FamilieHjælp",
+      "description": "Losing a child through stillbirth is a heartbreaking experience that leaves parents in deep grief and confusion. FamilieHjælp is here to support you through this difficult time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, support groups, and informative articles that can help you navigate your grief and find ways to remember your child. You are not alone – we are here to help you find strength and hope in a time of loss."
+    },
+    "headline": "Have you experienced a stillbirth?",
+    "description": "Losing a child through stillbirth is a heartbreaking experience that leaves parents in deep grief and confusion. FamilieHjælp is here to support you through this difficult time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, support groups, and informative articles that can help you navigate your grief and find ways to remember your child. You are not alone – we are here to help you find strength and hope in a time of loss.",
+    "recomendations": {
+      "title": "We recommend",
+      "description": "We recommend seeking professional help and support through our platform, where you can find counselors specialized in grief counseling after stillbirth. Additionally, participating in support groups with other parents who have experienced similar losses can be a valuable way to share your feelings and find comfort. Our resources are designed to help you navigate your grief and find ways to remember your child while beginning the healing process."
+    }
+  },
+  "parents": {
+    "meta": {
+      "title": "Have you become new parents? | FamilieHjælp",
+      "description": "Becoming new parents is a life-changing experience filled with joy, but also challenges and uncertainties. FamilieHjælp is here to support you through this exciting time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, informative articles, and support groups that can help you navigate the many aspects of parenthood. Whether it's about sleep habits, breastfeeding, or emotional challenges, we are here to help you find answers and support on your journey as new parents."
+    },
+    "headline": "Have you become new parents?",
+    "description": "Becoming new parents is a life-changing experience filled with joy, but also challenges and uncertainties. FamilieHjælp is here to support you through this exciting time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, informative articles, and support groups that can help you navigate the many aspects of parenthood. Whether it's about sleep habits, breastfeeding, or emotional challenges, we are here to help you find answers and support on your journey as new parents.",
+    "recomendations": {
+      "title": "We recommend",
+      "description": "We recommend that you as new parents seek professional guidance and support through our platform, where you can find counselors specialized in new parenthood. Additionally, participating in support groups with other new parents can be a valuable way to share your experiences and find comfort in the community. Our resources are designed to help you navigate the many aspects of parenthood and find the best solutions for you and your child."
+    },
+    "app": {
+      "app_title": "Our app can be tailored to parents",
+      "app_description": "Our app is designed to meet the unique needs of new parents. With features like personalized reminders for feeding and sleep, access to expert advice, and a community of other new parents, our app can help you navigate the challenges that come with being new parents. Get started with the app today and experience how it can make your journey as parents easier and more supportive at the same time.",
+      "app_feature_1": "Get an overview of your children, use the tool to keep track of what you need to do as a parent for your child or children",
+      "app_feature_2": "You have the opportunity to take notes on how often your child sleeps or note special events",
+      "app_feature_3": "If you want to note special appointments or arrangements either in or your child should attend, you can use the tool's calendar feature"
+    }
+  },
+  "lost_parents": {
+    "meta": {
+      "title": "Have you lost a family member? | FamilieHjælp",
+      "description": "Losing a family member is a heartbreaking experience that leaves parents in deep grief and confusion. FamilieHjælp is here to support you through this difficult time by providing resources, guidance, and a community of understanding. Our platform gives access to professional counselors, support groups, and informative articles that can help you navigate your grief and find ways to remember your child. You are not alone – we are here to help you find strength and hope in a time marked by loss."
+    }
+  },
+  "getting_started_page": {
+    "meta": {
+      "title": "Getting Started | FamilieHjælp",
+      "description": "Whether you are a new user or have used our platform before, it's easy to get started with FamilieHjælp and begin accessing the resources and tools you need."
+    },
+    "headline": "Getting Started with ",
+    "headline_highlight": "FamilieHjælp",
+    "description": "Whether you are a new user or have used our platform before, it's easy to get started with FamilieHjælp and begin accessing the resources and tools you need.",
+    "app_title": "Our app is available on all devices.",
+    "app_description": "Our app is designed to be accessible on all devices, so you can access the resources and support you need, no matter where you are. Whether you're using a smartphone, tablet, or computer, you can easily navigate our platform and find the help you need when you need it most. Get started with the app today and experience how it can make your journey as a parent easier and more supportive at the same time.",
+    "app_pwa_description": "Visiting this page on a mobile device? Download our app today and experience how it can make it easier for you to access help and support when you need it most.",
+    "functions_button": "See our features",
+    "get_started_button": "Get Started"
+  },
+  "functions_page": {
+    "meta": {
+      "title": "Features | FamilieHjælp",
+      "description": "Explore the key features in FamilieHjælp and how the platform helps your family stay organized, supported, and informed."
+    },
+    "hero": {
+      "title": "Features that create clarity and calm",
+      "description": "FamilieHjælp brings support, tools, and trusted guidance into one simple platform, so you can find relevant help faster."
+    },
+    "features": {
+      "heading": "What you get in the platform",
+      "cards": {
+        "1": {
+          "title": "Family Health tracking",
+          "description": "Keep track of your healthy information and doctors appointments.",
+          "href": "page.functions.health"
+        },
+        "2": {
+          "title": "Family Calendar",
+          "description": "Make a shareable calendar with the added family members to keep the family in sync of what your family members are doing.",
+          "href": "page.functions.calendar"
+        },
+        "3": {
+          "title": "Notes function",
+          "description": "Keep track of what is important for you and your family members about a family member for important information.",
+          "href": "page.functions.notes"
+        },
+        "4": {
+          "title": "Baby tracker",
+          "description": "Get the best prerequisites for the baby with our baby tracker functions to tack sleep or stimuly patterns and more.",
+          "href": "page.functions.babytracker"
+        },
+        "5": {
+          "title": "Tips & Tricks",
+          "description": "Get the best tips and tricks that aligns with your family anything from parenting tips to child care.",
+          "href": "page.functions.tips-tricks"
+        }
+      }
+    },
+    "app": {
+      "title": "Designed for everyday parent life",
+      "description": "Whether you're in grief, uncertainty, or a new routine, app features help you stay structured, supported, and focused on what matters.",
+      "bullets": {
+        "1": "Capture thoughts and observations in notes so you can track progress over time.",
+        "2": "Organize tasks and appointments in one simple workspace that is easy to return to.",
+        "3": "Access relevant pages and guided flows that match your needs and context."
+      },
+      "image_alt": "Screenshot of the FamilieHjælp app dashboard"
+    },
+    "calendar": {
+      "meta": {
+        "title": "Calendar function",
+        "description": "The app can provide quick planning options for you and your children if they have registered their app."
+      },
+      "hero": {
+        "title": "Keep track of the family's shared calendar",
+        "description": "The app can give you quick planning options for you and your children if they have registered their app.",
+        "feature_cards": {
+          "1": {
+            "title": "Easy handling of calendar day",
+            "description": "Family calendar can give you a quick overview of what's happening each day."
+          },
+          "2": {
+            "title": "Specify location on a calendar event",
+            "description": "Quickly specify a location for where the event is located"
+          },
+          "3": {
+            "title": "Fill in important notes associated with the event in the calendar",
+            "description": "Each calendar event can contain important information about the event with the built-in note system."
+          }
+        }
+      },
+      "body": {
+        "title": "Quick management in the shared family calendar",
+        "description": "With a shared family calendar, you can easily manage what the family has planned for each calendar day, everything from family-related visits to health-related activities, each event can be easily specified with a location that can be tracked when attending the event in question.",
+        "bullets": {
+          "1": "Easy management of family activity events of all types",
+          "2": "Set the person responsible for making participation in a calendar event",
+          "3": "Quick notes can be saved on an event",
+          "4": "Set a convenient location for the event for easier route to the event"
+        }
+      }
+    },
+    "notes": {
+      "meta": {
+        "title": "Notes function",
+        "description": "Notes to keep track of what is important for you and your family."
+      },
+      "hero": {
+        "title": "Keep up with what's important.",
+        "description": "Keep track of what is important for you and your family."
+      }
+    },
+    "planning": {
+      "meta": {
+        "title": "Planning function",
+        "description": "Your guide through parent life, with easy access to planning tools."
+      },
+      "hero": {
+        "title": "Intuitive planning for parents",
+        "description": "Your guide through parent life, with easy access to planning tools."
+      }
+    }
+  },
+  "stories_page": {
+    "meta": {
+      "title": "Stories | FamilieHjælp",
+      "description": "Read personal stories from families who found support and practical help through FamilieHjælp."
+    },
+    "hero": {
+      "title": "Stories from families we have supported"
+    },
+    "description": "Every family has a different journey. Here are stories from people who found guidance, practical tools, and emotional support through FamilieHjælp.",
+    "stories": {
+      "heading": "Selected Stories",
+      "cards": {
+        "1": {
+          "title": "When everything felt overwhelming",
+          "description": "After our stillbirth, everyday life became impossible to structure. FamilieHjælp helped us break things into small steps and gave us a calm place to keep track of appointments, thoughts, and practical needs.",
+          "author": "Louise and Martin"
+        },
+        "2": {
+          "title": "A safer start as new parents",
+          "description": "As first-time parents we were full of questions. The platform gave us simple routines, trusted resources, and a sense that we did not have to solve everything alone.",
+          "author": "Nadia, first-time mother"
+        },
+        "3": {
+          "title": "From chaos to small wins",
+          "description": "We used notes and to-do tools to create structure one day at a time. It did not remove the pain, but it gave us momentum and made difficult weeks more manageable.",
+          "author": "Jonas, father of two"
+        },
+        "4": {
+          "title": "Support we could actually use",
+          "description": "What made the biggest difference was having practical guidance in one place. We quickly found relevant information and felt supported in decisions that mattered to our family.",
+          "author": "Sara and Emil"
+        }
+      }
+    }
+  },
+  "cta": {
+    "headline": "Ready to get started?",
+    "description": "Create an account today and gain access to the resources and support you need to help you and your family through difficult times.",
+    "button": "Create an account and get started"
+  },
+  "menu": {
+    "helpresources": "Helping Resources",
+    "ourmission": "Our Mission",
+    "functions": "Functions",
+    "functions_calendar": "Calendar",
+    "functions_notes": "Notes",
+    "functions_health": "Health tracking",
+    "functions_babytracker": "Baby Tracker",
+    "functions_milestones": "Milestone tracking",
+    "experiences": "Experiences",
+    "abort": "Abortion",
+    "stillbirth": "Stillbirth",
+    "new_parents": "New Parents",
+    "lostFamilyMember": "Lost a Family Member",
+    "dashboard": "Dashboard",
+    "getting_started": "Getting Started",
+    "login_register": "Login / Register",
+    "blog": "Blog"
+  },
+  "authModal": {
+    "login": "Login to your FamilieHjælp account",
+    "register": "Create a new FamilieHjælp account",
+    "login_email": "Your E-mail",
+    "login_password": "Your Password",
+    "register_name": "Your Name",
+    "register_email": "Your Email",
+    "register_password": "Your Password",
+    "register_password_confirmation": "Confirm Your Password",
+    "remember_me": "Remember my login",
+    "forgot_password": "Forgot your password?",
+    "already_have_account": "Already have an account?",
+    "dont_have_account": "Don't have an account?"
+  },
+  "footer": {
+    "about": "About Us",
+    "contact_us": "Contact Us",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
+    "all_rights_reserved": "All rights reserved",
+    "functions": "Functions",
+    "quicklinks": "Quick links",
+    "functions_list": {
+      "calendar": {
+        "label": "Calendar",
+        "href": "page.functions.calendar"
+      },
+      "notes": {
+        "label": "Notes",
+        "href": "page.functions.notes"
+      },
+      "health": {
+        "label": "Health",
+        "href": "page.functions.health"
+      },
+      "babytracker": {
+        "label": "Baby Tracker",
+        "href": "page.functions.babytracker"
+      },
+      "milestones": {
+        "label": "Milepæle",
+        "href": "page.functions.milestones"
+      }
+    },
+    "copyright_notice": "© 2026 FamilieHjælp. All rights reserved.",
+    "privacypolicy": "Privacypolicy",
+    "termsofservice": "Terms of Service"
+  },
+  "language_da": "da",
+  "language_en": "en",
+  "blog_page": {
+    "headline": "Familiehjælp articles",
+    "description": "Read our helpful articles that can help you as parents and a family in anyway, search our articles for the correct information you would like to know about",
+    "posts_not_found": "No articles where found in our archive",
+    "posts_not_found_description": "We couldn't find any articles in the library"
+  },
+  "blog_post_item": {
+    "published_at": "Published at",
+    "go_back": "Go back"
+  },
+  "app": {
+    "getting_started": {
+      "onboarding_title_label": "Familiehjælp onboarding",
+      "create_family": "Create your family",
+      "create_family_description": "We guide you through a short onboarding process where you create your family with parents and children.",
+      "descripted_steps": {
+        "label": "Onboarding steps",
+        "step_one": "fill out your family name",
+        "step_two": "Enter information about yourself and any partner",
+        "step_three": "Add one or more children with gender, name, and age"
+      },
+      "getting_started_button": {
+        "label": "Start onboarding"
+      },
+      "start_over_button_label": "Start over",
+      "continue_where_you_left_off_button_label": "Continue onboarding",
+      "family_name": {
+        "heading": "Enter family name",
+        "form_field": {
+          "label": "Family name",
+          "next_step_label": "Next"
+        }
+      },
+      "parent_step": {
+        "heading": "Parent information",
+        "has_partner_question": "Do you have a partner?",
+        "has_partner_no": "No",
+        "has_partner_yes": "Yes",
+        "partner_information_label": "Partner information",
+        "firstname_label": "First name",
+        "middle_name_label": "Middle name",
+        "last_name_label": "Last name",
+        "age_label": "Age",
+        "family_title_label": "Family title",
+        "family_title_placeholder": "Fx Mom, Dad, Guardian, Care Dad, Care Mom",
+        "partner_first_name_label": "Partner's first name",
+        "partner_middle_name_label": "Partner's middle name",
+        "partner_last_name_label": "Partner's last name",
+        "partner_age_label": "Partner's age",
+        "partner_family_title_label": "Partner's family title",
+        "partner_needs_user_login_label": "Does your partner need a user account?",
+        "partner_needs_user_login_yes": "Yes",
+        "partner_needs_user_login_no": "No",
+        "partner_username_label": "Partner username",
+        "partner_email_label": "Partner email",
+        "next_step_label": "Next",
+        "previous_step_label": "Go back"
+      },
+      "kids_step": {
+        "heading": "Add child",
+        "subheading": "Fill in information about your children",
+        "add_child_button_label": "Add child",
+        "child_name_label": "Child's name",
+        "child_age_label": "Child's age",
+        "child_age_label_years": "Child's age (years)",
+        "child_age_label_months": "Child's age (months)",
+        "child_age_label_weeks": "Child's age (weeks)",
+        "child_gender_label": "Child's gender",
+        "child_gender_male": "Male",
+        "child_gender_female": "Female",
+        "child_gender_other": "Other",
+        "next_step_label": "Next",
+        "previous_step_label": "Go back"
+      },
+      "completed_step": {
+        "heading": "Thank you for choosing FamilieHjælp",
+        "message": "Thank you for choosing FamilieHjælp, your family is now set up and ready to be managed",
+        "steps": {
+          "verify": "Verifying your family information",
+          "family": "Setting up your family information",
+          "parents": "Setting up parent profiles",
+          "children": "Setting up child profiles",
+          "completed": "Completing onboarding process."
+        },
+        "completed_heading": "Your family is set up",
+        "onboarding_completed_message": "You have successfully completed the onboarding process.",
+        "onboarding_completed_sub_message": "You can now proceed to your family overview.",
+        "processing": "Setting up your family...",
+        "go_to_overview": "Go to family overview",
+        "log_in_here": "Log in here"
+      }
+    }
+  }
+}

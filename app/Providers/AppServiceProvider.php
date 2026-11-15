@@ -2,21 +2,27 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-
 use Illuminate\Database\Eloquent\Model;
-
-
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    protected $defer = false;
+
     /**
      * Register any application services.
      */
     public function register(): void
     {
+        app()->bind(\App\Contracts\OnboardingServiceContract::class, \App\Services\OnboardingService::class);
+        app()->bind(\App\Contracts\FamilyServiceContract::class, \App\Services\FamilyService::class);
+        app()->bind(\App\Contracts\FamilyRepositoryContract::class, \App\Repositories\FamilyRepository::class);
+        app()->bind(\App\Contracts\OnboardingSessionRepositoryContract::class, \App\Repositories\OnboardingSessionRepository::class);
+
         Model::preventLazyLoading(! app()->isProduction());
         Model::shouldBeStrict(! app()->isProduction());
+        // allow HTTPS on all environments, since the app is behind a reverse proxy that handles SSL termination
 
         if ($this->app->environment('local') && class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
@@ -29,6 +35,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (config('app.env') !== 'local') {
+            URL::forceScheme('https');
+        }
+
+        if ($this->app->environment('local') && isset($_SERVER['HTTP_HOST'])) {
+            URL::forceRootUrl('http://'.$_SERVER['HTTP_HOST']);
+        }
     }
 }

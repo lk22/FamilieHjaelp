@@ -7,6 +7,7 @@ interface ProgressStepProps {
     lastStep?: boolean;
     isCompleted: boolean;
     stepName: string;
+    currentScenario: string;
 }
 
 /**
@@ -16,56 +17,86 @@ interface ProgressStepProps {
  * Now uses OnboardingContext for real-time state updates across all components.
  */
 export default function ProgressBar() {
-    
-    // Get onboarding state from context - this will automatically update when state changes
     const { onboardingState } = useOnboarding();
+    const currentScenario = onboardingState.scenarios.find((s) => s.id === onboardingState.currentScenario);
+    const steps = currentScenario ? currentScenario.steps : [];
 
     const handleStepsList = () => {
-        const { steps } = onboardingState;
         return steps.map((step, index: number) => {
             const lastStep = steps.length - 1 === index;
-            const isCompleted = step.progress.completed;
-            const stepName = step.name; // Fallback to step id if name is not defined
-            
+            const isCompleted = step.completed;
+            const stepName = step.stepName;
+
             return (
                 <div key={index} className="relative flex-1">
-                    <ProgressStep 
-                        step={index + 1} 
-                        lastStep={lastStep} 
-                        isCompleted={isCompleted} 
+                    <ProgressStep
+                        step={index + 1}
+                        lastStep={lastStep}
+                        isCompleted={isCompleted}
                         stepName={stepName}
+                        currentScenario={onboardingState.currentScenario}
                     />
                 </div>
             );
         });
     }
 
+    const calculateProgressWidth = () => {
+        const totalSteps = steps.length;
+        const completedSteps = steps.filter(step => step.completed).length;
+
+        if (totalSteps === 0) return '0%';
+
+        // if all steps are completed, return the width to the last step
+        if (completedSteps === totalSteps) return '90%';
+
+        const progressPercentage = (completedSteps / totalSteps) * 100;
+        return `${progressPercentage}%`;
+    }
+
     return (
         <>
-            <div className="flex items-center">
+            <div className="flex items-center relative">
                 {handleStepsList()}
+                <div id="step-progress-line" className='step-progress-line' style={{ width: calculateProgressWidth() }}></div>
             </div>
         </>
     )
 }
 
+/**
+ * Component for individual progress step
+ *
+ * @param step
+ * @param lastStep
+ * @param isCompleted
+ * @param stepName
+ * @param currentScenario
+ *
+ * @description Renders a single step in the progress bar, indicating whether it is completed or not.
+ * @returns JSX.Element
+ */
 const ProgressStep = ({
     step,
     lastStep,
     isCompleted,
     stepName,
+    currentScenario
 }: ProgressStepProps) => {
-    // give me the last element in the array;
+    const isCompletedStyles = `relative top-8 z-10 p-4 h-[60px] transition rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-700 text-white hover:bg-blue-900' : 'bg-white text-blue-900'}`;
+    const notCompletedStyles = `relative top-8 z-10 p-4 h-[60px] transition rounded-full w-[60px] flex items-center cursor-pointer justify-center border-2 border-blue-700 ${isCompleted ? 'bg-blue-700 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-700'} ${isCompleted ? 'step-completed' : ''}`;
     return (
         <>
             {isCompleted ? (
-                <Link href={route('onboarding.step', { step: stepName })} className="relative flex items-center">
-                    <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center justify-center ${isCompleted ? 'bg-blue-900 text-white hover:bg-blue-700' : 'bg-white text-blue-900'}`}>{step}</div>
+                <Link href={route('onboarding.scenario.step', { scenario: currentScenario, step: stepName })} className="relative flex items-center">
+                    <div className={isCompletedStyles}>{step}</div>
                 </Link>
             ) : (
-                <div className={`relative top-8 z-10 p-4 h-[60px] rounded-full w-[60px] flex items-center cursor-pointer justify-center ${isCompleted ? 'bg-blue-900 text-white' : 'bg-white hover:bg-blue-500 hover:text-white text-blue-900'}`}>{step}</div>
+                <div className={notCompletedStyles}>{step}</div>
             )}
-            <div className={`absolute top-[60px] left-0 w-full h-1 ${isCompleted ? 'bg-blue-900' : 'bg-gray-300'} ${lastStep ? 'hidden': ''} `}></div>
+            {!lastStep && (
+                <div className="flex-1 h-1 bg-gray-300 relative top-1 w-full mx-2"></div>
+            )}
         </>
     )
 }

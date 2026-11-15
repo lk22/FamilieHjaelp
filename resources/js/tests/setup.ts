@@ -24,8 +24,29 @@ vi.mock('@inertiajs/react', () => ({
           pages: [],
         },
       },
+      locale: 'da'
     },
   }),
+  useForm: <T,>(initialData: T) => {
+    const [data, setData] = React.useState<T>(initialData);
+    const [errors] = React.useState<Record<string, string>>({});
+    const [processing] = React.useState<boolean>(false);
+
+    return {
+      data,
+      setData,
+      errors,
+      processing,
+      post: vi.fn(),
+      put: vi.fn(),
+      delete: vi.fn(),
+      reset: vi.fn(),
+    };
+  },
+  useRemember: <T,>(initialValue: T) => {
+    const [state, setState] = React.useState<T>(initialValue)
+    return [state, setState] as const
+  },
   router: {
     get: vi.fn(),
     post: vi.fn(),
@@ -61,3 +82,12 @@ Object.defineProperty(window, 'localStorage', {
   },
   writable: true,
 })
+
+// Mock ResizeObserver for Radix UI components in JSDOM
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+vi.stubGlobal('ResizeObserver', ResizeObserverMock);

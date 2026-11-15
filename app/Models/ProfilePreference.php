@@ -5,24 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-use App\Models\Profile;
-
 class ProfilePreference extends Model
 {
     /**
      * Assign the table fields to be mass assignable
-     * 
+     *
      * @var array<string>
      */
     protected $fillable = [
-        'profile_id', 
-        'preference_key', 
-        'preference_value'
+        'profile_id',
+        'preference_key',
+        'preference_value',
     ];
 
     /**
      * Assign the custom castable rules for each column
-     * 
+     *
      * @var array<string, string>
      */
     protected $casts = [
@@ -31,17 +29,17 @@ class ProfilePreference extends Model
 
     /**
      * Assign the guarded fields
-     * 
+     *
      * @var array<string>
      */
     protected $guarded = [
-        'profile_id', 
-        'preference_key'
+        'profile_id',
+        'preference_key',
     ];
 
     /**
      * Get the associated profile.
-     * 
+     *
      * @return BelongsTo<Profile>
      */
     public function profile(): BelongsTo
@@ -51,8 +49,6 @@ class ProfilePreference extends Model
 
     /**
      * Get the preference key.
-     * 
-     * @return string
      */
     public function getPreferenceKey(): string
     {
@@ -61,7 +57,7 @@ class ProfilePreference extends Model
 
     /**
      * Get the preference value.
-     * 
+     *
      * @return ?array<string, mixed>
      */
     public function getPreferenceValue(): ?array
@@ -71,10 +67,9 @@ class ProfilePreference extends Model
 
     /**
      * Get specific preference option
-     * 
-     * @param $key string
-     * @param $default null
-     * @return string
+     *
+     * @param  $key  string
+     * @param  $default  null
      */
     public function getPreference(string $key, $default = null): string
     {
@@ -84,8 +79,8 @@ class ProfilePreference extends Model
     /**
      * set preference option
      *
-     * @param $key string
-     * @param $value mixed
+     * @param  $key  string
+     * @param  $value  mixed
      */
     public function setPreference(string $key, mixed $value): void
     {

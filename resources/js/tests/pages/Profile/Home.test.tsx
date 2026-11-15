@@ -1,7 +1,7 @@
-import {JSX} from 'react';
+import { JSX } from 'react';
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
-import {test, describe, expect} from 'vitest';
+import { test, describe, expect } from 'vitest';
 
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout'
 
@@ -34,7 +34,6 @@ describe('ProfileOverviewHome', () => {
             <ProfileOverviewLayout title="Test Page">
                 <div>Content</div>
             </ProfileOverviewLayout>
-
         )
         expect(screen.getByTestId('title')).toHaveTextContent('Test Page')
         expect(screen.getByTestId('headline')).toBeEmptyDOMElement();

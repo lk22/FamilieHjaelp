@@ -44,7 +44,7 @@ export default function ToggleTodoForm({ id, isCompleted }: ToggleTodoFormProps)
     }
 
     const handleCompleteToggle = () => {
-        console.log({data})
+        console.log({data});
         if (data.isCompleted) {
             setIsPromptOpen(true);
         } else {
@@ -59,7 +59,7 @@ export default function ToggleTodoForm({ id, isCompleted }: ToggleTodoFormProps)
     }
     
     return (
-        <div className="h-full w-[350px] flex items-center justify-center">
+        <div className="h-full w-[150px] flex items-end justify-center">
             <form action="" method="POST" onSubmit={(e) => e.preventDefault()}>
                 <Checkbox 
                     checked={isCompleted} 
@@ -72,7 +72,6 @@ export default function ToggleTodoForm({ id, isCompleted }: ToggleTodoFormProps)
                 <input type="hidden" name="id" value={data.id} />
                 <input type="hidden" name="isCompleted" value={data.isCompleted ? '1' : '0'} />
             </form>
-
             <ToggleTodoDialog
                 isPromptOpen={isPromptOpen}
                 setIsPromptOpen={setIsPromptOpen}

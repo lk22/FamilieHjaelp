@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Todo;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
-
 use Illuminate\Support\Facades\Auth;
 
 class TodoPolicy
@@ -23,8 +22,8 @@ class TodoPolicy
      */
     public function view(User $user, Todo $todo): bool|Response
     {
-        return Auth::check() && $user->id === $todo->user_id ? 
-            Response::allow() : 
+        return Auth::check() && $user->id === $todo->user_id ?
+            Response::allow() :
             Response::deny('You do not own this todo item.', 403);
     }
 
@@ -41,7 +40,7 @@ class TodoPolicy
      */
     public function update(User $user, Todo $todo): bool|Response
     {
-        return Auth::check() && $user->id === $todo->user_id ? 
+        return Auth::check() && $user->id === $todo->user_id ?
             Response::allow() :
             Response::deny('You do not own this todo item.');
     }

@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth/auth-split-layout';
 
-import { useQueryParams } from '@/lib/utils'; 
+import { useQueryParams } from '@/lib/utils';
 
 type RegisterForm = {
     name: string;
@@ -43,17 +43,12 @@ export default function Register() {
     const submit: FormEventHandler = (e: FormEvent) => {
         e.preventDefault();
 
-        // console.log('Submitting registration form with data:', data);
-        console.log(queryParams);
-
         if (queryParams.onboarding_completed) {
             data.onboarding_completed = queryParams.onboarding_completed ? 1 : 0;
         }
         if (queryParams.redirect_to) {
             data.redirect_to = queryParams.redirect_to;
         }
-
-        console.log({data});
 
         post(route('register'), {
             onFinish: () => reset('password', 'password_confirmation'),
@@ -80,7 +75,7 @@ export default function Register() {
                             onChange={(e) => setData('name', e.target.value)}
                             disabled={processing}
                             placeholder="Fulde navn"
-                            className='text-white focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100'
+                            className='text-blue-900 focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100'
                         />
                         <InputError message={errors.name} className="mt-2" />
                     </div>
@@ -97,7 +92,7 @@ export default function Register() {
                             onChange={(e) => setData('email', e.target.value)}
                             disabled={processing}
                             placeholder="email@example.com"
-                            className='text-white focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100'
+                            className='text-blue-900 focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100'
                         />
                         <InputError message={errors.email} />
                     </div>
@@ -114,7 +109,7 @@ export default function Register() {
                             onChange={(e) => setData('password', e.target.value)}
                             disabled={processing}
                             placeholder="Adgangskode"
-                            className='text-white focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100'
+                            className='text-blue-900 focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100'
                         />
                         <InputError message={errors.password} />
                     </div>
@@ -131,7 +126,7 @@ export default function Register() {
                             onChange={(e) => setData('password_confirmation', e.target.value)}
                             disabled={processing}
                             placeholder="Bekræft adgangskode"
-                            className='text-white focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100'
+                            className='text-blue-900 focus:ring-blue-500 focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-100'
                         />
                         <InputError message={errors.password_confirmation} />
                     </div>
@@ -144,7 +139,7 @@ export default function Register() {
 
                 <div className="text-center text-sm text-muted-foreground">
                     Har du allerede en konto?{' '}
-                    <TextLink className="text-white font-bold" href={route('login')} tabIndex={6}>
+                    <TextLink className="text-blue-900 font-bold" href={route('login')} tabIndex={6}>
                         Log in
                     </TextLink>
                 </div>

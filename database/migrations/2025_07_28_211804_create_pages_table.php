@@ -33,7 +33,7 @@ return new class extends Migration
         Schema::table('pages', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
         });
-        
+
         Schema::dropIfExists('pages');
     }
 };

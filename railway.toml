@@ -1,0 +1,3 @@
+[build]
+[variables]
+RAILPACK_INSTALL_CMD = "composer install --optimize-autoloader --no-scripts --no-interaction --ignore-platform-req=ext-pcntl && npm install && npm run build"
