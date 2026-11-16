@@ -13,13 +13,17 @@ return new class extends Migration
     {
         Schema::create('parent_activities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('profile_id')->constrained()->onDelete('cascade');
-            $table->foreignId('child_id')->constrained()->onDelete('cascade');
+            $table->string('locale')->default('da');
             $table->string('title')->default('new activity');
             $table->text('description');
             $table->date('activity_date');
             $table->boolean('is_completed')->default(false);
             $table->timestamps();
+        });
+
+        Schema::table('parent_activities', function(Blueprint $table) {
+            $table->foreignId('family_member_id')->references('id')->on('family_members')->constrained()->onDelete('cascade');
+            $table->foreignId('attached_family_member_id')->references('id')->on('family_members')->constrained()->onDelete('cascade');
         });
     }
 

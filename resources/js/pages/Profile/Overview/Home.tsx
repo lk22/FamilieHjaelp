@@ -153,22 +153,22 @@ const ProfileOverviewHomeContent = ({ todos, pages }: ProfileOverviewHomeProps) 
                             </SwiperSlide>
                             <SwiperSlide>
                                 <div className="swiper-item-container rounded shadow-md p-6 hover:bg-[#00027C]">
-                                    <h3 className="text-xl font-bold text-white mb-2">Læge aftale</h3>
+                                    <h3 className="text-xl font-bold text-white mb-2">Kør Olivia til håndbold</h3>
                                     <div className="divider mt-8">
                                         <span className="text-white">Detaljer</span>
                                     </div>
                                     <p className="text-white">Tid: 10:00 - 11:00</p>
-                                    <p className="text-white">Sted: Lægeklinikken</p>
+                                    <p className="text-white">Sted: Næstved Boldklub</p>
                                 </div>
                             </SwiperSlide>
                             <SwiperSlide>
                                 <div className="swiper-item-container rounded shadow-md p-6 hover:bg-[#00027C]">
-                                    <h3 className="text-xl font-bold text-white mb-2">Læge aftale</h3>
+                                    <h3 className="text-xl font-bold text-white mb-2">Indkøb</h3>
                                     <div className="divider mt-8">
                                         <span className="text-white">Detaljer</span>
                                     </div>
                                     <p className="text-white">Tid: 10:00 - 11:00</p>
-                                    <p className="text-white">Sted: Lægeklinikken</p>
+                                    <p className="text-white">Sted: Bilka</p>
                                 </div>
                             </SwiperSlide>
                             <SwiperSlide>

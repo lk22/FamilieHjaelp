@@ -23,6 +23,9 @@ return new class extends Migration
             $table->integer('age');
             $table->string('email')->unique(); // this is used as unique email that the users is created by
             $table->string('attached_email'); // adds support for using same email for multiple family members
+            $table->integer('notes_count')->default(0);
+            $table->integer('appointments_count')->default(0);
+            $table->integer('activities_count')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

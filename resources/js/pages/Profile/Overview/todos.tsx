@@ -22,8 +22,8 @@ export default function Todos({ todos }: TodosProps) {
     return (
         <ProfileOverviewLayout title="Opgaver">
             <div className="container mx-auto p-6">
-                <h1 className="text-6xl font-bold mb-4 text-blue-900">Ting at huske</h1>
-                <p className="mb-4">Her kan du se alle de opgaver, du skal huske at udføre.</p>
+                <h1 className="text-6xl font-bold mb-4 text-blue-900">Vigitige opgaver</h1>
+                <p className="mb-4">Se alle dine vigtige familie opgaver</p>
                 <div className="flex gap-16">
                     <div className="flex flex-col gap-4">
                         {todos.length > 0 ? (

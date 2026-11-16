@@ -27,12 +27,11 @@ export default function Notes({ notes }: NotesProps) {
     const isMobile = useIsMobile() ? 'hidden' : '';
     const [isCreateNoteDialogOpen, setIsCreateNoteDialogOpen] = useState<boolean>(false);
 
-
     return (
         <ProfileOverviewLayout title="Notater">
              <h1 className="text-4xl font-bold mb-4 text-blue-900">Se alle dine noter</h1>
             <div className="container mx-auto p-8 bg-white/90 backdrop-blur-sm border border-white/20 shadow-lg rounded-lg shadow-blue-500/30">
-               
+
                 <p className="mb-4 text-xl">Her kan du administrere alle dine nuværende noter som din del af din rejse.</p>
                 {flash.success && (
                     <div className="mb-4 p-4 bg-green-100 text-green-800 border border-green-200 rounded">
@@ -49,7 +48,7 @@ export default function Notes({ notes }: NotesProps) {
                         {notes.length > 0 ? (
                             <>
                                 {notes.map((note) => (
-                                    <NoteItem 
+                                    <NoteItem
                                         key={note.id}
                                         id={note.id}
                                         noteContent={note.note_content}
@@ -70,7 +69,7 @@ export default function Notes({ notes }: NotesProps) {
                             >
                                 Opret note
                             </button>
-                            <CreateNoteDialog 
+                            <CreateNoteDialog
                                 isDialogOpen={isCreateNoteDialogOpen}
                                 setIsDialogOpen={setIsCreateNoteDialogOpen}
                             />
