@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use App\Models\Family;
+
 class ProfileOverviewController extends Controller
 {
     /**
@@ -21,12 +23,16 @@ class ProfileOverviewController extends Controller
             return redirect()->route('getting-started');
         }
 
+        $family = Family::where('id', $request->user()->family_id)->with('members', 'children')->first();
+        // dd($family->toArray());
+
         $user = $request->user()->load(['todos', 'pages']);
 
         return Inertia::render('Profile/Overview/Home',
             [
                 'todos' => $user->todos,
                 'pages' => Inertia::defer(fn () => $user->pages),
+                'family' => $family,
             ]
         );
     }

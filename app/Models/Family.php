@@ -18,6 +18,7 @@ class Family extends Model
         'id',
         'name',
         'family_size',
+        'children_count',
         'created_at',
         'updated_at',
         'deleted_at'
