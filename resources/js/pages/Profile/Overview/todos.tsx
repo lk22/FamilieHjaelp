@@ -3,8 +3,6 @@ import {Link} from '@inertiajs/react';
 
 import TodoItem from '@/components/TodoItem';
 
-import {useIsMobile} from '@/hooks/use-mobile';
-
 type TodoItem = {
     id: number;
     title: string;
@@ -20,7 +18,6 @@ interface TodosProps {
 // TODO: add link to add the first appointment todo if the assignment_completed_count is 0
 // TODO: add link to add new appointment if assignment_completed_count is greater than 0
 export default function Todos({ todos }: TodosProps) {
-    const isMobile = useIsMobile() ? 'hidden' : '';
 
     return (
         <ProfileOverviewLayout title="Opgaver">

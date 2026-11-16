@@ -1,7 +1,8 @@
 // Libraries
 import {JSX} from 'react';
-import { usePage, Link, Deferred } from '@inertiajs/react';
-import { type SharedData } from '@/types';
+// import { usePage, Link, Deferred } from '@inertiajs/react';
+// import { type SharedData } from '@/types';
+import {Link, Deferred} from '@inertiajs/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 
@@ -9,7 +10,7 @@ import 'swiper/swiper-bundle.css';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 
 // utilities
-import { HandleSwiperSlidesPerView } from '@/lib/SwiperSlidesPerViewUtil';
+// import { HandleSwiperSlidesPerView } from '@/lib/SwiperSlidesPerViewUtil';
 
 // hooks
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -21,7 +22,7 @@ import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 import InformationSlide from '@/components/Onboarding/InformationSlide';
 
 import { Key } from 'react';
-import { RouteParams } from 'vendor/tightenco/ziggy/src/js';
+import {RouteParams} from 'vendor/tightenco/ziggy/src/js';
 import TodoListSection from '@/components/Profile/Home/TodoList';
 
 interface PageSlideProperty {
@@ -58,7 +59,7 @@ interface ProfileOverviewHomeProps {
 }
 
 const ProfileOverviewHomeContent = ({ todos, pages }: ProfileOverviewHomeProps) => {
-    const { auth } = usePage<SharedData>().props;
+    // const { auth } = usePage<SharedData>().props;
     const isMobile = useIsMobile();
     const Todos = Array.isArray(todos) ? todos : [];
 

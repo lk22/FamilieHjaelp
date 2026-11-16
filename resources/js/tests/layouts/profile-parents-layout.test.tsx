@@ -2,8 +2,6 @@ import {JSX} from 'react';
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import {test, describe, expect} from 'vitest';
-import { usePage } from '@inertiajs/react';
-import { type SharedData } from '@/types';
 
 import ProfileParentsOverviewLayout from '@/layouts/profile/profile-parents-layout'
 
@@ -20,8 +18,8 @@ vi.mock('inertiajs/react', async () => {
                 auth: {
                     user: {
                         id: 1,
-                        name: 'Test User',
-                        email: 'test@user.com',
+                        name: 'John Doe',
+                        email: 'jonh@doe.com',
                         todos: [],
                         pages: [],
                     },
@@ -67,7 +65,6 @@ vi.mock('@/layouts/profile/profile-parents-layout', () => ({
 }));
 
 describe('ProfileParentsOverviewLayout', () => {
-    const {auth} = usePage<SharedData>().props;
 
     const mockProps: TestProfileParentsOverviewLayoutProps = {
         children: <div>Test Child</div>,
@@ -102,13 +99,13 @@ describe('ProfileParentsOverviewLayout', () => {
 
     test('it renders the user name in the default headline when no headline prop is provided', () => {
         render(
-            <ProfileParentsOverviewLayout headline={`Velkommen ${auth.user.name}`} title="Test Page">
+            <ProfileParentsOverviewLayout headline={`Velkommen John Doe`} title="Test Page">
                 <div>Content</div>
             </ProfileParentsOverviewLayout>
         );
 
         const headline = screen.getByTestId('headline');
         expect(headline).toBeInTheDocument();
-        expect(headline).toHaveTextContent(`Velkommen ${auth.user.name}`);
+        expect(headline).toHaveTextContent(`Velkommen John Doe`);
     })
 })

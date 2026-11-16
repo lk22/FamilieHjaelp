@@ -57,7 +57,7 @@ const stepDefinitions = [
 type StepKey = typeof stepDefinitions[number]['key'];
 
 export default function OnboardingCompleted() {
-    const { auth, onboardingSessionToken, stepsData, isCompleted } = usePage<SharedData & { onboardingSessionToken?: string | null; isCompleted: boolean }>().props;
+    const { auth, onboardingSessionToken, stepsData } = usePage<SharedData & { onboardingSessionToken?: string | null;}>().props;
     console.log(onboardingSessionToken)
     const [progressCompleted, setProgressCompleted] = useState<boolean>(false)
     const [, setProgress] = useState<number>(0);
@@ -65,7 +65,6 @@ export default function OnboardingCompleted() {
     const [responseError, setResponseError] = useState<string | null>(null);
 
     const [stepData] = useState<Record<string, any>>(stepsData ?? null);
-    // TODO step five redirect the user to the app platform
 
     const [statuses, setStatuses] = useState<Record<StepKey, StepStatus>>(
         Object.fromEntries(stepDefinitions.map(s => [s.key, 'pending'])) as Record<StepKey, StepStatus>
