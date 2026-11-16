@@ -1,4 +1,5 @@
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
+import {Link} from '@inertiajs/react';
 
 import TodoItem from '@/components/TodoItem';
 
@@ -16,6 +17,8 @@ interface TodosProps {
     todos: TodoItem[];
 }
 
+// TODO: add link to add the first appointment todo if the assignment_completed_count is 0
+// TODO: add link to add new appointment if assignment_completed_count is greater than 0
 export default function Todos({ todos }: TodosProps) {
     const isMobile = useIsMobile() ? 'hidden' : '';
 
@@ -25,7 +28,6 @@ export default function Todos({ todos }: TodosProps) {
                 <h1 className="text-6xl font-bold mb-4 text-blue-900">Ting at huske</h1>
                 <p className="mb-4">Her kan du se alle de opgaver, du skal huske at udføre.</p>
                 <div className="flex gap-16">
-                    <img src="/images/tasks_graphics.svg" alt="tasks" className={`my-4 w-7/12 ${isMobile}`} />
                     <div className="flex flex-col gap-4">
                         {todos.length > 0 ? (
                             <>
@@ -41,7 +43,12 @@ export default function Todos({ todos }: TodosProps) {
                                 ))}
                             </>
                         ) : (
-                            <p className="text-gray-500">Du har ingen opgaver endnu.</p>
+                            <>
+                                <p className="text-gray-500">Du har ingen opgaver endnu.</p>
+                                <Link href="#" className="text-blue-900 hover:underline">
+                                    Opret din første opgaver
+                                </Link>
+                            </>
                         )}
                     </div>
                 </div>

@@ -16,7 +16,6 @@ use App\Contracts\OnboardingServiceContract;
 
 use App\Models\Family;
 use App\Models\FamilyMember;
-use App\Models\FamilyChildren;
 
 class CompleteOnboardingController extends Controller
 {
@@ -44,58 +43,6 @@ class CompleteOnboardingController extends Controller
             'code' => 200,
             'message' => 'Onboarding process completed successfully',
         ], 200);
-
-        // $user = $request->user();
-        // $steps = $request->input('steps', []);
-        // $completedSteps = $request->input('completed_steps', []);
-        // $pregnancy_week = $request->input('steps.4.data.stepFive.pregnancy_week_number', null);
-        // $situation_date = $request->input('steps.3.data.stepFour.situation_date');
-
-        // if (! $user) {
-        //     return response()->json([
-        //         'message' => 'Unauthorized, please log in to complete onboarding.',
-        //     ], 401);
-        // }
-
-        // foreach ($steps as $step) {
-        //     $isCompleted = $step['progress']['completed'] ?? false;
-        //     $stepName = $step['name'] ?? 'unknown';
-
-        //     // if the step is not completed and it is in the completed steps, return an error
-        //     if (in_array($stepName, $completedSteps) && ! $isCompleted) {
-        //         return response()->json([
-        //             'message' => 'Onboarding incomplete, please complete all steps.',
-        //             'missing_step' => $stepName,
-        //         ]);
-        //     }
-        // }
-
-        // $todos = $user->todos()->get();
-        // $pages = $user->pages()->get();
-
-        // // If todos or pages already exist, return a message indicating that onboarding is already completed
-        // if (! $todos->isEmpty() || ! $pages->isEmpty()) {
-        //     return response()->json([
-        //         'message' => 'Onboarding already completed.',
-        //         'todos' => $todos,
-        //         'pages' => $pages,
-        //     ]);
-        // }
-
-        // if ($todos->isEmpty() || $pages->isEmpty()) {
-        //     return response()->json([
-        //         'message' => 'Onboarding incomplete, something went wrong.',
-        //         'todos' => $todos,
-        //         'pages' => $pages,
-        //     ])->setStatusCode(400, 'Onboarding incomplete.')->withHeaders([
-        //         'Content-Type' => 'application/json',
-        //         'Cache-Control' => 'no-cache, no-store, must-revalidate',
-        //     ]);
-        // }
-
-        // return response()->json([
-        //     'message' => 'Onboarding completed successfully.',
-        // ]);
     }
 
     /**

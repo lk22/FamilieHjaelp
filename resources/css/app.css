@@ -372,3 +372,25 @@ select {
         @apply font-semibold;
     }
 }
+
+.swiper .swiper-wrapper .swiper-slide.swiper-slide-next .swiper-item-container {
+    @apply bg-[#6C63FF];
+}
+
+.swiper .swiper-wrapper .swiper-slide .swiper-item-container {
+    @apply bg-[#FF658460];
+}
+
+.swiper .swiper-wrapper .swiper-slide.swiper-slide-active .swiper-item-container {
+    @apply bg-blue-900;
+}
+
+.swiper {
+    .swiper-wrapper {
+        .swiper.slide {
+            &.swiper-slide-active {
+                @apply border-2 border-blue-900;
+            }
+        }
+    }
+}

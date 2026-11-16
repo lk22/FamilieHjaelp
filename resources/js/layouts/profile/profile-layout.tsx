@@ -12,10 +12,10 @@ interface ProfileOverviewLayoutProps {
     headline?: string | JSX.Element;
 }
 
-export default function ProfileOverviewLayout({ 
-    children, 
+export default function ProfileOverviewLayout({
+    children,
     title,
-    headline 
+    headline
 }: ProfileOverviewLayoutProps) {
     const { auth } = usePage<SharedData>().props;
 
@@ -30,10 +30,10 @@ export default function ProfileOverviewLayout({
 
     const handlePageTitle = (): JSX.Element => {
         if (headline) {
-            return <h1 className="text-5xl font-bold mb-4 text-blue-900 pb-2 mx-16">{headline}</h1>;
+            return <h1 className="text-3xl font-bold mb-4 text-blue-900 pb-2 mx-16">{headline}</h1>;
         }
-        
-        return <h1 className="text-5xl mx-16 font-bold mb-4 text-blue-900">Velkommen {auth.user.name}</h1>;
+
+        return <h1 className="text-3xl mx-16 font-bold mb-4 text-blue-900">Velkommen {auth.user.name}</h1>;
     }
 
     return (
@@ -44,7 +44,7 @@ export default function ProfileOverviewLayout({
                     <div className="logo">
                         <Link href={route('profile.home')} className="flex items-center gap-2">
                             <img src="/images/logo.svg" alt="Familiehjælp Logo" className="h-8" />
-                            <span className="text-xl font-bold">Familiehjælp</span>
+                            <span className="text-xl font-bold">Velkommen {auth.user.name}</span>
                         </Link>
                     </div>
                     {
@@ -56,8 +56,8 @@ export default function ProfileOverviewLayout({
                     }
                     <nav className="flex space-x-4">
                         <ProfileMainMenu setIsLoggingOutDialog={setIsLoggingOutDialog} />
-                        <LogoutDialog 
-                            isLoggingOut={isLoggingOutDialog} 
+                        <LogoutDialog
+                            isLoggingOut={isLoggingOutDialog}
                             setIsLoggingOutDialog={setIsLoggingOutDialog}
                             handleLogout={handleLogout}
                         />
