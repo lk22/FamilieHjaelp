@@ -32,6 +32,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('parent_activities', function(Blueprint $table) {
+            $table->dropForeign(['family_member_id']);
+            $table->dropForeign(['attached_family_member_id']);
+        });
         Schema::dropIfExists('parent_activities');
     }
 };
