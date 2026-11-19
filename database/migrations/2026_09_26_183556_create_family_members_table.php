@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
             $table->boolean('has_account')->default(false);
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
             $table->string('family_role');
             $table->integer('age');

@@ -19,7 +19,7 @@ class FamilyMemberFactory extends Factory
     {
         return [
             'family_id' => rand(1, 10),
-            'has_account' => rand(0, 1) === 1,
+            'has_account' => 1,
             'user_id' => rand(1, 10),
             'name' => fake()->name(),
             'family_role' => fake()->randomElement(['Far', 'Mor', 'Søn', 'Datter']),

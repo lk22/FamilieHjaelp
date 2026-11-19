@@ -19,7 +19,7 @@ export default function TodoListSection({todos}: TodoListProps) {
 
     return (
         <>
-            <section className="relative mx-16 bottom-12">
+            <section className="relative mx-16 mt-4 bottom-0">
                 <Deferred data="todos" fallback={<TodosFallbackComponent />}>
                     <div className={`home-tasks-overview my-8 flex flex-col`}>
                         {
