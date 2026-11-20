@@ -9,6 +9,11 @@ import {
 
 import { useForm } from '@inertiajs/react';
 
+import { useState } from 'react';
+
+import { createEditor } from 'slate';
+import {Slate, Editable, withReact } from 'slate-react';
+
 interface UpdateNoteDialogProps {
   isDialogOpen: boolean;
   setIsDialogOpen: (isOpen: boolean) => void;
@@ -35,6 +40,8 @@ export function UpdateNoteDialog({ isDialogOpen, setIsDialogOpen, note }: Update
     created_at: note.created_at,
     updated_at: note.updated_at
   });
+
+  const [editor] = useState(() => withReact(createEditor()));
 
   const handleUpdateNote = () => {
     form.setData('updated_at', new Date().toISOString());
@@ -71,10 +78,10 @@ export function UpdateNoteDialog({ isDialogOpen, setIsDialogOpen, note }: Update
             <textarea
               value={form.data.note_content}
               onChange={(e) => form.setData('note_content', e.target.value)}
-              placeholder="Note Indhold"
-              rows={8}
-              className="w-full p-2 border border-gray-300 rounded-md mb-4 min-h-[100px]"
+              placeholder="Note Content"
+              className="w-full p-2 border border-gray-300 rounded-md mb-4"
             />
+
           </form>
           <DialogFooter>
             <button

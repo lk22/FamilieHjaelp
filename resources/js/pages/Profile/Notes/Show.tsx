@@ -39,7 +39,6 @@ export default function Show({ note, familyMember }: ShowNoteProps) {
                 </p>
               </section>
               <section className="mt-8 bg-white p-6 rounded-xl shadow-md">
-                <h2 className="text-2xl text-blue-800 font-bold mb-2 md:mb-2">Notens indhold</h2>
                 <p className="text-base text-blue-900 md:text-lg leading-relaxed max-w-2xl">
                     {note.note_content}
                 </p>
