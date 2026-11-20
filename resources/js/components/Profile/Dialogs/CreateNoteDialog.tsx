@@ -32,11 +32,13 @@ export function CreateNoteDialog({
         noteContent: string;
         user_id: number;
         created_at: string;
+        type: string;
         child_id: number | null;
     }>({
         noteContent: '',
         user_id: auth.user.id,
         child_id: null,
+        type: 'general',
         created_at: new Date().toISOString(),
     });
 
@@ -73,7 +75,7 @@ export function CreateNoteDialog({
                     <DialogDescription className="mt-4">
                         <p className="text-blue-900">Opret en note ved at udfylde formularen nedenfor</p>
                         <textarea
-                            className="w-full h-40 mt-4 p-2 border border-gray-300 rounded placeholder-black text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                            className="w-full h-35 mt-4 p-2 border border-gray-300 rounded placeholder-black text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                             value={data.noteContent}
                             onChange={(e) => handleNoteContentChange(e)}
                             placeholder="Skriv din note her..."
@@ -84,16 +86,33 @@ export function CreateNoteDialog({
                         {errors.noteContent && (
                             <p className="text-red-500 text-sm mt-2">{errors.noteContent}</p>
                         )}
+                        <div className="mt-4">
+                            <label htmlFor="note-type" className="block text-sm font-medium text-blue-900">
+                                Note Type
+                            </label>
+                            <select
+                                id="note-type"
+                                className="mt-1 block w-full p-2 border border-gray-300 rounded text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                value={data.type}
+                                onChange={(e) => setData('type', e.target.value)}
+                            >
+                                <option value="general">Generel</option>
+                                <option value="health">Sundhed</option>
+                            </select>
+                            {errors.type && (
+                                <p className="text-red-500 text-sm mt-2">{errors.type}</p>
+                            )}
+                        </div>
                     </DialogDescription>
                     <DialogFooter className="mt-4 flex justify-end gap-2">
-                        <button 
-                            type="button" 
-                            className="cursor-pointer text-white bg-gray-500 px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-200 ease-in-out" 
+                        <button
+                            type="button"
+                            className="cursor-pointer text-white bg-gray-500 px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-200 ease-in-out"
                             onClick={() => setIsDialogOpen(false)}
                         >
                             Annuller
                         </button>
-                        <button 
+                        <button
                             type="submit"
                             className="cursor-pointer text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200 ease-in-out disabled:opacity-50"
                             disabled={processing || !data.noteContent.trim()}

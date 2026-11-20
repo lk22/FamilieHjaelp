@@ -11,8 +11,8 @@ class ProfileDashboardTest extends TestCase
 
   public function test_profile_dashboard_can_be_rendered()
   {
-      $response = $this->get(route('profile.dashboard'));
-
+      $this->actingAs(\App\Models\User::factory()->create());
+      $response = $this->get(route('profile.home'));
       $response->assertStatus(200);
   }
 }

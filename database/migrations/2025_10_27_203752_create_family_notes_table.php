@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('family_member_id')->nullable();
+            $table->boolean('is_important')->default(false);
             $table->string('title')->default('new note');
             $table->text('note_content');
             $table->string('locale')->default('da');

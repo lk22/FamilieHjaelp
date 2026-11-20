@@ -16,15 +16,21 @@ class DatabaseSeeder extends Seeder
      * and children for each family.
      */
     public function run(): void {
-
+        $startTime = microtime(true);
+        $this->renderFamilieHjaelpTerminalLogo();
         // make sure we are not in production before seeding
         if (app()->environment('production')) {
             die("You are in production mode, you cannot seed the database");
         }
 
+        echo "Disabling foreing key checks in the database";
+
         // Disable foreign key checks to allow truncating and seeding tables without constraint issues
         $this->disableForeignKeyChecks();
 
+        echo "\n\nForeign key checks disabled";
+
+        echo "\n\n Creating Demo family";
         $family = \App\Models\Family::factory()->create(
             [
                 'name' => 'Laursen Knudsen',
@@ -36,6 +42,9 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        echo "\n\nSeeding Family members";
+        echo "\n--------------------------------------------------------";
+
         $mainParentUser = \App\Models\User::factory()->create([
             'email' => 'leoknudsen30@example.com',
             'password' => bcrypt('password'),
@@ -45,6 +54,7 @@ class DatabaseSeeder extends Seeder
             'family_child_id' => null,
             'is_admin' => false
         ]);
+        echo "\n Parent " . $mainParentUser->name . " created in family " . $family->name;
 
         $partnerUser = \App\Models\User::factory()->create([
             'email' => 'partner@familiehjælp.com',
@@ -56,6 +66,8 @@ class DatabaseSeeder extends Seeder
             'family_child_id' => null,
             'is_admin' => false
         ]);
+
+        echo "\n Partner " . $partnerUser->name . " created in family " . $family->name;
 
         $family->members()->createMany([
             [
@@ -84,6 +96,8 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        echo "\n Creating Demo child";
+
         $child = $family->children()->create([
             'family_id' => $family->id,
             'name' => 'Olivia Laursen Knudsen.',
@@ -99,15 +113,25 @@ class DatabaseSeeder extends Seeder
             'deleted_at' => null
         ]);
 
+        echo "\n Demo child " . $child->name . " created in family " . $family->name;
+
         $families = \App\Models\Family::factory(10)->create();
+        echo "\n-------------------------------------------------------------";
+        echo "\n Creating additional demo families";
+        echo "\n-------------------------------------------------------------";
 
         foreach ($families as $family) {
+            echo "\n\nSeeding family " . $family->name;
+            echo "\n\nSeeding family members for " . $family->name;
             \App\Models\FamilyMember::factory(rand(1, 2))->create([
                 'name' => fake()->name(),
                 'family_id' => $family->id
             ]);
 
+            echo "\n Created " . count($family->members) . " family members for " . $family->name;
+
             foreach ($family->members as $member) {
+                echo "\n Creating user for family member " . $member->name;
                 \App\Models\User::factory()->create([
                     'email' => $member->email,
                     'password' => bcrypt('password'),
@@ -118,11 +142,14 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
 
+            echo "\n\nSeeding children for " . $family->name;
+
             \App\Models\FamilyChild::factory(rand(1,5))->create([
                 'family_id' => $family->id
             ]);
 
             foreach ($family->children as $child) {
+                echo "\n Creating user for child " . $child->name;
                 if ( $child->needs_user_access || ($child->needs_user_access && $child->use_attached_parent_email ) ) {
                     \App\Models\User::factory()->create([
                         'email' => $child->attached_parent_email ?? $child->child_email,
@@ -134,7 +161,12 @@ class DatabaseSeeder extends Seeder
                     ]);
                 }
             }
+            echo "\n Finished seeding family " . $family->name;
+            echo "\n--------------------------------------------------------";
         }
+
+        echo "\n\n Demo data seeded successfully";
+        echo "Data seeding took: " . (microtime(true) - $startTime) . " seconds";
     }
 
     /**
@@ -147,5 +179,25 @@ class DatabaseSeeder extends Seeder
         DB::statement('TRUNCATE TABLE family_members RESTART IDENTITY CASCADE');
         DB::statement('TRUNCATE TABLE family_children RESTART IDENTITY CASCADE');
         DB::statement('TRUNCATE TABLE users RESTART IDENTITY CASCADE');
+    }
+
+    private function renderFamilieHjaelpTerminalLogo(): void {
+        $logoPath = base_path('public/images/logo.svg');
+
+        // Create a text-based representation inspired by the SVG logo
+        $logo = <<<'ASCII'
+
+    ╔═══════════════════════════════════════════════════════════════════════════╗
+    ║                                                                           ║
+    ║                          FamilieHjælp                                     ║
+    ║                                                                           ║
+    ║                      Seeding Database Families                            ║
+    ║                                                                           ║
+    ║                      Brought to life with care                            ║
+    ║                                                                           ║
+    ╚═══════════════════════════════════════════════════════════════════════════╝
+
+    ASCII;
+        echo $logo . "\n";
     }
 }

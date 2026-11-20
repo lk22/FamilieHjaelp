@@ -1,9 +1,7 @@
 // Libraries
-import {JSX} from 'react';
 // import { usePage, Link, Deferred } from '@inertiajs/react';
 // import { type SharedData } from '@/types';
 import {Link, Deferred} from '@inertiajs/react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 
 // Contexts & Providers
@@ -12,30 +10,8 @@ import { OnboardingProvider } from '@/contexts/OnboardingContext';
 // utilities
 // import { HandleSwiperSlidesPerView } from '@/lib/SwiperSlidesPerViewUtil';
 
-// hooks
-import { useIsMobile } from '@/hooks/use-mobile';
-
 // Layout
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
-
-// Components
-import InformationSlide from '@/components/Onboarding/InformationSlide';
-
-import { Key } from 'react';
-import {RouteParams} from 'vendor/tightenco/ziggy/src/js';
-import TodoListSection from '@/components/Profile/Home/TodoList';
-
-interface PageSlideProperty {
-    title: string;
-    slug: RouteParams<'profile.info.page'> | undefined;
-    description: string;
-    backgroundColor: string;
-}
-
-type PageIndex = {
-    index: number;
-    key: Key | null | undefined
-}
 
 interface Todo {
     id: number;
@@ -43,14 +19,6 @@ interface Todo {
     description: string;
     completed: boolean;
     due_date?: string;
-}
-
-interface Page {
-    id: number;
-    title: string;
-    slug: RouteParams<'profile.info.page'> | undefined;
-    description: string;
-    backgroundColor: string;
 }
 
 interface IFamily {
@@ -83,17 +51,14 @@ interface IFamilyChildren {
 interface ProfileOverviewHomeProps {
     todos: Todo[];
     family: IFamily;
-    pages: Page[];
 }
 
 const ProfileOverviewHomeContent = ({
     todos,
-    pages,
     family
 }: ProfileOverviewHomeProps) => {
-    const Todos = Array.isArray(todos) ? todos : [];
-
     const FamilyMembers = Array.isArray(family.members) ? family.members : [];
+    const todosCount = Array.isArray(todos) ? todos.length : 0;
 
     // TODO: when selecting a member update the state or perform an action based on the selected member
     const handleChangeFamilyMember = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -130,9 +95,7 @@ const ProfileOverviewHomeContent = ({
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 px-8">
                         {/* Notes Card */}
                         <a
-                            href="https://familierogsorg.dk/"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href={route('profile.notes.index')}
                             className="group block bg-gradient-to-br from-pink-500 to-rose-300 rounded-xl shadow-md transition-colors duration-200 hover:from-pink-600 hover:to-rose-400"
                         >
                             <div className="p-6 flex flex-col justify-between h-full">
@@ -181,7 +144,7 @@ const ProfileOverviewHomeContent = ({
                         >
                             <div className="p-6 flex flex-col justify-between h-full">
                                 <div className="mb-4">
-                                    <h2 className="text-xl font-semibold mb-2 text-white">Du har 15 aftaler i kalenderen</h2>
+                                    <h2 className="text-xl font-semibold mb-2 text-white">Du har {todosCount ?? '15'} aftaler i kalenderen</h2>
                                     <p className="mb-4 text-sm leading-relaxed text-white/90 group-hover:text-white transition-colors">
                                         Følg dine kommende aftaler i kalenderen.
                                     </p>
@@ -219,15 +182,15 @@ const ProfileOverviewHomeContent = ({
                 {/* Todo List Section */}
                 {/* <TodoListSection todos={Todos} /> */}
                 {/* Today's Schedule */}
-                <section>
+                <section className="bg-white rounded-xl shadow-md py-12 px-12 mb-4 border-2 border-blue-200">
                     <div className="flex justify-between">
                         <div className="w-6/12">
-                            <h2 className="text-xl text-blue-800 font-bold px-16">15/11-2026</h2>
-                            <p className="mb-6 text-md font-semibold text-blue-800 leading-relaxed px-16">
+                            <h2 className="text-xl text-blue-800 font-bold">15/11-2026</h2>
+                            <p className="mb-6 text-md font-semibold text-blue-800 leading-relaxed">
                                 Dagens vigtige aftaler:
                             </p>
                         </div>
-                        <div className="w-6/12 me-16 flex items-center justify-end">
+                        <div className="w-6/12 flex items-center justify-end">
                             <Link href="#" className="ms-8 inline-flex items-center px-3 py-1.5 bg-blue-900 backdrop-blur-sm rounded-md font-semibold text-white text-sm group-hover:bg-blue-950 transition-colors duration-200 float-right">
                                 Se kalender →
                             </Link>
@@ -237,57 +200,39 @@ const ProfileOverviewHomeContent = ({
                         data="pages"
                         fallback={<PagesFallbackComponent />}
                     >
-                        <div className="px-16 grid grid-cols-1 gap-4 mb-4">
-                            <div className="rounded-xl mb-3 shadow-md p-6 bg-gradient-to-br from-gray-800 to-blue-950 group hover:from-gray-900 hover:to-blue-950 transition-colors duration-200">
-                                <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-100 transition-colors">Læge aftale</h3>
+                        <div className="grid grid-cols-1 gap-4 mb-4">
+                            <div className="rounded-xl mb-3 shadow-md p-6 bg-gradient-to-br from-blue-800 to-blue-950 group hover:from-gray-900 hover:to-blue-950 transition-colors duration-200">
+                                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-100 transition-colors">Læge aftale</h3>
                                 <div className="divider mt-6">
                                     <span className="text-gray-300">Detaljer</span>
                                 </div>
                                 <p className="mt-2 text-gray-200">Tid: 10:00 - 11:00</p>
                                 <p className="text-gray-200">Sted: Lægeklinikken</p>
                             </div>
-                            <div className="rounded-xl mb-3 shadow-md p-6 bg-gradient-to-br from-gray-800 to-blue-950 group hover:from-gray-900 hover:to-blue-950 transition-colors duration-200">
-                                <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-100 transition-colors">Læge aftale</h3>
+                            <div className="rounded-xl mb-3 shadow-md p-6 bg-gradient-to-br from-blue-800 to-blue-950 group hover:from-gray-900 hover:to-blue-950 transition-colors duration-200">
+                                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-100 transition-colors">Læge aftale</h3>
                                 <div className="divider mt-6">
                                     <span className="text-gray-300">Detaljer</span>
                                 </div>
                                 <p className="mt-2 text-gray-200">Tid: 10:00 - 11:00</p>
                                 <p className="text-gray-200">Sted: Lægeklinikken</p>
                             </div>
-                            <div className="rounded-xl mb-3 shadow-md p-6 bg-gradient-to-br from-gray-800 to-blue-950 group hover:from-gray-900 hover:to-blue-950 transition-colors duration-200">
-                                <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-100 transition-colors">Læge aftale</h3>
+                            <div className="rounded-xl mb-3 shadow-md p-6 bg-gradient-to-br from-blue-800 to-blue-950 group hover:from-gray-900 hover:to-blue-950 transition-colors duration-200">
+                                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-100 transition-colors">Læge aftale</h3>
                                 <div className="divider mt-6">
                                     <span className="text-gray-300">Detaljer</span>
                                 </div>
                                 <p className="mt-2 text-gray-200">Tid: 10:00 - 11:00</p>
                                 <p className="text-gray-200">Sted: Lægeklinikken</p>
                             </div>
-                            <div className="rounded-xl mb-3 shadow-md p-6 bg-gradient-to-br from-gray-800 to-blue-950 group hover:from-gray-900 hover:to-blue-950 transition-colors duration-200">
-                                <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-100 transition-colors">Læge aftale</h3>
+                            <div className="rounded-xl mb-3 shadow-md p-6 bg-gradient-to-br from-blue-800 to-blue-950 group hover:from-gray-900 hover:to-blue-950 transition-colors duration-200">
+                                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-100 transition-colors">Læge aftale</h3>
                                 <div className="divider mt-6">
                                     <span className="text-gray-300">Detaljer</span>
                                 </div>
                                 <p className="mt-2 text-gray-200">Tid: 10:00 - 11:00</p>
                                 <p className="text-gray-200">Sted: Lægeklinikken</p>
                             </div>
-                            {/* <Swiper spaceBetween={25} slidesPerView={2.5} className="mySwiper px-40 mb-20">
-                                {(Array.isArray(pages) ? pages : []).map(
-                                    (
-                                        page: PageSlideProperty,
-                                        index: PageIndex['index'],
-                                    ): JSX.Element => (
-                                        <SwiperSlide key={index}>
-                                            <InformationSlide
-                                                title={page.title}
-                                                link={route('profile.info.page', page.slug)}
-                                                description={page.description}
-                                                backgroundColor='#00027C'
-                                            />
-
-                                        </SwiperSlide>
-                                    )
-                                )}
-                            </Swiper> */}
                         </div>
                     </Deferred>
                 </section>
@@ -298,7 +243,6 @@ const ProfileOverviewHomeContent = ({
     );
 }
 
-
 const PagesFallbackComponent = () => {
     return (
         <div className="text-center text-white">Indlæser sider...</div>
@@ -308,18 +252,12 @@ const PagesFallbackComponent = () => {
 export default function ProfileOverviewHome({
     family,
     todos,
-    pages
 }: ProfileOverviewHomeProps) {
-    console.log(family)
-    console.log(family.children)
     return (
         <OnboardingProvider>
             <ProfileOverviewHomeContent
                 family={family}
-                familyMembers={family.members}
-                children={family.children}
                 todos={todos}
-                pages={pages}
             />
         </OnboardingProvider>
     );

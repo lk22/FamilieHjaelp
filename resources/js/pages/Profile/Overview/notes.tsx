@@ -20,15 +20,18 @@ interface FlashMessageProperties {
 
 interface NotesProps {
     notes: NoteItem[];
+    family: {
+        name: string;
+    }
 }
 
-export default function Notes({ notes }: NotesProps) {
+export default function Notes({ family, notes }: NotesProps) {
     const { flash } = usePage<{flash: FlashMessageProperties}>().props;
     const isMobile = useIsMobile() ? 'hidden' : '';
     const [isCreateNoteDialogOpen, setIsCreateNoteDialogOpen] = useState<boolean>(false);
 
     return (
-        <ProfileOverviewLayout title="Notater">
+        <ProfileOverviewLayout title={`${family.name} - Notater`}>
              <h1 className="text-4xl font-bold mb-4 text-blue-900">Se alle dine noter</h1>
             <div className="container mx-auto p-8 bg-white/90 backdrop-blur-sm border border-white/20 shadow-lg rounded-lg shadow-blue-500/30">
 

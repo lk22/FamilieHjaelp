@@ -17,13 +17,20 @@ class Note extends Model
     protected $fillable = [
         'user_id',
         'family_member_id',
+        'is_important',
+        'title',
         'note_content',
+        'locale',
+        'type',
         'created_at',
     ];
 
     protected $casts = [
+        'is_important' => 'boolean',
         'note_content' => 'string',
         'created_at' => 'datetime',
+        'locale' => 'string',
+        'type' => 'string',
     ];
 
     protected $dates = [
@@ -41,7 +48,22 @@ class Note extends Model
      */
     public function getRouteKeyName(): string
     {
-        return 'id';
+        return 'slug';
+    }
+
+    public function getGeneralNotes(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->where('type', 'general')->get();
+    }
+
+    public function getHealthNotes(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->where('type', 'health')->get();
+    }
+
+    public function getImportantNotes(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->where('is_important', true)->get();
     }
 
     /**
