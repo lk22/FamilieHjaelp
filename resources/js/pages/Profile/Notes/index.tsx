@@ -5,6 +5,8 @@ import {CreateNoteDialog} from '@/components/Profile/Dialogs/CreateNoteDialog';
 
 import { FaArrowRightLong } from "react-icons/fa6";
 
+import { Link } from '@inertiajs/react';
+
 type Note = {
   id: number;
   title: string;
@@ -34,67 +36,215 @@ export default function ProfileNotesIndex({notes}: NoteListProps) {
                     Her kan du få et hurtigt overblik over familiens noter.
                 </p>
               </section>
-              <section className="mt-4 min-h-65 md:px-16 md:py-12 flex flex-col md:flex-col gap-4 pb-20">
-                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-4">
-                  <div className="flex">
-                    <div className="note-information">
-                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
-                      <div className="note-type">
-                        Sundheds note
+              <section className="mt-4 min-h-65 md:px-16 md:py-12 pb-20">
+                <h3 className="text-3xl font-bold mb-4">Generelle noter</h3>
+                <p className="mb-4 text-gray-700">Her finder du alle generelle noter, der ikke er knyttet til specifikke aftaler.</p>
+                <div className="grid grid-cols-2 gap-4">
+                <Link href={route('profile.notes.show', { slug: 'magnus-laegeaftale-28-12-2026' })}>
+                  <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-6">
+                    <div className="flex justify-between">
+                      <div className="note-title">
+                        <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
                       </div>
-                      <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
+                      <div className="note-icon">
+                        <FaArrowRightLong className="inline -ml-px"/>
+                      </div>
+                    </div>
+                    <div className="note-type">
+                      Sundheds note
+                    </div>
+                    <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
+                  </div>
+                </Link>
+                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
                     </div>
                   </div>
-                </div>
-                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-4">
-                  <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
                   <div className="note-type">
                     Sundheds note
                   </div>
                   <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
                 </div>
-                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-4">
-                  <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
                   <div className="note-type">
                     Sundheds note
                   </div>
                   <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
                 </div>
-                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-4">
-                  <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
                   <div className="note-type">
                     Sundheds note
                   </div>
                   <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
                 </div>
-                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-4">
-                  <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
                   <div className="note-type">
                     Sundheds note
                   </div>
                   <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
                 </div>
-                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-4">
-                  <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
                   <div className="note-type">
                     Sundheds note
                   </div>
                   <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
                 </div>
-                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-4">
-                  <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                </div>
+              </section>
+              <section className="mt-4 min-h-65 md:px-16 md:py-12 gap-4 pb-20">
+                <h3 className="text-3xl font-bold mb-4">Sundheds noter</h3>
+                <p className="mb-4 text-gray-700">Her finder du alle sundheds noter, der ikke er knyttet til specifikke aftaler.</p>
+                <div className="grid grid-cols-2 gap-4">
+                <div className="note-item note-item-status-pending bg-red-200 hover:bg-red-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
                   <div className="note-type">
                     Sundheds note
                   </div>
                   <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
                 </div>
-                <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-4">
-                  <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                <div className="note-item note-item-status-pending bg-red-200 hover:bg-red-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
                   <div className="note-type">
                     Sundheds note
                   </div>
                   <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
                 </div>
+                <div className="note-item note-item-status-pending bg-red-200 hover:bg-red-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
+                  <div className="note-type">
+                    Sundheds note
+                  </div>
+                  <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
+                </div>
+                <div className="note-item note-item-status-pending bg-red-200 hover:bg-red-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
+                  <div className="note-type">
+                    Sundheds note
+                  </div>
+                  <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
+                </div>
+                <div className="note-item note-item-status-pending bg-red-200 hover:bg-red-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
+                  <div className="note-type">
+                    Sundheds note
+                  </div>
+                  <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
+                </div>
+                <div className="note-item note-item-status-pending bg-red-200 hover:bg-red-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
+                  <div className="note-type">
+                    Sundheds note
+                  </div>
+                  <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
+                </div>
+                <div className="note-item note-item-status-pending bg-red-200 hover:bg-red-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
+                  <div className="note-type">
+                    Sundheds note
+                  </div>
+                  <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
+                </div>
+                <div className="note-item note-item-status-pending bg-red-200 hover:bg-red-300 transition duration-300 rounded-md p-6">
+                  <div className="flex justify-between">
+                    <div className="note-title">
+                      <h3 className="text-xl font-bold">Magnus - lægeaftale 28/12-2026</h3>
+                    </div>
+                    <div className="note-icon">
+                      <FaArrowRightLong className="inline -ml-px"/>
+                    </div>
+                  </div>
+                  <div className="note-type">
+                    Sundheds note
+                  </div>
+                  <p className="text-gray-700">Dette er en note, der er i venteposition.</p>
+                </div>
+              </div>
               </section>
               <section className="notes-section mt-4 mx-15 relative bottom-10">
                 <button

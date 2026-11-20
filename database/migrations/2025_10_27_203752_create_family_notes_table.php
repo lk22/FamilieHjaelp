@@ -17,7 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('family_member_id')->nullable();
             $table->boolean('is_important')->default(false);
             $table->string('title')->default('new note');
+            $table->string('slug', 255);
             $table->text('note_content');
+            $table->unsignedBigInteger('family_id');
+            $table->unsignedBigInteger('attached_family_member_id')->nullable();
             $table->string('locale')->default('da');
             $table->string('type')->default('general');
             $table->timestamps();

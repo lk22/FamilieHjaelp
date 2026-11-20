@@ -30,12 +30,12 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'has_completed_onboarding' => rand(0, 1) === 1,
-            'is_verified' => rand(0, 1) === 1,
-            'is_admin' => rand(0, 1) === 1,
-            'family_id' => rand(1, 10),
-            'family_member_id' => rand(1, 10),
-            'family_child_id' => rand(1, 10),
+            'has_completed_onboarding' => true,
+            'is_verified' => true,
+            'is_admin' => false,
+            'family_id' => \App\Models\Family::factory(),
+            'family_member_id' => null,
+            'family_child_id' => null,
         ];
     }
 

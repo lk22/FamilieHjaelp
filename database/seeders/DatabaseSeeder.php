@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'deleted_at' => null,
-                'children_count' => 1
+                'children_count' => 1,
             ]
         );
 
@@ -69,7 +69,9 @@ class DatabaseSeeder extends Seeder
 
         echo "\n Partner " . $partnerUser->name . " created in family " . $family->name;
 
-        $family->members()->createMany([
+        $demoFamilyMembers = [];
+
+        $demoFamilyMembers = $family->members()->createMany([
             [
                 'family_id' => $family->id,
                 'name' => 'Leo Knudsen',
@@ -114,6 +116,35 @@ class DatabaseSeeder extends Seeder
         ]);
 
         echo "\n Demo child " . $child->name . " created in family " . $family->name;
+
+        echo "\n Created " . count($demoFamilyMembers) . " demo family members for " . $family->name;
+
+        $demoParents = \App\Models\FamilyMember::where('family_id', $family->id)->with('user', 'family')->get();
+
+        foreach ($demoParents as $parent) {
+            $demoNotes = \App\Models\Note::factory(rand(1, 5))->create([
+                'family_id' => $parent->family->id,
+                'user_id' => $parent->user->id,
+                'family_member_id' => $parent->id,
+                'attached_family_member_id' => $parent->id,
+                'is_important' => rand(0,1),
+                'title' => fake()->sentence(),
+                'slug' => fake()->slug(),
+                'note_content' => fake()->paragraph(),
+                'locale' => rand(0, 1) === 1 ? 'da' : 'en',
+                'type' => fake()->randomElement(['general', 'health', 'appointment']),
+            ]);
+        }
+
+
+
+        echo "\n---------------------------------------------------------------------------";
+
+        foreach ($demoNotes as $note) {
+            echo "\nCreating note for following family " . $family->name . " with title " . $note->title;
+        }
+
+        echo "\n Created " . count($demoNotes) . " demo notes for " . $family->name;
 
         $families = \App\Models\Family::factory(10)->create();
         echo "\n-------------------------------------------------------------";
@@ -175,10 +206,20 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     private function disableForeignKeyChecks(): void {
-        DB::statement('TRUNCATE TABLE families RESTART IDENTITY CASCADE');
-        DB::statement('TRUNCATE TABLE family_members RESTART IDENTITY CASCADE');
+        // Disable foreign key constraints temporarily for PostgreSQL
+        DB::statement('SET session_replication_role = replica');
+
+        // Truncate tables in the correct order (reverse of foreign key dependencies)
+        // Note: parent_activities references family_members, so truncate it first
+        DB::statement('TRUNCATE TABLE family_notes RESTART IDENTITY CASCADE');
+        DB::statement('TRUNCATE TABLE parent_activities RESTART IDENTITY CASCADE');
         DB::statement('TRUNCATE TABLE family_children RESTART IDENTITY CASCADE');
+        DB::statement('TRUNCATE TABLE family_members RESTART IDENTITY CASCADE');
         DB::statement('TRUNCATE TABLE users RESTART IDENTITY CASCADE');
+        DB::statement('TRUNCATE TABLE families RESTART IDENTITY CASCADE');
+
+        // Re-enable foreign key constraints
+        DB::statement('SET session_replication_role = default');
     }
 
     private function renderFamilieHjaelpTerminalLogo(): void {

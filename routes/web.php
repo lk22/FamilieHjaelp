@@ -130,6 +130,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         */
         Route::get('/app/profile/overview', [ProfileOverviewController::class, 'index'])->name('profile.home');
         Route::get('/app/profile/notes', [ProfileNotesController::class, 'index'])->name('profile.notes.index');
+        Route::get('/app/profile/notes/{note}', [ProfileNotesController::class, 'show'])->name('profile.notes.show');
     // Route::post('/app/profile/notes/create', [ProfileNoteController::class, 'create'])->name('profile.notes.create');
     // Route::put('/app/profile/notes/{note}', [ProfileNoteController::class, 'update'])->name('profile.notes.update');
     // Route::delete('/app/profile/notes/{note}', [ProfileNoteController::class, 'destroy'])->name('profile.notes.destroy');

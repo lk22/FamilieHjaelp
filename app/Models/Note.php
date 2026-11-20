@@ -16,9 +16,11 @@ class Note extends Model
 
     protected $fillable = [
         'user_id',
+        'family_id',
         'family_member_id',
         'is_important',
         'title',
+        'slug',
         'note_content',
         'locale',
         'type',

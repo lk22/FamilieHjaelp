@@ -18,7 +18,16 @@ class NoteFactory extends Factory
     public function definition(): array
     {
         return [
-
+            'user_id' => \App\Models\User::factory(),
+            'family_member_id' => \App\Models\FamilyMember::factory(),
+            'family_id' => \App\Models\Family::factory(),
+            'attached_family_member_id' => \App\Models\FamilyMember::factory(),
+            'title' => $this->faker->sentence,
+            'slug' => $this->faker->slug,
+            'type' => $this->faker->randomElement(['general', 'health', 'appointment']),
+            'note_content' => $this->faker->paragraph,
+            'locale' => rand(0, 1) === 1 ? 'da' : 'en',
+            'created_at' => $this->faker->dateTime,
         ];
     }
 }

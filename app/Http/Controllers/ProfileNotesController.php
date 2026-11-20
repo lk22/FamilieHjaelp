@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Note;
 
 use App\Repositories\FamilyMemberRepository;
 
@@ -21,17 +22,18 @@ class ProfileNotesController extends Controller
         $familyMember = $this->familyMemberRepository->findByUserId($request->user()->id);
         $familyId = $familyMember->family_id;
         $familyMembers = $this->familyMemberRepository->findAllFamilyMembers($familyId);
-        return inertia('Profile/Notes/index', [
+        return inertia('Profile/Notes/Index', [
             'family' => $familyMember,
             'familyMembers' => $familyMembers,
         ]);
     }
 
-    public function show()
+    public function show(Note $note)
     {
         $family = auth()->user ? auth()->user->family : null;
-        return inertia('Profile/Notes/show', [
+        return inertia('Profile/Notes/Show', [
             'family' => $family,
+            'note' => $note,
         ]);
     }
 

@@ -18,15 +18,15 @@ class FamilyMemberFactory extends Factory
     public function definition(): array
     {
         return [
-            'family_id' => rand(1, 10),
+            'family_id' => \App\Models\Family::factory(),
             'has_account' => 1,
-            'user_id' => rand(1, 10),
+            'user_id' => \App\Models\User::factory(),
             'name' => fake()->name(),
             'family_role' => fake()->randomElement(['Far', 'Mor', 'Søn', 'Datter']),
             'age' => rand(0, 100),
             'email' => fake()->email(),
             'attached_email' => fake()->email(),
-            'deleted_at' => rand(0, 1) === 1 ? now() : null,
+            'deleted_at' => null,
             'created_at' => now(),
             'updated_at' => now()
         ];

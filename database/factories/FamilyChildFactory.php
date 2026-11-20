@@ -18,14 +18,15 @@ class FamilyChildFactory extends Factory
     public function definition(): array
     {
         return [
-            'family_id' => rand(1, 10),
+            'family_id' => \App\Models\Family::factory(),
             'name' => fake()->name(),
-            'age_year' => rand(0, 99),
-            'age_months' => rand(0, 12),
-            'age_weeks' => rand(0, 52),
-            'needs_user_access' => rand(0, 1) === 1,
-            'use_attached_parent_email' => rand(0, 1) === 1,
+            'age_year' => rand(0, 18),
+            'age_months' => rand(0, 11),
+            'age_weeks' => rand(0, 4),
+            'needs_user_access' => false,
+            'use_attached_parent_email' => true,
             'child_email' => fake()->email(),
+            'attached_parent_email' => fake()->email(),
             'created_at' => now(),
             'updated_at' => now(),
         ];
