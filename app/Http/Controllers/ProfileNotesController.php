@@ -21,19 +21,18 @@ class ProfileNotesController extends Controller
     {
         $familyMember = $this->familyMemberRepository->findByUserId($request->user()->id);
         $familyId = $familyMember->family_id;
-        $familyMembers = $this->familyMemberRepository->findAllFamilyMembers($familyId);
         return inertia('Profile/Notes/Index', [
             'family' => $familyMember,
-            'familyMembers' => $familyMembers,
+            'notes' => Note::where('family_id', $familyId)->get(),
         ]);
     }
 
     public function show(Note $note)
     {
-        $family = auth()->user ? auth()->user->family : null;
+        $note = $note;
         return inertia('Profile/Notes/Show', [
-            'family' => $family,
             'note' => $note,
+            'familyMember' => $note->familyMember
         ]);
     }
 

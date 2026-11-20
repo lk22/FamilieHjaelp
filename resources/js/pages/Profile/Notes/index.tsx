@@ -10,6 +10,7 @@ import { Link } from '@inertiajs/react';
 type Note = {
   id: number;
   title: string;
+  slug: string;
   type: string;
   note_content: string;
   locale: string;
@@ -40,7 +41,7 @@ export default function ProfileNotesIndex({notes}: NoteListProps) {
                 <h3 className="text-3xl font-bold mb-4">Generelle noter</h3>
                 <p className="mb-4 text-gray-700">Her finder du alle generelle noter, der ikke er knyttet til specifikke aftaler.</p>
                 <div className="grid grid-cols-2 gap-4">
-                <Link href={route('profile.notes.show', { slug: 'magnus-laegeaftale-28-12-2026' })}>
+                <Link href={route('profile.notes.show', {slug: notes[0].slug})}>
                   <div className="note-item note-item-status-pending bg-blue-200 hover:bg-blue-300 transition duration-300 rounded-md p-6">
                     <div className="flex justify-between">
                       <div className="note-title">

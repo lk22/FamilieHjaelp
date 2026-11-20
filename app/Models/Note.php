@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use App\Notifications\FirstNoteCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Log;
 
 class Note extends Model
 {
@@ -51,6 +49,11 @@ class Note extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function familyMember(): BelongsTo
+    {
+        return $this->belongsTo(FamilyMember::class, 'family_member_id', 'id');
     }
 
     public function getGeneralNotes(): \Illuminate\Database\Eloquent\Collection

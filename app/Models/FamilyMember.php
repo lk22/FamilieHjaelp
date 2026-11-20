@@ -44,4 +44,9 @@ class FamilyMember extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'family_member_id');
+    }
 }
