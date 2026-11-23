@@ -24,6 +24,7 @@ class ProfileOverviewController extends Controller
         }
 
         $family = Family::where('id', $request->user()->family_id)->with('members', 'children')->first();
+        $notes = $family->notes;
         // dd($family->toArray());
 
         $user = $request->user()->load(['todos', 'pages']);
@@ -33,6 +34,7 @@ class ProfileOverviewController extends Controller
                 'todos' => $user->todos,
                 'pages' => Inertia::defer(fn () => $user->pages),
                 'family' => $family,
+                'notes' => $notes,
             ]
         );
     }

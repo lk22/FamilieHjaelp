@@ -23,6 +23,7 @@ class Note extends Model
         'locale',
         'type',
         'created_at',
+        'updated_at'
     ];
 
     protected $casts = [

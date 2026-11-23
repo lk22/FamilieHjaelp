@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Models\FamilyChild;
 use App\Models\FamilyMember;
+use App\Models\Note;
 
 class Family extends Model
 {
@@ -36,6 +37,11 @@ class Family extends Model
     public function members(): HasMany
     {
         return $this->hasMany(FamilyMember::class, 'family_id');
+    }
+
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class, 'family_id');
     }
 
     public function children(): HasMany

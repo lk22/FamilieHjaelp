@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 
 use App\Repositories\FamilyMemberRepository;
+use App\Services\NoteService;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateNoteRequest;
+
+use App\Dto\UpdateNoteDto;
 
 class ProfileNotesController extends Controller
 {
 
-    public function __construct(private FamilyMemberRepository $familyMemberRepository) {}
+    public function __construct(
+        private FamilyMemberRepository $familyMemberRepository,
+        private NoteService $noteService
+    ) {}
 
     /**
      *
@@ -21,9 +28,10 @@ class ProfileNotesController extends Controller
     {
         $familyMember = $this->familyMemberRepository->findByUserId($request->user()->id);
         $familyId = $familyMember->family_id;
+        $notes = Note::where('family_id', $familyId)->get();
         return inertia('Profile/Notes/Index', [
             'family' => $familyMember,
-            'notes' => Note::where('family_id', $familyId)->get(),
+            'notes' => $notes,
         ]);
     }
 
@@ -31,7 +39,18 @@ class ProfileNotesController extends Controller
     {
         $note = $note;
         return inertia('Profile/Notes/Show', [
-            'note' => $note,
+            'note' => [
+                "id" => $note->id,
+                "title" => $note->title,
+                "slug" => $note->slug,
+                "note_content" => $note->note_content,
+                "created_at" => \Carbon\Carbon::parse($note->created_at)->format('d/m-Y'),
+                "formattedCreatedAt" => \Carbon\Carbon::parse($note->created_at)->diffForHumans(),
+                "formattedUpdatedAt" => \Carbon\Carbon::parse($note->updated_at)->diffForHumans(),
+                "family_member_id" => $note->family_member_id,
+                "user_id" => $note->user_id,
+                "created_by_member" => $note->member->name ?? null,
+            ],
             'familyMember' => $note->familyMember
         ]);
     }
@@ -50,12 +69,37 @@ class ProfileNotesController extends Controller
     /**
      * Updating a existing profile note
      *
-     * @param Request $request
-     * @return void
+     * @param UpdateNoteRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(UpdateNoteRequest $request): \Illuminate\Http\JsonResponse
     {
-        // Handle the update logic for the profile note here
+        if (!$request->validated()) {
+            return response()->json(['error' => 'Validation failed']);
+        }
+
+        $id = intval($request->input('id'));
+        $title = htmlspecialchars($request->input('title'));
+        $slug = htmlspecialchars($request->input('slug'));
+        $noteContent = $request->input('note_content');
+        // dd($noteContent);
+        $updatedAt = htmlspecialchars($request->input('updated_at'));
+        $createdAt = htmlspecialchars($request->input('created_at'));
+
+        $updateNoteDto = new UpdateNoteDto(
+            $id,
+            $title,
+            $slug,
+            $noteContent,
+            $updatedAt,
+            $createdAt,
+        );
+
+        if ( ! $this->noteService->updateNote($updateNoteDto) ) {
+            return response()->json(['error' => 'Failed to create note']);
+        }
+
+        return response()->json(['message' => 'Note updated successfully']);
     }
 
     /**

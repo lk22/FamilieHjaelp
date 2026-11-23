@@ -27,6 +27,7 @@ interface IFamily {
     children_count: number;
     members: IFamilyMember[];
     children: IFamilyChildren[];
+    notes: { id: number; title: string; content: string }[];
 }
 
 interface IFamilyMember {
@@ -48,17 +49,26 @@ interface IFamilyChildren {
     child_email: string;
 }
 
+interface Note {
+    id: number;
+    title: string;
+    content: string;
+}
+
 interface ProfileOverviewHomeProps {
     todos: Todo[];
+    notes: Note[];
     family: IFamily;
 }
 
 const ProfileOverviewHomeContent = ({
     todos,
-    family
+    notes,
+    family,
 }: ProfileOverviewHomeProps) => {
     const FamilyMembers = Array.isArray(family.members) ? family.members : [];
     const todosCount = Array.isArray(todos) ? todos.length : 0;
+    const notesCount = Array.isArray(notes) ? notes.length : 0;
 
     // TODO: when selecting a member update the state or perform an action based on the selected member
     const handleChangeFamilyMember = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -100,7 +110,7 @@ const ProfileOverviewHomeContent = ({
                         >
                             <div className="p-6 flex flex-col justify-between h-full">
                                 <div className="mb-4">
-                                    <h2 className="text-xl font-semibold mb-2 text-white">Du har 20 noter</h2>
+                                    <h2 className="text-xl font-semibold mb-2 text-white">Der er oprettet {notesCount} noter</h2>
                                     <p className="mb-4 text-sm leading-relaxed text-white/90 group-hover:text-white transition-colors">
                                         Se alle oprettet noter
                                     </p>
@@ -182,7 +192,7 @@ const ProfileOverviewHomeContent = ({
                 {/* Todo List Section */}
                 {/* <TodoListSection todos={Todos} /> */}
                 {/* Today's Schedule */}
-                <section className="bg-white rounded-xl shadow-md py-12 px-12 mb-4 border-2 border-blue-200">
+                <section className="rounded-xl py-12 px-12 mb-4">
                     <div className="flex justify-between">
                         <div className="w-6/12">
                             <h2 className="text-xl text-blue-800 font-bold">15/11-2026</h2>
@@ -252,12 +262,14 @@ const PagesFallbackComponent = () => {
 export default function ProfileOverviewHome({
     family,
     todos,
+    notes,
 }: ProfileOverviewHomeProps) {
     return (
         <OnboardingProvider>
             <ProfileOverviewHomeContent
                 family={family}
                 todos={todos}
+                notes={notes}
             />
         </OnboardingProvider>
     );
