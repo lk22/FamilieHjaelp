@@ -55,7 +55,6 @@ export default function ProfileNotesIndex({notes}: NoteListProps) {
                         <div className="note-type">
                           {note.type}
                         </div>
-                        <p className="text-gray-700">{note.note_content}</p>
                       </div>
                     </Link>
                   ))}

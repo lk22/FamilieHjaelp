@@ -18,4 +18,8 @@ class NoteService implements NoteServiceContract {
   public function deleteNote(int $noteId): bool {
     return $this->noteRepository->delete($noteId);
   }
+
+  public function archiveNote(int $noteId): bool {
+    return $this->noteRepository->archive($noteId);
+  }
 }

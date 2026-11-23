@@ -12,6 +12,13 @@ use Illuminate\Support\Str;
 
 class NoteRepository implements NoteRepositoryContract
 {
+  public function find(int $noteId): ?Note {
+    if ($noteId <= 0) {
+      return null;
+    }
+    return Note::find($noteId);
+  }
+
   public function update(UpdateNoteDto $note): bool {
     $noteModel = Note::find($note->id);
 
@@ -31,5 +38,10 @@ class NoteRepository implements NoteRepositoryContract
 
   public function delete(int $noteId): bool {
     return true;
+  }
+
+  public function archive(int $noteId): bool {
+    // Use Eloquent to soft delete via is_archived flag
+    return Note::where('id', $noteId)->update(['is_archived' => true]);
   }
 }

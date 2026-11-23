@@ -28,6 +28,7 @@ class NoteFactory extends Factory
             'note_content' => $this->faker->paragraph,
             'locale' => rand(0, 1) === 1 ? 'da' : 'en',
             'created_at' => $this->faker->dateTime,
+            'is_important' => $this->faker->boolean(),
         ];
     }
 }

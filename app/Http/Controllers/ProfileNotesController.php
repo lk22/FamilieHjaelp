@@ -11,12 +11,15 @@ use App\Http\Requests\UpdateNoteRequest;
 
 use App\Dto\UpdateNoteDto;
 
+use App\Repositories\NoteRepository;
+
 class ProfileNotesController extends Controller
 {
 
     public function __construct(
         private FamilyMemberRepository $familyMemberRepository,
-        private NoteService $noteService
+        private NoteService $noteService,
+        private NoteRepository $noteRepository
     ) {}
 
     /**
@@ -66,54 +69,55 @@ class ProfileNotesController extends Controller
 
     }
 
-    /**
-     * Updating a existing profile note
-     *
-     * @param UpdateNoteRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(UpdateNoteRequest $request): \Illuminate\Http\JsonResponse
+    public function update(UpdateNoteRequest $request, Note $note): \Illuminate\Http\RedirectResponse | \Illuminate\Http\JsonResponse
     {
-        if (!$request->validated()) {
+        if (! $request->validated()) {
             return response()->json(['error' => 'Validation failed']);
         }
 
-        $id = intval($request->input('id'));
-        $title = htmlspecialchars($request->input('title'));
-        $slug = htmlspecialchars($request->input('slug'));
-        $noteContent = $request->input('note_content');
-        // dd($noteContent);
-        $updatedAt = htmlspecialchars($request->input('updated_at'));
-        $createdAt = htmlspecialchars($request->input('created_at'));
-
         $updateNoteDto = new UpdateNoteDto(
-            $id,
-            $title,
-            $slug,
-            $noteContent,
-            $updatedAt,
-            $createdAt,
+            id: $note->id,
+            title: $request->input('title'),
+            note_content: $request->input('note_content'),
+            slug: $request->input('slug'),
+            updated_at: now(),
+            created_at: now()
         );
 
         if ( ! $this->noteService->updateNote($updateNoteDto) ) {
-            return response()->json(['error' => 'Failed to create note']);
+            return response()->json(['error' => 'Failed to update note']);
         }
 
-        return response()->json(['message' => 'Note updated successfully']);
+        return redirect()->route('profile.notes.show', $note->slug);
     }
 
     /**
-     * Archiving a existing profile note
+     * Archiving an existing profile note
      *
-     * @return void
+     * @param Note $note
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function archive()
+    public function archive(Note $note): \Illuminate\Http\RedirectResponse | \Illuminate\Http\JsonResponse
     {
+        if (!$this->noteService->archiveNote($note->id)) {
+            return response()->json(['error' => 'Failed to archive note']);
+        }
 
+        return redirect()->route('profile.notes.index'); // Redirect to index as per requirement
     }
 
-    public function destroy()
+    /**
+     * Deleting an existing profile note
+     *
+     * @param Note $note
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function destroy(Note $note): \Illuminate\Http\RedirectResponse | \Illuminate\Http\JsonResponse
     {
-        // Handle the destroy logic for the profile note here
+        if (!$this->noteService->deleteNote($note->id)) {
+            return response()->json(['error' => 'Failed to delete note']);
+        }
+
+        return redirect()->route('profile.notes.index'); // Redirect to index as per requirement
     }
 }

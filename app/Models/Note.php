@@ -12,6 +12,9 @@ class Note extends Model
 
     protected $table = 'family_notes';
 
+    /**
+     * The attributes that mass assign.
+     */
     protected $fillable = [
         'user_id',
         'family_id',
@@ -23,7 +26,8 @@ class Note extends Model
         'locale',
         'type',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'is_archived',
     ];
 
     protected $casts = [
@@ -44,13 +48,42 @@ class Note extends Model
         'family_member_id',
     ];
 
+
+
     /**
-     * Getting default key name for route model bindings
+     * Indicates if the model should be timestamped.
+     */
+    public $timestamps = true;
+
+    /**
+     * The attributes that should be cast to native types for soft deletes.
+     */
+    protected $softDeletes = false; // Manual archiving via is_archived flag instead of true soft delete
+
+    /**
+     * Get the routes key for route model bindings.
      */
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
+
+    /**
+     * Scope a query to only include archived notes.
+     */
+    public function scopeArchived($query)
+    {
+        return $query->where('is_archived', true);
+    }
+
+    /**
+     * Scope a query to only include non-archived notes.
+     */
+    public function scopeNotArchived($query)
+    {
+        return $query->where('is_archived', false);
+    }
+
 
     public function familyMember(): BelongsTo
     {
