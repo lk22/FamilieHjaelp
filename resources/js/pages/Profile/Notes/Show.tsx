@@ -23,16 +23,11 @@ type Note = {
   created_by_member: string | null;
 }
 
-type FamilyMember = {
-  name: string;
-};
-
 interface ShowNoteProps {
   note: Note;
-  familyMember: FamilyMember;
 }
 
-export default function Show({ note, familyMember }: ShowNoteProps) {
+export default function Show({ note }: ShowNoteProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 

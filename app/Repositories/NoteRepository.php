@@ -37,11 +37,18 @@ class NoteRepository implements NoteRepositoryContract
   }
 
   public function delete(int $noteId): bool {
-    return true;
+    // Get note first to check if it exists
+    $note = Note::find($noteId);
+    
+    // Return false if note doesn't exist
+    return $note !== null && $note->delete();
   }
 
   public function archive(int $noteId): bool {
-    // Use Eloquent to soft delete via is_archived flag
-    return Note::where('id', $noteId)->update(['is_archived' => true]);
+    // Get note first to check if it exists
+    $note = Note::find($noteId);
+    
+    // Return false if note doesn't exist
+    return $note !== null && Note::where('id', $noteId)->update(['is_archived' => true]);
   }
 }

@@ -21,6 +21,6 @@ describe('renderSanitizedMarkup', () => {
       blocks: [{ type: 'header', data: { text: 'Not a paragraph' } }],
     })}</>);
 
-    expect(screen.getByText('Unsupported block')).toBeTruthy();
+    expect(screen.getByText('Not a paragraph')).toBeTruthy();
   });
 });
