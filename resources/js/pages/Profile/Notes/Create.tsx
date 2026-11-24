@@ -13,7 +13,7 @@ type NoteItemProps = {
   note_content: string;
 }
 
-const CreateNote = () => {e
+const CreateNote = () => {
   const editorRef = useRef<CreateNoteEditorHandle>(null);
   const [saving, setSaving] = useState<boolean>(false);
 
