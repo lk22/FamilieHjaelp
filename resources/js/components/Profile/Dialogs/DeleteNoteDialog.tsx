@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { useForm } from '@inertiajs/react';
 
 interface DeleteNoteDialogProps {
@@ -14,13 +14,7 @@ type Note = {
 }
 
 export default function DeleteNoteDialog({ isDialogOpen, setIsDialogOpen, note }: DeleteNoteDialogProps) {
-  if (!isDialogOpen) return null;
   const [processing, setProcessing] = useState(false);
-
-  const handleClose = () => {
-    setProcessing(false);
-    setIsDialogOpen(false);
-  }
 
   const form = useForm<Note>({
     id: note.id,
@@ -28,6 +22,15 @@ export default function DeleteNoteDialog({ isDialogOpen, setIsDialogOpen, note }
     slug: note.slug
   });
 
+  const handleClose = () => {
+    setProcessing(true);
+    // Implement delete logic here
+    form.delete(route('profile.notes.destroy', note.slug));
+    setProcessing(false);
+    setIsDialogOpen(false);
+  }
+
+  if (!isDialogOpen) return null;
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -43,9 +46,6 @@ export default function DeleteNoteDialog({ isDialogOpen, setIsDialogOpen, note }
           </button>
           <button
             onClick={() => {
-              setProcessing(true);
-              // Implement delete logic here
-              form.delete(route('profile.notes.destroy', note.slug));
               handleClose();
             }}
             className="bg-red-600 text-white px-4 py-2 rounded-md"
