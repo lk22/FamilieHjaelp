@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, type JSX} from 'react'
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 
 import {
@@ -31,6 +31,23 @@ export default function Show({ note }: ShowNoteProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
+  let noteContent: string | JSX.Element | JSX.Element[] = note.note_content;
+
+  if (typeof note.note_content === 'string' && note.note_content.trim() !== '') {
+    noteContent = note.note_content;
+  }
+
+  if (typeof note.note_content === 'string') {
+    try {
+      const parsedContent = JSON.parse(note.note_content);
+      if (Array.isArray(parsedContent.blocks) && parsedContent.blocks.length > 0) {
+        noteContent = renderSanitizedMarkup(parsedContent);
+      }
+    } catch (error) {
+      console.error('Invalid EditorJS content:', error);
+    }
+  }
+
   return (
         <ProfileOverviewLayout
           title={`Noter for ${note.title}`}
@@ -51,7 +68,7 @@ export default function Show({ note }: ShowNoteProps) {
                 <div className="flex justify-between items-center">
                   <div className="content">
                     <div className="text-base text-blue-900 md:text-lg leading-relaxed max-w-2xl">
-                      {renderSanitizedMarkup(JSON.parse(note.note_content))}
+                      {noteContent}
                     </div>
                   </div>
                   <div className="actions flex">

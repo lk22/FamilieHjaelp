@@ -54,10 +54,12 @@ export function UpdateNoteDialog({ isDialogOpen, setIsDialogOpen, note }: Update
     setProcessing(true);
     setSavingEditor(true);
     setEditorError(null);
+
     try {
       console.log("Saving note...")
       if (!editorRef.current) throw new Error('Editor.js is not available');
       const content = JSON.stringify(await editorRef.current.save());
+
       const updatedAt = new Date().toISOString();
       form.setData((data) => ({ ...data, note_content: content, updated_at: updatedAt }));
       form.transform((data) => ({ ...data, note_content: content, updated_at: updatedAt }));

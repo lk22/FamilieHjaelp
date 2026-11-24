@@ -1,4 +1,7 @@
 @import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @plugin 'tailwindcss-animate';
 
@@ -404,3 +407,69 @@ h3.ce-header { font-size: 1.25rem; font-weight: 700; }
 h4.ce-header { font-size: 1.125rem; font-weight: 700; }
 h5.ce-header { font-size: 1rem; font-weight: 700; }
 h6.ce-header { font-size: 0.875rem; font-weight: 700; }
+
+/* A useful baseline */
+select {
+  width: 50%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+}
+/* Enhanced appearance in supporting browsers */
+@supports (appearance: base-select) {
+  select,
+  select::picker(select) {
+    appearance: base-select;
+  }
+  select::picker(select) {
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+  }
+
+  /* The dropdown control */
+select {
+  border-radius: 0px;
+  background: #1e3a8a;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+/* The popup menu */
+select::picker(select) {
+  padding: 0px;
+}
+
+/* The dropdown arrow */
+select::picker-icon {
+  color: #ffffff;
+}
+
+/* When the dropdown is open */
+select:open {
+  background: #1e3a8a;
+  color: #ffffff;
+}
+
+select option:not(:last-child) {
+    padding: 6px;
+}
+
+select option {
+    margin-bottom: 2px;
+    padding: 12px;
+}
+
+/* The selected option */
+select option:checked {
+    background: #1e3a8a;
+    color: #ffffff;
+    padding: 12px;
+}
+
+/* The selected option's checkmark */
+select option::checkmark {
+  color: #ffffff;
+  font-size: 1rem;
+}
+}

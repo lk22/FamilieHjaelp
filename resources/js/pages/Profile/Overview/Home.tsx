@@ -90,7 +90,7 @@ const ProfileOverviewHomeContent = ({
                         Familie: {family.name} ({family.family_size} medlemmer, {family.children_count} børn)
                     </p>
                     <form action={route('profile.home')}>
-                        <select name="familyMember" className="border border-gray-300 rounded-md p-4 w-6/12" id="familyMember" onChange={handleChangeFamilyMember}>
+                        <select name="familyMember" id="familyMember" onChange={handleChangeFamilyMember}>
                             {FamilyMembers.map((member) => (
                                 <option key={member.id} value={member.id}>
                                     {member.name}
