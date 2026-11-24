@@ -36,6 +36,7 @@ class Note extends Model
         'created_at' => 'datetime',
         'locale' => 'string',
         'type' => 'string',
+        'is_archived' => 'boolean',
     ];
 
     protected $dates = [
@@ -47,8 +48,6 @@ class Note extends Model
         'user_id',
         'family_member_id',
     ];
-
-
 
     /**
      * Indicates if the model should be timestamped.

@@ -44,7 +44,26 @@ class NoteObserver
      */
     public function updated(Note $note): void
     {
-        //
+        if (config('app.debug')) {
+            Log::info('Note updated: ', $note->toArray());
+        }
+
+        $user = User::find($note->user_id);
+        if ( $user ) {
+            Log::info('Note updated by user: ', $user->toArray());
+
+            if ($user->notes()->count() < 2) {
+                Log::info('User has less than 2 notes. Consider sending notification email.');
+                // Send notification for first note if applicable
+
+                $user->notifications()->create([
+                    'notification_type' => 'first_note_updated',
+                    'message' => 'Tillykke med din første note! Du har nu opdateret din første note.',
+                    'is_read' => false,
+                    'user_id' => $user->id
+                ]);
+            }
+        }
     }
 
     /**

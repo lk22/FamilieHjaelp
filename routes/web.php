@@ -130,7 +130,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
          */
         Route::get('/app/profile/overview', [ProfileOverviewController::class, 'index'])->name('profile.home');
         Route::get('/app/profile/notes', [ProfileNotesController::class, 'index'])->name('profile.notes.index');
+        Route::get('/app/profile/notes/create', [ProfileNotesController::class, 'create'])->name('profile.notes.create');
         Route::get('/app/profile/notes/{note}', [ProfileNotesController::class, 'show'])->name('profile.notes.show');
+        Route::post('/app/profile/notes/create', [ProfileNotesController::class, 'store'])->name('profile.notes.create');
         Route::put('/app/profile/notes/{note}', [ProfileNotesController::class, 'update'])->name('profile.notes.update');
         Route::delete('/app/profile/notes/{note}', [ProfileNotesController::class, 'destroy'])->name('profile.notes.destroy');
         Route::post('/app/profile/notes/archive/{note}', [ProfileNotesController::class, 'archive'])->name('profile.notes.archive');
@@ -142,7 +144,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/app/profile/overview/info/{page?}', [ProfileOverviewController::class, 'show'])->name('profile.info.page');
     Route::get('/app/profile/overview/notifications/', [ProfileOverviewController::class, 'notifications'])->name('profile.notifications');
     Route::get('/app/profile/overview/notes/', [ProfileOverviewController::class, 'notes'])->name('profile.notes');
-    // Route::post('/app/profile/notes/create', [ProfileNoteController::class, 'storeNote'])->name('profile.notes.create');
+    // Route::post('/app/profile/notes/create', [ProfileNoteController::class, 'storeNote'])->name('profile.notes.create')
 });
 
 Route::get('/auth/check', function () {

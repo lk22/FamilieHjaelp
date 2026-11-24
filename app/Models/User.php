@@ -88,6 +88,16 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Todo::class);
     }
 
+    public function family(): HasOne
+    {
+        return $this->hasOne(Family::class, 'id', 'family_id');
+    }
+
+    public function familyMember(): HasOne
+    {
+        return $this->hasOne(FamilyMember::class, 'id', 'family_member_id');
+    }
+
     /**
      * Get the pages associated with the user.
      *
@@ -95,14 +105,14 @@ class User extends Authenticatable implements FilamentUser
      */
     public function pages()
     {
-        return $this->hasMany(Page::class, 'user_id', 'id', 'pages');
+        return $this->hasMany(Page::class, 'user_id', 'id');
     }
 
     /**
      * get the profile associated with the user
      * @return HasOne<Profile>
      */
-    public function profile(): hasOne
+    public function profile(): HasOne
     {
         return $this->hasOne(Profile::class, 'user_id', 'id');
     }
@@ -114,7 +124,7 @@ class User extends Authenticatable implements FilamentUser
      */
     public function notifications(): HasMany
     {
-        return $this->hasMany(ProfileNotification::class, 'user_id', 'id', 'notifications');
+        return $this->hasMany(ProfileNotification::class, 'user_id', 'id');
     }
 
     /**
@@ -142,7 +152,7 @@ class User extends Authenticatable implements FilamentUser
      */
     public function notes(): HasMany
     {
-        return $this->hasMany(Note::class, 'user_id', 'id', 'notes');
+        return $this->hasMany(Note::class, 'user_id', 'id');
     }
 
     /**

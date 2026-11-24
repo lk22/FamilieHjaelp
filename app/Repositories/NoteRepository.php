@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Dto\UpdateNoteDto;
+use App\Dto\CreateNoteDto;
 
 use App\Contracts\NoteRepositoryContract;
 
@@ -17,6 +18,23 @@ class NoteRepository implements NoteRepositoryContract
       return null;
     }
     return Note::find($noteId);
+  }
+
+  public function store(CreateNoteDto $note): bool {
+    $created = Note::create([
+      "family_id" => auth()->user()->family()->family_id,
+      "family_member_id" => auth()->user()->familyMember()->family_member_id,
+      "title" => $note->title,
+      "slug" => Str::slug($note->title),
+      "note_content" => $note->note_content,
+      "created_at" => $note->created_at,
+      "updated_at" => $note->updated_at,
+      "is_important" => $note->is_important ?? false,
+      "locale" => $note->locale,
+      "type" => $note->type
+    ]);
+
+    return $created !== null;
   }
 
   public function update(UpdateNoteDto $note): bool {
@@ -39,7 +57,7 @@ class NoteRepository implements NoteRepositoryContract
   public function delete(int $noteId): bool {
     // Get note first to check if it exists
     $note = Note::find($noteId);
-    
+
     // Return false if note doesn't exist
     return $note !== null && $note->delete();
   }
@@ -47,7 +65,7 @@ class NoteRepository implements NoteRepositoryContract
   public function archive(int $noteId): bool {
     // Get note first to check if it exists
     $note = Note::find($noteId);
-    
+
     // Return false if note doesn't exist
     return $note !== null && Note::where('id', $noteId)->update(['is_archived' => true]);
   }

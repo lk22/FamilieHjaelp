@@ -179,12 +179,13 @@ export default function ProfileNotesIndex({notes}: NoteListProps) {
               </div>
               </section>
               <section className="notes-section mt-4 mx-15 relative bottom-10">
-                <button
-                    className="bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-900 transition-colors"
-                    onClick={() => setIsCreateNoteDialogOpen(true)}
-                >
-                    Opret note <FaArrowRightLong className="inline ml-2" />
-                </button>
+                <Link href={route('profile.notes.create')}>
+                  <button
+                      className="bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-900 transition-colors"
+                  >
+                      Opret note <FaArrowRightLong className="inline ml-2" />
+                  </button>
+                </Link>
                 <CreateNoteDialog
                     isDialogOpen={isCreateNoteDialogOpen}
                     setIsDialogOpen={setIsCreateNoteDialogOpen}

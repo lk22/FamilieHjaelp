@@ -8,8 +8,10 @@ use App\Services\NoteService;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateNoteRequest;
+use App\Http\Requests\CreateNoteRequest;
 
 use App\Dto\UpdateNoteDto;
+use App\Dto\CreateNoteDto;
 
 use App\Repositories\NoteRepository;
 
@@ -58,15 +60,37 @@ class ProfileNotesController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return inertia('Profile/Notes/Create');
+    }
+
+
     /**
      * Storing a new profile note
      *
-     * @param Request $request
+     * @param CreateNoteRequest $request
      * @return void
      */
-    public function store(Request $request)
+    public function store(CreateNoteRequest $request)
     {
+        dd($request);
+        $createNoteDto = new CreateNoteDto(
+            title: $request->input('title'),
+            note_content: $request->input('note_content'),
+            created_at: now(),
+            updated_at: now(),
+            type: $request->input('type') ?? null,
+            locale: $request->input('locale') ?? env('APP_LOCALE'),
+            is_important: $request->input('is_important') ?? false,
+            is_archived: $request->input('is_archived') ?? false,
+        );
 
+        if (! $this->noteService->createNote($createNoteDto)) {
+            return response()->json(['error' => 'Failed to create note']);
+        }
+
+        return redirect()->route('profile.notes.index');
     }
 
     public function update(UpdateNoteRequest $request, Note $note): \Illuminate\Http\RedirectResponse | \Illuminate\Http\JsonResponse
