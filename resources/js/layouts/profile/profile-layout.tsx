@@ -41,19 +41,21 @@ export default function ProfileOverviewLayout({
             <Head title={title} />
             <header className="w-full p-4 flex items-center justify-between bg-blue-600 text-white fixed top-0 left-0 z-50 shadow-md">
                 <div className="container w-full mx-auto flex justify-between items-center">
-                    <div className="logo">
+                    <div className="logo flex-1">
                         <Link href={route('profile.home')} className="flex items-center gap-2">
                             <img src="/images/logo.svg" alt="Familiehjælp Logo" className="h-8" />
                             <span className="text-xl font-bold">Velkommen {auth.user.name}</span>
                         </Link>
                     </div>
-                    {
-                        ! route().current('profile.home') && (
-                            <span className="text-sm text-gray-200 font-semibold">
-                                {title} - <Link href={route('profile.home')} className="text-white hover:underline font-bold">Gå tilbage</Link>
-                            </span>
-                        )
-                    }
+                    <div className="flex-1">
+                        {
+                            ! route().current('profile.home') && (
+                                <span className="text-sm text-gray-200 font-semibold">
+                                    {title} - <Link href={route('profile.home')} className="text-white hover:underline font-bold">Gå tilbage</Link>
+                                </span>
+                            )
+                        }
+                    </div>
                     <nav className="flex space-x-4">
                         <ProfileMainMenu setIsLoggingOutDialog={setIsLoggingOutDialog} />
                         <LogoutDialog

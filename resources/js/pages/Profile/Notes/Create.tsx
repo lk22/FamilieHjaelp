@@ -1,11 +1,11 @@
-import { SubmitEvent } from 'react';
-
+import { MouseEvent } from 'react';
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 import { useForm } from '@inertiajs/react';
 
 import CreateNoteEditor, {type CreateNoteEditorHandle} from '@/components/Editors/CreateNoteEditor';
 
 import {useState, useRef} from 'react';
+import { LiaSave } from "react-icons/lia";
 
 type NoteItemProps = {
   title: string;
@@ -21,13 +21,13 @@ const CreateNote = () => {
     setData('note_content', content);
   };
 
-  const {setData, post, processing } = useForm<NoteItemProps>({
-    title: '',
+  const { data, setData, post, processing } = useForm<NoteItemProps>({
+    title: 'Ny note',
     note_content: '',
     type: 'generel'
   });
 
-  const handleCreateNote = async (e: SubmitEvent<HTMLFormElement>) => {
+  const handleCreateNote = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (saving) return;
     setSaving(true);
@@ -36,7 +36,6 @@ const CreateNote = () => {
       console.log("saving note...")
       if (!editorRef.current) throw new Error('Editor.js is not available')
       const content = JSON.stringify(await editorRef.current.save())
-      console.log(content)
 
       post(route('profile.notes.create'));
     } catch (error) {
@@ -48,41 +47,51 @@ const CreateNote = () => {
 
     return (
       <ProfileOverviewLayout title="Create Note">
-        <form>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
-              Title
-            </label>
-            <input
-              type="text"
-              className="@2xl:fi-grid-col-order"
-              id="title"
-              onChange={(title) => setData('title', title.target.value)}
-              placeholder="Angiv titel"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="type">
+        <div className="toolbar-header h-25 bg-white fixed top-15 left-0 w-full shadow-sm">
+          <div className="flex items-center h-full m-auto justify-between max-w-[1520px]">
+            <div className="flex-1">
               <select name="note-type" id="type" onChange={(type) => setData('type', type.target.value)}>
                 <option value="general">Generel note</option>
                 <option value="health">Sundheds note</option>
                 <option value="family">Familie note</option>
               </select>
-            </label>
+            </div>
+            <div className="flex-1 m-auto">
+              <p className="text-2xl font-bold">
+                {data?.title}
+              </p>
+            </div>
+            <div className="note-title">
+              <div className="toolbar-actions">
+                <div className="action">
+                  <button
+                    className="bg-gray-100/50 hover:bg-gray-50/50 shadow-sm cursor-pointer text-blue-800 font-bold p-2 rounded focus:outline-none focus:shadow-outline"
+                    type="button"
+                    onClick={(e) => handleCreateNote(e)}
+                    disabled={processing}
+                  >
+                    <LiaSave className="inline-block text-2xl" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form className="mt-20">
+          <div className="mb-4">
+            <h1
+              className="text-7xl mb-2 font-medium outline-none"
+              contentEditable={true}
+              suppressContentEditableWarning={true}
+              onInput={(e) => setData('title', (e.target as HTMLHeadingElement).innerText)}
+            >
+              Ny note
+            </h1>
           </div>
           <div className="mb-4">
             <CreateNoteEditor
               ref={editorRef}
               onChange={handleEditorChange}
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <input
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-              onClick={handleCreateNote}
-              disabled={processing}
-              value="Opret note"
             />
           </div>
         </form>

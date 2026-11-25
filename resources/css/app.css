@@ -430,8 +430,8 @@ select {
   /* The dropdown control */
 select {
   border-radius: 0px;
-  background: #1e3a8a;
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
   border-radius: 10px;
 }
 
@@ -442,13 +442,13 @@ select::picker(select) {
 
 /* The dropdown arrow */
 select::picker-icon {
-  color: #ffffff;
+  color: #1d4ed8;
 }
 
 /* When the dropdown is open */
 select:open {
-  background: #1e3a8a;
-  color: #ffffff;
+  background: #ffffff;
+  color: #1d4ed8;
 }
 
 select option:not(:last-child) {
@@ -462,14 +462,18 @@ select option {
 
 /* The selected option */
 select option:checked {
-    background: #1e3a8a;
-    color: #ffffff;
+    background: #ffffff;
+    color: #1d4ed8;
     padding: 12px;
 }
 
 /* The selected option's checkmark */
 select option::checkmark {
-  color: #ffffff;
+  color: #1d4ed8;
   font-size: 1rem;
 }
+}
+
+.ce-block__content {
+    width: 100% !important;
 }
