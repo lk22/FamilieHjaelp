@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, SubmitEvent } from 'react';
 
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 import { useForm } from '@inertiajs/react';
@@ -11,6 +11,7 @@ import { form } from 'framer-motion/client';
 type NoteItemProps = {
   title: string;
   note_content: string;
+  type: string;
 }
 
 const CreateNote = () => {
@@ -24,9 +25,11 @@ const CreateNote = () => {
   const { data, setData, post, processing } = useForm<NoteItemProps>({
     title: '',
     note_content: '',
+    type: 'generel'
   });
 
-  const handleCreateNote = async () => {
+  const handleCreateNote = async (e: SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (saving) return;
     setSaving(true);
 
@@ -36,7 +39,7 @@ const CreateNote = () => {
       const content = JSON.stringify(await editorRef.current.save())
       console.log(content)
 
-      // post(route('profile.notes.create'));
+      post(route('profile.notes.create'));
     } catch (error) {
       console.error('Could not save note content', error)
     } finally {
@@ -46,7 +49,7 @@ const CreateNote = () => {
 
     return (
       <ProfileOverviewLayout title="Create Note">
-        <form onSubmit={handleCreateNote}>
+        <form>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
               Title
@@ -56,7 +59,17 @@ const CreateNote = () => {
               className="@2xl:fi-grid-col-order"
               id="title"
               onChange={(title) => setData('title', title.target.value)}
+              placeholder="Angiv titel"
             />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="type">
+              <select name="note-type" id="type" onChange={(type) => setData('type', type.target.value)}>
+                <option value="general">Generel note</option>
+                <option value="health">Sundheds note</option>
+                <option value="family">Familie note</option>
+              </select>
+            </label>
           </div>
           <div className="mb-4">
             <CreateNoteEditor

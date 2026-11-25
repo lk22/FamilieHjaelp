@@ -13,7 +13,13 @@ use Illuminate\Support\Str;
 
 class NoteRepository implements NoteRepositoryContract
 {
-  public function find(int $noteId): ?Note {
+  public function findBySlug(string $slug): Note
+  {
+    return Note::where('slug', $slug)->firstOrFail();
+  }
+
+  public function find(int $noteId): ?Note
+  {
     if ($noteId <= 0) {
       return null;
     }
@@ -22,8 +28,9 @@ class NoteRepository implements NoteRepositoryContract
 
   public function store(CreateNoteDto $note): bool {
     $created = Note::create([
-      "family_id" => auth()->user()->family()->family_id,
-      "family_member_id" => auth()->user()->familyMember()->family_member_id,
+      "user_id" => auth()->user()->id,
+      "family_id" => auth()->user()->family->id,
+      "family_member_id" => auth()->user()->familyMember->id,
       "title" => $note->title,
       "slug" => Str::slug($note->title),
       "note_content" => $note->note_content,

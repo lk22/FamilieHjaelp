@@ -42,7 +42,6 @@ class ProfileNotesController extends Controller
 
     public function show(Note $note)
     {
-        $note = $note;
         return inertia('Profile/Notes/Show', [
             'note' => [
                 "id" => $note->id,
@@ -65,16 +64,14 @@ class ProfileNotesController extends Controller
         return inertia('Profile/Notes/Create');
     }
 
-
     /**
      * Storing a new profile note
      *
      * @param CreateNoteRequest $request
      * @return void
      */
-    public function store(CreateNoteRequest $request)
+    public function store(CreateNoteRequest $request): \Illuminate\Http\RedirectResponse | \Illuminate\Http\JsonResponse
     {
-        dd($request);
         $createNoteDto = new CreateNoteDto(
             title: $request->input('title'),
             note_content: $request->input('note_content'),
@@ -86,11 +83,13 @@ class ProfileNotesController extends Controller
             is_archived: $request->input('is_archived') ?? false,
         );
 
-        if (! $this->noteService->createNote($createNoteDto)) {
+        $created = $this->noteService->createNote($createNoteDto);
+
+        if (! $created) {
             return response()->json(['error' => 'Failed to create note']);
         }
 
-        return redirect()->route('profile.notes.index');
+        return redirect()->route('profile.notes.show', ['note' => $created]);
     }
 
     public function update(UpdateNoteRequest $request, Note $note): \Illuminate\Http\RedirectResponse | \Illuminate\Http\JsonResponse
@@ -98,6 +97,8 @@ class ProfileNotesController extends Controller
         if (! $request->validated()) {
             return response()->json(['error' => 'Validation failed']);
         }
+
+
 
         $updateNoteDto = new UpdateNoteDto(
             id: $note->id,
@@ -108,8 +109,15 @@ class ProfileNotesController extends Controller
             created_at: now()
         );
 
+
+        $existing = $this->noteRepository->findBySlug($note->slug);
+
         if ( ! $this->noteService->updateNote($updateNoteDto) ) {
             return response()->json(['error' => 'Failed to update note']);
+        }
+
+        if ( str_replace(' ', '-', $request->title) !== $existing->slug) {
+            return redirect()->route('profile.notes.show', $existing->slug);
         }
 
         return redirect()->route('profile.notes.show', $note->slug);

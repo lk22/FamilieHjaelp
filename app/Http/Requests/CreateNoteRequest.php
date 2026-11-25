@@ -20,9 +20,6 @@ class CreateNoteRequest extends FormRequest
         return [
             'title.required' => 'The title field is required.',
             'note_content.required' => 'The note content field is required.',
-            'type.string' => 'The type field must be a string.',
-            'is_important.boolean' => 'The is important field must be true or false.',
-            'is_archived.boolean' => 'The is archived field must be true or false.',
         ];
     }
 
@@ -36,9 +33,6 @@ class CreateNoteRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'note_content' => 'required|string',
-            'type' => 'nullable|string|max:255',
-            'is_important' => 'nullable|boolean',
-            'is_archived' => 'nullable|boolean',
         ];
     }
 }
