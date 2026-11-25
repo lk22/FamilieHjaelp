@@ -1,4 +1,4 @@
-import {usePage, useForm} from '@inertiajs/react';
+import {useForm} from '@inertiajs/react';
 import {
     Dialog,
     DialogHeader,
@@ -8,21 +8,12 @@ import {
     DialogDescription
 } from '@/components/ui/dialog';
 
-import CreateNoteEditor, { type CreateNoteEditorHandle } from '@/components/Editors/CreateNoteEditor';
+import { type CreateNoteEditorHandle } from '@/components/Editors/CreateNoteEditor';
 import { useRef, useState } from 'react';
 
 interface CreateNoteDialogProps {
     isDialogOpen: boolean;
     setIsDialogOpen: (open: boolean) => void;
-}
-
-// Define the shape of page props so TypeScript knows auth.user.id exists
-type PageProps = {
-    auth: {
-        user: {
-            id: number;
-        };
-    };
 }
 
 type NoteFormProps = {
@@ -39,21 +30,11 @@ export function CreateNoteDialog({
     const [savingEditor, setSavingEditor] = useState<boolean>(false);
     const [editorError, setEditorError] = useState<string | null>(null);
 
-    const {data, setData, post, processing, errors, reset} = useForm<NoteFormProps>({
+    const {data, setData, post, processing, errors} = useForm<NoteFormProps>({
         note_content: '',
         title: '',
         type: 'general',
     });
-
-    const handleNoteContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const maxLength = 1000;
-        if (e.target.value.length > maxLength) {
-            e.target.value = e.target.value.slice(0, maxLength);
-        }
-
-        setData('note_content', e.target.value);
-    };
-
     const handleSaveEditor = async () => {
         console.log("Saving note content...")
         if (savingEditor || processing) return;

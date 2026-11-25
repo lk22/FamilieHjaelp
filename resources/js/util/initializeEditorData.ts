@@ -41,7 +41,7 @@ export function initializeEditorData(content: string): OutputData {
       !block || typeof block !== 'object' ||
       !('type' in block) ||
       (block.type !== 'paragraph' && block.type !== 'header') ||
-      !('data' in block) || !block.data || typeof block.data !== 'object' ||
+      !('data' in block) || !block.data || typeof block.data !== 'object' ||
       !('text' in block.data) || typeof block.data.text !== 'string'
     ) throw new Error('Invalid block data');
     return {

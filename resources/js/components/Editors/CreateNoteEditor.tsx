@@ -9,76 +9,9 @@ import {
 import EditorJS from '@editorjs/editorjs';
 import type { OutputData } from '@editorjs/editorjs';
 import Header from '@editorjs/header';
-import {
-  sanitizeNoteParagraph
-} from '../../util/renderSanitizedMarkup';
 
 export interface CreateNoteEditorHandle {
   save: () => Promise<OutputData>
-}
-
-function initialEditorData(content: string): OutputData {
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(content);
-  } catch (error) {
-    if (!(error instanceof Error)) return;
-    console.error('Failed to parse initial editor content:', error);
-    parsed = content;
-  }
-
-  if ( parsed === null || typeof parsed !== 'object' ) {
-    const text = document.createElement('div');
-    text.textContent = typeof parsed === 'string' ? parsed : '';
-    return {
-      blocks: [
-        {
-          type: 'paragraph',
-          data: {
-            text: text.innerHTML.replace(/\n/g, '<br>')
-          }
-        }
-      ]
-    }
-  }
-
-  if (
-    ! parsed ||
-    typeof parsed !== 'object' ||
-    !('blocks' in parsed) ||
-    !Array.isArray((parsed.blocks))
-  ) throw new Error('Invalid editor datas');
-
-  const blocks = parsed.blocks.map((block: unknown) => {
-    if (
-      !block || typeof block !== 'object' ||
-      !('type' in block) ||
-      (block.type !== 'paragraph' && block.type !== 'header') ||
-      !('data' in block) || !block.data || typeof block.data !== 'object' ||
-      !('text' in block.data) || typeof block.data.text !== 'string'
-    ) throw new Error('Invalid block data');
-
-    if (
-      block.type === 'header' &&
-      (!('level' in block.data) ||
-      typeof block.data.level !== 'number' ||
-      ![2,3,4].includes(block.data.level)
-    )
-    ) {
-      throw new Error('Invalid header block data');
-    }
-
-    return {
-      ...block,
-      type: block.type,
-      data: {
-        ...block.data,
-        text: sanitizeNoteParagraph(block.data.text)
-      }
-    }
-  })
-
-  return { blocks };
 }
 
 const CreateNoteEditor = forwardRef<CreateNoteEditorHandle, {onChange: (content: string) => void }>(function CreateNoteEditor({onChange }, ref) {
@@ -86,7 +19,7 @@ const CreateNoteEditor = forwardRef<CreateNoteEditorHandle, {onChange: (content:
   const editorRef = useRef<EditorJS | null>(null);
   const onChangeRef = useRef(onChange);
   const changeVersion = useRef(0);
-  const [initializationError, setInitializationError] = useState(false);
+  const [initializationError,] = useState(false);
   onChangeRef.current = onChange;
 
   useImperativeHandle(ref, () => ({

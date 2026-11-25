@@ -1,4 +1,4 @@
-import React, { ChangeEvent, SubmitEvent } from 'react';
+import { SubmitEvent } from 'react';
 
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 import { useForm } from '@inertiajs/react';
@@ -6,7 +6,6 @@ import { useForm } from '@inertiajs/react';
 import CreateNoteEditor, {type CreateNoteEditorHandle} from '@/components/Editors/CreateNoteEditor';
 
 import {useState, useRef} from 'react';
-import { form } from 'framer-motion/client';
 
 type NoteItemProps = {
   title: string;
@@ -22,7 +21,7 @@ const CreateNote = () => {
     setData('note_content', content);
   };
 
-  const { data, setData, post, processing } = useForm<NoteItemProps>({
+  const {setData, post, processing } = useForm<NoteItemProps>({
     title: '',
     note_content: '',
     type: 'generel'
