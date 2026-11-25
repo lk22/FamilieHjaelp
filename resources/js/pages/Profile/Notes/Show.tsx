@@ -1,10 +1,8 @@
 import {useState, type JSX} from 'react'
 import ProfileOverviewLayout from '@/layouts/profile/profile-layout';
 
-import {
-  UpdateNoteDialog
-} from '@/components/Profile/Dialogs/UpdateNoteDialog';
 import DeleteNoteDialog from '@/components/Profile/Dialogs/DeleteNoteDialog';
+import { Link } from '@inertiajs/react';
 
 import { BsFillPencilFill } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";
@@ -12,6 +10,7 @@ import { FaTrash } from "react-icons/fa";
 import { renderSanitizedMarkup } from '@/util/renderSanitizedMarkup';
 
 type Note = {
+  id: number;
   title: string;
   slug: string;
   note_content: string;
@@ -28,7 +27,6 @@ interface ShowNoteProps {
 }
 
 export default function Show({ note }: ShowNoteProps) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   let noteContent: string | JSX.Element | JSX.Element[] = note.note_content;
@@ -72,13 +70,14 @@ export default function Show({ note }: ShowNoteProps) {
                     </div>
                   </div>
                   <div className="actions flex">
-                    <BsFillPencilFill className="text-blue-500 hover:text-blue-700" onClick={() => setIsDialogOpen(true)} />
+                    <Link href={route('profile.notes.edit', note.slug)} aria-label="Rediger note">
+                      <BsFillPencilFill className="text-blue-500 hover:text-blue-700" />
+                    </Link>
                     <FaTrash className="text-red-500 hover:text-red-700 ml-4" onClick={() => setIsDeleteDialogOpen(true)} />
                   </div>
                 </div>
               </section>
               <DeleteNoteDialog isDialogOpen={isDeleteDialogOpen} setIsDialogOpen={setIsDeleteDialogOpen} note={note} />
-              <UpdateNoteDialog isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} note={note} />
             </>
         </ProfileOverviewLayout>
     );

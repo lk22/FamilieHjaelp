@@ -13,15 +13,12 @@ use App\Http\Requests\CreateNoteRequest;
 use App\Dto\UpdateNoteDto;
 use App\Dto\CreateNoteDto;
 
-use App\Repositories\NoteRepository;
-
 class ProfileNotesController extends Controller
 {
 
     public function __construct(
         private FamilyMemberRepository $familyMemberRepository,
-        private NoteService $noteService,
-        private NoteRepository $noteRepository
+        private NoteService $noteService
     ) {}
 
     /**
@@ -64,6 +61,13 @@ class ProfileNotesController extends Controller
         return inertia('Profile/Notes/Create');
     }
 
+    public function edit(Note $note)
+    {
+        return inertia('Profile/Notes/Edit', [
+            'note' => $note->only('title', 'slug', 'note_content', 'type'),
+        ]);
+    }
+
     /**
      * Storing a new profile note
      *
@@ -94,33 +98,21 @@ class ProfileNotesController extends Controller
 
     public function update(UpdateNoteRequest $request, Note $note): \Illuminate\Http\RedirectResponse | \Illuminate\Http\JsonResponse
     {
-        if (! $request->validated()) {
-            return response()->json(['error' => 'Validation failed']);
-        }
-
-
-
         $updateNoteDto = new UpdateNoteDto(
             id: $note->id,
             title: $request->input('title'),
             note_content: $request->input('note_content'),
-            slug: $request->input('slug'),
+            slug: $note->slug,
             updated_at: now(),
-            created_at: now()
+            created_at: now(),
+            type: $request->input('type', $note->type)
         );
 
-
-        $existing = $this->noteRepository->findBySlug($note->slug);
-
         if ( ! $this->noteService->updateNote($updateNoteDto) ) {
-            return response()->json(['error' => 'Failed to update note']);
+            return response()->json(['error' => 'Failed to update note'], 500);
         }
 
-        if ( str_replace(' ', '-', $request->title) !== $existing->slug) {
-            return redirect()->route('profile.notes.show', $existing->slug);
-        }
-
-        return redirect()->route('profile.notes.show', $note->slug);
+        return redirect()->route('profile.notes.show', $note->refresh());
     }
 
     /**

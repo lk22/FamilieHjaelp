@@ -11,5 +11,6 @@ class UpdateNoteDto
     public string $note_content,
     public string $updated_at,
     public string $created_at,
+    public string $type,
   ) {}
 }

@@ -58,7 +58,7 @@ function initialEditorData(content: string): OutputData {
   return { blocks };
 }
 
-const UpdateNoteEditor = forwardRef<UpdateNoteEditorHandle, { initialContent: string, onChange: (content: string) => void }>(function UpdateNoteEditor({ initialContent, onChange }, ref) {
+const UpdateNoteEditor = forwardRef<UpdateNoteEditorHandle, { initialContent: string, onChange: (content: string) => void, className?: string }>(function UpdateNoteEditor({ initialContent, onChange, className = "w-full p-2 border border-gray-300 rounded-md mb-4" }, ref) {
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<EditorJs | null>(null);
   const onChangeRef = useRef(onChange);
@@ -139,7 +139,7 @@ const UpdateNoteEditor = forwardRef<UpdateNoteEditorHandle, { initialContent: st
 
   return (
     <>
-      <div ref={containerRef} className="w-full p-2 border border-gray-300 rounded-md mb-4" />
+      <div ref={containerRef} className={className} />
       {initializationError && <p role="alert" className="text-red-600">Kunne ikke indlæse notens indhold.</p>}
     </>
   );

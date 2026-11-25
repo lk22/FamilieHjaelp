@@ -55,6 +55,7 @@ class NoteRepository implements NoteRepositoryContract
       "title" => $note->title,
       "slug" => Str::slug($note->title),
       "note_content" => $note->note_content,
+      "type" => $note->type,
       "updated_at" => now(),
     ]);
 
