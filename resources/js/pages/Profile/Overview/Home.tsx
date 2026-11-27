@@ -147,7 +147,7 @@ const ProfileOverviewHomeContent = ({
 
                         {/* Calendar Card */}
                         <a
-                            href="https://familierogsorg.dk/"
+                            href={route('profile.calendar.index')}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group block bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-xl shadow-md transition-colors duration-200 hover:from-indigo-700 hover:to-indigo-900"

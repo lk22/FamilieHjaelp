@@ -4,10 +4,9 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\CompleteOnboardingController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProfileNoteController;
 use App\Http\Controllers\ProfileOverviewController;
 use App\Http\Controllers\ProfileNotesController;
-use App\Http\Controllers\ProfileTodoController;
+use App\Http\Controllers\ProfileCalendarController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -137,6 +136,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/app/profile/notes/{note}', [ProfileNotesController::class, 'update'])->name('profile.notes.update');
         Route::delete('/app/profile/notes/{note}', [ProfileNotesController::class, 'destroy'])->name('profile.notes.destroy');
         Route::post('/app/profile/notes/archive/{note}', [ProfileNotesController::class, 'archive'])->name('profile.notes.archive');
+
+        /**
+         * Profile assignment routes
+         */
+        Route::get('/app/profile/calendar', [ProfileCalendarController::class, 'index'])->name('profile.calendar.index');
+
 
     /**
      * Profile todos overview
